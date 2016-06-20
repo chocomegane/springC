@@ -60,7 +60,7 @@ public class CinemaRepository {
 	 * @return　Idの映画の詳細情報
 	 */
 	public Cinema findOne(long id) {
-		String sql = "SELECT id, title, price, genere, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FORM cinemas WHERE id=:id";
+		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
 		return cinema;
