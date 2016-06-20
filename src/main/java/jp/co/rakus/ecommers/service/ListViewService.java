@@ -23,6 +23,14 @@ public class ListViewService {
 	private CinemaRepository repository;
 	
 	/**
+	 * @param cinema
+	 * @return
+	 */
+	public void save(Cinema cinema) {
+		repository.save(cinema);
+	}
+	
+	/**
 	 * @return
 	 */
 	public List<Cinema> findAll(){

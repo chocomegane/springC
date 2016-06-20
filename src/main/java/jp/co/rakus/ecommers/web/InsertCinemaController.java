@@ -1,12 +1,12 @@
 package jp.co.rakus.ecommers.web;
 
-import java.util.List;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommers.domain.Cinema;
@@ -19,34 +19,33 @@ import jp.co.rakus.ecommers.service.ListViewService;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/")
-public class ListViewController {
+@RequestMapping(value = "/insert")
+public class InsertCinemaController {
 	
 	/** ListViewServiceを利用するためのDI */
 	@Autowired
 	private ListViewService service;
-	
-	@Autowired
-	private OrderListPage page;
-	
-	/**
-	 * 初期ページを表示する
-	 * @return
-	 */
-	@RequestMapping(value = "/")
-	public String index(Model model) {
-
-		return "administerMenu";
+		
+	@ModelAttribute
+	public CinemaForm setUpForm() {
+		return new CinemaForm();
 	}
-
+	
+	@RequestMapping
+	public String index(Model model) {
+		return "insertCinema";
+	}
+	
 	/**
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/output")
-	public String output(BindingResult result, Model model) {
-		List<Cinema> cinemaList = service.findAll();
-		page.addScope(model, cinemaList);
-		return "orderList";
+	@RequestMapping(value = "/execute")
+	public String output(CinemaForm form, BindingResult result, Model model) {
+		Cinema cinema = new Cinema();
+		BeanUtils.copyProperties(form, cinema);
+		service.save(cinema);
+		model.addAttribute("message", "正常に登録が完了しました");
+		return "insertCinema";
 	}
 }
