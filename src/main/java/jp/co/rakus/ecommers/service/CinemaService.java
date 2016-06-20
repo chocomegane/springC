@@ -37,6 +37,11 @@ public class CinemaService {
 		return repository.findOne(id);
 	}
 	
+	/**
+	 * Cinemaの情報をCinemaDetailPageにコピー.
+	 * @param cinema Cinemaの詳細情報
+	 * @return　Cinemaの内容をコピーしたCinemaDetailPage
+	 */
 	public CinemaDetailPage copyCinemaToPage(Cinema cinema) {
 		CinemaDetailPage cinemaDetail = new CinemaDetailPage();
 		BeanUtils.copyProperties(cinema, cinemaDetail);
