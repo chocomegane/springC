@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
+import jp.co.rakus.ecommers.web.CinemaDetailPage;
 
 /**
  * 
@@ -36,9 +37,9 @@ public class CinemaService {
 		return repository.findOne(id);
 	}
 	
-	public Cinema copyCinemaToPage(Cinema cinema) {
-		Cinema newCinema = new Cinema();
-		BeanUtils.copyProperties(cinema, newCinema);
-		return newCinema;
+	public CinemaDetailPage copyCinemaToPage(Cinema cinema) {
+		CinemaDetailPage cinemaDetail = new CinemaDetailPage();
+		BeanUtils.copyProperties(cinema, cinemaDetail);
+		return cinemaDetail;
 	}
 }
