@@ -2,6 +2,7 @@ package jp.co.rakus.ecommers.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,11 @@ public class CinemaService {
 	 */
 	public Cinema findOne(long id) {
 		return repository.findOne(id);
+	}
+	
+	public Cinema copyCinemaToPage(Cinema cinema) {
+		Cinema newCinema = new Cinema();
+		BeanUtils.copyProperties(cinema, newCinema);
+		return newCinema;
 	}
 }
