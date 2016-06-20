@@ -40,6 +40,29 @@ create table cinemas (
 	constraint cinemas_PKC primary key (id)
 );
 
+-- 注文
+--drop table orders cascade;
+
+create table orders (
+  id bigserial not null
+  , order_number text not null
+  , user_id bigint not null
+  , status integer not null
+  , total_price integer not null
+  , constraint orders_PKC primary key (id)
+) ;
+
+-- 注文詳細
+--drop table order_items cascade;
+
+create table order_items (
+  id bigserial not null
+  , item_id bigint not null
+  , order_id bigint REFERENCES orders(id) not null
+  , quantity integer not null
+  , constraint order_items_PKC primary key (id)
+) ;
+
 --cinemasテーブルに追加する素材
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
