@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Cinema {
 	/** 主キー */
-	private Integer id;
+	private Long id;
 	/** 映画名 */
 	private String title;
 	/** 価格 */

@@ -25,7 +25,7 @@ public class CinemaRepository {
 	/**
 	 */
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
-		Integer id = rs.getInt("id");
+		Long id = rs.getLong("id");
 		String title = rs.getString("title");
 		Integer price = rs.getInt("price");
 		String genre = rs.getString("genre");
