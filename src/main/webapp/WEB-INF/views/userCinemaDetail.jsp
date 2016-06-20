@@ -5,7 +5,7 @@
 <h2  align="center">商品詳細</h2>
 	<table border="1" align="center">
 		<tr>
-			<td colspan="2" rowspan="3"><img src="../img/pc.jpg" width="150"
+			<td colspan="2" rowspan="10"><img src="../img/pc.jpg" width="150"
 				height="150" alt="商品画像">
 			</td>
 			<th>商品名：</th>
@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<th>価格：</th>
-			<td align="center">&yen;<c:out value="${cinemaDetail.price}]"/></td>
+			<td align="center">&yen;<c:out value="${cinemaDetail.price}"/></td>
 		</tr>
 		<tr>
 			<th>ジャンル:</th>
@@ -45,7 +45,7 @@
 		</tr>
 		<tr>
 			<th>概要：</th>
-			<td>最新型のパソコンです</td>
+			<td><c:out value="${cinemaDetail.description}"></c:out></td>
 		</tr>
 	</table>
 	<br>
