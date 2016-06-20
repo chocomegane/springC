@@ -37,4 +37,8 @@ public class Cinema {
 	private String rating;
 	/** 概要(ストーリー) */
 	private String description;
+	/** イメージ画像 */
+	private String imagePath;
+	/** フラグ（削除） */
+	private boolean deleted;
 }

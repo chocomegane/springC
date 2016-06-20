@@ -23,7 +23,6 @@ public class CinemaRepository {
 	private NamedParameterJdbcTemplate template;
 
 	/**
-	 * データベースからホテルのテーブルに接続し、カラムを得る
 	 */
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
 		Integer id = rs.getInt("id");
@@ -37,11 +36,16 @@ public class CinemaRepository {
 		String directedBy = rs.getString("directed_by");
 		String rating = rs.getString("rating");
 		String description = rs.getString("description");
-		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description);
+		String imagePath = rs.getString("image_path");
+		boolean deleted = rs.getBoolean("deleted"); 
+		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description, imagePath, deleted);
 	};
 
+	/**
+	 * @return
+	 */
 	public List<Cinema> findAll() {
-		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description FROM cinema ORDER BY title";
+		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas ORDER BY title";
 		List<Cinema> cinemaList = template.query(sql, cinemaRowMapper);
 		return cinemaList;
 	}
