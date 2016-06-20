@@ -21,6 +21,24 @@ create table users (
   , constraint users_PKC primary key (id)
 ) ;
 
+--映画のテーブル
+
+create table cinemas (
+	id bigserial not null,
+	title text not null,
+	price integer not null,
+	genre text not null,
+	time integer not null,
+	release_date timestamp not null,
+	media_type text not null,
+	company text not null,
+	dierected_by text not null,
+	rating text not null,
+	description text not null,
+	image_path text not null,
+	deleted boolean default false not null,
+	constraint cinemas_PKC primary key (id)
+);
 
 --cinemasテーブルに追加する素材
 
