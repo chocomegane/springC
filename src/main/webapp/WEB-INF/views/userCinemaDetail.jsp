@@ -9,39 +9,39 @@
 				height="150" alt="商品画像">
 			</td>
 			<th>商品名：</th>
-			<td align="center"><c:out value="${cinema.title}"></td>
+			<td align="center"><c:out value="${cinemaDetail.title}"/></td>
 		</tr>
 		<tr>
 			<th>価格：</th>
-			<td align="center">&yen;<c:out value="${cinema.price}]"></td>
+			<td align="center">&yen;<c:out value="${cinemaDetail.price}]"/></td>
 		</tr>
 		<tr>
 			<th>ジャンル:</th>
-			<td align="center"><c:out value="${cinema.genre}"></td>
+			<td align="center"><c:out value="${cinemaDetail.genre}"/></td>
 		</tr>
 		<tr>
 			<th>上映時間：</th>
-			<td align="center"><c:out value="${cinema.time}"></td>
+			<td align="center"><c:out value="${cinemaDetail.time}"/></td>
 		</tr>
 		<tr>
 			<th>公開日：</th>
-			<td align="center"><c:out value="${cinema.releaseDate}"></td>
+			<td align="center"><c:out value="${cinemaDetail.releaseDate}"/></td>
 		</tr>
 		<tr>
 			<th>メディアタイプ：</th>
-			<td align="center"><c:out value="${cinema.mediaType}"></td>
+			<td align="center"><c:out value="${cinemaDetail.mediaType}"/></td>
 		</tr>
 		<tr>
 			<th>制作会社：</th>
-			<td align="center"><c:out value="${cinema.company}"></td>
+			<td align="center"><c:out value="${cinemaDetail.company}"/></td>
 		</tr>
 		<tr>
 			<th>監督：</th>
-			<td align="center"><c:out value="${cinema.directedBy}"></td>
+			<td align="center"><c:out value="${cinemaDetail.directedBy}"/></td>
 		</tr>
 		<tr>
 			<th>レーティング：</th>
-			<td align="center"><c:out value="${cinema.rating}"></td>
+			<td align="center"><c:out value="${cinemaDetail.rating}"/></td>
 		</tr>
 		<tr>
 			<th>概要：</th>
