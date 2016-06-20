@@ -27,4 +27,11 @@ public class CinemaService {
 		return repository.findAll();
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Cinema findOne(long id) {
+		return repository.findOne(id);
+	}
 }
