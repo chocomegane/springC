@@ -25,10 +25,7 @@ public class ListViewController {
 	/** ListViewServiceを利用するためのDI */
 	@Autowired
 	private ListViewService service;
-	
-	@Autowired
-	private OrderListPage page;
-	
+		
 	/**
 	 * 初期ページを表示する
 	 * @return
@@ -44,9 +41,9 @@ public class ListViewController {
 	 * @return
 	 */
 	@RequestMapping(value = "/output")
-	public String output(BindingResult result, Model model) {
-		List<Cinema> cinemaList = service.findAll();
-		page.addScope(model, cinemaList);
+	public String output(Model model) {
+		OrderListPage page = service.findAll();
+		model.addAttribute("page", page);
 		return "orderList";
 	}
 }

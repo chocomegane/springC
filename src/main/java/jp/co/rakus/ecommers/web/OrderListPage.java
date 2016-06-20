@@ -2,23 +2,13 @@ package jp.co.rakus.ecommers.web;
 
 import java.util.List;
 
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jp.co.rakus.ecommers.domain.Cinema;
-
-@Service
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderListPage {
-
-//	@Autowired
-//	private OrderListChildPage childPage;
-	
-	public void addScope(Model model, List<Cinema> cinemaList){
-		model.addAttribute("cinemaList", cinemaList);
-		
-//		for(Cinema cinema : cinemaList) {
-//			childPage.addScope(model, cinema);
-//		}
-	}
+	private List<OrderListChildPage> cinemaList;
 }

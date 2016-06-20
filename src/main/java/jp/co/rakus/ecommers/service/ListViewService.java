@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -8,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
+import jp.co.rakus.ecommers.web.CinemaChildPage;
 import jp.co.rakus.ecommers.web.CinemaDetailPage;
+import jp.co.rakus.ecommers.web.CinemaListPage;
+import jp.co.rakus.ecommers.web.OrderListChildPage;
+import jp.co.rakus.ecommers.web.OrderListPage;
 
 /**
  * 
@@ -33,9 +38,23 @@ public class ListViewService {
 	/**
 	 * @return
 	 */
-	public List<Cinema> findAll(){
-		return repository.findAll();
+	public OrderListPage findAll(){
+		List<Cinema> cinemaList = repository.findAll();
+		
+		OrderListPage page = new OrderListPage();
+		List<OrderListChildPage> childNull = new ArrayList<>();
+		
+		page.setCinemaList(childNull);
+		
+		for(Cinema cinema : cinemaList){
+			OrderListChildPage child = new OrderListChildPage();
+			BeanUtils.copyProperties(cinema, child);
+			page.getCinemaList().add(child);
+		}
+		
+		return page;
 	}
+	
 	
 	/**
 	 * @param id

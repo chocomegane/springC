@@ -8,7 +8,4 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
-=======
 </head>
->>>>>>> 6b681bf1b0aa4f888b991548584242122c8ecb6d

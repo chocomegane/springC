@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-<%@ include file="addminCommon.jsp" %>
+<%@ include file="adminCommon.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,19 +23,19 @@
 		<th>概要（ストーリー）</th>
 		<th>イメージ画像</th>
 	</tr>
-	<c:forEach var="cinema" items="${cinemaList}">
+	<c:forEach var="page1" items="${page.cinemaList}">
 		　<tr>
-			<td><c:out value="${cinema.title}"/></td>
-			<td><c:out value="${cinema.price}"/></td>
-			<td><c:out value="${cinema.genre}"/></td>
-			<td><c:out value="${cinema.time}"/></td>
-			<td><c:out value="${cinema.releaseDate}"/></td>
-			<td><c:out value="${cinema.mediaType}"/></td>
-			<td><c:out value="${cinema.company}"/></td>
-			<td><c:out value="${cinema.directedBy}"/></td>
-			<td><c:out value="${cinema.rating}"/></td>
-			<td><c:out value="${cinema.description}"/></td>
-			<td><c:out value="${cinema.imagePath}"/></td>
+			<td><c:out value="${page1.title}"/></td>
+			<td><c:out value="${page1.price}"/></td>
+			<td><c:out value="${page1.genre}"/></td>
+			<td><c:out value="${page1.time}"/></td>
+			<td><c:out value="${page1.releaseDate}"/></td>
+			<td><c:out value="${page1.mediaType}"/></td>
+			<td><c:out value="${page1.company}"/></td>
+			<td><c:out value="${page1.directedBy}"/></td>
+			<td><c:out value="${page1.rating}"/></td>
+			<td><c:out value="${page1.description}"/></td>
+			<td><c:out value="${page1.imagePath}"/></td>
 		</tr>
 	</c:forEach>	
 </table>
