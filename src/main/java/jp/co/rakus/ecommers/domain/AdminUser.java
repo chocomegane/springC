@@ -5,25 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ユーザー情報を格納するクラス.
- * 
- * @author tsubasa.kaneko
+ * 管理者を表すDTOクラス.
+ * @author kohei.sakata
  *
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class User {
-	
-	/** 主キー */
+@NoArgsConstructor
+public class AdminUser {
+	/** DB上のID */
 	private Long id;
 	/** 名前 */
 	private String name;
-	/** メールアドレス */
+	/** Eメールアドレス */
 	private String email;
 	/** パスワード */
 	private String password;
-	/** 電話番号 */
-	private String telephone;
-	
 }
