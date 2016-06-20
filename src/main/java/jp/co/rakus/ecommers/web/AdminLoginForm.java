@@ -13,7 +13,7 @@ import lombok.Data;
 public class AdminLoginForm {
 	/** メールアドレス */
 	@NotBlank(message = "値を入力してください")
-	private String mailAddress;
+	private String email;
 	/** パスワード */
 	@NotBlank(message = "値を入力してください")
 	private String password;

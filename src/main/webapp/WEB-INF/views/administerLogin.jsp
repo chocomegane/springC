@@ -14,7 +14,8 @@
  -->
 <div align="center">
   <h2>管理者ログイン</h2>
-  <form:form action="/admin/login" method="post"modelAttribute="AdminLoginForm">
+  <form:errors path="loginForm.*" />
+  <form:form action="/admin/login" method="post" modelAttribute="adminLoginForm">
     <form:label path="email">メールアドレス：<form:input path="email"/></form:label>
     <form:label path="password">メールアドレス：<form:password path="password"/></form:label>
     <input type="submit" value="ログイン">
