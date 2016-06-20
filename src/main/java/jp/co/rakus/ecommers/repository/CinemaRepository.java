@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Cinema;
+import scala.annotation.strictfp;
 
 /**
  * 
@@ -48,5 +51,19 @@ public class CinemaRepository {
 		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas ORDER BY title";
 		List<Cinema> cinemaList = template.query(sql, cinemaRowMapper);
 		return cinemaList;
+	}
+	
+	/**
+	 * 映画の詳細表示.
+	 * 引数からIdを受け取り検索を行う
+	 * 
+	 * @param id　映画のId
+	 * @return　Idの映画の詳細情報
+	 */
+	public Cinema findOne(long id) {
+		String sql = "SELECT id, title, price, genere, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FORM cinemas WHERE id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
+		return cinema;
 	}
 }
