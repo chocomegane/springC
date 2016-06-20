@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>管理者メニュー画面</h2>
-<!-- <a href="//output?id=">商品を登録</a><br> -->
+<a href="/insert">商品を登録</a><br>
 <a href="/output">注文一覧</a><br><br>
 <!-- <a href="/BaseballTeam/output?id=">ログアウト</a><br> -->
 </body>
