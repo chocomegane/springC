@@ -32,7 +32,7 @@ create table cinemas (
 	release_date timestamp not null,
 	media_type text not null,
 	company text not null,
-	dierected_by text not null,
+	directed_by text not null,
 	rating text not null,
 	description text not null,
 	image_path text not null,
