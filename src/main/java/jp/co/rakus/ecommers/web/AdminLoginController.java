@@ -14,7 +14,16 @@ public class AdminLoginController {
 
 	@RequestMapping("/loginForm")
 	String loginForm() {
-		System.out.println("loginPage");
 		return "administerLogin";
 	}
+	
+	/* ログイン処理は実装しない。SpringSecurityの処理で行われる。
+    @RequestMapping(value = "/login")
+    public String login(@Valid LoginForm form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "login/login";
+        }
+        return "redirect:/menu";
+    }
+	*/
 }

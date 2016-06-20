@@ -15,7 +15,7 @@ public class LoginAdminUser extends org.springframework.security.core.userdetail
 	/** default serialVersionUID */
 	private static final long serialVersionUID = 1L;
 	/** 通常の管理者情報 */
-	private final AdminUser adminUser;
+	private AdminUser adminUser;
 	
 	/**
 	 * 通常の管理者情報に加え、認可用ロールを設定する。
