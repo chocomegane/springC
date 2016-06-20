@@ -35,7 +35,7 @@ public class ListViewController {
 	@RequestMapping(value = "/")
 	public String index(Model model) {
 
-		return "";
+		return "administerMenu";
 	}
 
 	/**
@@ -46,6 +46,6 @@ public class ListViewController {
 	public String output(Model model) {
 		List<Cinema> cinemaList = service.findAll();
 		page.addScope(model, cinemaList);
-		return "";
+		return "orderList";
 	}
 }
