@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 	
+	/** 主キー */
+	private Long id;
 	/** 名前 */
 	private String name;
 	/** メールアドレス */
