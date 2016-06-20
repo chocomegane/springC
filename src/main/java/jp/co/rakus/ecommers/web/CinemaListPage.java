@@ -17,6 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CinemaListPage {
 
-	private List<CinemaChildPage> chilePageList;
+	private List<CinemaChildPage> childPageList;
 	
 }

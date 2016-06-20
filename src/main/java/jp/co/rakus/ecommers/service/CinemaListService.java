@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -34,10 +35,16 @@ public class CinemaListService {
 		
 		CinemaListPage childPage = new CinemaListPage();
 		
+		//set専用のList
+		List<CinemaChildPage> childNull = new ArrayList<>();
+		
+		childPage.setChildPageList(childNull);
+		
 		for(Cinema cinema : cinemaList){
 			CinemaChildPage child = new CinemaChildPage();
 			BeanUtils.copyProperties(cinema, child);
-			childPage.getChilePageList().add(child);
+			
+			childPage.getChildPageList().add(child);
 		}
 		
 		return childPage;

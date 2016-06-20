@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommers.service.CinemaListService;
-import jp.co.rakus.ecommers.service.ListViewService;
 
 @Controller
 @Transactional
@@ -25,10 +24,9 @@ public class CinemaListController {
 	 */
 	@RequestMapping(value="list")
 	public String list(Model model){
-		CinemaListPage childPage = new CinemaListPage();
-		childPage = service.findAll();
+		CinemaListPage listPage = service.findAll();
 		
-		model.addAttribute("childPage", childPage);
+		model.addAttribute("listPage", listPage);
 		
 		return "userCinemaList";
 	}

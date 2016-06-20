@@ -9,10 +9,10 @@
   	<th>商品名</th>
   	<th>価格</th>
   </tr>
-	<c:forEach var="child" items="${childPage}">
+	<c:forEach var="child" items="${listPage.childPageList}">
 		<tr>
 			<th><c:out value="${child.title}"/></th>
-			<th><c:out value="${child.price}"/></th>
+			<th><c:out value="${child.price}"/>円</th>
 		</tr>
 	</c:forEach>
  </tbody>
