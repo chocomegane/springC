@@ -10,8 +10,12 @@
 
 </head>
 <body>
-
-<>
-
+<form:form action="/administer/administerRegister" modelAttribute="AdminUserRegisterForm">
+名前<input type="text" name = "name"><br>
+email<input type="text" name = "email"><br>
+パスワード<input type="text" name = "password"><br>
+確認用パスワード<input type="text" name = "confirmationPassword"><br>
+<input type="submit">
+</form:form>
 </body>
 </html>

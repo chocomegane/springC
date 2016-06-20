@@ -2,11 +2,12 @@ package jp.co.rakus.ecommers.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.rakus.ecommers.domain.AdminUserRegister;
 import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 
 /**
@@ -18,15 +19,18 @@ import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 public class AdministerRegisterRepository {
 	
 	@Autowired
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public void adminInsert(AdminUserRegisterForm form)
+//	public void adminInsert(String name , String password , String email)
+	public void adminInsert(AdminUserRegister adminUserRegister)
 	{
-		SqlParameterSource param = new BeanPropertySqlParameterSource(form);
-		String sql = "INSERT INTO admin_user(name, password, email) VALUES(:name, :password :email)";
-		namedParameterJdbcTemplate.update(sql, param);
+		
+//		System.out.println("name:password:email"+ form.getName() + form.getPassword() + form.getEmail());
+//		SqlParameterSource param = new MapSqlParameterSource().addValue("name",form.getName()).addValue("password", form.getPassword()).addValue("email",form.getEmail());
+		SqlParameterSource param = new BeanPropertySqlParameterSource(adminUserRegister);
+//		System.out.println("name:password:email"+ form.getName() + form.getPassword() + form.getEmail());
+		String sql = "INSERT INTO admin_users(name, password, email) " + "VALUES(:name, :password, :email)";
+		jdbcTemplate.update(sql, param);
 	}
 
 }
