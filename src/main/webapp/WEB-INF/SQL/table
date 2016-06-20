@@ -24,18 +24,18 @@ create table users (
 
 --cinemasテーブルに追加する素材
 
-INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path)
-VALUES( 'オデッセイ', 3163, 'SF', 142, 2016/06/03, DVD, '20世紀フォックス・ホーム・エンターテイメント・ジャパン', 'リドリー・スコット', '全年齢対象','70億人が、彼の帰りを待っている', 'imagePath',)
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES( 'オデッセイ', 3163, 'SF', 142, '2016-06-03 00:00:00', 'DVD', '20世紀フォックス・ホーム・エンターテイメント・ジャパン', 'リドリー・スコット', '全年齢対象','70億人が、彼の帰りを待っている', 'imagePath', false);
 
 
-INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path)
-VALUES('呪怨2', 2018, 'ホラー', '76', 2014/10/10, DVD, '東映株式会社', '清水崇', '15歳以上対象', '再び佐伯家への入居者に再び伽椰子の呪いが降りかかる...', 'imagePath')
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('呪怨2', 2018, 'ホラー', 76, '2014-10-10 00:00:00', 'DVD', '東映株式会社', '清水崇', '15歳以上対象', '再び佐伯家への入居者に再び伽椰子の呪いが降りかかる...', 'imagePath', false);
 
 
-INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path)
-VALUES('インサイドヘッド', 3127, 'ファンタジー', 95, 2015/11/18, DVD, 'ピクサー', 'ピートドクター', '全年齢対象', '初めまして。私たち、あなたの中の<きもち>です', 'imagePath')
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('インサイドヘッド', 3127, 'ファンタジー', 95, '2015-11-18 00:00:00', 'DVD', 'ピクサー', 'ピートドクター', '全年齢対象', '初めまして。私たち、あなたの中の<きもち>です', 'imagePath', false);
 
 
-INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path)
-VALUES('サイクロンZ', 1391, 'アクション', 94, 2011/12/09, DVD, 'パラマウントホームエンタテイメントジャパン', 'ジャッキーチェン', '全年齢対象', '戦う弁護士ジャッキーチェンのアクションコメディ', 'imagePath')
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('サイクロンZ', 1391, 'アクション', 94, '2011-12-09 00:00:00', 'DVD', 'パラマウントホームエンタテイメントジャパン', 'ジャッキーチェン', '全年齢対象', '戦う弁護士ジャッキーチェンのアクションコメディ', 'imagePath', false);
 

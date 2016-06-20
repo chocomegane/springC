@@ -14,7 +14,7 @@ import jp.co.rakus.ecommers.repository.CinemaRepository;
  *
  */
 @Service
-public class CinemaService {
+public class ListViewService {
 	
 	/** CinemaRepositoryを利用するためのDI */
 	@Autowired
