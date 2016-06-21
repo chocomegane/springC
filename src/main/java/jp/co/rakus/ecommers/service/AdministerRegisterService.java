@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.AdminUserRegister;
 import jp.co.rakus.ecommers.repository.AdministerRegisterRepository;
-import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 
 /**
  * 管理者追加　レポジトリ

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
-import jp.co.rakus.ecommers.repository.AdminUserRepository;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
 import jp.co.rakus.ecommers.web.CinemaChildPage;
 import jp.co.rakus.ecommers.web.CinemaListPage;

@@ -2,13 +2,11 @@ package jp.co.rakus.ecommers.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.rakus.ecommers.domain.AdminUserRegister;
-import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 
 /**
  * 管理者追加repository
