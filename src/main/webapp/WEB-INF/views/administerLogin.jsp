@@ -14,10 +14,10 @@
  -->
 <div align="center">
   <h2>管理者ログイン</h2>
-  <form:errors path="loginForm.*" />
+  <form:errors path="adminLoginForm.*" />
   <form:form action="/admin/login" method="post" modelAttribute="adminLoginForm">
-    <form:label path="email">メールアドレス：<form:input path="email"/></form:label>
-    <form:label path="password">メールアドレス：<form:password path="password"/></form:label>
+    <form:label path="email">メールアドレス：<form:input path="email"/></form:label><br>
+    <form:label path="password">パスワード：<form:password path="password"/></form:label><br>
     <input type="submit" value="ログイン">
   </form:form>
 </div>

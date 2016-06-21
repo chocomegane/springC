@@ -8,48 +8,51 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import jp.co.rakus.ecommers.domain.AdminUser;
+import jp.co.rakus.ecommers.domain.User;
 
 /**
- * データベース "ecommerces" のテーブル "admin_users" を操作するためのRepositoryクラス.
+ * データベース "ecommerces" のテーブル "users" を操作するためのRepositoryクラス.
  * 
  * @author kohei.sakata
  *
  */
 @Repository
-public class AdminUserRepository {
+public class UserRepository {
 	/** このRepositoyで扱うテーブルの名前  */
-	private static final String TABLE_NAME = "admin_users";
+	private static final String TABLE_NAME = "users";
 
 	/** NamedParameterJdbcTemplateを利用するためのDI */
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	/**
-	 * ResultSetオブジェクトからAdminUserオブジェクトに変換するためのクラス実装&インスタンス化
+	 * ResultSetオブジェクトからUserオブジェクトに変換するためのクラス実装&インスタンス化
 	 */
-	private static final RowMapper<AdminUser> ADMIN_ROW_MAPPER = (rs, i) -> {
+	private static final RowMapper<User> USER_ROW_MAPPER = (rs, i) -> {
 		Long id = rs.getLong("id");
 		String name = rs.getString("name");
 		String email = rs.getString("email");
 		String password = rs.getString("password");
-		return new AdminUser(id, name, email, password);
+		String address = rs.getString("address");
+		String telephone = rs.getString("telephone");
+		return new User(id, name, email, password,address,telephone);
 	};
 
 	/**
-	 * メールアドレスから管理者を取得.
+	 * メールアドレスからUserを取得.
 	 * @param email メールアドレス
-	 * @return 管理者情報.管理者が存在しない場合はnull.
+	 * @return ユーザー情報.ユーザーが存在しない場合はnull.
 	 */
-	public AdminUser findByEmail(String email) {
+	public User findByEmail(String email) {
 		String sql = "SELECT id,name,email,password FROM " + TABLE_NAME + " WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email",email);
-		AdminUser adminUser = null;
+		User user = null;
 		try{
-			adminUser = jdbcTemplate.queryForObject(sql,param, ADMIN_ROW_MAPPER);
-			return adminUser;
+			user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
+			return user;
 		} catch(DataAccessException e) {
 			return null;
 		}
 	}
+
 }

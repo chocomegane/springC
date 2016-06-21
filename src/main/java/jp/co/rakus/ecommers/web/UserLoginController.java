@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.web;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,28 +8,28 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 /**
  * 管理者のログイン処理を行うコントローラー.
  * @author kohei.sakata
  *
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminLoginController {
+@Order(1)
+@RequestMapping("/")
+public class UserLoginController {
 
 	/**
 	 * フォームを初期化します.
 	 * @return フォーム
 	 */
 	@ModelAttribute
-	public AdminLoginForm setUpForm() {
-		return new AdminLoginForm();
+	public UserLoginForm setUpForm() {
+		return new UserLoginForm();
 	}
 
 	@RequestMapping("/loginForm")
 	String loginForm() {
-		return "administerLogin";
+		return "userLogin";
 	}
 	
 	/* ログイン処理は実装しない。SpringSecurityの処理で行われる。
@@ -48,10 +49,10 @@ public class AdminLoginController {
      * @return
      */
     @RequestMapping(value = "/loginError")
-    public String loginError(AdminLoginForm form,BindingResult result, Model model) {
+    public String loginError(UserLoginForm form,BindingResult result, Model model) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
-    	System.err.println("login error");
         result.addError(error);
         return loginForm();
     }
+
 }
