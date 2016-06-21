@@ -8,18 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.rakus.ecommers.service.CinemaListService;
-
-/**
- * 利用者の商品検索画面を遷移するクラス.
- * 
- * @author tsubasa.kaneko
- *
- */
 @Controller
 @Transactional
-@RequestMapping(value="/userSerch")
-public class UserSerchCinemaController {
-
+@RequestMapping(value="adminSerch")
+public class AdminSerchCinemaController {
 	@Autowired
 	private CinemaListService service;
 	
@@ -36,7 +28,7 @@ public class UserSerchCinemaController {
 		
 		model.addAttribute("listPage", listPage);
 		
-		return "userCinemaList";
+		return "administerCinemaList";
 	}
 	
 	/**
@@ -52,7 +44,7 @@ public class UserSerchCinemaController {
 		
 		model.addAttribute("listPage", listPage);
 		
-		return "userCinemaList";
+		return "administerCinemaList";
 	}
 	
 	/**
@@ -82,7 +74,7 @@ public class UserSerchCinemaController {
 		
 		model.addAttribute("listPage", listPage);
 		
-		return "userCinemaList";
+		return "administerCinemaList";
 		
 	}
 	
@@ -101,6 +93,6 @@ public class UserSerchCinemaController {
 		
 		model.addAttribute("listPage", listPage);
 		
-		return "userCinemaList";
+		return "administerCinemaList";
 	}
 }
