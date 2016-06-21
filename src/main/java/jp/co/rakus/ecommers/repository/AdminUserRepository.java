@@ -39,11 +39,9 @@ public class AdminUserRepository {
 	};
 
 	/**
-	 * メールアドレスとパスワードからメンバーを取得.
-	 * 暗号化されたパスワードはSQLでマッチングできないから、まずメールアドレスで検索したのちパスワードをチェックする。
-	 * @param mailAddress メールアドレス
-	 * @param password パスワード
-	 * @return メンバー情報.メンバーが存在しない場合はnull.
+	 * メールアドレスから管理者を取得.
+	 * @param email メールアドレス
+	 * @return 管理者情報.管理者が存在しない場合はnull.
 	 */
 	public AdminUser findByEmail(String email) {
 		String sql = "SELECT id,name,email,password FROM " + TABLE_NAME + " WHERE email=:email;";
@@ -53,6 +51,8 @@ public class AdminUserRepository {
 			adminUser = jdbcTemplate.queryForObject(sql,param, ADMIN_ROW_MAPPER);
 			return adminUser;
 		} catch(DataAccessException e) {
+			System.err.println("admin not found");
+			e.printStackTrace();
 			return null;
 		}
 		

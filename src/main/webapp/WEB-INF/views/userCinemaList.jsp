@@ -3,21 +3,26 @@
 <body>
 
 <h3>値段</h3>
-<a href="">～1000円</a><br>
-<a href="">1000円～2000円</a><br>
-<a href="">2000円～3000円</a><br>
-<a href="">3000円～</a>
+<a href="/userSerch/price?minPriceStr=0&maxPriceStr=1000">～1000円</a><br>
+<a href="/userSerch/price?minPriceStr=1000&maxPriceStr=2000">1000円～2000円</a><br>
+<a href="/userSerch/price?minPriceStr=2000&maxPriceStr=3000">2000円～3000円</a><br>
+<a href="/userSerch/price?minPriceStr=3000&maxPriceStr">3000円～</a>
 
 <h3>ジャンル</h3>
-<a href="/serch/genre?genreStr=SF">SF</a><br>
-<a href="/serch/genre?genreStr=ホラー">ホラー</a><br>
-<a href="/serch/genre?genreStr=ファンタジー">ファンタジー</a><br>
-<a href="/serch/genre?genreStr=アクション">アクション</a>
+<a href="/userSerch/genre?genreStr=SF">SF</a><br>
+<a href="/userSerch/genre?genreStr=ホラー">ホラー</a><br>
+<a href="/userSerch/genre?genreStr=ファンタジー">ファンタジー</a><br>
+<a href="/userSerch/genre?genreStr=アクション">アクション</a>
 
 <h3>メディアタイプ</h3>
-<a href="/serch/mediaType?mediaTypeStr=DVD">DVD</a>
+<a href="/userSerch/mediaType?mediaTypeStr=DVD">DVD</a>
 
 <h2>商品一覧</h2>
+<form action="/userSerch/title" method="get">
+<input type="text" name="title"/>
+<input type="submit" value="検索"/>
+</form>
+
 <table>
 
  <tbody>

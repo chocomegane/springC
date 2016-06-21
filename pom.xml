@@ -72,11 +72,14 @@
 			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
 			<version>2.1.5</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
 			<version>2.7.1</version>
 		</dependency>
+=======
+>>>>>>> fcfa0bd3d9ef74cc9562aba8eece6afe08a6d993
 	</dependencies>
 	<build>
 		<plugins>

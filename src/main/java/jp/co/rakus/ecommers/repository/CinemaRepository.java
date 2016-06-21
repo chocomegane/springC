@@ -120,4 +120,53 @@ public class CinemaRepository {
 		return cinemaList;
 	}
 	
+	/**
+	 * 二つの価格の条件から商品を検索するメソッド.
+	 * 
+	 * @param minPrice 最低価格.
+	 * @param maxPrice　最高価格.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByMinMaxPrice(Integer minPrice, Integer maxPrice){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE :minPrice <= price AND price <= :maxPrice ORDER BY title";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice).addValue("maxPrice", maxPrice);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * 一つの価格の条件から商品を検索するメソッド.
+	 * 
+	 * @param minPrice 最低価格.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByMinPrice(Integer minPrice){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE :minPrice <= price ORDER BY title";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * タイトルの条件から商品の情報を検索数メソッド.
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public List<Cinema> findByTitle(String title){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE title = :title ORDER BY title";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
 }

@@ -50,7 +50,7 @@
 	</table>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelattribute="cartForm" action="viewShoppingCart.html">
+	<form:form modelattribute="cartForm" action="/cart">
 					個数：<select name="quantity">
 				<option value="1">1</option>
 				<option value="2">2</option>

@@ -11,19 +11,19 @@
 <h2>注文一覧画面</h2>
 <table border="1">
 	<tr>
-		<th>オーダー番号</th>
-		<th>購入者id</th>
-		<th>ステータス</th>
-		<th>合計金額</th>
-		<th>購入日</th>
+		<th>注文番号</th>
+		<th>日付</th>
+		<th>利用者名</th>
+		<th>現在のステータス</th>
+		<th>総計（税込）</th>
 	</tr>
-	<c:forEach var="order" items="${page.xxxxList}">
+	<c:forEach var="order" items="${page.cinemaList}">
 		　<tr>
 			<td><c:out value="${order.orderNumber}"/></td>
+			<td><c:out value="${order.date}"/></td>
 			<td><c:out value="${order.userId}"/></td>
 			<td><c:out value="${order.status}"/></td>
 			<td><c:out value="${order.totalPrice}"/></td>
-			<td><c:out value="${order.date}"/></td>
 		</tr>
 	</c:forEach>	
 </table>
