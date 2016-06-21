@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.rakus.ecommers.service.CinemaListService;
 
 /**
+ * 管理者の画面遷移を行うクラス.
+ * 
  * @author tsubasa.kaneko
  *
  */
@@ -21,6 +23,8 @@ public class AdminCinemaListController {
 	private CinemaListService service;
 	
 	/**
+	 * 管理者の商品一覧表示を表示するメソッド.
+	 * 
 	 * @param model
 	 * @return
 	 */
