@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="userCommon.jsp" %>
 <body>
 新規利用者登録画面<br>
 お客様の情報を入力し、「お客様情報を登録する」ボタンをクリックしてください。 <br>
-<form:form action="/administerRegister" modelAttribute="userRegisterForm">
+<form:form action="/userRegister/insert" modelAttribute="userRegisterForm">
 <table border="">
 
 			<tr>
