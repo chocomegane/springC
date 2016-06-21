@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.repository;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -68,11 +69,11 @@ public class AdminUserRepository {
 	 */
 	public void adminInsert(AdminUser adminUser)
 	{
-		
 		SqlParameterSource param = new BeanPropertySqlParameterSource(adminUser);
 		String sql = "INSERT INTO admin_users(name, email, password) VALUES(:name, :email, :password)";
-		jdbcTemplate.update(sql, param);
+		jdbcTemplate.update(sql, param);	
 	}
+	
 	
 	
 	
