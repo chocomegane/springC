@@ -33,21 +33,20 @@ public class CinemaListService {
 	public CinemaListPage findAll(){
 		List<Cinema> cinemaList = repository.findAll();
 		
-		CinemaListPage childPage = new CinemaListPage();
+		CinemaListPage listPage = new CinemaListPage();
 		
-		//set専用のList
-		List<CinemaChildPage> childNull = new ArrayList<>();
-		
-		childPage.setChildPageList(childNull);
+		//forの中でgetをしているため一度インスタンスを生成してsetしておく
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
 		
 		for(Cinema cinema : cinemaList){
 			CinemaChildPage child = new CinemaChildPage();
 			BeanUtils.copyProperties(cinema, child);
 			
-			childPage.getChildPageList().add(child);
+			listPage.getChildPageList().add(child);
 		}
 		
-		return childPage;
+		return listPage;
 		
 		
 		/*

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.rakus.ecommers.domain.Cinema;
 
 /**
- * 
+ * 映画クラスの処理を行うRepository.
  * @author yusuke.nakano
  *
  */
@@ -26,6 +26,7 @@ public class CinemaRepository {
 	private NamedParameterJdbcTemplate template;
 
 	/**
+	 * 映画クラスのRowMapper
 	 */
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
@@ -44,6 +45,12 @@ public class CinemaRepository {
 		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description, imagePath, deleted);
 	};
 	
+	/**
+	 * 映画のinsert, updateを行うメソッド.
+	 * 引数に与えられたcinemaオブジェクトのフィールド変数id(主キー)がnullならば<br>
+	 * insert, nullでなければupdate処理を行う
+	 * @param cinema 映画のオブジェクト
+	 */
 	public void save(Cinema cinema) {
 				
 		SqlParameterSource param = new BeanPropertySqlParameterSource(cinema);
@@ -60,7 +67,8 @@ public class CinemaRepository {
 	}
 
 	/**
-	 * @return
+	 * 映画のfindAllを行うメソッド.
+	 * @return 映画のリスト
 	 */
 	public List<Cinema> findAll() {
 		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas ORDER BY title";

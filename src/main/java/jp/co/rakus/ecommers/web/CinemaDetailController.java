@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.rakus.ecommers.service.ListViewService;
+import jp.co.rakus.ecommers.service.OrderListService;
 
 /**
  * 商品の詳細情報を表示するクラス.
@@ -22,7 +22,7 @@ import jp.co.rakus.ecommers.service.ListViewService;
 public class CinemaDetailController {
 	
 	@Autowired
-	private ListViewService service;
+	private OrderListService service;
 	
 //	@Autowired
 //	private CinemaDetailPage page;
