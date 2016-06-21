@@ -45,15 +45,12 @@ public class CinemaRepository {
 		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description, imagePath, deleted);
 	};
 	
-<<<<<<< HEAD
 	/**
 	 * 映画のinsert, updateを行うメソッド.
 	 * 引数に与えられたcinemaオブジェクトのフィールド変数id(主キー)がnullならば<br>
 	 * insert, nullでなければupdate処理を行う
 	 * @param cinema 映画のオブジェクト
 	 */
-=======
->>>>>>> feature/common
 	public void save(Cinema cinema) {
 				
 		SqlParameterSource param = new BeanPropertySqlParameterSource(cinema);
