@@ -67,9 +67,6 @@ public class UserSerchCinemaController {
 	public String listPrice(@RequestParam String minPriceStr,
 			@RequestParam String maxPriceStr, Model model){
 		
-		System.out.println("minPriceStrの値の確認" + minPriceStr);
-		System.out.println("maxpricestrの値の確認" + maxPriceStr);
-		
 		//minにしかリクエストパラメータが入っていなかったらfindByMinPriceメソッドを呼び出す
 		
 		CinemaListPage listPage = new CinemaListPage();
@@ -87,5 +84,23 @@ public class UserSerchCinemaController {
 		
 		return "userCinemaList";
 		
+	}
+	
+	/**
+	 * タイトルを条件に商品を検索するメソッド.
+	 * 
+	 * @param title
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="title")
+	public String listTitle(@RequestParam String title, Model model){
+		
+		System.out.println(title);
+		CinemaListPage listPage = service.findByTitle(title);
+		
+		model.addAttribute("listPage", listPage);
+		
+		return "userCinemaList";
 	}
 }
