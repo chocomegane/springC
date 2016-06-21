@@ -15,7 +15,7 @@
 <a href="/serch/genre?genreStr=アクション">アクション</a>
 
 <h3>メディアタイプ</h3>
-<a href="">DVD</a>
+<a href="/serch/mediaType?mediaTypeStr=DVD">DVD</a>
 
 <h2>商品一覧</h2>
 <table>

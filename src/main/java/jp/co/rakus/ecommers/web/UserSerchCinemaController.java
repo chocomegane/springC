@@ -32,8 +32,25 @@ public class UserSerchCinemaController {
 	 */
 	@RequestMapping(value="/genre")
 	public String listGenre(@RequestParam String genreStr, Model model){
-		System.out.println("リクエストパラメータの確認=" + genreStr);
 		CinemaListPage listPage = service.findByGenre(genreStr);
+		
+		model.addAttribute("listPage", listPage);
+		
+		return "userCinemaList";
+	}
+	
+	/**
+	 * メディアタイプを条件に商品の情報を取得するメソッド.
+	 * 
+	 * @param mediaTypeStr リクエストパラメータ.
+	 * @param model スコープに格納するパラム.
+	 * @return フォワード先の名前.
+	 */
+	@RequestMapping(value="/mediaType")
+	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
+		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
+		
+		System.out.println("listPageの中身＝" + listPage);
 		
 		model.addAttribute("listPage", listPage);
 		
