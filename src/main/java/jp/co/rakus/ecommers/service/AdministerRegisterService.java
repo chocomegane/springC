@@ -3,9 +3,9 @@ package jp.co.rakus.ecommers.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.co.rakus.ecommers.domain.AdminUserRegister;
+import jp.co.rakus.ecommers.domain.AdminUser;
+import jp.co.rakus.ecommers.repository.AdminUserRepository;
 import jp.co.rakus.ecommers.repository.AdministerRegisterRepository;
-import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 
 /**
  * 管理者追加　レポジトリ
@@ -14,18 +14,18 @@ import jp.co.rakus.ecommers.web.AdminUserRegisterForm;
 @Service
 public class AdministerRegisterService {
 	@Autowired
-	private AdministerRegisterRepository repository;
+	private AdminUserRepository repository;
 	
 	/**
 	 * 管理者を追加
 	 * 
 	 */
 //	public void adminInsert(String name , String password , String email)
-	public void adminInsert(AdminUserRegister adminUserRegister)
+	public void adminInsert(AdminUser adminUser)
 	{
 		
 //		repository.adminInsert(name,password, email);
-		repository.adminInsert(adminUserRegister);
+		repository.adminInsert(adminUser);
 		
 	}
 

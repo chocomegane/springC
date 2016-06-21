@@ -2,12 +2,12 @@ package jp.co.rakus.ecommers.web;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
-
-import jp.co.rakus.ecommers.domain.AdminUserRegister;
+import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.service.AdministerRegisterService;
 
 /**
@@ -22,19 +22,46 @@ public class AdministerRegisterController {
 	@Autowired
 	private AdministerRegisterService service;
 	
+	/**
+	 * @return
+	 */
+	@ModelAttribute
+	public AdminUserRegisterForm setupForm() {
+		return new AdminUserRegisterForm();
+	}
+	
 	@RequestMapping(value = "/")
 	public String index()
 	{
 		return "/administerRegister";
 	}
 	
+	/**
+	 * 管理者の追加します
+	 * @param form　リクエストパラメータ
+	 * @return 管理者メニューにフォワード
+	 */
 	@RequestMapping(value = "/administerRegister")
-	public String adminInsert(AdminUserRegisterForm form,AdminUserRegister adminUserRegister)
+	public String adminInsert(AdminUserRegisterForm form)
 	{
-		BeanUtils.copyProperties(form, adminUserRegister);
-//		service.adminInsert(name,password, email);
-		service.adminInsert(adminUserRegister);
+		AdminUser adminUser = new AdminUser();
+		BeanUtils.copyProperties(form, adminUser);
+		String rawPssword = adminUser.getPassword();
+	    register(adminUser, rawPssword);
+		service.adminInsert(adminUser);
 		return "/administerRegister";
+	}
+	
+	
+	/**
+	 * パスワードの暗号化します。
+	 * @param adminUser　DTO
+	 * @param rawPssword　暗号化前のパスワード
+	 */
+	public void register( AdminUser adminUser,String rawPssword) {
+		StandardPasswordEncoder spe = new  StandardPasswordEncoder();
+	    String encryptPassword = spe.encode(rawPssword); 
+	    adminUser.setPassword(encryptPassword);
 	}
 	
 }
