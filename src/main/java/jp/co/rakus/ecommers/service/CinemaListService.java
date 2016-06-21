@@ -98,5 +98,48 @@ public class CinemaListService {
 
 		return listPage;
 	}
+	
+	/**
+	 * 二つの価格の条件から商品を検索するメソッド.
+	 * 
+	 * @param minPrice 最低価格.
+	 * @param maxPrice　最高価格.
+	 * @return CinemaListPage childが入ったList.
+	 */
+	public CinemaListPage findByMinMaxPrice(Integer minPrice, Integer maxPrice){
+		List<Cinema> cinemaList = repository.findByMinMaxPrice(minPrice, maxPrice);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
+	
+	public CinemaListPage findByMinPrice(Integer minPrice){
+		List<Cinema> cinemaList = repository.findByMinPrice(minPrice);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
 
 }
