@@ -50,6 +50,8 @@ public class AdminUserRepository {
 			adminUser = jdbcTemplate.queryForObject(sql,param, ADMIN_ROW_MAPPER);
 			return adminUser;
 		} catch(DataAccessException e) {
+			System.err.println("admin not found");
+			e.printStackTrace();
 			return null;
 		}
 		

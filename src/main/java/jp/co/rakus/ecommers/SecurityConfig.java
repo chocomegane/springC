@@ -14,10 +14,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import jp.co.rakus.ecommers.service.LoginAdminUserService;
 import jp.co.rakus.ecommers.service.LoginUserService;
 
+/**
+ * ログイン認証用JavaConfig.
+ * @author kohei.sakata
+ *
+ */
 @Configuration
 @EnableWebMvcSecurity
 public class SecurityConfig {
 
+    /**
+     * 管理者認証用JavaConfig.
+     * @author kohei.sakata
+     *
+     */
     @Configuration
     @Order(1)
     public static class AdminUserSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -34,26 +44,32 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/admin/**")
+            	.antMatcher("/administer/**")
                 .authorizeRequests()
                     .anyRequest().hasRole("ADMIN")
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/admin/login")
-                	.loginPage("/admin/loginForm")
-                	.failureUrl("/admin/loginError")
-                	.defaultSuccessUrl("/",true)
+                	.loginProcessingUrl("/administer/login")
+                	.loginPage("/administer/loginForm")
+//                	.failureUrl("/administer/loginForm?error")
+                	.failureUrl("/administer/loginError")
+                	.defaultSuccessUrl("/administer/loginForm",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
                 .and()
                 .logout()
-                	.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
-                	.logoutSuccessUrl("/admin/loginForm")
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/administer/logout**"))
+                	.logoutSuccessUrl("/administer/loginForm")
                 ;
         }
     }
     
+    /**
+     * ユーザー認証用JavaConfig.
+     * @author kohei.sakata
+     *
+     */
     @Configuration
     @Order(2)
     public static class UserSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -70,23 +86,24 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/**")
+            	.antMatcher("/user/**")
                 .authorizeRequests()
-                    .anyRequest()//.hasRole("User")
-                    .permitAll()
+                    .anyRequest().hasRole("USER")
+//                    .permitAll()
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/userLogin")
-                	.loginPage("/loginForm")
-                	.failureUrl("/loginError")
-                	.defaultSuccessUrl("/output",true)
+                	.loginProcessingUrl("/user/login")
+                	.loginPage("/user/loginForm")
+//                	.failureUrl("/user/loginForm?error")
+                	.failureUrl("/user/loginError")
+                	.defaultSuccessUrl("/user/",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
                 .and()
                 .logout()
                 	.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-                	.logoutSuccessUrl("/output")
+                	.logoutSuccessUrl("/user/")
                 ;
         }
     }
