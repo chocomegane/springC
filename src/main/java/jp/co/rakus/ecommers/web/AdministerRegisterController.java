@@ -47,7 +47,7 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/administerRegister")
-<<<<<<< HEAD
+
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
@@ -78,21 +78,12 @@ public class AdministerRegisterController {
 	    	return "/administerRegister";
 	    }
 //	    System.out.println(adminUser);
-=======
-	public String adminInsert(AdminUserRegisterForm form) {
-		AdminUser adminUser = new AdminUser();
-		BeanUtils.copyProperties(form, adminUser);
-		String rawPssword = adminUser.getPassword();
-		register(adminUser, rawPssword);
->>>>>>> ef664b8d3b45b2319dff433bba2e4ff0e074366d
+
 		service.adminInsert(adminUser);
 		return "/administerRegister";
 		
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> ef664b8d3b45b2319dff433bba2e4ff0e074366d
 	/**
 	 * パスワードの暗号化します。
 	 * 
