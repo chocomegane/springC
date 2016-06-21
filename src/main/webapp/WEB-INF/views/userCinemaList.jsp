@@ -18,6 +18,11 @@
 <a href="/serch/mediaType?mediaTypeStr=DVD">DVD</a>
 
 <h2>商品一覧</h2>
+<form action="/serch/title" method="get">
+<input type="text" name="title"/>
+<input type="submit" value="検索"/>
+</form>
+
 <table>
 
  <tbody>
