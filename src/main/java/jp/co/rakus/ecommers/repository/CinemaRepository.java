@@ -99,8 +99,23 @@ public class CinemaRepository {
 	public List<Cinema> findByGenre(String genre){
 		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE genre = :genre";
+				+ "FROM cinemas WHERE genre = :genre ORDER BY title";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
+		List<Cinema> cinemaList  = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * メディアタイプを条件に商品検索をするメソッド.
+	 * 
+	 * @param mediaType メディアタイプ.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByMediaType(String mediaType){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE media_type = :mediaType ORDER BY title";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mediaType", mediaType);
 		List<Cinema> cinemaList  = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
 	}

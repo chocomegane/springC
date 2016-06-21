@@ -23,54 +23,80 @@ public class CinemaListService {
 
 	@Autowired
 	private CinemaRepository repository;
-	
+
 	/**
 	 * 映画の情報をすべて取得するメソッド.
 	 * 
 	 * @return CinemaListPage childが入ったList.
 	 */
-	public CinemaListPage findAll(){
+	public CinemaListPage findAll() {
 		List<Cinema> cinemaList = repository.findAll();
-		
+
 		CinemaListPage listPage = new CinemaListPage();
-		
-		//forの中でgetをしているため一度インスタンスを生成してsetしておく
+
+		// forの中でgetをしているため一度インスタンスを生成してsetしておく
 		List<CinemaChildPage> childSet = new ArrayList<>();
 		listPage.setChildPageList(childSet);
-		
-		for(Cinema cinema : cinemaList){
+
+		for (Cinema cinema : cinemaList) {
 			CinemaChildPage child = new CinemaChildPage();
 			BeanUtils.copyProperties(cinema, child);
-			
+
 			listPage.getChildPageList().add(child);
 		}
-		
+
 		return listPage;
-				
+
 	}
-	
+
 	/**
 	 * ジャンルを検索条件に映画の情報を取得するメソッド.
 	 * 
 	 * @param genre
-	 * @return
+	 *            ジャンル.
+	 * @return CinemaListPage childが入ったList.
 	 */
-	public CinemaListPage findByGenre(String genre){
+	public CinemaListPage findByGenre(String genre) {
 		List<Cinema> cinemaList = repository.findByGenre(genre);
-		
+
 		CinemaListPage listPage = new CinemaListPage();
-		
+
 		List<CinemaChildPage> childSet = new ArrayList<>();
 		listPage.setChildPageList(childSet);
-		
-		for(Cinema cinema : cinemaList){
+
+		for (Cinema cinema : cinemaList) {
 			CinemaChildPage child = new CinemaChildPage();
 			BeanUtils.copyProperties(cinema, child);
-			
+
 			listPage.getChildPageList().add(child);
 		}
-		
+
 		return listPage;
 	}
-	
+
+	/**
+	 * メディアタイプを条件に商品検索をするメソッド.
+	 * 
+	 * @param mediaType
+	 *            メディアタイプ.
+	 * @return CinemaListPage childが入ったList.
+	 */
+	public CinemaListPage findByMediaType(String mediaType) {
+		List<Cinema> cinemaList = repository.findByMediaType(mediaType);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
+
 }
