@@ -61,7 +61,7 @@ public class CinemaRepository {
 					param);
 		} else {
 			template.update(
-					"UPDATE cinemas SET title = :title, price = :price, genre = :genre, time = :time, release_date = :releaseDate, media_type = mediaType, company = :company, directed_by = :directedBy, rating = :rating, description = :description, image_path = :imagePath, deleted = :deleted WHERE id = :id", 
+					"UPDATE cinemas SET title = :title, price = :price, genre = :genre, time = :time, release_date = :releaseDate, media_type = :mediaType, company = :company, directed_by = :directedBy, rating = :rating, description = :description, image_path = :imagePath, deleted = :deleted WHERE id = :id", 
 					param);
 		}
 	}
@@ -89,4 +89,35 @@ public class CinemaRepository {
 		Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
 		return cinema;
 	}
+	
+	/**
+	 * ジャンルを条件に映画を検索.
+	 * 
+	 * @param genre　ジャンル.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByGenre(String genre){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE genre = :genre ORDER BY title";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
+		List<Cinema> cinemaList  = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * メディアタイプを条件に商品検索をするメソッド.
+	 * 
+	 * @param mediaType メディアタイプ.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByMediaType(String mediaType){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE media_type = :mediaType ORDER BY title";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mediaType", mediaType);
+		List<Cinema> cinemaList  = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
 }

@@ -53,16 +53,27 @@ create table orders (
   , constraint orders_PKC primary key (id)
 ) ;
 
+--ordersテーブルに追加するデータ
+
+INSERT INTO orders( order_number, user_id, status, total_price, date)
+VALUES( '00001', 1, 1, 3163, '2016-06-03 00:00:00');
+
 -- 注文詳細
 --drop table order_items cascade;
 
 create table order_items (
   id bigserial not null
-  , item_id bigint not null
+  , cinema_id bigint not null
   , order_id bigint REFERENCES orders(id) not null
   , quantity integer not null
   , constraint order_items_PKC primary key (id)
 ) ;
+
+--order_itemsテーブルに追加するデータ
+
+INSERT INTO orders_items( item_id, order_id, quantity)
+VALUES(1, 1, 1);
+
 
 --cinemasテーブルに追加する素材
 

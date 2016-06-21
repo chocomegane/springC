@@ -3,7 +3,8 @@
     <%@ include file="adminCommon.jsp" %>>
 <body>
 <h2  align="center">商品詳細</h2>
-	<table border="1" align="center">
+
+	<table border="1">
 		<tr>
 			<td colspan="2" rowspan="10"><img src="../img/pc.jpg" width="150"
 				height="150" alt="商品画像">
@@ -48,12 +49,14 @@
 			<td><c:out value="${cinemaDetail.description}"></c:out></td>
 		</tr>
 	</table>
+	
 	<br>
 	<div id="selectQuantity" align="center">
 	<form:form modelattribute="cartForm" action="viewShoppingCart.html">
-		<div ="sendCart" align="center"><p><input type="submit" value="更新"></p>
-		<div ="sendCart" align="center"><p><a href="itemList.html">商品一覧画面へ戻る</a></p></div>
-		<a href="itemList.html">
+		<div id="sendCart" align="center"><p><input type="submit" value="更新"></p></div>
+		<div id="sendCart" align="center"><p><a href="itemList.html">商品一覧画面へ戻る</a></p></div>
+		<a href="itemList.html"></a>
 	</form:form>
+	</div>
 </body>
 </html>

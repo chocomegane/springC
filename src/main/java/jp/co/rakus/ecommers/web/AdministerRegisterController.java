@@ -15,6 +15,7 @@ import jp.co.rakus.ecommers.service.AdministerRegisterService;
 
 /**
  * ユーザー登録関連のコントローラー
+ * 
  * @author rakus
  */
 
@@ -24,7 +25,7 @@ public class AdministerRegisterController {
 
 	@Autowired
 	private AdministerRegisterService service;
-	
+
 	/**
 	 * @return
 	 */
@@ -32,19 +33,21 @@ public class AdministerRegisterController {
 	public AdminUserRegisterForm setupForm() {
 		return new AdminUserRegisterForm();
 	}
-	
+
 	@RequestMapping(value = "/")
-	public String index()
-	{
+	public String index() {
 		return "/administerRegister";
 	}
-	
+
 	/**
 	 * 管理者の追加します
-	 * @param form　リクエストパラメータ
+	 * 
+	 * @param form
+	 *            リクエストパラメータ
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/administerRegister")
+<<<<<<< HEAD
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
@@ -75,19 +78,33 @@ public class AdministerRegisterController {
 	    	return "/administerRegister";
 	    }
 //	    System.out.println(adminUser);
+=======
+	public String adminInsert(AdminUserRegisterForm form) {
+		AdminUser adminUser = new AdminUser();
+		BeanUtils.copyProperties(form, adminUser);
+		String rawPssword = adminUser.getPassword();
+		register(adminUser, rawPssword);
+>>>>>>> ef664b8d3b45b2319dff433bba2e4ff0e074366d
 		service.adminInsert(adminUser);
 		return "/administerRegister";
 		
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef664b8d3b45b2319dff433bba2e4ff0e074366d
 	/**
 	 * パスワードの暗号化します。
-	 * @param adminUser　DTO
-	 * @param rawPssword　暗号化前のパスワード
+	 * 
+	 * @param adminUser
+	 *            DTO
+	 * @param rawPssword
+	 *            暗号化前のパスワード
 	 */
-	public void register( AdminUser adminUser,String rawPssword) {
-		StandardPasswordEncoder spe = new  StandardPasswordEncoder();
-	    String encryptPassword = spe.encode(rawPssword); 
-	    adminUser.setPassword(encryptPassword);
+	public void register(AdminUser adminUser, String rawPssword) {
+		StandardPasswordEncoder spe = new StandardPasswordEncoder();
+		String encryptPassword = spe.encode(rawPssword);
+		adminUser.setPassword(encryptPassword);
 	}
-	
+
 }
