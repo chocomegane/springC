@@ -61,7 +61,7 @@ public class CinemaRepository {
 					param);
 		} else {
 			template.update(
-					"UPDATE cinemas SET title = :title, price = :price, genre = :genre, time = :time, release_date = :releaseDate, media_type = mediaType, company = :company, directed_by = :directedBy, rating = :rating, description = :description, image_path = :imagePath, deleted = :deleted WHERE id = :id", 
+					"UPDATE cinemas SET title = :title, price = :price, genre = :genre, time = :time, release_date = :releaseDate, media_type = :mediaType, company = :company, directed_by = :directedBy, rating = :rating, description = :description, image_path = :imagePath, deleted = :deleted WHERE id = :id", 
 					param);
 		}
 	}
