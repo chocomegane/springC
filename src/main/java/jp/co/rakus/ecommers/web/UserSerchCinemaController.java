@@ -50,10 +50,42 @@ public class UserSerchCinemaController {
 	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
 		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
 		
-		System.out.println("listPageの中身＝" + listPage);
+		model.addAttribute("listPage", listPage);
+		
+		return "userCinemaList";
+	}
+	
+	/**
+	 * 価格を条件に商品検索をするメソッド.
+	 * 
+	 * @param minPriceStr
+	 * @param maxPriceStr
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/price")
+	public String listPrice(@RequestParam String minPriceStr,
+			@RequestParam String maxPriceStr, Model model){
+		
+		System.out.println("minPriceStrの値の確認" + minPriceStr);
+		System.out.println("maxpricestrの値の確認" + maxPriceStr);
+		
+		//minにしかリクエストパラメータが入っていなかったらfindByMinPriceメソッドを呼び出す
+		
+		CinemaListPage listPage = new CinemaListPage();
+		
+		if(maxPriceStr.isEmpty()){
+			Integer minPrice = Integer.parseInt(minPriceStr);
+			listPage = service.findByMinPrice(minPrice);
+		}else{
+			Integer minPrice = Integer.parseInt(minPriceStr);
+			Integer maxPrice = Integer.parseInt(maxPriceStr);
+			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
+		}
 		
 		model.addAttribute("listPage", listPage);
 		
 		return "userCinemaList";
+		
 	}
 }

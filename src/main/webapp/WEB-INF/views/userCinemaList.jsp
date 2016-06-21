@@ -3,10 +3,10 @@
 <body>
 
 <h3>値段</h3>
-<a href="">～1000円</a><br>
-<a href="">1000円～2000円</a><br>
-<a href="">2000円～3000円</a><br>
-<a href="">3000円～</a>
+<a href="/serch/price?minPriceStr=0&maxPriceStr=1000">～1000円</a><br>
+<a href="/serch/price?minPriceStr=1000&maxPriceStr=2000">1000円～2000円</a><br>
+<a href="/serch/price?minPriceStr=2000&maxPriceStr=3000">2000円～3000円</a><br>
+<a href="/serch/price?minPriceStr=3000&maxPriceStr">3000円～</a>
 
 <h3>ジャンル</h3>
 <a href="/serch/genre?genreStr=SF">SF</a><br>
