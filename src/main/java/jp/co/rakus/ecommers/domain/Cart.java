@@ -1,7 +1,6 @@
 package jp.co.rakus.ecommers.domain;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

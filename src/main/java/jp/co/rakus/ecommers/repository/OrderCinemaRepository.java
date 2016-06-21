@@ -88,11 +88,11 @@ public class OrderCinemaRepository {
 	 * @param form
 	 * @return
 	 */
-	public Order searchOrder(InsertForm form) {
+	public Order searchOrder(long id) {
 		Order order;
 		try{
 		String sql = "SELECT id, order_number, user_id, status, total_price, date From orders WHERE user_id=:user_id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", form.getUserId());
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", id);
 		order = template.queryForObject(sql, param, orderRowMapper);
 		}catch(EmptyResultDataAccessException e){
 			order = null;
