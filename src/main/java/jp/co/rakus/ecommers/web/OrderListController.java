@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.rakus.ecommers.service.OrderListService;
+import jp.co.rakus.ecommers.service.OrderListService2nd;
 
 /**
  * 注文詳細一覧を表示するためのControllerクラス.
@@ -20,7 +20,7 @@ public class OrderListController {
 	
 	/** OrderListServiceを利用するためのDI */
 	@Autowired
-	private OrderListService service;
+	private OrderListService2nd service;
 		
 //	/**
 //	 * 初期ページを表示する
