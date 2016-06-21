@@ -11,7 +11,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
 @Controller
 @Transactional
 @RequestMapping(value="/")
-public class CinemaListController {
+public class UserCinemaListController {
 
 	@Autowired
 	private CinemaListService service;
@@ -20,9 +20,9 @@ public class CinemaListController {
 	 * 書籍情報を全件取得するメソッド.
 	 * 
 	 * @param model
-	 * @return　フォワード先の名前.
+	 * @return　利用者の商品一覧画面.
 	 */
-	@RequestMapping(value="list")
+	@RequestMapping(value="userCinemaList")
 	public String list(Model model){
 		CinemaListPage listPage = service.findAll();
 		
