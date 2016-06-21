@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.rakus.ecommers.domain.Cinema;
 
 /**
- * 
+ * 映画クラスの処理を行うRepository.
  * @author yusuke.nakano
  *
  */
@@ -25,6 +26,7 @@ public class CinemaRepository {
 	private NamedParameterJdbcTemplate template;
 
 	/**
+	 * 映画クラスのRowMapper
 	 */
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
@@ -42,9 +44,31 @@ public class CinemaRepository {
 		boolean deleted = rs.getBoolean("deleted"); 
 		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description, imagePath, deleted);
 	};
+	
+	/**
+	 * 映画のinsert, updateを行うメソッド.
+	 * 引数に与えられたcinemaオブジェクトのフィールド変数id(主キー)がnullならば<br>
+	 * insert, nullでなければupdate処理を行う
+	 * @param cinema 映画のオブジェクト
+	 */
+	public void save(Cinema cinema) {
+				
+		SqlParameterSource param = new BeanPropertySqlParameterSource(cinema);
+						
+		if (cinema.getId() == null) {
+			template.update(
+					"INSERT INTO cinemas(title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted) values(:title, :price, :genre, :time, :releaseDate, :mediaType, :company, :directedBy, :rating, :description, :imagePath, :deleted)", 
+					param);
+		} else {
+			template.update(
+					"UPDATE cinemas SET title = :title, price = :price, genre = :genre, time = :time, release_date = :releaseDate, media_type = :mediaType, company = :company, directed_by = :directedBy, rating = :rating, description = :description, image_path = :imagePath, deleted = :deleted WHERE id = :id", 
+					param);
+		}
+	}
 
 	/**
-	 * @return
+	 * 映画のfindAllを行うメソッド.
+	 * @return 映画のリスト
 	 */
 	public List<Cinema> findAll() {
 		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas ORDER BY title";

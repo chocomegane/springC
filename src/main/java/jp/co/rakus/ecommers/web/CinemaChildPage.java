@@ -7,9 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class OrderListChildPage {
+@AllArgsConstructor
+public class CinemaChildPage {
+
 	/** 主キー */
 	private Long id;
 	/** 映画名 */

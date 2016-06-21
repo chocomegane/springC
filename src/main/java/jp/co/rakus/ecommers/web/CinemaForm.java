@@ -2,14 +2,10 @@ package jp.co.rakus.ecommers.web;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class OrderListChildPage {
+public class CinemaForm {
 	/** 主キー */
 	private Long id;
 	/** 映画名 */

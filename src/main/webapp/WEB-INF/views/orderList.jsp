@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-<%@ include file="addminCommon.jsp" %>
+<%@ include file="adminCommon.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
 		<th>概要（ストーリー）</th>
 		<th>イメージ画像</th>
 	</tr>
-	<c:forEach var="cinema" items="${cinemaList}">
+	<c:forEach var="cinema" items="${page.cinemaList}">
 		　<tr>
 			<td><c:out value="${cinema.title}"/></td>
 			<td><c:out value="${cinema.price}"/></td>
