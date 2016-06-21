@@ -1,22 +1,9 @@
-		package jp.co.rakus.ecommers.domain;
+package jp.co.rakus.ecommers.web;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-/**
- * ユーザー情報を格納するクラス.
- * 
- * @author tsubasa.kaneko
- *
- */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
-	
-	/** 主キー */
-	private Long id;
+public class UserRegisterForm {
 	/** 名前 */
 	private String name;
 	/** メールアドレス */
@@ -29,5 +16,5 @@ public class User {
 	private String telephone;
 	/** 住所 */
 	private String address;
-	
+
 }
