@@ -89,4 +89,20 @@ public class CinemaRepository {
 		Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
 		return cinema;
 	}
+	
+	/**
+	 * ジャンルを条件に映画を検索.
+	 * 
+	 * @param genre　ジャンル.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByGenre(String genre){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE genre = :genre";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
+		List<Cinema> cinemaList  = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
 }
