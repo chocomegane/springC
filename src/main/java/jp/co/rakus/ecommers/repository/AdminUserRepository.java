@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.repository;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,11 +39,9 @@ public class AdminUserRepository {
 	};
 
 	/**
-	 * メールアドレスとパスワードからメンバーを取得.
-	 * 暗号化されたパスワードはSQLでマッチングできないから、まずメールアドレスで検索したのちパスワードをチェックする。
-	 * @param mailAddress メールアドレス
-	 * @param password パスワード
-	 * @return メンバー情報.メンバーが存在しない場合はnull.
+	 * メールアドレスから管理者を取得.
+	 * @param email メールアドレス
+	 * @return 管理者情報.管理者が存在しない場合はnull.
 	 */
 	public AdminUser findByEmail(String email) {
 		String sql = "SELECT id,name,email,password FROM " + TABLE_NAME + " WHERE email=:email;";
@@ -52,6 +51,8 @@ public class AdminUserRepository {
 			adminUser = jdbcTemplate.queryForObject(sql,param, ADMIN_ROW_MAPPER);
 			return adminUser;
 		} catch(DataAccessException e) {
+			System.err.println("admin not found");
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -68,11 +69,11 @@ public class AdminUserRepository {
 	 */
 	public void adminInsert(AdminUser adminUser)
 	{
-		
 		SqlParameterSource param = new BeanPropertySqlParameterSource(adminUser);
 		String sql = "INSERT INTO admin_users(name, email, password) VALUES(:name, :email, :password)";
-		jdbcTemplate.update(sql, param);
+		jdbcTemplate.update(sql, param);	
 	}
+	
 	
 	
 	

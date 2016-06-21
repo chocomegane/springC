@@ -15,17 +15,17 @@ import lombok.Data;
 @Data
 public class AdminUserRegisterForm {
 	/** 名前 */
-	//@NotEmpty(message = "名前は必須です")
+	@NotEmpty(message = "お名前を入力して下さい")
 	private String name;
 	/** Eメールアドレス */
-	//@Size(min = 1, max = 127, message = "入力してください")
-	//@Email(message = "メールアドレスが不正です。")
+	@Size(min = 1, max = 127, message = "アドレスを入力して下さい")
+	@Email(message = "アドレスが不正です。")
 	private String email;
 	/** パスワード */
-//@Size(min = 1,max = 127, message = "パスワードを入力してください")
+	@Size(min = 1,max = 127, message = "パスワードを入力して下さい")
 	private String password;
 	/** 確認パスワード */
-	//@Size(min = 1, max = 127 , message = "確認用パスワードを入力してください" )
+	@Size(min = 1, max = 127 , message = "確認用パスワードを入力して下さい" )
 	private String confirmationPassword;
 	
 }

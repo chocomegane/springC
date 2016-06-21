@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.repository.AdminUserRepository;
-import jp.co.rakus.ecommers.repository.AdministerRegisterRepository;
 
 /**
  * 管理者追加　レポジトリ
@@ -25,8 +24,18 @@ public class AdministerRegisterService {
 	{
 		
 //		repository.adminInsert(name,password, email);
-		repository.adminInsert(adminUser);
+//		repository.adminInsert(adminUserRegister);
 		
+	}
+	
+	/**
+	 * emailを使って検索をかけます。
+	 * @param email　リクエストパラメータ
+	 * @return　検索結果が返ります
+	 */
+	public AdminUser findByEmail(String email)
+	{
+		return repository.findByEmail(email);
 	}
 
 }

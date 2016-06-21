@@ -12,49 +12,98 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jp.co.rakus.ecommers.service.LoginAdminUserService;
+import jp.co.rakus.ecommers.service.LoginUserService;
 
+/**
+ * ログイン認証用JavaConfig.
+ * @author kohei.sakata
+ *
+ */
 @Configuration
 @EnableWebMvcSecurity
 public class SecurityConfig {
 
+    /**
+     * 管理者認証用JavaConfig.
+     * @author kohei.sakata
+     *
+     */
     @Configuration
     @Order(1)
     public static class AdminUserSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
         @Autowired
         private LoginAdminUserService loginAdminUserService;
-
         @Override
         public void configure(WebSecurity web) throws Exception {
         	web.ignoring().antMatchers("/css/**", "/img/**");
         }
-
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth
-                .userDetailsService(loginAdminUserService)
-                    .passwordEncoder(new BCryptPasswordEncoder());
+            auth.userDetailsService(loginAdminUserService).passwordEncoder(new BCryptPasswordEncoder());
         }
-
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/admin/**")
+            	.antMatcher("/administer/**")
                 .authorizeRequests()
-                	.antMatchers("/admin/loginForm").permitAll()
                     .anyRequest().hasRole("ADMIN")
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/login")
-                	.loginPage("/admin/loginForm")
-                	.failureUrl("/admin/loginError")
-                	.defaultSuccessUrl("/admin/menu",true)
+                	.loginProcessingUrl("/administer/login")
+                	.loginPage("/administer/loginForm")
+//                	.failureUrl("/administer/loginForm?error")
+                	.failureUrl("/administer/loginError")
+                	.defaultSuccessUrl("/administer/loginForm",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
+                	.permitAll()
                 .and()
                 .logout()
-                	.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
-                	.logoutSuccessUrl("/admin/loginForm")
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/administer/logout**"))
+                	.logoutSuccessUrl("/administer/loginForm")
+                ;
+        }
+    }
+    
+    /**
+     * ユーザー認証用JavaConfig.
+     * @author kohei.sakata
+     *
+     */
+    @Configuration
+    @Order(2)
+    public static class UserSecurityConfiguration extends WebSecurityConfigurerAdapter {
+        @Autowired
+        private LoginUserService loginUserService;
+        @Override
+        public void configure(WebSecurity web) throws Exception {
+        	web.ignoring().antMatchers("/css/**", "/img/**");
+        }
+        @Override
+        public void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(loginUserService).passwordEncoder(new BCryptPasswordEncoder());
+        }
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+            	.antMatcher("/user/**")
+                .authorizeRequests()
+                    .anyRequest().hasRole("USER")
+//                    .permitAll()
+                .and()
+                .formLogin()
+                	.loginProcessingUrl("/user/login")
+                	.loginPage("/user/loginForm")
+//                	.failureUrl("/user/loginForm?error")
+                	.failureUrl("/user/loginError")
+                	.defaultSuccessUrl("/user/",true)
+                	.usernameParameter("email")
+                	.passwordParameter("password")
+                	.permitAll()
+                .and()
+                .logout()
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+                	.logoutSuccessUrl("/user/")
                 ;
         }
     }
