@@ -47,7 +47,6 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/administerRegister")
-
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
