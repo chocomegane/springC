@@ -96,8 +96,25 @@ public class UserSerchCinemaController {
 	@RequestMapping(value="title")
 	public String listTitle(@RequestParam String title, Model model){
 		
-		System.out.println(title);
+		//titleの中身が空だったらエラーメッセージを返す
+		if(title.isEmpty()){
+			model.addAttribute("message", "何か入力してください");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
+		
 		CinemaListPage listPage = service.findByTitle(title);
+		
+		System.out.println("listPAgeの中身を確認" + listPage);
+		
+		//何も取得できなかったらメッセージを表示する
+		if(listPage.getChildPageList().size()==0){
+			model.addAttribute("message2", "商品がありません");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
 		
 		model.addAttribute("listPage", listPage);
 		

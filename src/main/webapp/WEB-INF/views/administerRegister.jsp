@@ -5,14 +5,21 @@
  <body>
 	<form:form action="/administer/administerRegister"
 		modelAttribute="adminUserRegisterForm">
-		
+		<table border="">
+	
 		<c:out value="${err}"/><br>
+		<tr>
+		<td>
 		<form:errors path="name" cssStyle="color:red" element="div"/>
-名前<form:input path="name"/>
-		<br>
+
+		
+名前</td><td><form:input path="name"/></td>
+		</tr>
+		<tr>
+		<td>
 		<form:errors path="email" cssStyle="color:red" element="div" />
-アドレス<form:input path="email"/>
-		<br>
+アドレス</td><form:input path="email"/></tr>
+		
 		<form:errors path="password" cssStyle="color:red" element="div"/>
 パスワード<form:password path="password"/>
 		<br>
