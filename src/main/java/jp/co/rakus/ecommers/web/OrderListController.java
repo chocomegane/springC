@@ -15,7 +15,7 @@ import jp.co.rakus.ecommers.service.OrderListService2nd;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/orderList")
+@RequestMapping(value = "/admin/orderList")
 public class OrderListController {
 	
 	/** OrderListServiceを利用するためのDI */
