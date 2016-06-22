@@ -26,8 +26,14 @@ public class AdminCinemaDetailController {
 	private OrderListService service;
 	
 	@ModelAttribute
-	public CartForm setUpForm() {
+	public CartForm setUpForm1() {
 		return new CartForm();
+	}
+	
+	// 追加
+	@ModelAttribute
+	public CinemaForm setUpForm2() {
+		return new CinemaForm();
 	}
 	
 //	@RequestMapping(value = "/")

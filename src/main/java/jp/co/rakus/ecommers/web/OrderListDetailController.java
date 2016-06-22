@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.rakus.ecommers.domain.Cinema;
@@ -86,8 +87,8 @@ public class OrderListDetailController {
 		return "orderListDetail";
 	}
 	
-	@RequestMapping(value="/statusUpdate")
-	public String update(OrderForm form, Model model) {		
+	@RequestMapping(value="/statusUpdate", method=RequestMethod.POST)
+	public String update(OrderForm form, Model model) {
 		Order order = service.findByUserId(form.getOrderNumber());
 		service.statusUpdate(form.getStatus(), order.getOrderNumber());
 		model.addAttribute("message","更新が完了いたしました");

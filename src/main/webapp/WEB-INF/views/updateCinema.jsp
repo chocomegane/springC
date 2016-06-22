@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>商品登録画面</h2>
-<form:form modelAttribute="cinemaForm" action="/update/execute">
+<form:form modelAttribute="cinemaForm" action="/admin/updateCinema/execute">
 	<form:hidden path="id" value="${cinema.id}"/>
 	タイトル：<form:input path="title" value="${cinema.title}"/><br>
 	価格：<form:input path="price" value="${cinema.price}"/><br>

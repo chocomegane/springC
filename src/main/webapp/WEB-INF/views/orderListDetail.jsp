@@ -35,7 +35,7 @@
 	<tr><th>総計</th><td><c:out value="${sum}"/>円</td></tr>
 </table>
 <br>
-<form:form modelAttribute="orderForm" action="/orderListDetail/statusUpdate">
+<form:form modelAttribute="orderForm" action="/admin/statusUpdate">
 	<table border="1">
 		<tr><th>現在のステータス</th><th>ステータス変更</th></tr>
 		<tr>
