@@ -7,5 +7,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<link rel="stylesheet" type="text/css" href="css/ecHeader.css" />
+<title>ECサイト管理者</title>
+<body>
+<header>
+		<div id="linkHeader" align="left">
+		<h1 align ="left"><a href="/administer/itemList">
+			<img src="img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス</a>
+		</h1></div>
+<!--
+ 		<div id="title" align="center">
+		</div>
+ -->
+ 		<div id="userHeader" align="right">
+			<p>こんにちは<c:out value="${principle.name}"/></p>
+			<p><a href="/administer/Logout">ログアウト</a></p>
+		</div>
+</header>

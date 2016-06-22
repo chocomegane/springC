@@ -6,7 +6,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../css/ecHeader.css" />
+<link rel="stylesheet" type="text/css" href="css/ecHeader.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ECサイト</title>
 </head>
+<body>
+<header>
+		<div id="linkHeader" align="left">
+		<h1 align ="left"><a href="/administer/itemList">
+			<img src="img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス</a>
+		</h1></div>
+<!-- 
+		<div id="title" align="center">
+		</div>
+ -->
+		<div id="userHeader" align="right">
+			<p>こんにちは<c:out value="${principle.name}"/>さん</p>
+			<p><a href="/user/viewShoppingCart">カートの中身を見る</a></p>
+		</div>
+</header>
