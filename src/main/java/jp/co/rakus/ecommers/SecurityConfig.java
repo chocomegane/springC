@@ -53,7 +53,7 @@ public class SecurityConfig {
                 	.loginPage("/administer/loginForm")
 //                	.failureUrl("/administer/loginForm?error")
                 	.failureUrl("/administer/loginError")
-                	.defaultSuccessUrl("/administer/loginForm",true)
+                	.defaultSuccessUrl("/administer/top",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
