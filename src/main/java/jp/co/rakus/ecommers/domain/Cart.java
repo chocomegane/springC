@@ -1,6 +1,7 @@
 package jp.co.rakus.ecommers.domain;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class Cart {
 	/** 小計 */
 	private Integer totalPrice;
 	/** 最終購入日 */
-	private Timestamp date;
+	private Date date;
 	/** カート内にある映画のID */
 	private long orderCinemaId;
 	/**映画ID */

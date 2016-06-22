@@ -37,7 +37,7 @@ public class OrderCinemaRepository {
 		Long userId = rs.getLong("user_id");
 		Integer status = rs.getInt("status");
 		Integer totalPrice = rs.getInt("total_price");
-		Timestamp date = rs.getTimestamp("date");
+		Date date = rs.getTimestamp("date");
 		return new Order(id, orderNumber, userId, status, null,  totalPrice, date);
 	}; 
 	
@@ -59,15 +59,15 @@ public class OrderCinemaRepository {
 	};
 	
 	private static final RowMapper<Cart> orderListRowMapper = (rs, i) -> {
-		Long id = rs.getLong("o.id");
-		String orderNumber = rs.getString("o.order_number");
-		Long userId = rs.getLong("o.user_id");
-		Integer status = rs.getInt("o.status");
-		Integer totalPrice = rs.getInt("o.total_price");
-		Timestamp date = rs.getTimestamp("o.date");
-		long orderCinemaId = rs.getLong("i.id");
-		long cinemaId = rs.getLong("i.cinema_id");
-		Integer quantity = rs.getInt("i.quantity");
+		Long id = rs.getLong("id");
+		String orderNumber = rs.getString("order_number");
+		Long userId = rs.getLong("user_id");
+		Integer status = rs.getInt("status");
+		Integer totalPrice = rs.getInt("total_price");
+		Date date = rs.getTimestamp("date");
+		long orderCinemaId = rs.getLong("id");
+		long cinemaId = rs.getLong("item_id");
+		Integer quantity = rs.getInt("quantity");
 		return new Cart(id, orderNumber, userId, status, totalPrice, date, orderCinemaId, cinemaId, quantity);
 	}; 
 	
@@ -110,10 +110,11 @@ public class OrderCinemaRepository {
 	 * 
 	 * @param form
 	 */
-	public void insertOrderItem(InsertForm form){
-		SqlParameterSource param2 = new BeanPropertySqlParameterSource(form);
-		String sql3 = "INSERT INTO order_items (id, cinema_id, quantity, order_id)" + " VALUES(:id, :cinema_id, :quantity, :order_id)";
-		template.update(sql3, param2);
+	public void insertOrderItem(InsertForm form, long orderId){
+		
+		String sql = "INSERT INTO order_items (item_id, quantity, order_id)" + " VALUES(:item_id, :quantity, :order_id)";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("item_id", form.getCinemaId()).addValue("quantity", form.getQuantity()).addValue("order_id", orderId);
+		template.update(sql, param);
 	}
 	
 	/**
@@ -123,7 +124,7 @@ public class OrderCinemaRepository {
 	 * @return
 	 */
 	public List<Cart> findAllOrder(Order order) {
-		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date, i.id, i.cinema_id, i.quantity FROM orders AS o INNER JOIN order_items AS i ON o.id = i.order_id WHERE o.status = 0 AND o.user_id = :user_id";
+		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date, i.id, i.item_id, i.quantity FROM orders AS o INNER JOIN order_items AS i ON o.id = i.order_id WHERE o.status = 0 AND o.user_id = :user_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId());
 		List<Cart> orderList = template.query(sql, param, orderListRowMapper);
 		return orderList;
@@ -148,8 +149,8 @@ public class OrderCinemaRepository {
 	 * @param order
 	 */
 	public void updateOrder(Order order) {
-		String sql = "UPDATE orders SET total_price=:total_price date=:date";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("total_price", order.getTotalPrice());
+		String sql = "UPDATE orders SET total_price=:total_price, date=:date";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("total_price", order.getTotalPrice()).addValue("date", order.getDate());
 		template.update(sql, param);
 	}
 	

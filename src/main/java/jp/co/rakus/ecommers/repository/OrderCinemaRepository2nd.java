@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.repository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class OrderCinemaRepository2nd {
 		Long userId = rs.getLong("user_id");
 		Integer status = rs.getInt("status");
 		Integer totalPrice = rs.getInt("total_price");
-		Timestamp date = rs.getTimestamp("date");
+		Date date = rs.getDate("date");
 		return new Order(id, orderNumber, userId, status, null, totalPrice, date);
 	}; 
 
