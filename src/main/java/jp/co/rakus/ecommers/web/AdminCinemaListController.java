@@ -36,4 +36,5 @@ public class AdminCinemaListController {
 		
 		return "administerCinemaList";
 	}
+	
 }
