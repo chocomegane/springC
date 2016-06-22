@@ -2,7 +2,7 @@ package jp.co.rakus.ecommers.web;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,7 @@ import jp.co.rakus.ecommers.service.AdministerRegisterService;
  */
 
 @Controller
-@RequestMapping(value = "/administer")
+@RequestMapping(value = "/administert/register")
 public class AdministerRegisterController {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class AdministerRegisterController {
 		return new AdminUserRegisterForm();
 	}
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/allClear")
 	public String index() {
 		return "/administerRegister";
 	}
@@ -47,7 +47,6 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/administerRegister")
-
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
@@ -93,7 +92,7 @@ public class AdministerRegisterController {
 	 *            暗号化前のパスワード
 	 */
 	public void register(AdminUser adminUser, String rawPssword) {
-		StandardPasswordEncoder spe = new StandardPasswordEncoder();
+		BCryptPasswordEncoder spe = new BCryptPasswordEncoder();
 		String encryptPassword = spe.encode(rawPssword);
 		adminUser.setPassword(encryptPassword);
 	}

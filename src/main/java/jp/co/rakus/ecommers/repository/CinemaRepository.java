@@ -153,4 +153,20 @@ public class CinemaRepository {
 		return cinemaList;
 	}
 	
+	/**
+	 * タイトルの条件から商品の情報を検索数メソッド.
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public List<Cinema> findByTitle(String title){
+		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE title LIKE :title ORDER BY title";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
 }

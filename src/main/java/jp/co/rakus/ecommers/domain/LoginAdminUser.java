@@ -14,6 +14,7 @@ import lombok.Data;
 public class LoginAdminUser extends org.springframework.security.core.userdetails.User {
 	/** default serialVersionUID */
 	private static final long serialVersionUID = 1L;
+	
 	/** 通常の管理者情報 */
 	private AdminUser adminUser;
 	

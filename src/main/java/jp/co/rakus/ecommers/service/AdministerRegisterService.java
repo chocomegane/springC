@@ -25,6 +25,7 @@ public class AdministerRegisterService {
 		
 //		repository.adminInsert(name,password, email);
 //		repository.adminInsert(adminUserRegister);
+		repository.adminInsert(adminUser);
 		
 	}
 	

@@ -50,7 +50,7 @@
 	</table>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelattribute="cartForm" action="viewShoppingCart.html">
+	<form:form modelAttribute="cartForm" action="/shop/cart">
 					個数：<select name="quantity">
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -62,9 +62,9 @@
 				<option value="8">8</option>
 				<option value="9">9</option>
 			</select></div>
-		
+		<form:hidden path="cinemaId" value="${cinemaDetail.id}"/>
 		<div ="sendCart" align="center"><p><input type="submit" value="カートに入れる"></p>
-		<div ="sendCart" align="center"><p><a href="itemList.html">商品一覧画面へ戻る</a></p></div>
+		<div ="sendCart" align="center"><p><a href="/user/userCinemaList">商品一覧画面へ戻る</a></p></div>
 		<a href="itemList.html">
 	</form:form>
 </body>
