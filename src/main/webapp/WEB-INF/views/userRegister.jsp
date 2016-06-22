@@ -6,12 +6,13 @@
 お客様の情報を入力し、「お客様情報を登録する」ボタンをクリックしてください。 <br>
 <form:form action="/userRegister/insert" modelAttribute="userRegisterForm">
 <table border="">
+<c:out value="${err}"/>
 
 			<tr>
 				<td>
 				名前</td>
 				<td>
-				<form:errors path = "name"/>
+				<form:errors path = "name" cssStyle="color:red" element="div"/>
 				<form:input path="name"/></td>
 			</tr>
 			<tr>
@@ -19,14 +20,14 @@
 	
 				メールアドレス</td>
 				<td>
-				<form:errors path = "email"/>
+				<form:errors path = "email" cssStyle="color:red" element="div"/>
 				<form:input path="email"/></td>
 			</tr>
 			<tr>
 				<td>
 				住所</td>
 				<td>
-				<form:errors path = "address"/>
+				<form:errors path = "address" cssStyle="color:red" element="div"/>
 				<form:input path="address"/></td>
 
 			</tr>
@@ -35,7 +36,7 @@
 				電話番号
 				</td>
 				<td>
-				<form:errors path = "telephone"/>
+				<form:errors path = "telephone" cssStyle="color:red" element="div"/>
 				<form:input path="telephone"/></td>
 
 			</tr>
@@ -44,7 +45,7 @@
 				パスワード<br>
 				</td>
 				<td>
-				<form:errors path = "password"/>
+				<form:errors path = "password" cssStyle="color:red" element="div"/>
 				<form:password path="password"/></td>
 
 			</tr>
@@ -53,7 +54,7 @@
 				確認用パスワード<br>
 				</td>
 				<td>
-				<form:errors path = "confirmPassword"/>
+				<form:errors path = "confirmPassword" cssStyle="color:red" element="div"/>
 				<form:password path="confirmPassword"/></td>
 
 			</tr>

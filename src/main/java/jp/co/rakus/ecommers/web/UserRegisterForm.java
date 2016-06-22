@@ -7,14 +7,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
 
+
+
 @Data
 public class UserRegisterForm {
 	/** 名前 */
-	@Size(min=1, max=127, message="お名前を入力して下さい" )
+	@NotEmpty(message="お名前を入力して下さい" )
 	private String name;
 	/** メールアドレス */
 	@Email(message = "アドレスを入力して下さい")
-	@NotEmpty( message = "アドレスが不正です。")
+	@Size(min =1, max=127, message = "アドレスが不正です。")
 	private String email;
 	/** パスワード */
 	@Size(min =1, max=127,message = "パスワードを入力して下さい")

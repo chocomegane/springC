@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,7 +45,7 @@ public class UserRegisterController {
 		return "/userRegister";
 	}
 	@RequestMapping(value = "/insert")
-	public String userInsert(UserRegisterForm form, Model model, BindingResult result)
+	public String userInsert(@Validated UserRegisterForm form, BindingResult result, Model model)
 	{
 		String email = form.getEmail(); 
 		String confirmPassword = form.getConfirmPassword();
