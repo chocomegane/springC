@@ -141,5 +141,9 @@ public class CinemaListService {
 
 		return listPage;
 	}
+	
+	public Cinema findById(Long id) {
+		return repository.findOne(id);
+	}
 
 }

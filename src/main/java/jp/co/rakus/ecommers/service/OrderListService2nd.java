@@ -60,7 +60,14 @@ public class OrderListService2nd {
 
 		return page;
 	}
+		
+	public Order findByUserId(String userId) {
+		return repository.findByUserId(userId);
+	}
 
+	public void statusUpdate(Integer status, String orderNumber) {
+		repository.statusUpdate(status, orderNumber);
+	}
 	/**
 	 * @param id
 	 * @return
