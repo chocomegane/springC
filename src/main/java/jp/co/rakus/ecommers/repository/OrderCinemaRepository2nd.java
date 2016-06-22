@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Order;
+import jp.co.rakus.ecommers.domain.User;
 
 /**
  * 注文詳細一覧を表示するためのRepository(仮作成).
@@ -34,10 +38,22 @@ public class OrderCinemaRepository2nd {
 		return new Order(id, orderNumber, userId, status, null, totalPrice, date);
 	}; 
 
+	public Order findByUserId(String userId) {
+		String sql = "SELECT * FROM orders WHERE order_number = :user_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", userId);
+		Order order = template.queryForObject(sql, param, orderRowMapper);
+		return order;
+	}
+	
 	public List<Order> findAll() {
 		String sql = "SELECT * FROM orders ORDER BY order_number";
 		List<Order> orderList = template.query(sql, orderRowMapper);
 		return orderList;
 	}
 	
-}
+	public void statusUpdate(Integer status, String orderNumber) {
+		String sql = "UPDATE orders SET status = :status WHERE order_number = :orderNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("orderNumber", orderNumber);
+		template.update(sql,param);
+	}
+}	

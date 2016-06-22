@@ -68,4 +68,3 @@ public class UserRepository {
 		jdbcTemplate.update(sql, param);
 	}
 }
-

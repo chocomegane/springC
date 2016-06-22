@@ -19,6 +19,8 @@
 
 <h2>商品一覧</h2>
 <form action="/adminSerch/title" method="get">
+<c:out value="${message}"/>
+<c:out value="${message2}"/><br>
 <input type="text" name="title"/>
 <input type="submit" value="検索"/>
 </form>

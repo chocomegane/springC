@@ -19,7 +19,7 @@
 	</tr>
 	<c:forEach var="order" items="${page.cinemaList}">
 		　<tr>
-			<td><c:out value="${order.orderNumber}"/></td>
+			<td><a href="/orderListDetail?id=<c:out value="${order.orderNumber}"/>"><c:out value="${order.orderNumber}"/></a></td>
 			<td><c:out value="${order.date}"/></td>
 			<td><c:out value="${order.userId}"/></td>
 			<td><c:out value="${order.status}"/></td>
