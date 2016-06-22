@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/administer")
+@RequestMapping("/admin/login")
 @Order(1)
 public class AdminLoginController {
 

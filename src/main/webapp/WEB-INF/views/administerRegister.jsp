@@ -5,7 +5,7 @@
 新規利用者登録画面<br>
 管理者の情報を入力し、「管理者情報を登録する」ボタンをクリックしてください。 <br>
  <body>
-	<form:form action="/administert/register/administerRegister"
+	<form:form action="/administer/register/administerRegister"
 		modelAttribute="adminUserRegisterForm">
 		
 	
@@ -32,6 +32,6 @@
 </table>
 		<input type="submit" value="登録">
 	</form:form>
-	<form:form action="/administert/register/allClear/"> <input type="submit" value="クリア"></form:form>
+	<form:form action="/administert/register/"> <input type="submit" value="クリア"></form:form>
 </body>
 </html>
