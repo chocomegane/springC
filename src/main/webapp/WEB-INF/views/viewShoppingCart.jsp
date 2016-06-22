@@ -17,20 +17,20 @@
             </tr>
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>
-				<td><a href="itemDetail.html"><img src="../img/pc.jpg" width="150"height="125" alt="商品画像"></a></td>
+				<td><a href="itemDetail.html"><img src="/img/pc.jpg" width="150"height="125" alt="商品画像"></a></td>
                 <td><a href="itemDetail.html"><c:out value="${cartItem.title}"/></a></td>
                 <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
-                <form action="/shop/delete" method="post">
+                <form:form action="/cinemaShop/delete" modelAttribute="">
                 		<input type="hidden" name="orderCinemaId" value="<c:out value="${cartItem.orderCinemaId}"/>">
                         <input type="submit" value="削除"/>
-                </form>
+                </form:form>
                 </td>
             </tr>
             </c:forEach>
         </table><br>
 
-    <div  align="center"><a href="makePayment.html">決済へ</a></div>
+    <div  align="center"><a href="/cinemaShop/makePayment">決済へ</a></div>
 
 </body>

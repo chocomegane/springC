@@ -77,7 +77,7 @@ public class UserRegisterController {
 	    }
 
 		service.userInsert(user);
-		return "/userRegister";
+		return "/userLogin";
 	}
 	
 	public void register(User user, String rawPssword) {

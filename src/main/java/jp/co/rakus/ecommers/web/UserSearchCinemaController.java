@@ -17,8 +17,8 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/")
-public class UserSerchCinemaController {
+@RequestMapping(value="/cinemaShop")
+public class UserSearchCinemaController {
 
 	@Autowired
 	private CinemaListService service;
@@ -30,7 +30,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/serchCinemGenre")
+	@RequestMapping(value="/searchCinemaGenre")
 	public String listGenre(@RequestParam String genreStr, Model model){
 		CinemaListPage listPage = service.findByGenre(genreStr);
 		
@@ -46,7 +46,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/serchCinemMediaType")
+	@RequestMapping(value="/searchCinemaMediaType")
 	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
 		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
 		
@@ -63,7 +63,7 @@ public class UserSerchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/serchCinemPrice")
+	@RequestMapping(value="/searchCinemaPrice")
 	public String listPrice(@RequestParam String minPriceStr,
 			@RequestParam String maxPriceStr, Model model){
 		
@@ -93,7 +93,7 @@ public class UserSerchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/serchCinemTitle")
+	@RequestMapping(value="/searchCinemaTitle")
 	public String listTitle(@RequestParam String title, Model model){
 		
 		//titleの中身が空だったらエラーメッセージを返す

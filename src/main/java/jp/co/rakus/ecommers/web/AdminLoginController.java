@@ -51,7 +51,7 @@ public class AdminLoginController {
      * @param result 
      * @return
      */
-    @RequestMapping(value = "/loginForm?error")
+    @RequestMapping(value = "/loginError")
     public String loginError(AdminLoginForm form,BindingResult result) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
         result.addError(error);

@@ -1,8 +1,87 @@
 package jp.co.rakus.ecommers.service;
 
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.rakus.ecommers.domain.Cart;
+import jp.co.rakus.ecommers.domain.Cinema;
+import jp.co.rakus.ecommers.domain.LoginUser;
+import jp.co.rakus.ecommers.domain.Order;
+import jp.co.rakus.ecommers.domain.User;
+import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
+import jp.co.rakus.ecommers.web.CartListChildPage;
+import jp.co.rakus.ecommers.web.CartListPage;
+import jp.co.rakus.ecommers.web.InsertForm;
+
+/**
+ * 決済機能を提供するサービスクラス.
+ * 
+ * @author kohei.sakata
+ *
+ */
 @Service
 public class PaymentService {
 
+	@Autowired
+	private OrderCinemaRepository repository;
+
+	/**
+	 * カートに商品を追加するメソッド.
+	 * 
+	 * @param user
+	 * @param form
+	 */
+	// @SuppressWarnings("null")
+	public void insertCart(User user, InsertForm form) {
+		java.util.Date utilDate = new java.util.Date();
+		Order order = repository.searchOrder(user.getId());
+		if (order == null) {
+			order.setOrderNumber("00000000000000");
+			order.setStatus(0);
+			order.setTotalPrice(0);
+			long utilMillisecond = utilDate.getTime();
+			java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
+			order.setDate(sqlDate);
+		}
+		repository.insertOrderItem(form, order.getId());
+		List<Cart> orderList = repository.findAllOrder(order);
+		int sum = 0;
+		for (Cart cart : orderList) {
+			Cinema cinema = repository.findOne(cart.getCinemaId());
+			sum = sum + cinema.getPrice() * cart.getQuantity();
+		}
+		order.setTotalPrice(sum);
+		long utilMillisecond = utilDate.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
+		order.setDate(sqlDate);
+		repository.updateOrder(order);
+	}
+
+	/**
+	 * カート内の商品一覧表示
+	 * 
+	 * @param user
+	 * @return page情報
+	 */
+	public CartListPage findAllCart(User user) {
+		CartListPage page = new CartListPage();
+		Order order = repository.searchOrder(user.getId());
+		List<Cart> cartList = repository.findAllOrder(order);
+		if (cartList == null) {
+			return null;
+		}
+		for (Cart cart : cartList) {
+			// CartListPage page;
+			CartListChildPage childPage = new CartListChildPage();
+			Cinema cinema = repository.findOne(cart.getCinemaId());
+			childPage.setTitle(cinema.getTitle());
+			childPage.setQuantity(cinema.getPrice());
+			childPage.setQuantity(cart.getQuantity());
+			page.getCartListChildPage().add(childPage);
+		}
+		return page;
+	}
 }
