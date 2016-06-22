@@ -9,8 +9,11 @@
 </head>
 <body>
 <h2>管理者メニュー画面</h2>
+<a href="/admin/displayList">取扱い商品一覧</a><br>
+<a href="/admin/orderList">注文一覧</a><br>
 <a href="/admin/insert">商品を登録</a><br>
-<a href="/admin/orderList">注文一覧</a><br><br>
-<!-- <a href="/BaseballTeam/output?id=">ログアウト</a><br> -->
+
+<a href="">新規登録</a><br>
+<a href="">ログアウト</a><br>
 </body>
 </html>
