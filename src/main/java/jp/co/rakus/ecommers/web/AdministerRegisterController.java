@@ -36,7 +36,7 @@ public class AdministerRegisterController {
 
 	@RequestMapping(value = "/")
 	public String index() {
-		return "/administerRegister";
+		return "administerRegister";
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class AdministerRegisterController {
 	 *            リクエストパラメータ
 	 * @return 管理者メニューにフォワード
 	 */
-	@RequestMapping(value = "/administerRegister")
+	@RequestMapping(value = "/adminRegister")
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //

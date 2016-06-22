@@ -13,7 +13,7 @@
 <a href="/admin/orderList">注文一覧</a><br>
 <a href="/admin/insert">商品を登録</a><br>
 
-<a href="">新規登録</a><br>
+<a href="/admin/register/">新規登録</a><br>
 <a href="">ログアウト</a><br>
 </body>
 </html>
