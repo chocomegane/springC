@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.UserRegisterService;
  *
  */
 @Controller
-@RequestMapping(value = "/userRegister")
+@RequestMapping(value = "/")
 public class UserRegisterController {
 	
 	@Autowired
@@ -39,12 +39,12 @@ public class UserRegisterController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/registerForm")
 	public String index()
 	{
 		return "/userRegister";
 	}
-	@RequestMapping(value = "/insert")
+	@RequestMapping(value = "/register")
 	public String userInsert(@Validated UserRegisterForm form, BindingResult result, Model model)
 	{
 		String email = form.getEmail(); 

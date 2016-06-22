@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.OrderListService;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/Cinema")
+@RequestMapping(value = "/admin/cinemaDetail")
 public class CinemaDetailController {
 	
 	@Autowired

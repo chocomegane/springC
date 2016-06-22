@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.OrderListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/insert")
+@RequestMapping(value = "/admin/insertCinema")
 public class InsertCinemaController {
 	
 	/** ListViewServiceを利用するためのDI */
