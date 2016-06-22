@@ -13,7 +13,7 @@
 <body>
 <header>
 		<div id="linkHeader" align="left">
-		<h1 align ="left"><a href="/user/">
+		<h1 align ="left"><a href="/cinemaShope/displayList">
 			<img src="/img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス
 		</a></h1>
 		</div>

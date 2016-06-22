@@ -15,7 +15,7 @@
 <body>
 <header>
 		<div id="linkHeader" align="left">
-		<h1 align ="left"><a href="/administer/top">
+		<h1 align ="left"><a href="/admin/menu">
 			<img src="/img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス
 		</a></h1>
 		</div>
@@ -25,6 +25,6 @@
  -->
  		<div id="userHeader" align="right">
 			<p>こんにちは<c:out value="${admin.name}さん"/></p>
-			<p><a href="/administer/Logout">ログアウト</a></p>
+			<p><a href="/admin/logout">ログアウト</a></p>
 		</div>
 </header>

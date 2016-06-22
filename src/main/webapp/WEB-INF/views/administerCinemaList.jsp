@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ include file="userCommon.jsp" %>
+<%@ include file="adminCommon.jsp" %>
 <body>
 
 <h3>値段</h3>
-<a href="/adminSerch/price?minPriceStr=0&maxPriceStr=1000">～1000円</a><br>
-<a href="/adminSerch/price?minPriceStr=1000&maxPriceStr=2000">1000円～2000円</a><br>
-<a href="/adminSerch/price?minPriceStr=2000&maxPriceStr=3000">2000円～3000円</a><br>
-<a href="/adminSerch/price?minPriceStr=3000&maxPriceStr">3000円～</a>
+<a href="/admin/serchCinema/price?minPriceStr=0&maxPriceStr=1000">～1000円</a><br>
+<a href="/admin/serchCinema/price?minPriceStr=1000&maxPriceStr=2000">1000円～2000円</a><br>
+<a href="/admin/serchCinema/price?minPriceStr=2000&maxPriceStr=3000">2000円～3000円</a><br>
+<a href="/admin/serchCinema/price?minPriceStr=3000&maxPriceStr">3000円～</a>
 
 <h3>ジャンル</h3>
-<a href="/adminSerch/genre?genreStr=SF">SF</a><br>
-<a href="/adminSerch/genre?genreStr=ホラー">ホラー</a><br>
-<a href="/adminSerch/genre?genreStr=ファンタジー">ファンタジー</a><br>
-<a href="/adminSerch/genre?genreStr=アクション">アクション</a>
+<a href="/admin/serchCinema/genre?genreStr=SF">SF</a><br>
+<a href="/admin/serchCinema/genre?genreStr=ホラー">ホラー</a><br>
+<a href="/admin/serchCinema/genre?genreStr=ファンタジー">ファンタジー</a><br>
+<a href="/admin/serchCinema/genre?genreStr=アクション">アクション</a>
 
 <h3>メディアタイプ</h3>
-<a href="/adminSerch/mediaType?mediaTypeStr=DVD">DVD</a>
+<a href="/admin/serchCinema/mediaType?mediaTypeStr=DVD">DVD</a>
 
 <h2>商品一覧</h2>
-<form action="/adminSerch/title" method="get">
+<form action="/admin/serchCinema/title" method="get">
 <c:out value="${message}"/>
 <c:out value="${message2}"/><br>
 <input type="text" name="title"/>
@@ -35,7 +35,7 @@
 	<c:forEach var="child" items="${listPage.childPageList}">
 		<tr>
 			<th>
-			<a href="詳細表示のRequestMapping/${child.id}"><c:out value="${child.title}"/></a>
+			<a href="/admin/cinemaDetail/detail/${child.id}"><c:out value="${child.title}"/></a>
 			</th>
 			<th><c:out value="${child.price}"/>円</th>
 			<th>
