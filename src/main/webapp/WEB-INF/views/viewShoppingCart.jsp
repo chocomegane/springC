@@ -22,6 +22,7 @@
                 <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
+                        <input type="submit" value="削除"/>
                 </td>
             </tr>
             </c:forEach>

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.Cart;
-import jp.co.rakus.ecommers.web.DeleteForm;
+import jp.co.rakus.ecommers.web.CinemaForm;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
@@ -154,9 +154,9 @@ public class OrderCinemaRepository {
 		template.update(sql, param);
 	}
 	
-	public void deleteByCinemaId(DeleteForm form) {
+	public void deleteByCinemaId(CinemaForm form) {
 		String sql = "DELETE FROM order_items WHERE item_id=:item_id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("item_id", form.getItemId());
+		SqlParameterSource param = new MapSqlParameterSource().addValue("item_id", form.getId());
 		template.update(sql, param);
 	}
 	

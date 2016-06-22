@@ -32,16 +32,21 @@ public class CartController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cart")
+	@RequestMapping(value = "/insert")
 	public String insertCart(Principal principal,InsertForm form, Model model){
 		service.insertCart(principal, form);
+		return "redirect:/shop/view";
+	}
+	
+	@RequestMapping(value = "/view")
+	public String viewCart(Principal principal, Model model){
 		CartListPage cartPage = service.findAllCart(principal);
 		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
 	}
 	
-	@RequestMapping(value = "delete")
-	public String deleteCart(DeleteForm form, Model model){
+	@RequestMapping(value = "/delete")
+	public String deleteCart(CinemaForm form, Model model){
 		service.deleteCart(form);
 		return "redirect:/shop/cart";
 	}

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class CartListChildPage {
 
 	/** 商品ID */
-	private long itemId;
+	private long id;
 	/** タイトル */
 	private String title;
 	/** 価格 */
