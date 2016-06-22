@@ -23,15 +23,8 @@ public class User {
 	private String email;
 	/** パスワード */
 	private String password;
-<<<<<<< HEAD
-
-=======
 	/** 住所 */
 	private String address;
->>>>>>> fcfa0bd3d9ef74cc9562aba8eece6afe08a6d993
 	/** 電話番号 */
 	private String telephone;
-	/** 住所 */
-	private String address;
-	
 }
