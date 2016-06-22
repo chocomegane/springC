@@ -14,7 +14,7 @@ import jp.co.rakus.ecommers.service.CartService;
 @Controller
 @Transactional
 @RequestMapping(value = "/shop")
-@SessionAttributes("Cinema")
+//@SessionAttributes("Cinema")
 public class CartController {
 
 	@Autowired
@@ -23,7 +23,8 @@ public class CartController {
 	@RequestMapping(value = "cart")
 	public String insertCart(Principal principal,InsertForm form, Model model){
 		service.insertCart(principal, form);
-		service.findAllCart(principal);
+		CartListPage cartPage = service.findAllCart(principal);
+		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
 	}
 	

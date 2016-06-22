@@ -1,8 +1,18 @@
 package jp.co.rakus.ecommers.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+/**
+ * カートにある商品の情報を持つエンティティクラス.
+ * 
+ * @author takeshi.fujimoto
+ *
+ */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartListChildPage {
 
 	/** タイトル */

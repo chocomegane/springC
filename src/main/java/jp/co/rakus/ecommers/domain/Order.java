@@ -1,6 +1,6 @@
 package jp.co.rakus.ecommers.domain;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +29,6 @@ public class Order {
 	/** 小計 */
 	private Integer totalPrice;
 	/** 最終購入日 */
-	private Timestamp date;
+	private Date date;
 
 }

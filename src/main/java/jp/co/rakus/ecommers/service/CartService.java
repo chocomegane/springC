@@ -35,21 +35,28 @@ public class CartService {
 	 * @param principal
 	 * @param form
 	 */
-	@SuppressWarnings("null")
+//	@SuppressWarnings("null")
 	public void insertCart(Principal principal, InsertForm form) {
-		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(loginUser.getUser().getId());
+		
+		java.util.Date utilDate = new java.util.Date();
+		
+		
+//		LoginUser loginUser = (LoginUser)principal;
+		Order order = repository.searchOrder(/*loginUser.getUser().getId()*/1);
 		
 		if(order == null){
-		Calendar cal = Calendar.getInstance();
 		
 		order.setOrderNumber("00000000000000");
 		order.setStatus(0);
 		order.setTotalPrice(0);
-		order.setDate((Timestamp)cal.getTime());
+		
+		long utilMillisecond = utilDate.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
+		
+		order.setDate(sqlDate);
 		}
 		
-		repository.insertOrderItem(form);
+		repository.insertOrderItem(form, order.getId());
 		
 		List<Cart> orderList= repository.findAllOrder(order);
 		
@@ -60,6 +67,10 @@ public class CartService {
 		}
 		
 		order.setTotalPrice(sum);
+		
+		long utilMillisecond = utilDate.getTime();
+		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
+		order.setDate(sqlDate);
 		
 		repository.updateOrder(order);
 		
