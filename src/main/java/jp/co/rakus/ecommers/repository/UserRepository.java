@@ -59,6 +59,13 @@ public class UserRepository {
 			return null;
 		}
 	}
+	
+	public User findById(Long id) {
+		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
+		User user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
+		return user;
+	}
 
 	public void userInsert(User user) {
 

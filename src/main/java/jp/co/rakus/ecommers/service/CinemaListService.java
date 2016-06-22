@@ -148,10 +148,10 @@ public class CinemaListService {
 		return listPage;
 	}
 	
-<<<<<<< HEAD
 	public Cinema findById(Long id) {
 		return repository.findOne(id);
-=======
+	}
+	
 	/**
 	 * タイトルを条件に商品の情報を検索するメソッド.
 	 * 
@@ -174,7 +174,6 @@ public class CinemaListService {
 		}
 
 		return listPage;
->>>>>>> f9c1469cfd88bc9a8eb001b83f020fcb070f30a6
 	}
 
 }
