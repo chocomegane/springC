@@ -106,8 +106,10 @@ public class UserSerchCinemaController {
 		
 		CinemaListPage listPage = service.findByTitle(title);
 		
+		System.out.println("listPAgeの中身を確認" + listPage);
+		
 		//何も取得できなかったらメッセージを表示する
-		if(listPage.equals(new CinemaListPage())){
+		if(listPage.getChildPageList().size()==0){
 			model.addAttribute("message2", "商品がありません");
 			//findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
