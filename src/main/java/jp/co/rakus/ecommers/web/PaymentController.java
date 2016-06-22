@@ -20,8 +20,6 @@ import jp.co.rakus.ecommers.service.PaymentService;
 public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
-	@Autowired
-	private CartService service;
 	
 	@RequestMapping("/mekePayment")
 	public String makePayment(Principal principal, Model model) {
@@ -29,7 +27,7 @@ public class PaymentController {
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		System.err.println(user);
-		CartListPage cartPage = service.findAllCart(user);
+		CartListPage cartPage = paymentService.findAllCart(user);
 		model.addAttribute("cartPage", cartPage);
 		return "makePayment";
 	}
