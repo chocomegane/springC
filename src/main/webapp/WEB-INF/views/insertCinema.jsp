@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>商品登録画面</h2>
-<form:form modelAttribute="cinemaForm" action="/insert/execute">
+<form:form modelAttribute="cinemaForm" action="/admin/insert">
 	タイトル：<form:input path="title"/><br>
 	価格：<form:input path="price"/><br>
 	ジャンル：<form:input path="genre"/><br>

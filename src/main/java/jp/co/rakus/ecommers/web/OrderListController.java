@@ -15,7 +15,7 @@ import jp.co.rakus.ecommers.service.OrderListService2nd;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/orderList")
+@RequestMapping(value = "/admin")
 public class OrderListController {
 	
 	/** OrderListServiceを利用するためのDI */
@@ -37,7 +37,7 @@ public class OrderListController {
 	 * @param model requestスコープを扱うための変数
 	 * @return orderList.jspへフォワード
 	 */
-	@RequestMapping
+	@RequestMapping("/orderList")
 	public String output(Model model) {
 		OrderListPage page = service.findAll();
 		model.addAttribute("page", page);

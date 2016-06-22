@@ -28,7 +28,7 @@ import jp.co.rakus.ecommers.service.UserService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/orderListDetail")
+@RequestMapping(value="/admin")
 public class OrderListDetailController {
 
 	@Autowired
@@ -54,7 +54,7 @@ public class OrderListDetailController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping
+	@RequestMapping("/orderListDetail")
 	public String list(@RequestParam String id, Model model){
 		/*************************************************************/
 		// 購入者の住所 (id=注文番号'00001')

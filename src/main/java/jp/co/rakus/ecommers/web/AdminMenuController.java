@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(value = "/administer")
+@RequestMapping(value = "/admin")
 public class AdminMenuController {	
 	/**
 	 * 管理者メニュー画面を表示する
 	 * @return administerMenu.jspへフォワード
 	 */
-	@RequestMapping(value = "/top")
+	@RequestMapping(value = "/menu")
 	public String index() {
 		return "/administerMenu";
 	}

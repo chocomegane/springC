@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/administer")
+@RequestMapping("/admin")
 @Order(1)
 public class AdminLoginController {
 
@@ -51,7 +51,7 @@ public class AdminLoginController {
      * @param result 
      * @return
      */
-    @RequestMapping(value = "/loginError")
+    @RequestMapping(value = "/loginForm?error")
     public String loginError(AdminLoginForm form,BindingResult result) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
         result.addError(error);

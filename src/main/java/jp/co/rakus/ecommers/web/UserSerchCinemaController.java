@@ -17,7 +17,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/userSerch")
+@RequestMapping(value="/")
 public class UserSerchCinemaController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/genre")
+	@RequestMapping(value="/serchCinemGenre")
 	public String listGenre(@RequestParam String genreStr, Model model){
 		CinemaListPage listPage = service.findByGenre(genreStr);
 		
@@ -46,7 +46,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/mediaType")
+	@RequestMapping(value="/serchCinemMediaType")
 	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
 		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
 		
@@ -63,7 +63,7 @@ public class UserSerchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/price")
+	@RequestMapping(value="/serchCinemPrice")
 	public String listPrice(@RequestParam String minPriceStr,
 			@RequestParam String maxPriceStr, Model model){
 		
@@ -93,7 +93,7 @@ public class UserSerchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="title")
+	@RequestMapping(value="/serchCinemTitle")
 	public String listTitle(@RequestParam String title, Model model){
 		
 		//titleの中身が空だったらエラーメッセージを返す

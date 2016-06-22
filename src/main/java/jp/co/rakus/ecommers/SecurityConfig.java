@@ -44,23 +44,23 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/administer/**")
+            	.antMatcher("/admin/**")
                 .authorizeRequests()
                     .anyRequest().hasRole("ADMIN")
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/administer/login")
-                	.loginPage("/administer/loginForm")
-//                	.failureUrl("/administer/loginForm?error")
-                	.failureUrl("/administer/loginError")
-                	.defaultSuccessUrl("/administer/top",true)
+                	.loginProcessingUrl("/admin/login")
+                	.loginPage("/admin/loginForm")
+                	.failureUrl("/admin/loginForm?error")
+//                	.failureUrl("/admin/loginFormError")
+                	.defaultSuccessUrl("/admin/menu",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
                 .and()
                 .logout()
-                	.logoutRequestMatcher(new AntPathRequestMatcher("/administer/logout**"))
-                	.logoutSuccessUrl("/administer/loginForm")
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
+                	.logoutSuccessUrl("/admin/loginForm")
                 ;
         }
     }
@@ -86,24 +86,24 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/user/**")
+            	.antMatcher("/cinemaShop/**")
                 .authorizeRequests()
                     .anyRequest().hasRole("USER")
 //                    .permitAll()
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/user/login")
-                	.loginPage("/user/loginForm")
-//                	.failureUrl("/user/loginForm?error")
-                	.failureUrl("/user/loginError")
-                	.defaultSuccessUrl("/user/",true)
+                	.loginProcessingUrl("/cinemaShop/login")
+                	.loginPage("/cinemaShop/loginForm")
+                	.failureUrl("/cinemaShop/loginForm?error")
+//                	.failureUrl("/cinemaShop/loginError")
+                	.defaultSuccessUrl("/cinemaShop",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
                 .and()
                 .logout()
-                	.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-                	.logoutSuccessUrl("/user/")
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/cinemaShop/logout**"))
+                	.logoutSuccessUrl("/cinemaShop")
                 ;
         }
     }
