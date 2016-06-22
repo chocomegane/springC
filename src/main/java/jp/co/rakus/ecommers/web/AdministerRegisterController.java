@@ -20,7 +20,7 @@ import jp.co.rakus.ecommers.service.AdministerRegisterService;
  */
 
 @Controller
-@RequestMapping(value = "/administer")
+@RequestMapping(value = "/administert/register")
 public class AdministerRegisterController {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class AdministerRegisterController {
 		return new AdminUserRegisterForm();
 	}
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/allClear")
 	public String index() {
 		return "/administerRegister";
 	}
@@ -47,7 +47,6 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/administerRegister")
-
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
