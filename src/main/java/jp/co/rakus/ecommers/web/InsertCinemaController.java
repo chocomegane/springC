@@ -1,11 +1,15 @@
 package jp.co.rakus.ecommers.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,11 +54,27 @@ public class InsertCinemaController {
 	 * @return insertCinema.jspへフォワード
 	 */
 	@RequestMapping(value = "/insert", method=RequestMethod.POST)
-	public String output(CinemaForm form, BindingResult result, Model model) {
-		Cinema cinema = new Cinema();
-		BeanUtils.copyProperties(form, cinema);
-		service.save(cinema);
-	    model.addAttribute("message", "正常に登録が完了しました");
-		return "redirect:/admin/insert";
+	public String output(@Validated CinemaForm form, BindingResult result, Model model) throws NumberFormatException {
+		/*************************************************************************/
+		// エラーチェック
+		if(result.hasErrors()) {
+			return index(model);
+		}
+		/*************************************************************************/
+		try {
+			String releaseDate = form.getReleaseDate();
+			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
+			
+			Cinema cinema = new Cinema();
+			cinema.setReleaseDate(date);
+			
+			BeanUtils.copyProperties(form, cinema);
+			service.save(cinema);
+		    model.addAttribute("message", "正常に登録が完了しました");
+			return "redirect:/admin/insert";
+		} catch (Exception e) {
+			System.err.println("不正な値が入力されました");
+			return null;
+		}
 	}
 }

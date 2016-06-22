@@ -52,6 +52,6 @@
 <br>
 <c:out value="${message}"/>
 <br>
-<a href="/orderList">注文一覧へ戻る</a>
+<a href="/admin/orderList">注文一覧へ戻る</a>
 </body>
 </html>
