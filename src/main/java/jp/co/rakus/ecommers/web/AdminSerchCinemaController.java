@@ -106,6 +106,10 @@ public class AdminSerchCinemaController {
 			return "administerCinemaList";
 		}
 
+		// あいまい検索のためにtitleに%を付ける
+		title = "%" + title + "%";
+		System.out.println("titleの中身の確認" + title);
+
 		CinemaListPage listPage = service.findByTitle(title);
 
 		// 何も取得できなかったらメッセージを表示する

@@ -104,6 +104,10 @@ public class UserSerchCinemaController {
 			return "userCinemaList";
 		}
 		
+		//あいまい検索のためにtitleに%を付ける
+		title = "%" + title + "%";
+		System.out.println("titleの中身の確認" + title);
+		
 		CinemaListPage listPage = service.findByTitle(title);
 		
 		System.out.println("listPAgeの中身を確認" + listPage);
