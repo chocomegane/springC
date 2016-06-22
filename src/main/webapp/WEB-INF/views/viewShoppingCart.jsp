@@ -1,24 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="userCommon.jsp" %>>
+    <%@ include file="userCommon.jsp" %>
 <body>
-<header>
-		<div id="userHeader" align="right">
-			<p>こんにちはゲストさん</p>
-			<p><a href="userLogin.html">ログイン</a></p>
-		</div>
-				<div id="linkHeader" align="left">
-			<h1 align ="left"><a href="itemList.html"><img src="../img/rakus.jpg" width="50"
-				height="50" alt="ロゴ画像">ＥＣサイトラクス</a></h1>
-		<div id="title" align="center">
-		</div>
-</header>
-
     
     <h2 align="center">ショッピングカート一覧</h2>
 
-   <!-- <p align="center">カートに商品がありません</p> -->
-
+   <!--S <p align="center">カートに商品がありません</p> -->
+   
         <table border ="1"  align="center">
         
             <tr>
@@ -34,10 +22,10 @@
                 <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
-                    <form action="viewShoppingCart.html" method="post">
-                        <input type="hidden" name="item.id" value="1">
-                        <input type="submit" value="削除">
-                    </form>
+                <form action="/shop/delete" method="post">
+                		<input type="hidden" name="orderCinemaId" value="<c:out value="${cartItem.orderCinemaId}"/>">
+                        <input type="submit" value="削除"/>
+                </form>
                 </td>
             </tr>
             </c:forEach>

@@ -1,15 +1,12 @@
 package jp.co.rakus.ecommers.service;
 
-import java.security.Principal;
-import java.sql.Timestamp;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
-import jp.co.rakus.ecommers.domain.LoginUser;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
@@ -36,13 +33,12 @@ public class CartService {
 	 * @param form
 	 */
 //	@SuppressWarnings("null")
-	public void insertCart(Principal principal, InsertForm form) {
+	public void insertCart(long id, InsertForm form) {
 		
 		java.util.Date utilDate = new java.util.Date();
 		
 		
-//		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(/*loginUser.getUser().getId()*/1);
+		Order order = repository.searchOrder(id);
 		
 		if(order == null){
 		
@@ -82,24 +78,31 @@ public class CartService {
 	 * @param principal
 	 * @return　page情報
 	 */
-	public CartListPage findAllCart(Principal principal) {
+	public CartListPage findAllCart(long id) {
 		CartListPage page = new CartListPage();
-		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(loginUser.getUser().getId());
+		List<CartListChildPage> init = new ArrayList<>();
+		page.setCartListChildPage(init);
+//		LoginUser loginUser = (LoginUser)principal;
+		Order order = repository.searchOrder(id);
 		List<Cart> cartList = repository.findAllOrder(order);
 		if(cartList == null){
 			return null;
 		}
 		for(Cart cart : cartList){
-//			CartListPage page;
 			CartListChildPage childPage = new CartListChildPage();
 			Cinema cinema = repository.findOne(cart.getCinemaId());
+			childPage.setOrderCinemaId(cart.getCinemaId());
 			childPage.setTitle(cinema.getTitle());
-			childPage.setQuantity(cinema.getPrice());
+			childPage.setPrice(cinema.getPrice());
 			childPage.setQuantity(cart.getQuantity());
+			
 			page.getCartListChildPage().add(childPage);
 		}
 		return page;
+	}
+	
+	public void deleteCart(long orderCinemaId) {
+		repository.deleteByCinemaId(orderCinemaId);
 	}
 	
 }

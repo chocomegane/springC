@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="userCommon.jsp" %>>
+    <%@ include file="userCommon.jsp" %>
 <body>
 <h2  align="center">商品詳細</h2>
 	<table border="1" align="center">
@@ -50,7 +50,7 @@
 	</table>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelAttribute="cartForm" action="/shop/cart">
+	<form:form modelAttribute="cartForm" action="/shop/insert">
 					個数：<select name="quantity">
 				<option value="1">1</option>
 				<option value="2">2</option>
