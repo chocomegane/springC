@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.repository;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.Cart;
+import jp.co.rakus.ecommers.web.DeleteForm;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
@@ -151,6 +151,12 @@ public class OrderCinemaRepository {
 	public void updateOrder(Order order) {
 		String sql = "UPDATE orders SET total_price=:total_price, date=:date";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("total_price", order.getTotalPrice()).addValue("date", order.getDate());
+		template.update(sql, param);
+	}
+	
+	public void deleteByCinemaId(DeleteForm form) {
+		String sql = "DELETE FROM order_items WHERE item_id=:item_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("item_id", form.getItemId());
 		template.update(sql, param);
 	}
 	

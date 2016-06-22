@@ -40,15 +40,10 @@ public class CartController {
 		return "viewShoppingCart";
 	}
 	
-//	@RequestMapping(value = "/view")
-//	public String viewCart(Model model){
-//		
-//		return "viewShoppingCart";
-//	}
-	
 	@RequestMapping(value = "delete")
 	public String deleteCart(DeleteForm form, Model model){
-		
+		service.deleteCart(form);
+		return "redirect:/shop/cart";
 	}
 	
 }

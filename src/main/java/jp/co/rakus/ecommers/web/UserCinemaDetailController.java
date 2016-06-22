@@ -19,8 +19,8 @@ import jp.co.rakus.ecommers.service.OrderListService;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/admin/cinemaDetail")
-public class CinemaDetailController {
+@RequestMapping(value = "/user/cinemaDetail")
+public class UserCinemaDetailController {
 	
 	@Autowired
 	private OrderListService service;
@@ -43,16 +43,7 @@ public class CinemaDetailController {
 	 * @param model
 	 * @return　フォワード
 	 */
-//	@RequestMapping(value = "detail/")
-//	public String detail(Model model){
-//		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(1));
-//		model.addAttribute("cinemaDetail", page);
-//		return "userCinemaDetail";
-//	}
-	
-///////////////////////////////////////////////////////////////////////////////	
-//  商品の一覧表示完成後はこっち
-//	
+
 	@RequestMapping(value = "detail/{id}")
 	public String detail(@PathVariable("id") long id,Model model){
 		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(id));

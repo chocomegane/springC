@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="userCommon.jsp" %>>
+    <%@ include file="userCommon.jsp" %>
 <body>
     
     <h2 align="center">ショッピングカート一覧</h2>
@@ -22,10 +22,6 @@
                 <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
-                    <form action="viewShoppingCart.html" method="post">
-                        <input type="hidden" name="item.id" value="1">
-                        <input type="submit" value="削除">
-                    </form>
                 </td>
             </tr>
             </c:forEach>

@@ -14,6 +14,7 @@ import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.web.CartListChildPage;
 import jp.co.rakus.ecommers.web.CartListPage;
+import jp.co.rakus.ecommers.web.DeleteForm;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
@@ -94,6 +95,7 @@ public class CartService {
 		for(Cart cart : cartList){
 			CartListChildPage childPage = new CartListChildPage();
 			Cinema cinema = repository.findOne(cart.getCinemaId());
+			childPage.setItemId(cinema.getId());
 			childPage.setTitle(cinema.getTitle());
 			childPage.setPrice(cinema.getPrice());
 			childPage.setQuantity(cart.getQuantity());
@@ -101,6 +103,10 @@ public class CartService {
 			page.getCartListChildPage().add(childPage);
 		}
 		return page;
+	}
+	
+	public void deleteCart(DeleteForm form) {
+		repository.deleteByCinemaId(form);
 	}
 	
 }
