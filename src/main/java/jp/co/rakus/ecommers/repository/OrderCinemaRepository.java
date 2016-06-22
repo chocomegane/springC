@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -111,6 +112,7 @@ public class OrderCinemaRepository {
 	 */
 	public void insertOrderItem(InsertForm form, long orderId){
 		
+		
 		String sql = "INSERT INTO order_items (cinema_id, quantity, order_id)" + " VALUES(:cinema_id, :quantity, :order_id)";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("quantity", form.getQuantity()).addValue("order_id", orderId);
 		template.update(sql, param);
@@ -126,6 +128,18 @@ public class OrderCinemaRepository {
 		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date, i.id, i.cinema_id, i.quantity FROM orders AS o INNER JOIN order_items AS i ON o.id = i.order_id WHERE o.status = 0 AND o.user_id = :user_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId());
 		List<Cart> orderList = template.query(sql, param, orderListRowMapper);
+		return orderList;
+	}
+	
+	public List<Cart> findAllOrder(Order order, long cinemaId) {
+		List<Cart> orderList = new ArrayList<>();
+		try{
+		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date, i.id, i.cinema_id, i.quantity FROM orders AS o INNER JOIN order_items AS i ON o.id = i.order_id WHERE o.status = 0 AND o.user_id = :user_id AND i.cinema_id=cinema_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId()).addValue("cinema_id", cinemaId);
+		orderList = template.query(sql, param, orderListRowMapper);
+		}catch(EmptyResultDataAccessException e){
+			return null;
+		}
 		return orderList;
 	}
 	
@@ -153,6 +167,11 @@ public class OrderCinemaRepository {
 		template.update(sql, param);
 	}
 	
+	/**
+	 * 商品の削除.
+	 * 
+	 * @param orderCinemaId
+	 */
 	public void deleteByCinemaId(long orderCinemaId) {
 		String sql = "DELETE FROM order_items WHERE cinema_id=:cinema_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", orderCinemaId);
