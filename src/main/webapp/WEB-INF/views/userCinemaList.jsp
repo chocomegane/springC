@@ -33,7 +33,7 @@
 	<c:forEach var="child" items="${listPage.childPageList}">
 		<tr>
 			<th>
-			<a href="詳細表示のRequestMapping/${child.id}"><c:out value="${child.title}"/></a>
+			<a href="/Cinema/detail/${child.id}"><c:out value="${child.title}"/></a>
 			</th>
 			<th><c:out value="${child.price}"/>円</th>
 		</tr>

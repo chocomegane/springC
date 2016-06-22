@@ -13,6 +13,8 @@ import jp.co.rakus.ecommers.domain.LoginUser;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
+import jp.co.rakus.ecommers.web.CartListChildPage;
+import jp.co.rakus.ecommers.web.CartListPage;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
@@ -27,15 +29,21 @@ public class CartService {
 	@Autowired
 	private OrderCinemaRepository repository;
 	
-	@Autowired
-	private Order order;
-	
+	/**
+	 * カートに商品を追加するメソッド.
+	 * 
+	 * @param principal
+	 * @param form
+	 */
+	@SuppressWarnings("null")
 	public void insertCart(Principal principal, InsertForm form) {
 		LoginUser loginUser = (LoginUser)principal;
-		if(repository.searchOrder(loginUser.getUser().getId()) == null){
+		Order order = repository.searchOrder(loginUser.getUser().getId());
+		
+		if(order == null){
 		Calendar cal = Calendar.getInstance();
 		
-//		order.setOrderNumber(orderNumber);
+		order.setOrderNumber("00000000000000");
 		order.setStatus(0);
 		order.setTotalPrice(0);
 		order.setDate((Timestamp)cal.getTime());
@@ -57,11 +65,30 @@ public class CartService {
 		
 	}
 	
-	public List<Cart> findAllCart(Principal principal) {
+	/**
+	 * カート内の商品一覧表示
+	 * 
+	 * @param principal
+	 * @return　page情報
+	 */
+	public CartListPage findAllCart(Principal principal) {
+		CartListPage page = new CartListPage();
 		LoginUser loginUser = (LoginUser)principal;
 		Order order = repository.searchOrder(loginUser.getUser().getId());
 		List<Cart> cartList = repository.findAllOrder(order);
-		return cartList;
+		if(cartList == null){
+			return null;
+		}
+		for(Cart cart : cartList){
+//			CartListPage page;
+			CartListChildPage childPage = new CartListChildPage();
+			Cinema cinema = repository.findOne(cart.getCinemaId());
+			childPage.setTitle(cinema.getTitle());
+			childPage.setQuantity(cinema.getPrice());
+			childPage.setQuantity(cart.getQuantity());
+			page.getCartListChildPage().add(childPage);
+		}
+		return page;
 	}
 	
 }

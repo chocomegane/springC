@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
-import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.web.InsertForm;
 
@@ -40,14 +39,6 @@ public class OrderCinemaRepository {
 		Integer totalPrice = rs.getInt("total_price");
 		Timestamp date = rs.getTimestamp("date");
 		return new Order(id, orderNumber, userId, status, null,  totalPrice, date);
-	}; 
-	
-	private static final RowMapper<OrderItem> orderItemRowMapper = (rs, i) -> {
-		long id = rs.getLong("id");
-		long cinemaId = rs.getLong("cinema_id");
-		Integer quantity = rs.getInt("quantity");
-		long orderId = rs.getLong("order_id");
-		return new OrderItem(id, cinemaId, quantity, orderId);
 	}; 
 	
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
