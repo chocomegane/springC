@@ -20,6 +20,7 @@
 <h2>商品一覧</h2>
 <form action="/userSerch/title" method="get">
 <input type="text" name="title"/>
+<c:out value="${message}"/>
 <input type="submit" value="検索"/>
 </form>
 

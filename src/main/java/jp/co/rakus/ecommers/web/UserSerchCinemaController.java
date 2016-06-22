@@ -96,7 +96,13 @@ public class UserSerchCinemaController {
 	@RequestMapping(value="title")
 	public String listTitle(@RequestParam String title, Model model){
 		
-		System.out.println(title);
+		//titleの中身が空だったらエラーメッセージを返す
+		if(title.isEmpty()){
+			model.addAttribute("message", "何か入力してください");
+			return "userCinemaList";
+		}
+		
+//		System.out.println(title);
 		CinemaListPage listPage = service.findByTitle(title);
 		
 		model.addAttribute("listPage", listPage);
