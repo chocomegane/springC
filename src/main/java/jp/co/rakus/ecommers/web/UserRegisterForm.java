@@ -19,10 +19,12 @@ public class UserRegisterForm {
 	@Size(min =1, max=127, message = "アドレスが不正です。")
 	private String email;
 	/** パスワード */
-	@Size(min =1, max=127,message = "パスワードを入力して下さい")
+	@NotEmpty(message = "パスワードを入力して下さい")
+	@Size(min =8, max=16,message = "パスワードは8文字以上16文字以下で登録してください")
 	private String password;
 	/** 確認用パスワード */
-	@Size(min =1, max=127,message = "確認用パスワードを入力して下さい")
+	@NotEmpty(message = "確認用パスワードを入力して下さい")
+	@Size(min =8, max=16,message = "確認パスワードは8文字以上16文字以下で登録してください")
 	private String confirmPassword;
 	/** 電話番号 */
 	@Size(min =1, max=127,message = "電話番号を入力して下さい")
