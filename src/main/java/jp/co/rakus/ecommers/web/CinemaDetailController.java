@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommers.service.OrderListService;
@@ -18,14 +19,16 @@ import jp.co.rakus.ecommers.service.OrderListService;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/CinemaShop/")
+@RequestMapping(value = "/Cinema")
 public class CinemaDetailController {
 	
 	@Autowired
 	private OrderListService service;
 	
-//	@Autowired
-//	private CinemaDetailPage page;
+	@ModelAttribute
+	public CartForm setUpForm() {
+		return new CartForm();
+	}
 	
 	@RequestMapping(value = "/")
 	public String index(Model model){
@@ -40,21 +43,21 @@ public class CinemaDetailController {
 	 * @param model
 	 * @return　フォワード
 	 */
-	@RequestMapping(value = "detail/")
-	public String detail(Model model){
-		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(1));
-		model.addAttribute("cinemaDetail", page);
-		return "userCinemaDetail";
-	}
+//	@RequestMapping(value = "detail/")
+//	public String detail(Model model){
+//		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(1));
+//		model.addAttribute("cinemaDetail", page);
+//		return "userCinemaDetail";
+//	}
 	
 ///////////////////////////////////////////////////////////////////////////////	
 //  商品の一覧表示完成後はこっち
 //	
-//	@RequestMapping(value = "detail/")
-//	public String detail(@PathVariable("id")long id,Model model){
-//		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(id));
-//		model.addAttribute("cinemaDetail", page);
-//		return "userCinemaDetail";
-//	}
+	@RequestMapping(value = "detail/{id}")
+	public String detail(@PathVariable("id") long id,Model model){
+		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(id));
+		model.addAttribute("cinemaDetail", page);
+		return "userCinemaDetail";
+	}
 
 }

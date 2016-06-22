@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/administer")
 public class AdminMenuController {
 	
+
 	@RequestMapping(value = "/top")
 	public String index()
 	{
