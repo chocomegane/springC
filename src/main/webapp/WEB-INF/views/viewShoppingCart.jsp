@@ -2,23 +2,11 @@
     pageEncoding="UTF-8"%>
     <%@ include file="userCommon.jsp" %>>
 <body>
-<header>
-		<div id="userHeader" align="right">
-			<p>こんにちはゲストさん</p>
-			<p><a href="userLogin.html">ログイン</a></p>
-		</div>
-				<div id="linkHeader" align="left">
-			<h1 align ="left"><a href="itemList.html"><img src="../img/rakus.jpg" width="50"
-				height="50" alt="ロゴ画像">ＥＣサイトラクス</a></h1>
-		<div id="title" align="center">
-		</div>
-</header>
-
     
     <h2 align="center">ショッピングカート一覧</h2>
 
-   <!-- <p align="center">カートに商品がありません</p> -->
-
+   <!--S <p align="center">カートに商品がありません</p> -->
+   
         <table border ="1"  align="center">
         
             <tr>

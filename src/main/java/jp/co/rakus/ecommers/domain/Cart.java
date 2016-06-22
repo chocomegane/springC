@@ -7,6 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 未購入の商品情報をもつエンティティ.
+ * 
+ * @author takeshi.fujimoto
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

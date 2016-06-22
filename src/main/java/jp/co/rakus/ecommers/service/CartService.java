@@ -1,8 +1,7 @@
 package jp.co.rakus.ecommers.service;
 
 import java.security.Principal;
-import java.sql.Timestamp;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,19 +83,21 @@ public class CartService {
 	 */
 	public CartListPage findAllCart(Principal principal) {
 		CartListPage page = new CartListPage();
-		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(loginUser.getUser().getId());
+		List<CartListChildPage> init = new ArrayList<>();
+		page.setCartListChildPage(init);
+//		LoginUser loginUser = (LoginUser)principal;
+		Order order = repository.searchOrder(/*loginUser.getUser().getId()*/1);
 		List<Cart> cartList = repository.findAllOrder(order);
 		if(cartList == null){
 			return null;
 		}
 		for(Cart cart : cartList){
-//			CartListPage page;
 			CartListChildPage childPage = new CartListChildPage();
 			Cinema cinema = repository.findOne(cart.getCinemaId());
 			childPage.setTitle(cinema.getTitle());
-			childPage.setQuantity(cinema.getPrice());
+			childPage.setPrice(cinema.getPrice());
 			childPage.setQuantity(cart.getQuantity());
+			
 			page.getCartListChildPage().add(childPage);
 		}
 		return page;

@@ -7,19 +7,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.co.rakus.ecommers.service.CartService;
 
+/**
+ * カートを操作するコントローラ.
+ * 
+ * @author takeshi.fujimoto
+ *
+ */
 @Controller
 @Transactional
 @RequestMapping(value = "/shop")
-//@SessionAttributes("Cinema")
 public class CartController {
 
 	@Autowired
 	private CartService service;
 	
+	/**
+	 * カートに商品を追加し、ページに現在カートに入っている商品一覧を格納し、フォワード
+	 * 
+	 * @param principal
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "cart")
 	public String insertCart(Principal principal,InsertForm form, Model model){
 		service.insertCart(principal, form);
@@ -33,5 +45,10 @@ public class CartController {
 //		
 //		return "viewShoppingCart";
 //	}
+	
+	@RequestMapping(value = "delete")
+	public String deleteCart(DeleteForm form, Model model){
+		
+	}
 	
 }
