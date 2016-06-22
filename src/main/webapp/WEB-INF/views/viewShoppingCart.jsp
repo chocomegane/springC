@@ -22,7 +22,10 @@
                 <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
+                <form action="/shop/delete" method="post">
+                		<input type="hidden" name="orderCinemaId" value="<c:out value="${cartItem.orderCinemaId}"/>">
                         <input type="submit" value="削除"/>
+                </form>
                 </td>
             </tr>
             </c:forEach>

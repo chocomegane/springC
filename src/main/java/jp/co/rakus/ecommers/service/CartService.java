@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
-import jp.co.rakus.ecommers.domain.LoginUser;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.web.CartListChildPage;
 import jp.co.rakus.ecommers.web.CartListPage;
-import jp.co.rakus.ecommers.web.CinemaForm;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
@@ -36,13 +33,12 @@ public class CartService {
 	 * @param form
 	 */
 //	@SuppressWarnings("null")
-	public void insertCart(Principal principal, InsertForm form) {
+	public void insertCart(long id, InsertForm form) {
 		
 		java.util.Date utilDate = new java.util.Date();
 		
 		
-//		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(/*loginUser.getUser().getId()*/1);
+		Order order = repository.searchOrder(id);
 		
 		if(order == null){
 		
@@ -82,12 +78,12 @@ public class CartService {
 	 * @param principal
 	 * @return　page情報
 	 */
-	public CartListPage findAllCart(Principal principal) {
+	public CartListPage findAllCart(long id) {
 		CartListPage page = new CartListPage();
 		List<CartListChildPage> init = new ArrayList<>();
 		page.setCartListChildPage(init);
 //		LoginUser loginUser = (LoginUser)principal;
-		Order order = repository.searchOrder(/*loginUser.getUser().getId()*/1);
+		Order order = repository.searchOrder(id);
 		List<Cart> cartList = repository.findAllOrder(order);
 		if(cartList == null){
 			return null;
@@ -95,7 +91,7 @@ public class CartService {
 		for(Cart cart : cartList){
 			CartListChildPage childPage = new CartListChildPage();
 			Cinema cinema = repository.findOne(cart.getCinemaId());
-			childPage.setId(cinema.getId());
+			childPage.setOrderCinemaId(cart.getCinemaId());
 			childPage.setTitle(cinema.getTitle());
 			childPage.setPrice(cinema.getPrice());
 			childPage.setQuantity(cart.getQuantity());
@@ -105,8 +101,8 @@ public class CartService {
 		return page;
 	}
 	
-	public void deleteCart(CinemaForm form) {
-		repository.deleteByCinemaId(form);
+	public void deleteCart(long orderCinemaId) {
+		repository.deleteByCinemaId(orderCinemaId);
 	}
 	
 }
