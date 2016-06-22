@@ -3,44 +3,29 @@
 <h2 align="center">ご注文内容</h2>
 <hr>
 <form action="/finishPayment" method="post">
-	<table border="1" width="350" align="center">
-		<tr>
-			<th>商品名</th>
-			<th>価格</th>
-			<th>個数</th>
-			<th>税抜き価格</th>
-			<th>小計</th>
-		</tr>
-		<tr>
-			<td>パソコン</td>
-			<td>&yen;50,000</td>
-			<td>１</td>
-			<td>&yen;50,000</td>
-			<td>&yen;54,000</td>
-		</tr>
-		<tr>
-			<td>マウス</td>
-			<td>&yen;500</td>
-			<td>2</td>
-			<td>&yen;1,000</td>
-			<td>&yen;1,080</td>
-		</tr>
-		<tr>
-			<td>消費税</td>
-			<td align="right" colspan="4">&yen;4,080</td>
-
-		</tr>
-		<tr>
-			<td>送料一律</td>
-			<td align="right" colspan="4">&yen;500</td>
-
-		</tr>
-		<tr>
-			<td>商品合計</td>
-			<td align="right" colspan="4">&yen;55,580</td>
-		</tr>
-	</table>
-	<br>
+        <table border ="1"  align="center">
+            <tr>
+                <th colspan="2">商品名</th>
+                <th>価格</th>
+                <th>個数</th>
+                <th></th>
+            </tr>
+            <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
+            <tr>
+				<td><a href="itemDetail.html"><img src="../img/pc.jpg" width="150"height="125" alt="商品画像"></a></td>
+                <td><a href="itemDetail.html"><c:out value="${cartItem.title}"/></a></td>
+                <td><fmt:formatNumber value="${cartItem.price}" pattern="###,###,###"/></td>
+                <td><c:out value="${cartItem.quantity}"/>枚</td>
+                <td>
+                    <form action="viewShoppingCart.html" method="post">
+                        <input type="hidden" name="item.id" value="1">
+                        <input type="submit" value="削除">
+                    </form>
+                </td>
+            </tr>
+            </c:forEach>
+        </table>
+       <br>
 	<h2 align="center">お届け先</h2>
 	<hr>
 	<div align="center">
