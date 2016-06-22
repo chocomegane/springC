@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="adminCommon.jsp" %>
-
-新規利用者登録画面<br>
+<body>
+ <div align="center">
+ 
+ <br><br>
+<h1>新規利用者登録画面</h1><br>
+<br><br>
 管理者の情報を入力し、「管理者情報を登録する」ボタンをクリックしてください。 <br>
- <body>
-	<form:form action="/admin/register/administerRegister"
-		modelAttribute="adminUserRegisterForm">
+<br><br>
+	<form:form action="/admin/register/adminRegister" modelAttribute="adminUserRegisterForm">
 		
 	
 		<c:out value="${err}"/><br>
@@ -32,6 +35,7 @@
 </table>
 		<input type="submit" value="登録">
 	</form:form>
-	<form:form action="/admin/register/"> <input type="submit" value="クリア"></form:form>
+	<form action="/admin/register/"> <input type="submit" value="クリア"></form>
+</div>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class AdministerRegisterController {
 
 	@RequestMapping(value = "/")
 	public String index() {
-		return "/administerRegister";
+		return "administerRegister";
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class AdministerRegisterController {
 	 *            リクエストパラメータ
 	 * @return 管理者メニューにフォワード
 	 */
-	@RequestMapping(value = "/administerRegister")
+	@RequestMapping(value = "/adminRegister")
 	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
 	{
 		String email = form.getEmail(); //
@@ -62,7 +62,7 @@ public class AdministerRegisterController {
 		{
 			String err = "確認パスワードとパスワードが違います";
 			model.addAttribute("err", err);
-			return "/administerRegister";
+			return "redirect:/administerRegister";
 		}
 		AdminUser adminUser = new AdminUser();
 		BeanUtils.copyProperties(form, adminUser);
@@ -74,12 +74,12 @@ public class AdministerRegisterController {
 	    if(!(testUser == null)) {
 	    	String err = "そのアドレスはすでに使われています" ;
 	    	model.addAttribute("err",err);
-	    	return "/administerRegister";
+	    	return "redirect:/administerRegister";
 	    }
 //	    System.out.println(adminUser);
 
 		service.adminInsert(adminUser);
-		return "/administerMenu";
+		return "redirect:/administerMenu";
 		
 	}
 
