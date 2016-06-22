@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.OrderListService;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/user/cinemaDetail")
+@RequestMapping(value = "/cinemaShop")
 public class UserCinemaDetailController {
 	
 	@Autowired
@@ -44,7 +44,7 @@ public class UserCinemaDetailController {
 	 * @return　フォワード
 	 */
 
-	@RequestMapping(value = "detail/{id}")
+	@RequestMapping(value = "/detail/{id}")
 	public String detail(@PathVariable("id") long id,Model model){
 		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(id));
 		model.addAttribute("cinemaDetail", page);

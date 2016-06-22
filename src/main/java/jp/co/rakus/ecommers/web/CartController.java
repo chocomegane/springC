@@ -22,7 +22,7 @@ import jp.co.rakus.ecommers.service.CartService;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/shop")
+@RequestMapping(value = "/cinemaShop")
 public class CartController {
 
 	@Autowired
@@ -42,7 +42,7 @@ public class CartController {
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		service.insertCart(user.getId(), form);
-		return "redirect:/shop/view";
+		return "redirect:/cinemaShop/view";
 	}
 	
 	@RequestMapping(value = "/view")
@@ -50,7 +50,6 @@ public class CartController {
 		//principalからユーザーの情報を受け取るための操作
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		
 		CartListPage cartPage = service.findAllCart(user.getId());
 		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
@@ -62,7 +61,7 @@ public class CartController {
 		System.out.println(orderCinemaId);
 		System.out.println("==============================================");
 		service.deleteCart(orderCinemaId);
-		return "redirect:/shop/view";
+		return "redirect:/cinemaShop/view";
 	}
 	
 }

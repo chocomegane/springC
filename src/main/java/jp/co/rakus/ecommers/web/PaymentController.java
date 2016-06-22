@@ -19,15 +19,13 @@ import jp.co.rakus.ecommers.service.PaymentService;
 @RequestMapping(value="/cinemaShop")
 public class PaymentController {
 	@Autowired
-	private PaymentService paymentService;
+	private CartService cartService;
 	
 	@RequestMapping("/mekePayment")
 	public String makePayment(Principal principal, Model model) {
-		System.err.println(principal.getName());
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		System.err.println(user);
-		CartListPage cartPage = paymentService.findAllCart(user);
+		CartListPage cartPage = cartService.findAllCart(user.getId());
 		model.addAttribute("cartPage", cartPage);
 		return "makePayment";
 	}
