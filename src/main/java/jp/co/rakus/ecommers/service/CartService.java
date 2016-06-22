@@ -52,9 +52,20 @@ public class CartService {
 		order.setDate(sqlDate);
 		}
 		
-		repository.insertOrderItem(form, order.getId());
+		
 		
 		List<Cart> orderList= repository.findAllOrder(order);
+		
+		for(Cart cart : orderList){
+			if(cart.getCinemaId() == form.getCinemaId()){
+				cart.setQuantity(cart.getQuantity() + form.getQuantity());
+				break;
+			}
+		}
+		
+		if(repository.findAllOrder(order, form.getCinemaId()) == null){
+			repository.insertOrderItem(form, order.getId());
+		}
 		
 		int sum = 0;
 		for(Cart cart : orderList){
@@ -82,7 +93,6 @@ public class CartService {
 		CartListPage page = new CartListPage();
 		List<CartListChildPage> init = new ArrayList<>();
 		page.setCartListChildPage(init);
-//		LoginUser loginUser = (LoginUser)principal;
 		Order order = repository.searchOrder(id);
 		List<Cart> cartList = repository.findAllOrder(order);
 		if(cartList == null){

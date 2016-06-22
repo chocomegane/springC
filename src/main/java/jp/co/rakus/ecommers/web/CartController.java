@@ -29,7 +29,7 @@ public class CartController {
 	private CartService service;
 	
 	/**
-	 * カートに商品を追加し、ページに現在カートに入っている商品一覧を格納し、フォワード
+	 * カートに商品を追加
 	 * 
 	 * @param principal
 	 * @param form
@@ -45,22 +45,32 @@ public class CartController {
 		return "redirect:/shop/view";
 	}
 	
+	/**
+	 * カート内の商品一覧を表示
+	 * 
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/view")
 	public String viewCart(Principal principal, Model model){
 		//principalからユーザーの情報を受け取るための操作
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		
 		CartListPage cartPage = service.findAllCart(user.getId());
 		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
 	}
 	
+	/**
+	 * カート内の商品を削除
+	 * 
+	 * @param orderCinemaId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/delete")
 	public String deleteCart(@RequestParam long orderCinemaId,Model model){
-		System.out.println("==============================================");
-		System.out.println(orderCinemaId);
-		System.out.println("==============================================");
 		service.deleteCart(orderCinemaId);
 		return "redirect:/shop/view";
 	}
