@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ include file="userCommon.jsp" %>
+<%@ include file="adminCommon.jsp" %>
 <body>
 
 <h3>値段</h3>
