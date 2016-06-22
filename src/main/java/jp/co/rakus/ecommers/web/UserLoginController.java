@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserLoginController {
 
 	/**
@@ -49,7 +49,7 @@ public class UserLoginController {
      * @param result
      * @return
      */
-    @RequestMapping(value = "/loginError")
+    @RequestMapping(value = "/login?error")
     public String loginError(UserLoginForm form,BindingResult result) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
         result.addError(error);

@@ -124,8 +124,42 @@ public class CinemaListService {
 		return listPage;
 	}
 	
+	/**
+	 * 最低価格から商品の情報を検索するメソッド.
+	 * 
+	 * @param minPrice
+	 * @return
+	 */
 	public CinemaListPage findByMinPrice(Integer minPrice){
 		List<Cinema> cinemaList = repository.findByMinPrice(minPrice);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
+	
+	public Cinema findById(Long id) {
+		return repository.findOne(id);
+	}
+	
+	/**
+	 * タイトルを条件に商品の情報を検索するメソッド.
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public CinemaListPage findByTitle(String title){
+		List<Cinema> cinemaList = repository.findByTitle(title);
 
 		CinemaListPage listPage = new CinemaListPage();
 

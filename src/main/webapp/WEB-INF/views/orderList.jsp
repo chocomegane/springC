@@ -19,7 +19,8 @@
 	</tr>
 	<c:forEach var="order" items="${page.cinemaList}">
 		　<tr>
-			<td><c:out value="${order.orderNumber}"/></td>
+			<td><a href="/admin/orderListDetail?id=<c:out value="${order.orderNumber}"/>">
+				<c:out value="${order.orderNumber}"/></a></td>
 			<td><c:out value="${order.date}"/></td>
 			<td><c:out value="${order.userId}"/></td>
 			<td><c:out value="${order.status}"/></td>
@@ -27,6 +28,6 @@
 		</tr>
 	</c:forEach>	
 </table>
-<a href="/administerMenu.jsp">メニューへ戻る</a>
+<a href="/admin/menu">メニューへ戻る</a>
 </body>
 </html>

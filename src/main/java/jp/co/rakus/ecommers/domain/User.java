@@ -1,4 +1,4 @@
-package jp.co.rakus.ecommers.domain;
+		package jp.co.rakus.ecommers.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +21,10 @@ public class User {
 	private String name;
 	/** メールアドレス */
 	private String email;
-	/** パスワード */
-	private String password;
 	/** 住所 */
 	private String address;
+	/** パスワード */
+	private String password;
 	/** 電話番号 */
 	private String telephone;
-	
 }

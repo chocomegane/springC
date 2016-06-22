@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommers.service.CinemaListService;
 
+/**
+ * 商品一覧を取得するクラス.
+ * 
+ * @author tsubasa.kaneko
+ *
+ */
 @Controller
 @Transactional
 @RequestMapping(value="/")
@@ -17,12 +23,12 @@ public class UserCinemaListController {
 	private CinemaListService service;
 	
 	/**
-	 * 書籍情報を全件取得するメソッド.
+	 * 商品一覧を全件取得するメソッド.
 	 * 
 	 * @param model
 	 * @return　利用者の商品一覧画面.
 	 */
-	@RequestMapping(value="userCinemaList")
+	@RequestMapping(value="/displayList")
 	public String list(Model model){
 		CinemaListPage listPage = service.findAll();
 		

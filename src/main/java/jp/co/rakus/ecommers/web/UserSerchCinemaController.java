@@ -17,7 +17,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/serch")
+@RequestMapping(value="/")
 public class UserSerchCinemaController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/genre")
+	@RequestMapping(value="/serchCinemGenre")
 	public String listGenre(@RequestParam String genreStr, Model model){
 		CinemaListPage listPage = service.findByGenre(genreStr);
 		
@@ -46,7 +46,7 @@ public class UserSerchCinemaController {
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
-	@RequestMapping(value="/mediaType")
+	@RequestMapping(value="/serchCinemMediaType")
 	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
 		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
 		
@@ -63,12 +63,9 @@ public class UserSerchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/price")
+	@RequestMapping(value="/serchCinemPrice")
 	public String listPrice(@RequestParam String minPriceStr,
 			@RequestParam String maxPriceStr, Model model){
-		
-		System.out.println("minPriceStrの値の確認" + minPriceStr);
-		System.out.println("maxpricestrの値の確認" + maxPriceStr);
 		
 		//minにしかリクエストパラメータが入っていなかったらfindByMinPriceメソッドを呼び出す
 		
@@ -87,5 +84,44 @@ public class UserSerchCinemaController {
 		
 		return "userCinemaList";
 		
+	}
+	
+	/**
+	 * タイトルを条件に商品を検索するメソッド.
+	 * 
+	 * @param title
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/serchCinemTitle")
+	public String listTitle(@RequestParam String title, Model model){
+		
+		//titleの中身が空だったらエラーメッセージを返す
+		if(title.isEmpty()){
+			model.addAttribute("message", "何か入力してください");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
+		
+		//あいまい検索のためにtitleに%を付ける
+		title = "%" + title + "%";
+		System.out.println("titleの中身の確認" + title);
+		
+		CinemaListPage listPage = service.findByTitle(title);
+		
+		System.out.println("listPAgeの中身を確認" + listPage);
+		
+		//何も取得できなかったらメッセージを表示する
+		if(listPage.getChildPageList().size()==0){
+			model.addAttribute("message2", "商品がありません");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
+		
+		model.addAttribute("listPage", listPage);
+		
+		return "userCinemaList";
 	}
 }

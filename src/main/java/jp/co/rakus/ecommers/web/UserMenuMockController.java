@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserMenuMockController {
 	@RequestMapping("/")
 	public String index(Model model){
-		return "redirect:/userCinemaList";
+		return "redirect:/userList/userCinemaList";
 	}
 	@RequestMapping("/detail")
 	public String detail(Model model){
 		return "redirect:/CinemaShop/detail/";
+	}
+	@RequestMapping("/cart")
+	public String cart(Model model){
+		return "redirect:/shop/cart";
 	}
 }

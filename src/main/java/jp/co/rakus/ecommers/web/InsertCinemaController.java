@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
@@ -19,7 +20,7 @@ import jp.co.rakus.ecommers.service.OrderListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/insert")
+@RequestMapping(value = "/admin")
 public class InsertCinemaController {
 	
 	/** ListViewServiceを利用するためのDI */
@@ -36,7 +37,7 @@ public class InsertCinemaController {
 	 * @param model requestスコープを扱うための変数
 	 * @return insertCinema.jspへフォワード
 	 */
-	@RequestMapping
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	public String index(Model model) {
 		return "insertCinema";
 	}
@@ -48,12 +49,12 @@ public class InsertCinemaController {
 	 * @param model requestスコープを扱うための変数
 	 * @return insertCinema.jspへフォワード
 	 */
-	@RequestMapping(value = "/execute")
+	@RequestMapping(value = "/insert", method=RequestMethod.POST)
 	public String output(CinemaForm form, BindingResult result, Model model) {
 		Cinema cinema = new Cinema();
 		BeanUtils.copyProperties(form, cinema);
 		service.save(cinema);
 	    model.addAttribute("message", "正常に登録が完了しました");
-		return "insertCinema";
+		return "redirect:/admin/insert";
 	}
 }

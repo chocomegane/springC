@@ -3,6 +3,7 @@ package jp.co.rakus.ecommers.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -35,16 +36,18 @@ public class UserRepository {
 		String password = rs.getString("password");
 		String address = rs.getString("address");
 		String telephone = rs.getString("telephone");
-		return new User(id, name, email, password,address,telephone);
+		return new User(id, name, email, password, address, telephone);
 	};
 
 	/**
-	 * メールアドレスからUserを取得.
-	 * @param email メールアドレス
-	 * @return ユーザー情報.ユーザーが存在しない場合はnull.
+	 * メールアドレスとパスワードからメンバーを取得.
+	 * 暗号化されたパスワードはSQLでマッチングできないから、まずメールアドレスで検索したのちパスワードをチェックする。
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
 	public User findByEmail(String email) {
-		String sql = "SELECT id,name,email,password,address,telephone FROM " + TABLE_NAME + " WHERE email=:email;";
+		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email",email);
 		User user = null;
 		try{
@@ -56,5 +59,19 @@ public class UserRepository {
 			return null;
 		}
 	}
+	
+	public User findById(Long id) {
+		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
+		User user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
+		return user;
+	}
 
+	public void userInsert(User user) {
+
+		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
+		String sql = "INSERT INTO users(name, email, password,address, telephone) VALUES(:name, :email, :password , :address, :telephone)";
+
+		jdbcTemplate.update(sql, param);
+	}
 }

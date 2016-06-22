@@ -16,7 +16,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/")
+@RequestMapping(value="/admin/displayList")
 public class AdminCinemaListController {
 
 	@Autowired
@@ -28,7 +28,7 @@ public class AdminCinemaListController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="adminCinemaList")
+	@RequestMapping(value="/adminCinemaList")
 	public String list(Model model){
 		CinemaListPage listPage = service.findAll();
 		
