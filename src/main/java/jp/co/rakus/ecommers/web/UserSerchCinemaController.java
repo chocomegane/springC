@@ -99,11 +99,20 @@ public class UserSerchCinemaController {
 		//titleの中身が空だったらエラーメッセージを返す
 		if(title.isEmpty()){
 			model.addAttribute("message", "何か入力してください");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
 			return "userCinemaList";
 		}
 		
-//		System.out.println(title);
 		CinemaListPage listPage = service.findByTitle(title);
+		
+		//何も取得できなかったらメッセージを表示する
+		if(listPage.equals(new CinemaListPage())){
+			model.addAttribute("message2", "商品がありません");
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
 		
 		model.addAttribute("listPage", listPage);
 		
