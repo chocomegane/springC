@@ -20,7 +20,7 @@ public class AdminMenuController {
 //	@Autowired
 //	private AdministerRegisterService service;
 	
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/top")
 	public String index()
 	{
 		return "/administerMenu";
