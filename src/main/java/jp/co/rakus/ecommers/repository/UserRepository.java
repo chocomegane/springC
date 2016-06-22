@@ -47,11 +47,11 @@ public class UserRepository {
 	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
 	public User findByEmail(String email) {
-		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE email=:email;";
+		String sql = "SELECT id,name,email,password,address,telephone FROM " + TABLE_NAME + " WHERE email=:email;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email",email);
 		User user = null;
 		try{
-			user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
+			user = jdbcTemplate.queryForObject(sql,param,USER_ROW_MAPPER);
 			return user;
 		} catch(DataAccessException e) {
 			System.err.println("user not found");

@@ -13,7 +13,7 @@
 <body>
 <header>
 		<div id="linkHeader" align="left">
-		<h1 align ="left"><a href="/cinemaShope/displayList">
+		<h1 align ="left"><a href="/cinemaShop/displayList">
 			<img src="/img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス
 		</a></h1>
 		</div>
@@ -23,6 +23,6 @@
  -->
 		<div id="userHeader" align="right">
 			<p>こんにちは<c:out value="${user.name}さん"/></p>
-			<p><a href="/user/cart">カートの中身を見る</a></p>
+			<p><a href="/cinemaShop/mekePayment">カートの中身を見る</a></p>
 		</div>
 </header>

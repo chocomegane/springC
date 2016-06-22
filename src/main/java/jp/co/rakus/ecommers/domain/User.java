@@ -21,10 +21,10 @@ public class User {
 	private String name;
 	/** メールアドレス */
 	private String email;
-	/** 住所 */
-	private String address;
 	/** パスワード */
 	private String password;
+	/** 住所 */
+	private String address;
 	/** 電話番号 */
 	private String telephone;
 }
