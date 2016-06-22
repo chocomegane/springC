@@ -49,7 +49,7 @@ public class UserLoginController {
      * @param result
      * @return
      */
-    @RequestMapping(value = "/login?error")
+    @RequestMapping(value = "/loginError")
     public String loginError(UserLoginForm form,BindingResult result) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
         result.addError(error);

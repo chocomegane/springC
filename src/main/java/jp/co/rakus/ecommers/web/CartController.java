@@ -22,7 +22,7 @@ import jp.co.rakus.ecommers.service.CartService;
  */
 @Controller
 @Transactional
-@RequestMapping(value = "/shop")
+@RequestMapping(value = "/cinemaShop")
 public class CartController {
 
 	@Autowired
@@ -42,7 +42,7 @@ public class CartController {
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		service.insertCart(user.getId(), form);
-		return "redirect:/shop/view";
+		return "redirect:/cinemaShop/view";
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class CartController {
 	@RequestMapping(value = "/delete")
 	public String deleteCart(@RequestParam long orderCinemaId,Model model){
 		service.deleteCart(orderCinemaId);
-		return "redirect:/shop/view";
+		return "redirect:/cinemaShop/view";
 	}
 	
 }
