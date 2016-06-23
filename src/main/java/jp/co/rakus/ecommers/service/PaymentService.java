@@ -60,8 +60,6 @@ public class PaymentService {
 			int subTotalPrice = quantity * price;
 			paymentChildPage.setSubTotalPrice(subTotalPrice);
 			totalPrice += subTotalPrice;
-			System.out.println(orderedCinema.getTitle());
-			System.out.println(totalPrice);
 //			// 商品の小計（税込み）を算出
 //			paymentChildPage.setPretaxTotalPrice((int) (subTotalPrice * TAX_RATIO));
 
