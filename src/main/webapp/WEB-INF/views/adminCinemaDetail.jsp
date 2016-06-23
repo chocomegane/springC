@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<th>価格：</th>
-			<td align="center">&yen;<c:out value="${cinemaDetail.price}"/></td>
+			<td align="center"><fmt:formatNumber value="${cinemaDetail.price}" pattern="###,###円"/></td>
 		</tr>
 		<tr>
 			<th>ジャンル:</th>
@@ -23,11 +23,11 @@
 		</tr>
 		<tr>
 			<th>上映時間：</th>
-			<td align="center"><c:out value="${cinemaDetail.time}"/></td>
+			<td align="center"><fmt:formatNumber value="${cinemaDetail.time}" pattern="###,###分"/></td>
 		</tr>
 		<tr>
 			<th>公開日：</th>
-			<td align="center"><c:out value="${cinemaDetail.releaseDate}"/></td>
+			<td align="center"><fmt:formatDate value="${cinemaDetail.releaseDate}" pattern="yyyy/MM/dd"/></td>
 		</tr>
 		<tr>
 			<th>メディアタイプ：</th>
@@ -47,7 +47,7 @@
 		</tr>
 		<tr>
 			<th>概要：</th>
-			<td><c:out value="${cinemaDetail.description}"></c:out></td>
+			<td align="center"><c:out value="${cinemaDetail.description}"/></td>
 		</tr>
 	</table>
 </div>
