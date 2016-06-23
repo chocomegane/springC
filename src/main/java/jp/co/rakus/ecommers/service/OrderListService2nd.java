@@ -46,7 +46,7 @@ public class OrderListService2nd {
 	 */
 	public OrderListPage findAll() {
 		List<Order> orderList = repository.findAll();
-
+		System.out.println(orderList);
 		OrderListPage page = new OrderListPage();
 		List<OrderListChildPage> init = new ArrayList<>();
 
