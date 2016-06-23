@@ -6,6 +6,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.rakus.ecommers.domain.LoginUser;
 /**
  * ユーザーのログイン処理を行うコントローラー.
  * @author kohei.sakata
