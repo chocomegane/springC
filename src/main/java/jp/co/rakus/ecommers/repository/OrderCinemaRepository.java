@@ -99,15 +99,30 @@ public class OrderCinemaRepository {
 	}
 	
 	/**
-	 * カートに入れる映画のcinemaId,quantity,userIdをINSERT.
-	 * 
+	 * カート内に商品を追加、すでに追加したい商品がある場合は個数を追加.
 	 * 
 	 * @param form
+	 * @param order
 	 */
-	public void insertOrderItem(InsertForm form, Order order){
-		String sql = "INSERT INTO order_items (cinema_id, order_id, quantity)" + " VALUES(:cinema_id, :order_id, :quantity)";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId()).addValue("quantity", form.getQuantity());
-		template.update(sql, param);
+	public void saveOrderItem(InsertForm form, Order order){
+		OrderItem orderItem = new OrderItem();
+		try{
+		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE cinema_id = :cinema_id AND order_id = :order_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId());
+		orderItem = template.queryForObject(sql, param, orderItemListRowMapper);
+		
+		int quantity = form.getQuantity() + orderItem.getQuantity();
+		String updateSql = "UPDATE order_items SET quantity=:quantity WHERE cinema_id = :cinema_id";
+		SqlParameterSource updateParam = new MapSqlParameterSource().addValue("quantity", quantity).addValue("cinema_id", orderItem.getCinemaId());
+		template.update(updateSql, updateParam);
+		}catch(EmptyResultDataAccessException e){
+			orderItem = null;
+		}
+		if(orderItem == null){
+		String insertSql = "INSERT INTO order_items (cinema_id, order_id, quantity)" + " VALUES(:cinema_id, :order_id, :quantity)";
+		SqlParameterSource insertParam = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId()).addValue("quantity", form.getQuantity());
+		template.update(insertSql, insertParam);
+		}
 	}
 	
 	/**
@@ -117,9 +132,8 @@ public class OrderCinemaRepository {
 	 * @return
 	 */
 	public List<OrderItem> findAllOrderItem(Order order) {
-		
-		String sql = "SELECT id, cinema_id, order_id, quantity";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getId());
+		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE order_id = :order_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", order.getId());
 		List<OrderItem> orderItemList = template.query(sql, param, orderItemListRowMapper);
 		return orderItemList;
 	}
@@ -141,12 +155,6 @@ public class OrderCinemaRepository {
 			return null;
 		}
 		return orderList;
-	}
-	
-	public void updateOrderItem(Cart cart) {
-		String sql = "UPDATE order_items SET quantity=:quantity";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", cart.getQuantity());
-		template.update(sql, param);
 	}
 	
 	/**

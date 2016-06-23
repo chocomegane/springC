@@ -20,7 +20,7 @@ public class OrderItemRepository {
 		Long cinemaId = rs.getLong("item_id");
 		Integer quantity = rs.getInt("quantity");
 		Long orderId = rs.getLong("order_id");
-		return new OrderItem(id, cinemaId, quantity, orderId);
+		return new OrderItem(id, cinemaId, orderId, quantity);
 	}; 
 
 	public OrderItem findById(Long id) {

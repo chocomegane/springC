@@ -57,18 +57,7 @@ public class CartService {
 			orderCinemaRepository.insertOrder(user, sqlDate);
 		}
 
-		// if (repository.findAllOrder(order, form.getCinemaId()) == null) {
-		orderCinemaRepository.insertOrderItem(form, order);
-		// } else {
-		//
-		// for (Cart cart : orderList) {
-		// if (cart.getCinemaId() == form.getCinemaId()) {
-		// cart.setQuantity(cart.getQuantity() + form.getQuantity());
-		// repository.updateOrderItem(cart);
-		// break;
-		// }
-		// }
-		// }
+			orderCinemaRepository.saveOrderItem(form, order);
 
 		List<Cart> orderItemList = orderCinemaRepository.findAllOrder(order, form.getCinemaId());
 
@@ -102,7 +91,7 @@ public class CartService {
 		Order order = orderCinemaRepository.searchOrder(user);
 
 		order.setOrderCinemaList(orderCinemaRepository.findAllOrderItem(order));
-		
+
 		if (order.getOrderCinemaList() == null) {
 			return null;
 		}
