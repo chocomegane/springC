@@ -271,9 +271,9 @@ public class OrderCinemaRepository {
 		template.update(sql, param);
 	}
 	
-	public Order findByUserId(String userId) {
-		String sql = "SELECT * FROM orders WHERE order_number = :user_id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", userId);
+	public Order findByOrderNumber(String orderNumber) {
+		String sql = "SELECT * FROM orders WHERE order_number = :orderNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("orderNumber", orderNumber);
 		Order order = template.queryForObject(sql, param, orderRowMapper);
 		return order;
 	}
