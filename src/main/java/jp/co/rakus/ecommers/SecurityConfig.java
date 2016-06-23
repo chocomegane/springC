@@ -88,8 +88,8 @@ public class SecurityConfig {
             http
             	.antMatcher("/cinemaShop/**")
                 .authorizeRequests()
-                    .anyRequest().hasRole("USER")
-//                    .permitAll()
+                	.antMatchers("/cinemaShop/**Payment**").hasRole("USER")
+                    .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 	.loginProcessingUrl("/cinemaShop/login")
