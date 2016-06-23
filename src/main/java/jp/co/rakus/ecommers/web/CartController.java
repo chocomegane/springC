@@ -58,6 +58,9 @@ public class CartController {
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		CartListPage cartPage = service.findAllCart(user);
+		if(cartPage == null){
+			return "viewShoppingCart";
+		}
 		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
 	}
