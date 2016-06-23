@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -46,8 +45,8 @@ public class OrderCinemaRepository {
 	
 	private static final RowMapper<OrderItem> orderItemListRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
-		long cinemaId = rs.getLong("cinema_id");
-		long orderId = rs.getLong("order_id");
+		Long cinemaId = rs.getLong("cinema_id");
+		Long orderId = rs.getLong("order_id");
 		Integer quantity = rs.getInt("quantity");
 		return new OrderItem(id, cinemaId, orderId, quantity);
 	}; 
@@ -60,7 +59,7 @@ public class OrderCinemaRepository {
 		Integer totalPrice = rs.getInt("total_price");
 		Date date = rs.getDate("date");
 		Long orderCinemaId = rs.getLong("id");
-		long cinemaId = rs.getLong("cinema_id");
+		Long cinemaId = rs.getLong("cinema_id");
 		Integer quantity = rs.getInt("quantity");
 		return new Cart(id, orderNumber, userId, status, totalPrice, date, orderCinemaId, cinemaId, quantity);
 	};
@@ -150,17 +149,6 @@ public class OrderCinemaRepository {
 		return order;
 	}
 
-	/**
-	 * ユーザーのオーダー情報を新たに追加. statusには未購入(0),totalPriceには0円,dateにはカートに映画を入れた時の日時を追加.
-	 * 
-	 * @param order
-	 */
-	public void insertOrder(Order order) {
-		String sql = "INSERT INTO orders(order_number, user_id, status, total_price, date)"
-				+ " VALUES(:order_number, :user_id, :status, :total_price, :date)";
-		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		template.update(sql, param);
-	}
 	/**
 	 * ユーザーのオーダー情報を新たに追加. statusには未購入(0),totalPriceには0円,dateにはカートに映画を入れた時の日時を追加.
 	 * @param user
@@ -303,7 +291,7 @@ public class OrderCinemaRepository {
 	 */
 	public Boolean updateStatus(Long id) {
 		try {
-			String sql = "UPDATE orders SET status=1, date=cast(now() as date) WHERE id=:id ;";
+			String sql = "UPDATE orders SET status=1, date=cast(now() as date) WHERE id=:id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 			template.update(sql, param);
 			return true;

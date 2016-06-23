@@ -77,6 +77,7 @@ public class CartController {
 	 */
 	@RequestMapping(value = "/delete")
 	public String deleteCart(@RequestParam long orderCinemaId, Model model) {
+		System.err.println(orderCinemaId);
 		service.deleteCart(orderCinemaId);
 		return "redirect:/cinemaShop/view";
 	}
