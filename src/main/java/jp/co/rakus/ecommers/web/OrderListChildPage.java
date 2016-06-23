@@ -1,6 +1,6 @@
 package jp.co.rakus.ecommers.web;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,9 +17,10 @@ public class OrderListChildPage {
 	/** ユーザID */
 	private long userId;
 	/** ステータス */
-	private Integer status;
+	private String status;
 	/** 小計 */
 	private Integer totalPrice;
 	/** 最終購入日 */
-	private Timestamp date;
+	private Date date;
+	// private Timestamp date;
 }
