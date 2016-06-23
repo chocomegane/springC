@@ -31,6 +31,6 @@
             </c:forEach>
         </table><br>
 
-    <div  align="center"><a href="/cinemaShop/makePayment">決済へ</a></div>
+    <div  align="center"><a href="/cinemaShop/mekePayment">決済へ</a></div>
 
 </body>
