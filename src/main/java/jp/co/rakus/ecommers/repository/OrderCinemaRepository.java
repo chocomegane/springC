@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
+import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.web.InsertForm;
@@ -42,22 +43,13 @@ public class OrderCinemaRepository {
 		return new Order(id, orderNumber, userId, status, null,  totalPrice, date);
 	}; 
 	
-	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
+	private static final RowMapper<OrderItem> orderItemListRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
-		String title = rs.getString("title");
-		Integer price = rs.getInt("price");
-		String genre = rs.getString("genre");
-		Integer time = rs.getInt("time");
-		Date releaseDate = rs.getTimestamp("release_date");
-		String mediaType = rs.getString("media_type");
-		String company = rs.getString("company");
-		String directedBy = rs.getString("directed_by");
-		String rating = rs.getString("rating");
-		String description = rs.getString("description");
-		String imagePath = rs.getString("image_path");
-		boolean deleted = rs.getBoolean("deleted"); 
-		return new Cinema(id, title, price, genre, time, releaseDate, mediaType, company, directedBy, rating, description, imagePath, deleted);
-	};
+		long cinemaId = rs.getLong("cinema_id");
+		long orderId = rs.getLong("order_id");
+		Integer quantity = rs.getInt("quantity");
+		return new OrderItem(id, cinemaId, orderId, quantity);
+	}; 
 	
 	private static final RowMapper<Cart> orderListRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
@@ -66,7 +58,7 @@ public class OrderCinemaRepository {
 		Integer status = rs.getInt("status");
 		Integer totalPrice = rs.getInt("total_price");
 		Date date = rs.getDate("date");
-		long orderCinemaId = rs.getLong("id");
+		Long orderCinemaId = rs.getLong("id");
 		long cinemaId = rs.getLong("cinema_id");
 		Integer quantity = rs.getInt("quantity");
 		return new Cart(id, orderNumber, userId, status, totalPrice, date, orderCinemaId, cinemaId, quantity);
@@ -82,11 +74,6 @@ public class OrderCinemaRepository {
 	 */
 	public Order searchOrder(User user) {
 		Order order = new Order();
-		
-		System.out.println("================================================");
-		System.out.println("search");
-		System.out.println(user);
-		System.out.println("================================================");
 		
 		try{
 		String sql = "SELECT id, order_number, user_id, status, total_price, date From orders WHERE user_id=:user_id";
@@ -118,13 +105,6 @@ public class OrderCinemaRepository {
 	 * @param form
 	 */
 	public void insertOrderItem(InsertForm form, Order order){
-		
-		System.out.println("================================================");
-		System.out.println("insert");
-		System.out.println(order);
-		System.out.println("================================================");
-		
-		
 		String sql = "INSERT INTO order_items (cinema_id, order_id, quantity)" + " VALUES(:cinema_id, :order_id, :quantity)";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId()).addValue("quantity", form.getQuantity());
 		template.update(sql, param);
@@ -136,27 +116,21 @@ public class OrderCinemaRepository {
 	 * @param cinemaId
 	 * @return
 	 */
-	public List<Cart> findAllOrder(Order order) {
+	public List<OrderItem> findAllOrderItem(Order order) {
 		
-		System.out.println("================================================");
-		System.out.println(order);
-		System.out.println("================================================");
-		
-		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date, i.id, i.cinema_id, i.quantity FROM orders AS o INNER JOIN order_items AS i ON o.id = i.order_id WHERE o.status = 1 AND o.user_id = :user_id";
-		
-		System.out.println("================================================");
-		System.out.println(order);
-		System.out.println("================================================");
-		
-		System.out.println("================================================");
-		System.out.println(order.getUserId());
-		System.out.println("================================================");
-		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId());
-		List<Cart> orderList = template.query(sql, param, orderListRowMapper);
-		return orderList;
+		String sql = "SELECT id, cinema_id, order_id, quantity";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getId());
+		List<OrderItem> orderItemList = template.query(sql, param, orderItemListRowMapper);
+		return orderItemList;
 	}
 	
+	/**
+	 * 	カート内の商品を検索.
+	 * 
+	 * @param order
+	 * @param cinemaId
+	 * @return
+	 */
 	public List<Cart> findAllOrder(Order order, long cinemaId) {
 		List<Cart> orderList = new ArrayList<>();
 		try{
@@ -169,17 +143,10 @@ public class OrderCinemaRepository {
 		return orderList;
 	}
 	
-	/**
-	 * 映画の詳細検索
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Cinema findOne(long cinemaId) {
-		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", cinemaId);
-		Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
-		return cinema;
+	public void updateOrderItem(Cart cart) {
+		String sql = "UPDATE order_items SET quantity=:quantity";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", cart.getQuantity());
+		template.update(sql, param);
 	}
 	
 	/**
