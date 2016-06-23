@@ -61,13 +61,7 @@ public class CartService {
 
 		List<Cart> orderItemList = orderCinemaRepository.findAllOrder(order, form.getCinemaId());
 
-		int sum = 0;
-		for (Cart cart : orderItemList) {
-			Cinema cinema = cinemaRepository.findOne(cart.getCinemaId());
-			sum = sum + cinema.getPrice() * cart.getQuantity();
-		}
-
-		order.setTotalPrice(sum);
+		order.setTotalPrice(sumPrice(orderItemList));
 
 		long utilMillisecond = utilDate.getTime();
 		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
@@ -92,8 +86,17 @@ public class CartService {
 
 		order.setOrderCinemaList(orderCinemaRepository.findAllOrderItem(order));
 
+		int totalPrice = 0;
+		for (OrderItem orderItem : order.getOrderCinemaList()) {
+			Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
+			totalPrice = totalPrice + cinema.getPrice() * orderItem.getQuantity();
+		}
+
+		order.setTotalPrice(totalPrice);
+		
 		if (order.getOrderCinemaList() == null) {
-			return null;
+			page.getCartListChildPage().add(null);
+			return page;
 		}
 		for (OrderItem orderItems : order.getOrderCinemaList()) {
 			CartListChildPage childPage = new CartListChildPage();
@@ -115,6 +118,15 @@ public class CartService {
 	 */
 	public void deleteCart(long orderCinemaId) {
 		orderCinemaRepository.deleteByCinemaId(orderCinemaId);
+	}
+	
+	public int sumPrice(List<Cart> orderItemList) {
+		int sum = 0;
+		for (Cart cart : orderItemList) {
+			Cinema cinema = cinemaRepository.findOne(cart.getCinemaId());
+			sum = sum + cinema.getPrice() * cart.getQuantity();
+		}
+		return sum;
 	}
 
 }

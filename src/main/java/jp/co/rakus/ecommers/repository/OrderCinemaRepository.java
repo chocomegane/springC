@@ -213,9 +213,14 @@ public class OrderCinemaRepository {
 	 * @return
 	 */
 	public List<OrderItem> findAllOrderItem(Order order) {
+		List<OrderItem> orderItemList = new ArrayList<>();
+		try{
 		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE order_id = :order_id ORDER BY cinema_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", order.getId());
-		List<OrderItem> orderItemList = template.query(sql, param, orderItemListRowMapper);
+		orderItemList = template.query(sql, param, orderItemListRowMapper);
+		}catch(EmptyResultDataAccessException e){
+			return null;
+		}
 		return orderItemList;
 	}
 	

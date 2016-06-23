@@ -58,11 +58,12 @@ public class CartController {
 		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		CartListPage cartPage = service.findAllCart(user);
-		if (cartPage == null) {
-			model.addAttribute("cartPage", cartPage);
+		if (cartPage.getCartListChildPage().isEmpty()) {
+			model.addAttribute("message", "カートに何も入ってません");
 			return "viewShoppingCart";
 		} else {
 			model.addAttribute("cartPage", cartPage);
+			model.addAttribute("payment", "決済へ");
 			return "viewShoppingCart";
 		}
 	}
