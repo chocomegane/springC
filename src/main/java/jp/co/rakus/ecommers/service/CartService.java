@@ -78,7 +78,7 @@ public class CartService {
 	}
 
 	/**
-	 * カート内の商品一覧表示
+	 * カート内の商品一覧表示.
 	 * 
 	 * @param id
 	 *            userId
@@ -108,6 +108,11 @@ public class CartService {
 		return page;
 	}
 
+	/**
+	 * 削除を行うRepogitoryを呼び出す.
+	 * 
+	 * @param orderCinemaId
+	 */
 	public void deleteCart(long orderCinemaId) {
 		orderCinemaRepository.deleteByCinemaId(orderCinemaId);
 	}

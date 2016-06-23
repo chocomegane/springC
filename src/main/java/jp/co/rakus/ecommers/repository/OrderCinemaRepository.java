@@ -22,7 +22,7 @@ import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
- * カートについての処理を行うRepositoryクラス
+ * order_itemsテーブルを操作するRepositoryクラス
  * 
  * @author takeshi.fujimoto
  *
@@ -132,7 +132,7 @@ public class OrderCinemaRepository {
 	 * @return
 	 */
 	public List<OrderItem> findAllOrderItem(Order order) {
-		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE order_id = :order_id";
+		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE order_id = :order_id ORDER BY cinema_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", order.getId());
 		List<OrderItem> orderItemList = template.query(sql, param, orderItemListRowMapper);
 		return orderItemList;
