@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
 
+
 /**
  * 映画の商品をDBに追加するためのクラス.
  * @author yusuke.nakano
@@ -88,7 +89,7 @@ public class InsertCinemaController {
 			return "redirect:/admin/insert";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");
-			return null;
+			return "insertCinema";
 		}
 	}
 }

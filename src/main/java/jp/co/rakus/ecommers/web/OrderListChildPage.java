@@ -17,7 +17,7 @@ public class OrderListChildPage {
 	/** ユーザID */
 	private long userId;
 	/** ステータス */
-	private Integer status;
+	private String status;
 	/** 小計 */
 	private Integer totalPrice;
 	/** 最終購入日 */

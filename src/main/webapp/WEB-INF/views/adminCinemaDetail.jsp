@@ -3,6 +3,8 @@
     <%@ include file="adminCommon.jsp" %>>
 <body>
 <h2  align="center">商品詳細</h2>
+
+<div align="center">
 	<table border="1">
 		<tr>
 			<td colspan="2" rowspan="10"><img src="/img/${cinemaDetail.imagePath}" width="150"
@@ -48,13 +50,14 @@
 			<td><c:out value="${cinemaDetail.description}"></c:out></td>
 		</tr>
 	</table>
+</div>
 	
 	<br>
 	<div id="selectQuantity" align="center">
 	<form:form modelAttribute="cinemaForm" action="/admin/updateCinema">
 		<form:hidden path="id" value="${cinemaDetail.id}"/>
 		<div align="center"><p><input type="submit" value="更新"></p></div>
-		<div align="center"><p><a href="">商品一覧画面へ戻る</a></p></div>
+		<div align="center"><p><a href="/admin/displayList">商品一覧画面へ戻る</a></p></div>
 	</form:form>
 	</div>
 </body>
