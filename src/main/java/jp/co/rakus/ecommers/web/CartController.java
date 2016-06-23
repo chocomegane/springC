@@ -27,7 +27,7 @@ public class CartController {
 
 	@Autowired
 	private CartService service;
-	
+
 	/**
 	 * カートに商品を追加
 	 * 
@@ -37,14 +37,14 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insert")
-	public String insertCart(Principal principal,InsertForm form, Model model){
-		//principalからユーザーの情報を受け取るための操作
-		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
+	public String insertCart(Principal principal, InsertForm form, Model model) {
+		// principalからユーザーの情報を受け取るための操作
+		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		service.insertCart(user, form);
 		return "redirect:/cinemaShop/view";
 	}
-	
+
 	/**
 	 * カート内の商品一覧を表示
 	 * 
@@ -53,18 +53,20 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/view")
-	public String viewCart(Principal principal, Model model){
-		//principalからユーザーの情報を受け取るための操作
-		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
+	public String viewCart(Principal principal, Model model) {
+		// principalからユーザーの情報を受け取るための操作
+		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		CartListPage cartPage = service.findAllCart(user);
-		if(cartPage == null){
+		if (cartPage == null) {
+			model.addAttribute("cartPage", cartPage);
+			return "viewShoppingCart";
+		} else {
+			model.addAttribute("cartPage", cartPage);
 			return "viewShoppingCart";
 		}
-		model.addAttribute("cartPage", cartPage);
-		return "viewShoppingCart";
 	}
-	
+
 	/**
 	 * カート内の商品を削除
 	 * 
@@ -73,9 +75,9 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete")
-	public String deleteCart(@RequestParam long orderCinemaId,Model model){
+	public String deleteCart(@RequestParam long orderCinemaId, Model model) {
 		service.deleteCart(orderCinemaId);
 		return "redirect:/cinemaShop/view";
 	}
-	
+
 }
