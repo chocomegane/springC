@@ -1,19 +1,16 @@
 package jp.co.rakus.ecommers.repository;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Order;
-import jp.co.rakus.ecommers.domain.User;
 
 /**
  * 注文詳細一覧を表示するためのRepository(仮作成).
