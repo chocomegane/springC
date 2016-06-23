@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
-import jp.co.rakus.ecommers.repository.OrderCinemaRepository2nd;
+import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.web.CinemaDetailPage;
 import jp.co.rakus.ecommers.web.OrderListChildPage;
 import jp.co.rakus.ecommers.web.OrderListPage;
@@ -27,7 +27,7 @@ public class OrderListService2nd {
 
 	/** CinemaRepositoryを利用するためのDI */
 	@Autowired
-	private OrderCinemaRepository2nd repository;
+	private OrderCinemaRepository repository;
 	
 	/**
 	 * DBへのinsert, updateを行うためのメソッド.
@@ -46,7 +46,6 @@ public class OrderListService2nd {
 	 */
 	public OrderListPage findAll() {
 		List<Order> orderList = repository.findAll();
-		System.out.println(orderList);
 		OrderListPage page = new OrderListPage();
 		List<OrderListChildPage> init = new ArrayList<>();
 
@@ -54,14 +53,60 @@ public class OrderListService2nd {
 
 		for (Order order : orderList) {
 			OrderListChildPage child = new OrderListChildPage();
+			
+			switch (order.getStatus()) {
+			case 1:
+				child.setStatus("入金済み");
+				break;
+			case 2:
+				child.setStatus("未入金");
+				break;
+			case 3:
+				child.setStatus("発送済み");
+				break;
+			case 4:
+				child.setStatus("キャンセル");
+				break;
+			}
+			
 			BeanUtils.copyProperties(order, child);
 			page.getCinemaList().add(child);
 		}
 
 		return page;
 	}
+	
+//	public OrderListDetailPage copyOrderListDetailPage(Order order, User user, List<OrderItem> item, List<Cinema> cinema, Map<Integer, String> statusMap) {
+//		OrderListDetailPage page = new OrderListDetailPage();
+//		OrderListDetailChildPage childPage = new OrderListDetailChildPage();
+//		
+//		List<OrderListDetailChildPage> init = new ArrayList<>();
+//		page.setChildPage(init);
+//
+//		page.setOrderNumber(order.getOrderNumber());
+//		page.setUserName(user.getName());
+//		page.setEmail(user.getEmail());
+//		page.setAddress(user.getAddress());
+//		page.setTelephone(user.getTelephone());
+//		Integer totalPrice = 0;
+//		for(OrderItem item2 : item) {
+//			childPage.setQuantity(item2.getQuantity());
+//			totalPrice += cinema.getPrice();
+//		}
+//		for(Cinema item2 : cinema) {
+//			childPage.setTaitle(item2.getTitle());
+//			childPage.setPrice(item2.getPrice());
+//			childPage.setTotalPrice(item2.getPrice()*item2.getQuantity());
+//		}
+//		page.getChildPage().add(childPage);
+//		page.setPrice(totalPrice);
+//		page.setTax(totalPrice*0.08);
+//		page.setTotalPrice(totalPrice+page.getTax()+500);
+//		page.setStatusMap(statusMap);
+//		return page;
+//	}
 		
-	public Order findByUserId(String userId) {
+	public Order findByOrderNumber(String userId) {
 		return repository.findByUserId(userId);
 	}
 

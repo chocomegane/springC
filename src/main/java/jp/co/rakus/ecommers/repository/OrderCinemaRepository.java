@@ -37,9 +37,9 @@ public class OrderCinemaRepository {
 		Long userId = rs.getLong("user_id");
 		Integer status = rs.getInt("status");
 		Integer totalPrice = rs.getInt("total_price");
-		Date date = rs.getTimestamp("date");
-		return new Order(id, orderNumber, userId, status, null,  totalPrice, date);
-	}; 
+		Date date = rs.getDate("date");
+		return new Order(id, orderNumber, userId, status, null, totalPrice, date);
+	};
 	
 	private static final RowMapper<Cinema> cinemaRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
@@ -176,6 +176,25 @@ public class OrderCinemaRepository {
 		String sql = "DELETE FROM order_items WHERE cinema_id=:cinema_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", orderCinemaId);
 		template.update(sql, param);
+	}
+	
+	public Order findByUserId(String userId) {
+		String sql = "SELECT * FROM orders WHERE order_number = :user_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", userId);
+		Order order = template.queryForObject(sql, param, orderRowMapper);
+		return order;
+	}
+	
+	public List<Order> findAll() {
+		String sql = "SELECT * FROM orders ORDER BY order_number";
+		List<Order> orderList = template.query(sql, orderRowMapper);
+		return orderList;
+	}
+	
+	public void statusUpdate(Integer status, String orderNumber) {
+		String sql = "UPDATE orders SET status = :status WHERE order_number = :orderNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("orderNumber", orderNumber);
+		template.update(sql,param);
 	}
 	
 }
