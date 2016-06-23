@@ -30,10 +30,6 @@ public class UserCinemaDetailController {
 		return new CartForm();
 	}
 	
-//	@RequestMapping(value = "/")
-//	public String index(Model model){
-//		return "userCinemaList";
-//	}
 	
 	/**
 	 * 商品の詳細表示を行う.

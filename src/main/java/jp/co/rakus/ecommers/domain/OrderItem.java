@@ -19,8 +19,9 @@ public class OrderItem {
 	private long id;
 	/** 映画ID */
 	private long cinemaId;
-	/** 個数 */
-	private Integer quantity;
 	/** オーダーID */
 	private long orderId;
+	/** 個数 */
+	private Integer quantity;
+	
 }

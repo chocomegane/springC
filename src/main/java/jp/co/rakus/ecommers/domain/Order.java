@@ -25,7 +25,7 @@ public class Order {
 	private long userId;
 	/** ステータス */
 	private Integer status;
-	
+	/** 注文商品リスト */
 	private List<OrderItem> orderCinemaList;
 	/** 小計 */
 	private Integer totalPrice;
