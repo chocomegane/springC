@@ -56,12 +56,12 @@ public class OrderListDetailController {
 	 * @return
 	 */
 	@RequestMapping("/orderListDetail")
-	public String list(@RequestParam String id, Model model){
+	public String list(@RequestParam String orderNumber, Model model){
 		/*************************************************************/
 		// 購入者の住所 (id=注文番号'00001')
-		Order order = service.findByUserId(id);
+		Order order = service.findByOrderNumber(orderNumber);
 		User user = service2.findById(order.getUserId());
-		model.addAttribute("id", id);
+		model.addAttribute("orderNumber", orderNumber);
 		model.addAttribute("user", user);
 		/*************************************************************/
 		// 購入商品詳細(ホントはChildPageに入れないといけない)
@@ -89,7 +89,7 @@ public class OrderListDetailController {
 	
 	@RequestMapping(value="/statusUpdate", method=RequestMethod.POST)
 	public String update(OrderForm form, Model model) {
-		Order order = service.findByUserId(form.getOrderNumber());
+		Order order = service.findByOrderNumber(form.getOrderNumber());
 		service.statusUpdate(form.getStatus(), order.getOrderNumber());
 		model.addAttribute("message","更新が完了いたしました");
 		return list(order.getOrderNumber(),model);
