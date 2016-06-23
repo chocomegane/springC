@@ -1,7 +1,10 @@
 package jp.co.rakus.ecommers.web;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
@@ -30,6 +34,9 @@ public class InsertCinemaController {
 	/** ListViewServiceを利用するためのDI */
 	@Autowired
 	private OrderListService service;
+	
+	@Autowired
+	private ServletContext context;
 		
 	@ModelAttribute
 	public CinemaForm setUpForm() {
@@ -54,7 +61,7 @@ public class InsertCinemaController {
 	 * @return insertCinema.jspへフォワード
 	 */
 	@RequestMapping(value = "/insert", method=RequestMethod.POST)
-	public String output(@Validated CinemaForm form, BindingResult result, Model model) throws NumberFormatException {
+	public String output(@Validated CinemaForm form, BindingResult result, RedirectAttributes redirectAttributes, Model model) throws NumberFormatException {
 		/*************************************************************************/
 		// エラーチェック
 		if(result.hasErrors()) {
@@ -62,15 +69,22 @@ public class InsertCinemaController {
 		}
 		/*************************************************************************/
 		try {
+			// cinemaFormのreleaseDateがString型なので、Date型に変換
 			String releaseDate = form.getReleaseDate();
 			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
 			
+			// imagePath関係の処理
+			String path = context.getRealPath("/img/");
+			form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(date);
-			
 			BeanUtils.copyProperties(form, cinema);
+			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			
 			service.save(cinema);
-		    model.addAttribute("message", "正常に登録が完了しました");
+			
+		    redirectAttributes.addFlashAttribute("message", "正常に登録が完了しました");
 			return "redirect:/admin/insert";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");

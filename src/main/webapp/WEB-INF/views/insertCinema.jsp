@@ -10,7 +10,7 @@
 <body>
 <h2 align="center">商品登録画面</h2>
 <div align="center">
-	<form:form modelAttribute="cinemaForm" action="/admin/insert">
+	<form:form modelAttribute="cinemaForm" action="/admin/insert" enctype="multipart/form-data">
 		<table border="1">
 			
 			<tr><th>タイトル</th><td><form:textarea path="title" rows="1" cols="40"/><form:errors path="title" cssStyle="color:red" element="div"/></td></tr>
@@ -33,7 +33,7 @@
 			
 			<tr><th>概要（ストーリー）</th><td><form:textarea path="description" rows="15" cols="40"/><form:errors path="description" cssStyle="color:red" element="div"/></td></tr>
 			
-			<tr><th>イメージ画像</th><td><form:textarea path="imagePath" rows="1" cols="40"/><form:errors path="imagePath" cssStyle="color:red" element="div"/></td></tr>
+			<tr><th>イメージ画像</th><td><form:input type="file" path="imagePath"/><form:errors path="imagePath" cssStyle="color:red" element="div"/></td></tr>
 		
 		</table>
 		<input type="submit" value="登録">

@@ -3,6 +3,7 @@ package jp.co.rakus.ecommers.web;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -41,8 +42,8 @@ public class CinemaForm {
 	@NotEmpty(message = "ストーリーは必須です")
 	private String description;
 	/** イメージ画像 */
-	@NotEmpty(message = "画像入力は必須です")
-	private String imagePath;
+	// @NotEmpty(message = "画像入力は必須です")
+	private MultipartFile imagePath;
 	/** フラグ（削除） */
 	private boolean deleted;
 }
