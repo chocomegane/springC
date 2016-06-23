@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommers.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,10 +25,10 @@ public class OrderItemRepository {
 		return new OrderItem(id, cinemaId, orderId, quantity);
 	}; 
 
-	public OrderItem findById(Long id) {
-		String sql = "SELECT * FROM order_items WHERE id = :id";
+	public List<OrderItem> findById(Long id) {
+		String sql = "SELECT * FROM order_items WHERE order_id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		OrderItem item = template.queryForObject(sql, param, orderItemRowMapper);
-		return item;
+		List<OrderItem> itemList = template.query(sql, param, orderItemRowMapper);
+		return itemList;
 	}
 }

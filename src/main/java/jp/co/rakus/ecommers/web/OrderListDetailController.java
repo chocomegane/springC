@@ -1,6 +1,9 @@
 package jp.co.rakus.ecommers.web;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,32 +61,67 @@ public class OrderListDetailController {
 	@RequestMapping("/orderListDetail")
 	public String list(@RequestParam String orderNumber, Model model){
 		/*************************************************************/
-		// 購入者の住所 (id=注文番号'00001')
+		// (orderNumber=注文番号'00001') 購入者の住所
 		Order order = service.findByOrderNumber(orderNumber);
 		User user = service2.findById(order.getUserId());
-		model.addAttribute("orderNumber", orderNumber);
-		model.addAttribute("user", user);
-		/*************************************************************/
-		// 購入商品詳細(ホントはChildPageに入れないといけない)
-		OrderItem item = service3.findById(order.getId());
-		Cinema cinema = service4.findById(item.getCinemaId());
-		model.addAttribute("cinema", cinema);	// ホンマはリスト
-		model.addAttribute("item", item);		// ホンマはリスト
-		model.addAttribute("totalPrice", cinema.getPrice()*item.getQuantity()); // この処理はホントはServiceでやらんといけん
-		/*************************************************************/
-		// 振込情報,　合計金額とか！
-		model.addAttribute("tax", cinema.getPrice()*0.08);
-		model.addAttribute("sum", cinema.getPrice()*1.08+500); // マジックナンバー！（送料一律＝500円）
-		/*************************************************************/
-		// selectボタンのステータスを格納する
-		model.addAttribute("order", order);
-		Map<Integer, String> statusMap = new LinkedHashMap<>();
-		statusMap.put(1, "入金済み");
-		statusMap.put(2, "未入金");
-		statusMap.put(3, "発送済み");
-		statusMap.put(4, "キャンセル");
-		model.addAttribute("statusMap", statusMap);
-		/*************************************************************/
+		
+		// 購入商品詳細
+		List<OrderItem> itemList = service3.findById(order.getId());
+		List<Cinema> cinemaList = new LinkedList<>();
+		for(OrderItem item : itemList) {
+			 Cinema cinema = service4.findById(item.getCinemaId());
+			 cinemaList.add(cinema);
+		}
+		
+		OrderListDetailPage page = new OrderListDetailPage();
+		List<OrderListDetailChildPage> init = new ArrayList<>();
+		page.setChildPage(init);
+		
+		// メソッド化
+			page.setOrderNumber(order.getOrderNumber());
+			page.setUserName(user.getName());
+			page.setEmail(user.getEmail());
+			page.setAddress(user.getAddress());
+			page.setTelephone(user.getTelephone());
+			for(int i = 0; i < itemList.size(); i++) {
+				OrderListDetailChildPage childPage = new OrderListDetailChildPage();
+				childPage.setTitle(cinemaList.get(i).getTitle());
+				childPage.setPrice(cinemaList.get(i).getPrice());
+				childPage.setQuantity(itemList.get(i).getQuantity());
+				childPage.setTotal(cinemaList.get(i).getPrice() * itemList.get(i).getQuantity());
+				page.getChildPage().add(childPage);
+			}
+			Integer total = 0;
+			Integer tax = 0;
+			for(int j = 0; j < page.getChildPage().size(); j++) {
+				total += page.getChildPage().get(j).getTotal();
+			}
+			page.setSubTotal(total);
+			tax = (int)(total * 0.08);
+			page.setTax(tax);
+			page.setGrandTotal(total+tax+500);
+			Map<Integer, String> statusMap = new LinkedHashMap<>();
+			statusMap.put(1, "入金済み");
+			statusMap.put(2, "未入金");
+			statusMap.put(3, "発送済み");
+			statusMap.put(4, "キャンセル");
+			page.setStatusMap(statusMap);
+			switch (order.getStatus()) {
+			case 1:
+				page.setStatus("入金済み");
+				break;
+			case 2:
+				page.setStatus("未入金");
+				break;
+			case 3:
+				page.setStatus("発送済み");
+				break;
+			case 4:
+				page.setStatus("キャンセル");
+				break;
+			}
+			model.addAttribute("page", page);
+		
 		return "orderListDetail";
 	}
 	

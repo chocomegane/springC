@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommers.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ public class OrderItemService {
 	@Autowired
 	private OrderItemRepository repository;
 	
-	public OrderItem findById(Long id) {
+	public List<OrderItem> findById(Long id) {
 		return repository.findById(id);
 	}
 }
