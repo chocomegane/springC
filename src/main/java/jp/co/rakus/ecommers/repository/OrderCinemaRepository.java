@@ -17,14 +17,13 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Cart;
-import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
- * order_itemsテーブルを操作するRepositoryクラス
+ * ordersテーブルを操作するRepositoryクラス
  * 
  * @author takeshi.fujimoto
  *
@@ -173,7 +172,7 @@ public class OrderCinemaRepository {
 		SqlParameterSource param = new MapSqlParameterSource()
 				.addValue("order_number", "20160623123456")
 				.addValue("user_id", user.getId())
-				.addValue("status", 1)
+				.addValue("status", 0)
 				.addValue("total_price", 0)
 				.addValue("date", date);
 		template.update(sql, param);

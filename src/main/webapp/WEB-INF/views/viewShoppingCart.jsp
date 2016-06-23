@@ -3,9 +3,12 @@
     <%@ include file="userCommon.jsp" %>
 <body>
     
+     
     <h2 align="center">ショッピングカート一覧</h2>
 
-   <!--S <p align="center">カートに商品がありません</p> -->
+<c:if test="${cartPage} == null">
+   <p align="center">カートに商品がありません</p>
+</c:if>
    
         <table border ="1"  align="center">
         
@@ -30,7 +33,7 @@
             </tr>
             </c:forEach>
         </table><br>
+        
 
     <div  align="center"><a href="/cinemaShop/mekePayment">決済へ</a></div>
-
 </body>
