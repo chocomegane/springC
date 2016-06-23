@@ -70,7 +70,7 @@ public class UpdateCinemaController {
 			return "updateCinema";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");
-			return null;
+			return "updateCinema";
 		}
 	}
 }
