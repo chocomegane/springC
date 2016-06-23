@@ -23,7 +23,8 @@
  -->
 		<div id="userHeader" align="right">
 			<p>こんにちは<c:out value="${user.name}さん"/></p>
-			<p><a href="/cinemaShop/logout">っログアウト<p>
+			<p><a href="/cinemaShop/logout">ログアウト<p>
+			<p><a href="/cinemaShop/loginForm">ログイン<p>
 			<p><a href="/cinemaShop/view">カートの中身を見る</a></p>
 		</div>
 </header>
