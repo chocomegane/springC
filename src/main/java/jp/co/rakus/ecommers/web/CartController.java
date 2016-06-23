@@ -41,7 +41,7 @@ public class CartController {
 		//principalからユーザーの情報を受け取るための操作
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		service.insertCart(user.getId(), form);
+		service.insertCart(user, form);
 		return "redirect:/cinemaShop/view";
 	}
 	
@@ -57,7 +57,7 @@ public class CartController {
 		//principalからユーザーの情報を受け取るための操作
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		CartListPage cartPage = service.findAllCart(user.getId());
+		CartListPage cartPage = service.findAllCart(user);
 		model.addAttribute("cartPage", cartPage);
 		return "viewShoppingCart";
 	}
