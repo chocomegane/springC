@@ -89,7 +89,7 @@ public class InsertCinemaController {
 			return "redirect:/admin/insert";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");
-			return null;
+			return "insertCinema";
 		}
 	}
 }
