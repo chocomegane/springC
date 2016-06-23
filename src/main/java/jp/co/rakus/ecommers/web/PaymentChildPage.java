@@ -20,6 +20,6 @@ public class PaymentChildPage {
 	private Integer quantity;
 	/** 小計（税抜き） */
 	private Integer subTotalPrice;
-	/** 小計（税あり） */
-	private Integer pretaxTotalPrice;
+//	/** 小計（税あり） */
+//	private Integer pretaxTotalPrice;
 }

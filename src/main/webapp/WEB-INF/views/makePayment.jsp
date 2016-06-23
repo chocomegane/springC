@@ -5,7 +5,7 @@
 <hr>
 <table border="1" align="center">
 	<tr>
-		<th>商品名</th><th>単価</th><th>個数</th><th>税抜価格</th><th>小計</th>
+		<th>商品名</th><th>単価</th><th>個数</th><th>税抜<%-- 価格</th><th> --%>小計</th>
 	</tr>
 	<c:forEach var="paymentChildPage" items="${paymentPage.paymentChildPageList}">
 		<tr>
@@ -17,20 +17,20 @@
 			<td align="center">
 				&yen;<fmt:formatNumber value="${paymentChildPage.subTotalPrice}" maxFractionDigits="0" />
 			</td>
-			<td align="center">
+<%-- 			<td align="center">
 				&yen;<fmt:formatNumber value="${paymentChildPage.pretaxTotalPrice}" maxFractionDigits="0" />
-			</td>
+			</td> --%>
 		</tr>
 	</c:forEach>
 	<tr>
 		<td>消費税</td>
-		<td align="right" colspan="4">
+		<td align="right" colspan="3">
 			&yen;<fmt:formatNumber value="${paymentPage.totalTax}" maxFractionDigits="0" />
 		</td>
 	</tr>
 	<tr>
 		<td>送料一律</td>
-		<td align="right" colspan="4">
+		<td align="right" colspan="3">
 			&yen;<fmt:formatNumber value="${paymentPage.postage}" maxFractionDigits="0" />
 		</td>
 	</tr>
