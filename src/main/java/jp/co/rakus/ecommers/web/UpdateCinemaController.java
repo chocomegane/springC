@@ -1,7 +1,10 @@
 package jp.co.rakus.ecommers.web;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class UpdateCinemaController {
 	@Autowired
 	private OrderListService service;
 
+	@Autowired
+	private ServletContext context;
+	
 	@ModelAttribute
 	public CinemaForm setUpForm2() {
 		return new CinemaForm();
@@ -61,16 +67,21 @@ public class UpdateCinemaController {
 			String releaseDate = form.getReleaseDate();
 			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
 			
+			String path = context.getRealPath("/img/");
+			form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(date);
 			
 			BeanUtils.copyProperties(form, cinema);
+			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			
 			service.save(cinema);
 		    model.addAttribute("message", "正常に登録が完了しました");
 			return "updateCinema";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");
-			return null;
+			return "updateCinema";
 		}
 	}
 }

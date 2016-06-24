@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderListDetailChildPage {
 
-	private String taitle;
+	private String title;
 	private Integer price;
 	private Integer quantity;
-	private Integer totalPrice;
+	private Integer total;
 
 }
