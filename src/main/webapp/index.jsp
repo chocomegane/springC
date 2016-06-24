@@ -1,107 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>モック</title>
-
  <link href="css/bootstrap.min.css" rel="stylesheet">
 <!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
-	<script type="text/javascript">
-	function findByPrice(){
-		alert("関数が呼ばれた！");
-		document.searchCinemaPriceForm.submit();
-	}
-	</script>
-	<script type="text/javascript">
-	function allDelete() {
-		alert("allDelete()関数が呼ばれた！");
-		// allDeleteFormという名前がつけられたフォームをサブミットする
-		document.allDeleteForm.submit();
-	}
-	</script>
-		
-
 </head>
 
 <body>
-
 	<h1>ECサイトラクス</h1>
-	
-<form action="/cinemaShop/searchCinemaPrice" name="searchCinemaPriceForm">
-	<select name="price" class="form-control" style="width: 120px" onchange="findByPrice();">
-	  <option value="0">～1000円</option>
-	  <option value="1">1000円～2000円</option>
-	  <option value="2">2000円～3000円</option>
-	  <option value="3">3000円～</option>
-	</select>
-</form>
-
-
-	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
-<!-- ここから下をjspに追加する -->
-
-<form>
-<div class="dropdown">
-	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		値段
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-		<li role="presentation"><a href="#">0円～1000円</a></li>
-		<li role="presentation"><a href="#">1000円～2000円</a></li>
-		<li role="presentation"><a href="#">2000円～3000円</a></li>
-		<li role="presentation"><a href="#">3000円～</a></li>
-	</ul>
-</div>
-</form>
-
-<form>
-<div class="dropdown">
-	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		ジャンル
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-	
-		<li role="presentation"><a href="#">SF</a></li>
-		<li role="presentation"><a href="#">ホラー</a></li>
-		<li role="presentation"><a href="#">アクション</a></li>
-		
-	</ul>
-</div>
-</form>
-
-<form>
-<div class="dropdown">
-	<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		メディアタイプ
-		<span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-		<li role="presentation"><a href="#">DVD</a></li>
-	</ul>
-</div>
-</form>
-
-<form>	
-	<div class="col-xs-4">
-		<input type="text" class="form-control" placeholder="検索したい商品を入力してください">
-	</div>
-	<button type="submit" class="btn btn-default">検索</button>
-</form>
-	
-	
 	<table class="table table-striped">
 
 		<tbody>
@@ -183,6 +103,7 @@
 			
 		</tbody>
 	</table>
+
 
 </body>
 </html>
