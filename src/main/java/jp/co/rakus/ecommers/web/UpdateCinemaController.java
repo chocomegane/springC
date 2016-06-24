@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
@@ -50,10 +51,10 @@ public class UpdateCinemaController {
 	 * @return updateCinema.jspへフォワード
 	 */
 	@RequestMapping
-	public String index(@RequestParam Integer id, Model model) {
+	public String index(@RequestParam Integer id, CinemaForm form, Model model) {
 		Cinema cinema = service.findOne(id);
 		model.addAttribute("cinema", cinema);
-		return "updateCinema";
+		return "updateCinema";	
 	}
 	
 	/**
