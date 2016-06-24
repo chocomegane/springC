@@ -31,8 +31,11 @@ public class UserSearchCinemaController {
 	 * @return フォワード先の名前.
 	 */
 	@RequestMapping(value="/searchCinemaGenre")
-	public String listGenre(@RequestParam String genreStr, Model model){
-		CinemaListPage listPage = service.findByGenre(genreStr);
+	public String listGenre(@RequestParam String genre, Model model){
+		
+		System.out.println("genreの中身の確認" + genre);
+		
+		CinemaListPage listPage = service.findByGenre(genre);
 		
 		model.addAttribute("listPage", listPage);
 		
@@ -47,8 +50,9 @@ public class UserSearchCinemaController {
 	 * @return フォワード先の名前.
 	 */
 	@RequestMapping(value="/searchCinemaMediaType")
-	public String listMediaType(@RequestParam String mediaTypeStr, Model model){
-		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
+	public String listMediaType(@RequestParam String mediaType, Model model){
+		
+		CinemaListPage listPage = service.findByMediaType(mediaType);
 		
 		model.addAttribute("listPage", listPage);
 		
@@ -64,19 +68,30 @@ public class UserSearchCinemaController {
 	 * @return
 	 */
 	@RequestMapping(value="/searchCinemaPrice")
-	public String listPrice(@RequestParam String minPriceStr,
-			@RequestParam String maxPriceStr, Model model){
+	public String listPrice(@RequestParam String price, Model model){
+
+		Integer minPrice = 0;
+		Integer maxPrice = 0;
 		
-		//minにしかリクエストパラメータが入っていなかったらfindByMinPriceメソッドを呼び出す
+		//リクエストパラメータのprice値を条件式にかける
+		if(price.equals("0")){
+			minPrice = 0;
+			maxPrice = 1000;
+		}else if(price.equals("1")){
+			minPrice = 1000;
+			maxPrice = 2000;
+		}else if(price.equals("2")){
+			minPrice = 2000;
+			maxPrice = 3000;
+		}else if(price.equals("3")){
+			minPrice = 3000;
+		}
 		
 		CinemaListPage listPage = new CinemaListPage();
 		
-		if(maxPriceStr.isEmpty()){
-			Integer minPrice = Integer.parseInt(minPriceStr);
+		if(maxPrice.equals(0)){
 			listPage = service.findByMinPrice(minPrice);
 		}else{
-			Integer minPrice = Integer.parseInt(minPriceStr);
-			Integer maxPrice = Integer.parseInt(maxPriceStr);
 			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
 		}
 		

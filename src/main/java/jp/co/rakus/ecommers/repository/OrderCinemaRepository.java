@@ -104,7 +104,7 @@ public class OrderCinemaRepository {
 				orders.add(currentOrder);
 				currentOrder.setId(orderId);
 				currentOrder.setOrderNumber(rs.getString("order_number"));
-				currentOrder.setUserId(rs.getInt("user_id"));
+				currentOrder.setUserId(rs.getLong("user_id"));
 				currentOrder.setStatus(rs.getInt("status"));
 				currentOrder.setTotalPrice(rs.getInt("total_price"));
 				currentOrder.setDate(rs.getTimestamp("date"));
@@ -118,7 +118,7 @@ public class OrderCinemaRepository {
 				currentItem = new OrderItem();
 				currentItem.setId(itemId);
 				currentItem.setOrderId(orderId);
-				currentItem.setCinemaId(rs.getInt("cinema_id"));
+				currentItem.setCinemaId(rs.getLong("cinema_id"));
 				currentItem.setQuantity(rs.getInt("quantity"));
 				currentOrder.getOrderCinemaList().add(currentItem);
 			}
@@ -185,13 +185,12 @@ public class OrderCinemaRepository {
 	 * @param date
 	 */
 	public void insertOrder(User user, Order order) {
-
 		String sql = "INSERT INTO orders(order_number, user_id, status, total_price, date)"
 				+ " VALUES(:order_number, :user_id, :status, :total_price, :date)";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", order.getOrderNumber())
+		SqlParameterSource param = new MapSqlParameterSource()
+				.addValue("order_number", order.getOrderNumber())
 				.addValue("user_id", user.getId()).addValue("status", ORDER_STATUS)
 				.addValue("total_price", ORDER_TOTAL_PRICE).addValue("date", order.getDate());
-
 		template.update(sql, param);
 	}
 
@@ -251,7 +250,8 @@ public class OrderCinemaRepository {
 		List<Cart> orderList = new ArrayList<>();
 		try {
 			String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price,"
-					+ " o.date, i.id, i.cinema_id, i.quantity" + " FROM orders AS o" + " INNER JOIN order_items AS i"
+					+ " o.date, i.id, i.cinema_id, i.quantity" + " FROM orders AS o"
+					+ " INNER JOIN order_items AS i"
 					+ " ON o.id = i.order_id" + " WHERE o.status = 0" + " AND o.user_id = :user_id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId());
 			orderList = template.query(sql, param, orderListRowMapper);

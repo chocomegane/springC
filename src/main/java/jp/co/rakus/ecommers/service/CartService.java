@@ -1,7 +1,6 @@
 package jp.co.rakus.ecommers.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,11 @@ import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
-import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderItemRepository;
 import jp.co.rakus.ecommers.web.CartListChildPage;
 import jp.co.rakus.ecommers.web.CartListPage;
-import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
  * カートの操作をするServiceクラス.
@@ -48,33 +45,23 @@ public class CartService {
 	 */
 	@Transactional
 	public void insertCart(User user, OrderItem orderItem) {
-
 		java.util.Date utilDate = new java.util.Date();
 
 		Order order = orderCinemaRepository.findCart(user);
 		if (order == null) {
-
 			order = new Order();
 			order.setOrderNumber("20160623123456");
 			order.setDate(utilDate);
-//			long utilMillisecond = utilDate.getTime();
-//			java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
-//			order.setDate(sqlDate);
-
 			orderCinemaRepository.insertOrder(user, order);
 			order = orderCinemaRepository.findCart(user);
 		}
-		
-		
+
 		orderCinemaRepository.saveOrderItem(orderItem, order);
 
 		order = orderCinemaRepository.findCart(user);
-		
 		order.setTotalPrice(sumPrice(order.getOrderCinemaList()));
 		order.setDate(utilDate);
-
 		orderCinemaRepository.updateOrder(order);
-
 	}
 
 	/**
@@ -87,7 +74,6 @@ public class CartService {
 	public CartListPage findAllCart(User user) {
 		CartListPage page = new CartListPage();
 		List<CartListChildPage> init = new ArrayList<>();
-
 		page.setCartListChildPage(init);
 		Order order = orderCinemaRepository.findCart(user);
 		// List<OrderItem> orderItemList =
@@ -147,5 +133,21 @@ public class CartService {
 		}
 		return sum;
 	}
-
+	
+	/**
+	 * ログイン時にゲストで追加したカートの中身をユーザーのカートに移すメソッド.
+	 * @param user
+	 * @param guestId
+	 */
+	public void joinCart(User user, Long guestId) {
+		User guest = new User();
+		guest.setId(guestId);
+		Order guestOrder = orderCinemaRepository.findCart(guest);
+		if (guestOrder != null) {
+			for (OrderItem orderItem : guestOrder.getOrderCinemaList()) {
+				insertCart(user, orderItem);
+				deleteCart(orderItem.getId());
+			}
+		}
+	}
 }

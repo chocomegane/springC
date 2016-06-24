@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommers.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -41,4 +42,14 @@ public class Cinema {
 	private String imagePath;
 	/** フラグ（削除） */
 	private boolean deleted;
+	
+	public String getStrReleaseDate() {
+		try {
+			Date date = this.releaseDate;
+			String strReleaseDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+			return strReleaseDate;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
