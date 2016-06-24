@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.OrderItem;
 
+/**
+ * order_itemsテーブルを扱うRepository.
+ * @author yusuke.nakano
+ *
+ */
 @Repository
 public class OrderItemRepository {
 
@@ -25,8 +30,14 @@ public class OrderItemRepository {
 		return new OrderItem(id, cinemaId, orderId, quantity);
 	}; 
 
+	/**
+	 * ordersテーブルのidを引数に、order_itemsテーブルのorder_idと一致する<br>
+	 * 注文一覧を取得するメソッド.
+	 * @param id ordersテーブルのid
+	 * @return order_itemsテーブルのリスト
+	 */
 	public List<OrderItem> findById(Long id) {
-		String sql = "SELECT * FROM order_items WHERE order_id = :id";
+		String sql = "SELECT id, item_id, quantity, order_id FROM order_items WHERE order_id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		List<OrderItem> itemList = template.query(sql, param, orderItemRowMapper);
 		return itemList;

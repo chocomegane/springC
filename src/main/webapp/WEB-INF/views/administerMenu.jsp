@@ -10,11 +10,18 @@
 <body>
 <h2 align="center">管理者メニュー画面</h2>
 <br>
-<div align="center"><a href="/admin/displayList">取り扱い商品一覧</a></div>
-<div align="center"><a href="/admin/orderList">注文一覧</a><br></div>
-<div align="center"><a href="/admin/insert">商品を登録</a></div>
-<br>
-<div align="center"><a href="/admin/register/">新規登録</a></div>
-<div align="center"><a href="/admin/logout">ログアウト</a></div>
+<h3 align="center">メニュー</h3>
+<div align="center">
+	<table border="1">
+		<tr><td align="center"><a href="/admin/displayList">取り扱い商品一覧</a></td></tr>
+		<tr><td align="center"><a href="/admin/orderList">注文一覧</a></td></tr>
+		<tr><td align="center"><a href="/admin/insert">商品を登録</a></td></tr>
+	</table>
+	<br>
+	<table border="1">
+		<tr><td align="center"><a href="/admin/register/">新規登録</a></td></tr>
+		<tr><td align="center"><a href="/admin/logout">ログアウト</a></td></tr>
+	</table>
+</div>
 </body>
 </html>
