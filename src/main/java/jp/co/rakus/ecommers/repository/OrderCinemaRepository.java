@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommers.domain.Cart;
-import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;

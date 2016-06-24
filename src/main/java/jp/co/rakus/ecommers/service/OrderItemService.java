@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.repository.OrderItemRepository;
 
+/**
+ * OrderItemRepositoryを扱うserviceクラス.
+ * @author yusuke.nakano
+ *
+ */
 @Service
 public class OrderItemService {
 
@@ -17,4 +22,5 @@ public class OrderItemService {
 	public List<OrderItem> findById(Long id) {
 		return repository.findById(id);
 	}
+	
 }
