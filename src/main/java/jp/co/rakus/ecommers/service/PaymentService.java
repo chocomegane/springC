@@ -40,7 +40,7 @@ public class PaymentService {
 	public PaymentPage createPaymentPage(User user) {
 		// オーダーの情報を取得
 		// Order order = orderRepository.searchOrder(user);
-		Order order = orderRepository.searchOrder(user);
+		Order order = orderRepository.findCart(user);
 		System.out.println(order);
 		// チャイルドページのリストを作成と価格計算
 		int totalPrice = 0;
