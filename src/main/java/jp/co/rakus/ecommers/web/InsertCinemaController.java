@@ -73,9 +73,8 @@ public class InsertCinemaController {
 		try {
 			// cinemaFormのreleaseDateがString型なので、Date型に変換
 			String releaseDate = form.getReleaseDate();
-			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate);
 			
-			System.out.println(date);
 			
 			// imagePath関係の処理
 			String path = context.getRealPath("/img/");
