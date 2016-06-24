@@ -42,5 +42,25 @@
  </tbody>
 </table>
 
+<!-- 試しでBootstrapを追加する -->
+
+<table class="table table-striped">
+	<tbody>
+			<tr>
+		<c:forEach var="child" items="${listPage.childPageList}">
+				<th>
+					<a href="/cinemaShop/detail/${child.id}">
+					<img src="../img/1132686_1200-580x824.jpg" width="100" height="180">
+					</a>
+					<br><c:out value="${child.title}"/><br>
+					<br>監督の名前<br>
+					<br><c:out value="${child.price}"/>円<br>
+				</th>
+		</c:forEach>
+			</tr>
+	</tbody>
+</table>
+
+
 </body>
 </html>
