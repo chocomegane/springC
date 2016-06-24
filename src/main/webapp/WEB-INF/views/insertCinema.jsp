@@ -21,7 +21,8 @@
 			
 			<tr><th>上映時間</th><td><form:textarea path="time" rows="1" cols="40"/><form:errors path="time" cssStyle="color:red" element="div"/></td></tr>
 			
-			<tr><th>公開日</th><td><form:textarea path="releaseDate" rows="1" cols="40"/><form:errors path="releaseDate" cssStyle="color:red" element="div"/></td></tr>
+			<%-- <tr><th>公開日</th><td><form:textarea path="releaseDate" rows="1" cols="40"/><form:errors path="releaseDate" cssStyle="color:red" element="div"/></td></tr> --%>
+			<tr><th>公開日</th><td><form:input type ="date" path="releaseDate"/></td></tr>
 			
 			<tr><th>メディアタイプ</th><td><form:textarea path="mediaType" rows="1" cols="40"/><form:errors path="mediaType" cssStyle="color:red" element="div"/></td></tr>
 			

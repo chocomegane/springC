@@ -17,7 +17,8 @@
 			<tr><th>価格</th><td><form:input path="price" rows="1" cols="40" value="${cinema.price}"/></td></tr>
 			<tr><th>ジャンル</th><td><form:input path="genre" rows="1" cols="40" value="${cinema.genre}"/></td></tr>
 			<tr><th>上映時間</th><td><form:input path="time" rows="1" cols="40" value="${cinema.time}"/></td></tr>
-			<tr><th>公開日</th><td><form:input path="releaseDate" rows="1" cols="40" value="${cinema.releaseDate}"/></td></tr>
+			<%-- <tr><th>公開日</th><td><form:input path="releaseDate" rows="1" cols="40" value="${cinema.releaseDate}"/></td></tr> --%>
+			<tr><th>公開日</th><td><input type="date" name="releaseDate" value="${cinema.mediaType}" ></td></tr>
 			<tr><th>メディアタイプ</th><td><form:input path="mediaType" rows="1" cols="40" value="${cinema.mediaType}"/></td></tr>
 			<tr><th>制作会社</th><td><form:input path="company" rows="1" cols="40" value="${cinema.company}"/></td></tr>
 			<tr><th>監督</th><td><form:input path="directedBy" rows="1" cols="40" value="${cinema.directedBy}"/></td></tr>

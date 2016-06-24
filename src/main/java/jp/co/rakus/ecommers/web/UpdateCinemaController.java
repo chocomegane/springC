@@ -63,6 +63,8 @@ public class UpdateCinemaController {
 	 */
 	@RequestMapping(value = "/execute", method=RequestMethod.POST)
 	public String output(CinemaForm form, BindingResult result, Model model) {
+		
+		
 		try {
 			String releaseDate = form.getReleaseDate();
 			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
@@ -75,6 +77,8 @@ public class UpdateCinemaController {
 			
 			BeanUtils.copyProperties(form, cinema);
 			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			cinema.setPrice(form.getIntPrice());
+			cinema.setTime(form.getIntTime());
 			
 			service.save(cinema);
 		    model.addAttribute("message", "正常に登録が完了しました");
