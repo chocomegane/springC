@@ -186,11 +186,6 @@ public class OrderCinemaRepository {
 	 */
 	public void insertOrder(User user, Order order) {
 
-		System.err.println("=======================================================");
-		System.out.println("insertOrder");
-		System.out.println(user);
-		System.err.println("=======================================================");
-
 		String sql = "INSERT INTO orders(order_number, user_id, status, total_price, date)"
 				+ " VALUES(:order_number, :user_id, :status, :total_price, :date)";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", order.getOrderNumber())

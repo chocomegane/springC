@@ -52,7 +52,6 @@ public class CartService {
 		java.util.Date utilDate = new java.util.Date();
 
 		Order order = orderCinemaRepository.findCart(user);
-		System.err.println(order);		
 		if (order == null) {
 
 			order = new Order();
@@ -102,13 +101,18 @@ public class CartService {
 		for (OrderItem orderItem : order.getOrderCinemaList()) {
 			CartListChildPage childPage = new CartListChildPage();
 			Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
+			childPage.setCinemaId(cinema.getId());
 			childPage.setOrderCinemaId(orderItem.getId());
 			childPage.setTitle(cinema.getTitle());
 			childPage.setPrice(cinema.getPrice());
 			childPage.setQuantity(orderItem.getQuantity());
+			childPage.setImagePath(cinema.getImagePath());
 
 			page.getCartListChildPage().add(childPage);
 		}
+		
+		page.setTotalPrice(order.getTotalPrice());
+		
 		return page;
 	}
 
@@ -128,6 +132,8 @@ public class CartService {
 	}
 
 	/**
+	 * カートにある映画の小計を計算.
+	 * 
 	 * @param orderItemList
 	 * @return
 	 */
