@@ -52,7 +52,6 @@ public class CinemaForm {
 	@NotEmpty(message = "ストーリーは必須です")
 	private String description;
 	/** イメージ画像 */
-	// @NotEmpty(message = "画像入力は必須です")
 	private MultipartFile imagePath;
 	/** フラグ（削除） */
 	private boolean deleted;

@@ -67,15 +67,26 @@ public class InsertCinemaController {
 		System.err.println(form.getReleaseDate());
 		// エラーチェック
 		if(result.hasErrors()) {
+			if(form.getImagePath().getOriginalFilename().equals(""))
+			{
+				String err = "画像を選択してください";
+				model.addAttribute("err", err);
+			}
 			return index(model);
+		}
+		 System.out.println(form.getImagePath().getOriginalFilename());
+		if(form.getImagePath().getOriginalFilename().equals(""))
+		{
+			String err = "画像を選択してください";
+			model.addAttribute("err", err);
+			return "insertCinema";
 		}
 		/*************************************************************************/
 		try {
 			// cinemaFormのreleaseDateがString型なので、Date型に変換
 			String releaseDate = form.getReleaseDate();
-			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate);
 			
-			System.out.println(date);
 			
 			// imagePath関係の処理
 			String path = context.getRealPath("/img/");
