@@ -38,7 +38,7 @@ public class OrderItemRepository {
 	 * @return order_itemsテーブルのリスト
 	 */
 	public List<OrderItem> findById(Long id) {
-		String sql = "SELECT id, item_id, quantity, order_id FROM order_items WHERE order_id = :id";
+		String sql = "SELECT id, cinema_id, quantity, order_id FROM order_items WHERE order_id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		List<OrderItem> itemList = template.query(sql, param, orderItemRowMapper);
 		return itemList;
