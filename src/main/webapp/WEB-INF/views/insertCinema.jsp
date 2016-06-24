@@ -43,6 +43,10 @@
 <div align="center">
 	<c:out value="${message}"/>
 </div>
+<br>
+<div align="center">
+	<a href="/admin/menu">メニューへ戻る</a>
+</div>
 
 </body>
 </html>
