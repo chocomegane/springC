@@ -43,10 +43,9 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insert")
-	public String insertCart(Principal principal, InsertForm form, Model model) {
+	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, InsertForm form, Model model) {
 		// principalからユーザーの情報を受け取るための操作
-		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
-		User user = loginUser.getUser();
+		User user = chkUser(principal, cookie);
 		service.insertCart(user, form);
 		return "redirect:/cinemaShop/view";
 	}
@@ -61,25 +60,7 @@ public class CartController {
 	@RequestMapping(value = "/view")
 	public String viewCart(Principal principal, @CookieValue("JSESSIONID") String cookie, Model model) {
 		// principalからユーザーの情報を受け取るための操作
-		User user;
-		if (principal == null) {
-			user = new User();
-			long id;
-			try {
-				id = Long.parseLong(cookie.substring(cookie.length() - LONG_DIGIT), 16);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				id = 0L;
-			}
-			user.setId(id);
-			user.setName("ゲスト");
-		} else {
-			LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
-			if (loginUser.getCookieValue() == null) {
-				loginUser.setCookieValue((String)session.getAttribute("guestid"));
-			}
-			user = loginUser.getUser();
-		}
+		User user = chkUser(principal, cookie);
 		CartListPage cartPage = service.findAllCart(user);
 		if (cartPage == null) {
 			model.addAttribute("cartPage", cartPage);
@@ -88,6 +69,31 @@ public class CartController {
 			model.addAttribute("cartPage", cartPage);
 			return "viewShoppingCart";
 		}
+	}
+
+	private User chkUser(Principal principal, String cookie) {
+		User user;
+		try {
+			if (principal == null) {
+				user = new User();
+				long guestid = Long.parseLong(cookie.substring(cookie.length() - LONG_DIGIT), 16);
+				user.setId(guestid);
+				user.setName("ゲスト");
+			} else {
+				LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
+				user = loginUser.getUser();
+				if (loginUser.getGuestId() == null) {
+					String jsessionId = (String) session.getAttribute("guestid");
+					long guestId = Long.parseLong(jsessionId.substring(cookie.length() - LONG_DIGIT), 16);
+					loginUser.setGuestId(guestId);
+					service.joinCart(user, guestId);
+				}
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return user;
 	}
 
 	/**

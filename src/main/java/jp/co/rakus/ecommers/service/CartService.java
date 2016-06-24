@@ -41,7 +41,7 @@ public class CartService {
 	 * @param form
 	 */
 	public void insertCart(User user, InsertForm form) {
-
+		System.err.println(user);
 		java.util.Date utilDate = new java.util.Date();
 
 		Order order = orderCinemaRepository.searchOrder(user);
@@ -115,5 +115,8 @@ public class CartService {
 	public void deleteCart(long orderCinemaId) {
 		orderCinemaRepository.deleteByCinemaId(orderCinemaId);
 	}
-
+	
+	public void joinCart(User user, Long guestId) {
+		Order order = orderCinemaRepository.searchOrder(user);
+	}
 }
