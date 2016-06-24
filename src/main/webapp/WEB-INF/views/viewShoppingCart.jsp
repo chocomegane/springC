@@ -6,18 +6,17 @@
      
     <h2 align="center">ショッピングカート一覧</h2>
 
-<c:if test="${cartPage} == null">
-   <p align="center">カートに商品がありません</p>
-</c:if>
+   <p align="center"><c:out value="${message}"></c:out></p>
+   
    
         <table border ="1"  align="center">
         
-            <tr>
+            <!-- <tr>
                 <th colspan="2">商品名</th>
                 <th>価格</th>
                 <th>個数</th>
                 <th></th>
-            </tr>
+            </tr> -->
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>
 				<td><a href="/cinemaShop/detail/${cartItem.orderCinemaId}"><img src="/img/pc.jpg" width="150"height="125" alt="商品画像"></a></td>
@@ -33,7 +32,6 @@
             </tr>
             </c:forEach>
         </table><br>
-        
 
-    <div  align="center"><a href="/cinemaShop/mekePayment">決済へ</a></div>
+    <div  align="center"><a href="/cinemaShop/mekePayment"><c:out value="${payment}"/></a></div>
 </body>

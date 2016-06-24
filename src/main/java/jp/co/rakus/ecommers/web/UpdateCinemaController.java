@@ -6,10 +6,8 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 
-import org.neo4j.cypher.internal.compiler.v2_1.perty.printToString;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
@@ -50,10 +49,10 @@ public class UpdateCinemaController {
 	 * @return updateCinema.jspへフォワード
 	 */
 	@RequestMapping
-	public String index(@RequestParam Integer id, Model model) {
+	public String index(@RequestParam Integer id, CinemaForm form, Model model) {
 		Cinema cinema = service.findOne(id);
 		model.addAttribute("cinema", cinema);
-		return "updateCinema";
+		return "updateCinema";	
 	}
 	
 	/**
@@ -65,6 +64,8 @@ public class UpdateCinemaController {
 	 */
 	@RequestMapping(value = "/execute", method=RequestMethod.POST)
 	public String output(CinemaForm form, BindingResult result, Model model) {
+		
+		
 		try {
 			String releaseDate = form.getReleaseDate();
 			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
@@ -76,6 +77,8 @@ public class UpdateCinemaController {
 			cinema.setReleaseDate(date);
 			BeanUtils.copyProperties(form, cinema);
 			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			cinema.setPrice(form.getIntPrice());
+			cinema.setTime(form.getIntTime());
 			
 			service.save(cinema);
 		    model.addAttribute("message", "正常に登録が完了しました");
