@@ -14,8 +14,9 @@ public class OrderListChildPage {
 	private long id;
 	/** オーダーナンバー */
 	private String orderNumber;
-	/** ユーザID */
-	private long userId;
+	private Integer userId;
+	/** ユーザ名 */
+	private String userName;
 	/** ステータス */
 	private String status;
 	/** 小計 */

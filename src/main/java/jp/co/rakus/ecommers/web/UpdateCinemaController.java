@@ -6,8 +6,10 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 
+import org.neo4j.cypher.internal.compiler.v2_1.perty.printToString;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,7 +40,7 @@ public class UpdateCinemaController {
 	private ServletContext context;
 	
 	@ModelAttribute
-	public CinemaForm setUpForm2() {
+	public CinemaForm setUpForm() {
 		return new CinemaForm();
 	}
 	
@@ -49,7 +51,7 @@ public class UpdateCinemaController {
 	 */
 	@RequestMapping
 	public String index(@RequestParam Integer id, Model model) {
-		Cinema cinema = service.findOne(id);	// 試験的に使います
+		Cinema cinema = service.findOne(id);
 		model.addAttribute("cinema", cinema);
 		return "updateCinema";
 	}
@@ -72,7 +74,6 @@ public class UpdateCinemaController {
 			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(date);
-			
 			BeanUtils.copyProperties(form, cinema);
 			cinema.setImagePath(form.getImagePath().getOriginalFilename());
 			

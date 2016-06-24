@@ -67,6 +67,9 @@
 <br>
 <div align="center">
 	<a href="/admin/orderList">注文一覧へ戻る</a>
+	<br>
+	<br>
+	<a href="/admin/menu">メニューへ戻る</a>
 </div>
 </body>
 </html>

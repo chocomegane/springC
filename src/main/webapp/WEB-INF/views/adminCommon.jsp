@@ -25,6 +25,7 @@
  -->
  		<div id="userHeader" align="right">
 			<p>こんにちは<c:out value="${admin.name}さん"/></p>
+			<p><a href="/admin/menu">メニュー画面</a></p>
 			<p><a href="/admin/logout">ログアウト</a></p>
 		</div>
 </header>

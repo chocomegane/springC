@@ -37,5 +37,10 @@
 	</form:form>
 	<form action="/admin/register/"> <input type="submit" value="クリア"></form>
 </div>
+<br>
+<div align="center">
+	<a href="/admin/menu">メニューへ戻る</a>
+</div>
+
 </body>
 </html>
