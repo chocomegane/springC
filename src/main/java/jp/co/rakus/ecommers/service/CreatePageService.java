@@ -42,7 +42,7 @@ public class CreatePageService {
 		// (orderNumber=注文番号'00001') 購入者の住所
 		Order order = service1.findByOrderNumber(orderNumber);
 		User user = service2.findById(order.getUserId());
-
+							
 		// 購入商品詳細
 		List<OrderItem> itemList = service3.findById(order.getId());
 		List<Cinema> cinemaList = new LinkedList<>();
@@ -100,7 +100,7 @@ public class CreatePageService {
 			page.setStatus("キャンセル");
 			break;
 		}
-
+		
 		return page;
 	}
 }

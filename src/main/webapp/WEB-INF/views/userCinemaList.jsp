@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="userCommon.jsp" %>
 
+
 <!-- テキスト検索 -->
 <c:out value="${message}"/>
 <c:out value="${message2}"/><br>
@@ -15,7 +16,6 @@
 	</span>
 </div>
 </form>
-
 <div style="display:inline-flex">
 
 <!-- 値段検索 -->
@@ -58,11 +58,11 @@
 		<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
 					<th>
 						<a href="/cinemaShop/detail/${child.id}">
-						<img src="../img/1132686_1200-580x824.jpg" 
+						<img src="../img/${child.imagePath}" 
 						class="img-responsive img-rounded" width="100" height="300">
 						</a>
 						<br><c:out value="${child.title}"/><br>
-						<br>監督の名前<br>
+						<br><c:out value="${child.directedBy}"></c:out><br>
 						<br><c:out value="${child.price}"/>円<br>
 				</th>
 				<c:if test="${status.count%4==0}">
@@ -73,6 +73,5 @@
 			</tr>
 	</tbody>
 </table>
-
 </body>
 </html>

@@ -106,12 +106,17 @@ public class OrderListService {
 			case 4:
 				child.setStatus("キャンセル");
 				break;
+			default :
+				child.setStatus(null);				
+				break;
 			}
 			
 			BeanUtils.copyProperties(order, child);
-			User user = repository3.findById(order.getUserId());
-			child.setUserName(user.getName());
-			page.getCinemaList().add(child);
+			if( child.getStatus() != null ) {
+				User user = repository3.findById(order.getUserId());
+				child.setUserName(user.getName());
+				page.getCinemaList().add(child);
+			}
 		}
 		return page;
 	}
