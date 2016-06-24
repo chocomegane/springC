@@ -89,10 +89,9 @@ public class CartService {
 		List<CartListChildPage> init = new ArrayList<>();
 		page.setCartListChildPage(init);
 		Order order = orderCinemaRepository.searchOrder(user);
+//		order.setOrderCinemaList(orderCinemaRepository.findAllOrderItem(order));
 
-		order.setOrderCinemaList(orderCinemaRepository.findAllOrderItem(order));
-
-		if (order.getOrderCinemaList() == null) {
+		if (order == null || order.getOrderCinemaList() == null) {
 			return null;
 		}
 		for (OrderItem orderItems : order.getOrderCinemaList()) {

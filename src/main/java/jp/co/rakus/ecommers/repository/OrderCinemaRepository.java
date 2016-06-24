@@ -33,7 +33,7 @@ public class OrderCinemaRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	private static final RowMapper<Order> orderRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
 		String orderNumber = rs.getString("order_number");
@@ -43,15 +43,15 @@ public class OrderCinemaRepository {
 		Date date = rs.getDate("date");
 		return new Order(id, orderNumber, userId, status, null, totalPrice, date);
 	};
-	
+
 	private static final RowMapper<OrderItem> orderItemListRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
 		long cinemaId = rs.getLong("cinema_id");
 		long orderId = rs.getLong("order_id");
 		Integer quantity = rs.getInt("quantity");
 		return new OrderItem(id, cinemaId, orderId, quantity);
-	}; 
-	
+	};
+
 	private static final RowMapper<Cart> orderListRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
 		String orderNumber = rs.getString("order_number");
@@ -133,18 +133,18 @@ public class OrderCinemaRepository {
 	public Order searchOrder(User user) {
 		OrderRowCallbackHandler orderRowCallbackHandler = new OrderRowCallbackHandler();
 		Order order = null;
-		try{
-		String sql = "SELECT o.id AS o_id, o.order_number, o.user_id, o.status, o.total_price, o.date,"
-				+ " i.id AS i_id, i.cinema_id, i,quantity"
-				+ " From orders AS o"
-				+ " LEFT OUTER JOIN order_items AS i"
-				+ " ON o.id = i.order_id"
-				+ " WHERE o.user_id=:user_id"
-				+ " ORDER BY i.cinema_id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", user.getId());
-		template.query(sql, param, orderRowCallbackHandler);
-		order = orderRowCallbackHandler.getOrders().get(0);
-		}catch(EmptyResultDataAccessException e){
+		try {
+			String sql = "SELECT o.id AS o_id, o.order_number, o.user_id, o.status, o.total_price, o.date,"
+					+ " i.id AS i_id, i.cinema_id, i,quantity" + " From orders AS o"
+					+ " LEFT OUTER JOIN order_items AS i" + " ON o.id = i.order_id" + " WHERE o.user_id=:user_id"
+					+ " ORDER BY i.cinema_id";
+			SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", user.getId());
+			template.query(sql, param, orderRowCallbackHandler);
+			List<Order> orderList = orderRowCallbackHandler.getOrders();
+			if (orderList.size() != 0) {
+				order = orderRowCallbackHandler.getOrders().get(0);
+			}
+		} catch (EmptyResultDataAccessException e) {
 			return order;
 		}
 		return order;
@@ -161,19 +161,18 @@ public class OrderCinemaRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		template.update(sql, param);
 	}
+
 	/**
 	 * ユーザーのオーダー情報を新たに追加. statusには未購入(0),totalPriceには0円,dateにはカートに映画を入れた時の日時を追加.
+	 * 
 	 * @param user
 	 * @param date
 	 */
 	public void insertOrder(User user, Date date) {
-		String sql ="INSERT INTO orders(order_number, user_id, status, total_price, date)"
+		String sql = "INSERT INTO orders(order_number, user_id, status, total_price, date)"
 				+ " VALUES(:order_number, :user_id, :status, :total_price, :date)";
-		SqlParameterSource param = new MapSqlParameterSource()
-				.addValue("order_number", "20160623123456")
-				.addValue("user_id", user.getId())
-				.addValue("status", 0)
-				.addValue("total_price", 0)
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", "20160623123456")
+				.addValue("user_id", user.getId()).addValue("status", 0).addValue("total_price", 0)
 				.addValue("date", date);
 		template.update(sql, param);
 	}
@@ -185,24 +184,28 @@ public class OrderCinemaRepository {
 	 * @param order
 	 */
 
-	public void saveOrderItem(InsertForm form, Order order){
+	public void saveOrderItem(InsertForm form, Order order) {
 		OrderItem orderItem = new OrderItem();
-		try{
-		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE cinema_id = :cinema_id AND order_id = :order_id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId());
-		orderItem = template.queryForObject(sql, param, orderItemListRowMapper);
-		
-		int quantity = form.getQuantity() + orderItem.getQuantity();
-		String updateSql = "UPDATE order_items SET quantity=:quantity WHERE cinema_id = :cinema_id";
-		SqlParameterSource updateParam = new MapSqlParameterSource().addValue("quantity", quantity).addValue("cinema_id", orderItem.getCinemaId());
-		template.update(updateSql, updateParam);
-		}catch(EmptyResultDataAccessException e){
+		try {
+			String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE cinema_id = :cinema_id AND order_id = :order_id";
+			SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId())
+					.addValue("order_id", order.getId());
+			orderItem = template.queryForObject(sql, param, orderItemListRowMapper);
+
+			int quantity = form.getQuantity() + orderItem.getQuantity();
+			String updateSql = "UPDATE order_items SET quantity=:quantity WHERE cinema_id = :cinema_id";
+			SqlParameterSource updateParam = new MapSqlParameterSource().addValue("quantity", quantity)
+					.addValue("cinema_id", orderItem.getCinemaId());
+			template.update(updateSql, updateParam);
+		} catch (EmptyResultDataAccessException e) {
 			orderItem = null;
 		}
-		if(orderItem == null){
-		String insertSql = "INSERT INTO order_items (cinema_id, order_id, quantity)" + " VALUES(:cinema_id, :order_id, :quantity)";
-		SqlParameterSource insertParam = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId()).addValue("order_id", order.getId()).addValue("quantity", form.getQuantity());
-		template.update(insertSql, insertParam);
+		if (orderItem == null) {
+			String insertSql = "INSERT INTO order_items (cinema_id, order_id, quantity)"
+					+ " VALUES(:cinema_id, :order_id, :quantity)";
+			SqlParameterSource insertParam = new MapSqlParameterSource().addValue("cinema_id", form.getCinemaId())
+					.addValue("order_id", order.getId()).addValue("quantity", form.getQuantity());
+			template.update(insertSql, insertParam);
 		}
 	}
 
@@ -218,9 +221,9 @@ public class OrderCinemaRepository {
 		List<OrderItem> orderItemList = template.query(sql, param, orderItemListRowMapper);
 		return orderItemList;
 	}
-	
+
 	/**
-	 * 	カート内の商品を検索.
+	 * カート内の商品を検索.
 	 * 
 	 * @param order
 	 * @param cinemaId
@@ -230,15 +233,10 @@ public class OrderCinemaRepository {
 		List<Cart> orderList = new ArrayList<>();
 		try {
 			String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price,"
-					+ " o.date, i.id, i.cinema_id, i.quantity"
-					+ " FROM orders AS o"
-					+ " INNER JOIN order_items AS i"
-					+ " ON o.id = i.order_id"
-					+ " WHERE o.status = 0"
-					+ " AND o.user_id = :user_id"
+					+ " o.date, i.id, i.cinema_id, i.quantity" + " FROM orders AS o" + " INNER JOIN order_items AS i"
+					+ " ON o.id = i.order_id" + " WHERE o.status = 0" + " AND o.user_id = :user_id"
 					+ " AND i.cinema_id=cinema_id";
-			SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("user_id", order.getUserId())
+			SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId())
 					.addValue("cinema_id", cinemaId);
 			orderList = template.query(sql, param, orderListRowMapper);
 		} catch (EmptyResultDataAccessException e) {
@@ -269,24 +267,25 @@ public class OrderCinemaRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", orderCinemaId);
 		template.update(sql, param);
 	}
-	
+
 	public Order findByOrderNumber(String orderNumber) {
 		String sql = "SELECT * FROM orders WHERE order_number = :orderNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderNumber", orderNumber);
 		Order order = template.queryForObject(sql, param, orderRowMapper);
 		return order;
 	}
-	
+
 	public List<Order> findAll() {
 		String sql = "SELECT * FROM orders ORDER BY order_number";
 		List<Order> orderList = template.query(sql, orderRowMapper);
 		return orderList;
 	}
-	
+
 	public void statusUpdate(Integer status, String orderNumber) {
 		String sql = "UPDATE orders SET status = :status WHERE order_number = :orderNumber";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("orderNumber", orderNumber);
-		template.update(sql,param);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("orderNumber",
+				orderNumber);
+		template.update(sql, param);
 	}
 
 	/**

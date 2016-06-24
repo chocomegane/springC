@@ -31,6 +31,7 @@ public class PaymentController {
 	public String makePayment(Principal principal, Model model) {
 		LoginUser loginUser = (LoginUser)((Authentication) principal).getPrincipal();
 //		System.out.println(loginUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER")));
+		System.out.println(loginUser);
 		User user = loginUser.getUser();
 		model.addAttribute("paymentPage", paymentService.createPaymentPage(user));
 		return "makePayment";
