@@ -79,7 +79,7 @@ public class AdministerRegisterController {
 //	    System.out.println(adminUser);
 
 		service.adminInsert(adminUser);
-		return "redirect:/administerMenu";
+		return "redirect:/admin/menu";
 		
 	}
 

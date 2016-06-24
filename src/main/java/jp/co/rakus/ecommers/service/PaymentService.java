@@ -1,20 +1,19 @@
 package jp.co.rakus.ecommers.service;
 
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.domain.Cinema;
-import jp.co.rakus.ecommers.domain.LoginUser;
 import jp.co.rakus.ecommers.domain.Order;
+import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
+import jp.co.rakus.ecommers.repository.CinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
-import jp.co.rakus.ecommers.web.CartListChildPage;
-import jp.co.rakus.ecommers.web.CartListPage;
-import jp.co.rakus.ecommers.web.InsertForm;
+import jp.co.rakus.ecommers.web.PaymentChildPage;
+import jp.co.rakus.ecommers.web.PaymentPage;
 
 /**
  * 決済機能を提供するサービスクラス.
@@ -24,41 +23,13 @@ import jp.co.rakus.ecommers.web.InsertForm;
  */
 @Service
 public class PaymentService {
+	public static final double TAX_RATIO = 0.08;
+	public static final int POSTAGE = 500;
 
 	@Autowired
-	private OrderCinemaRepository repository;
-
-	/**
-	 * カートに商品を追加するメソッド.
-	 * 
-	 * @param user
-	 * @param form
-	 */
-	// @SuppressWarnings("null")
-	public void insertCart(User user, InsertForm form) {
-		java.util.Date utilDate = new java.util.Date();
-		Order order = repository.searchOrder(user.getId());
-		if (order == null) {
-			order.setOrderNumber("00000000000000");
-			order.setStatus(0);
-			order.setTotalPrice(0);
-			long utilMillisecond = utilDate.getTime();
-			java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
-			order.setDate(sqlDate);
-		}
-		repository.insertOrderItem(form, order.getId());
-		List<Cart> orderList = repository.findAllOrder(order);
-		int sum = 0;
-		for (Cart cart : orderList) {
-			Cinema cinema = repository.findOne(cart.getCinemaId());
-			sum = sum + cinema.getPrice() * cart.getQuantity();
-		}
-		order.setTotalPrice(sum);
-		long utilMillisecond = utilDate.getTime();
-		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
-		order.setDate(sqlDate);
-		repository.updateOrder(order);
-	}
+	private OrderCinemaRepository orderRepository;
+	@Autowired
+	private CinemaRepository cinemaRepository;
 
 	/**
 	 * カート内の商品一覧表示
@@ -66,22 +37,55 @@ public class PaymentService {
 	 * @param user
 	 * @return page情報
 	 */
-	public CartListPage findAllCart(User user) {
-		CartListPage page = new CartListPage();
-		Order order = repository.searchOrder(user.getId());
-		List<Cart> cartList = repository.findAllOrder(order);
-		if (cartList == null) {
-			return null;
+	public PaymentPage createPaymentPage(User user) {
+		// オーダーの情報を取得
+		// Order order = orderRepository.searchOrder(user);
+		Order order = orderRepository.searchOrder(user);
+		System.out.println(order);
+		// チャイルドページのリストを作成と価格計算
+		int totalPrice = 0;
+		List<PaymentChildPage> paymentChildPageList = new ArrayList<PaymentChildPage>();
+		for (OrderItem orderItem : order.getOrderCinemaList()) {
+			PaymentChildPage paymentChildPage = new PaymentChildPage();
+			// cinemaテーブルから商品名と商品一つの値段を取得
+			Long cinemaId = orderItem.getCinemaId();
+			Cinema orderedCinema = cinemaRepository.findOne(cinemaId);
+			paymentChildPage.setOrderCinemaTitle(orderedCinema.getTitle());
+			int price = orderedCinema.getPrice();
+			paymentChildPage.setPrice(price);
+			// orderItemテーブルから個数を取得
+			int quantity = orderItem.getQuantity();
+			paymentChildPage.setQuantity(quantity);
+			// 商品の値段×個数で小計を算出と全合計に加算
+			int subTotalPrice = quantity * price;
+			paymentChildPage.setSubTotalPrice(subTotalPrice);
+			totalPrice += subTotalPrice;
+			System.out.println(orderedCinema.getTitle());
+			System.out.println(totalPrice);
+//			// 商品の小計（税込み）を算出
+//			paymentChildPage.setPretaxTotalPrice((int) (subTotalPrice * TAX_RATIO));
+
+			paymentChildPageList.add(paymentChildPage);
 		}
-		for (Cart cart : cartList) {
-			// CartListPage page;
-			CartListChildPage childPage = new CartListChildPage();
-			Cinema cinema = repository.findOne(cart.getCinemaId());
-			childPage.setTitle(cinema.getTitle());
-			childPage.setQuantity(cinema.getPrice());
-			childPage.setQuantity(cart.getQuantity());
-			page.getCartListChildPage().add(childPage);
-		}
+
+		Integer totalTax = (int) (totalPrice * TAX_RATIO);
+		Integer postage = POSTAGE;
+		Integer AllTotalPrice = totalTax + postage + totalPrice;
+		// userテーブルから注文者情報を取得
+		PaymentPage page = new PaymentPage(paymentChildPageList, totalTax, postage, AllTotalPrice, user.getName(),
+				user.getEmail(), user.getAddress(), user.getTelephone(), order.getId());
 		return page;
+
+	}
+
+	/**
+	 * 注文情報のステータスを1(未入金）、日付に現在の日時へ更新する
+	 * 
+	 * @param orderId
+	 *            注文情報のid
+	 * @return 成功したらtrueを失敗したらfalseを返す
+	 */
+	public Boolean updateOrder(Long orderId) {
+		return orderRepository.updateStatus(orderId);
 	}
 }

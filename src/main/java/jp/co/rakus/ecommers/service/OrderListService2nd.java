@@ -106,8 +106,8 @@ public class OrderListService2nd {
 //		return page;
 //	}
 		
-	public Order findByOrderNumber(String userId) {
-		return repository.findByUserId(userId);
+	public Order findByOrderNumber(String orderNumber) {
+		return repository.findByOrderNumber(orderNumber);
 	}
 
 	public void statusUpdate(Integer status, String orderNumber) {

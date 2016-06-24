@@ -17,9 +17,12 @@ public class OrderListDetailPage {
 	private String email;
 	private String address;
 	private String telephone;
+	
 	private List<OrderListDetailChildPage> childPage;
-	private Integer price;
-	private Double tax;
-	private Double totalPrice;
+	
+	private Integer subTotal;
+	private Integer tax;
+	private Integer grandTotal;
+	private String status;
 	private Map<Integer, String> statusMap;
 }
