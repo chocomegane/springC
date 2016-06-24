@@ -64,15 +64,29 @@ public class InsertCinemaController {
 	@RequestMapping(value = "/insert", method=RequestMethod.POST)
 	public String output(@Validated CinemaForm form, BindingResult result, RedirectAttributes redirectAttributes, Model model) throws NumberFormatException {
 		/*************************************************************************/
+		System.err.println(form.getReleaseDate());
 		// エラーチェック
 		if(result.hasErrors()) {
+			if(form.getImagePath().getOriginalFilename().equals(""))
+			{
+				String err = "画像を選択してください";
+				model.addAttribute("err", err);
+			}
 			return index(model);
+		}
+		 System.out.println(form.getImagePath().getOriginalFilename());
+		if(form.getImagePath().getOriginalFilename().equals(""))
+		{
+			String err = "画像を選択してください";
+			model.addAttribute("err", err);
+			return "insertCinema";
 		}
 		/*************************************************************************/
 		try {
 			// cinemaFormのreleaseDateがString型なので、Date型に変換
 			String releaseDate = form.getReleaseDate();
-			Date date = new SimpleDateFormat("yyyy/MM/dd").parse(releaseDate);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate);
+			
 			
 			// imagePath関係の処理
 			String path = context.getRealPath("/img/");
@@ -80,8 +94,17 @@ public class InsertCinemaController {
 			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(date);
+			
+			
+			
 			BeanUtils.copyProperties(form, cinema);
+			
+			System.out.println("2:" + cinema.getReleaseDate());
+			
 			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			cinema.setPrice(form.getIntPrice());
+			cinema.setTime(form.getIntTime());
+			
 			
 			service.save(cinema);
 			
