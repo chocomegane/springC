@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,9 +55,16 @@
 		</div>
  -->
 		<div id="userHeader" align="right">
-			<p>こんにちは<c:out value="${user.name}さん"/></p>
-			<p><a href="/cinemaShop/logout">ログアウト</a><p>
-			<p><a href="/cinemaShop/loginForm">ログイン</a><p>
+			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+	 			<sec:authentication var="user" property="principal.user.name" />
+				<p>こんにちは<c:out value="${user}"/>さん</p>
+				<p><a href="/cinemaShop/logout">ログアウト</a><p>
+			</sec:authorize>
+			<sec:authorize access="!isAuthenticated()">
+				<p>こんにちはゲストさん</p>
+				<p><a href="/cinemaShop/registerForm">新規登録</a><p>
+				<p><a href="/cinemaShop/loginForm">ログイン</a><p>
+			</sec:authorize>
 			<p><a href="/cinemaShop/view">カートの中身を見る</a></p>
 		</div>
 

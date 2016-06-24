@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%-- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%> --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +24,14 @@
 		</div>
  -->
  		<div id="userHeader" align="right">
-			<p>こんにちは<c:out value="${admin.name}さん"/></p>
-			<p><a href="/admin/menu">メニュー画面</a></p>
-			<p><a href="/admin/logout">ログアウト</a></p>
+			<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+	 			<sec:authentication var="admin" property="principal.adminUser.name" />
+				<p>こんにちは<c:out value="${admin}"/>さん</p>
+				<p><a href="/admin/menu">メニュー画面</a></p>
+				<p><a href="/admin/logout">ログアウト</a><p>
+			</sec:authorize>
+			<sec:authorize access="!isAuthenticated()">
+				<p>こんにちは管理者さん</p>
+			</sec:authorize>
 		</div>
 </header>

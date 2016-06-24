@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.UserRegisterService;
  *
  */
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/cinemaShop")
 public class UserRegisterController {
 	
 	@Autowired
@@ -42,7 +42,7 @@ public class UserRegisterController {
 	@RequestMapping(value = "/registerForm")
 	public String index()
 	{
-		return "/userRegister";
+		return "userRegister";
 	}
 	@RequestMapping(value = "/register")
 	public String userInsert(@Validated UserRegisterForm form, BindingResult result, Model model)
@@ -60,7 +60,7 @@ public class UserRegisterController {
 		{
 			String err = "確認パスワードとパスワードが違います";
 			model.addAttribute("err", err);
-			return "/userRegister";
+			return "userRegister";
 			
 		}
 		
@@ -73,11 +73,11 @@ public class UserRegisterController {
 	    if(!(testUser == null)) {
 	    	String err = "そのアドレスはすでに使われています" ;
 	    	model.addAttribute("err",err);
-	    	return "/userRegister";
+	    	return "userRegister";
 	    }
 
 		service.userInsert(user);
-		return "/userLogin";
+		return "redirect:/cinemaShop/loginForm";
 	}
 	
 	public void register(User user, String rawPssword) {
