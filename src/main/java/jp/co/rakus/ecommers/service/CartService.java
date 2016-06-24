@@ -1,10 +1,12 @@
 package jp.co.rakus.ecommers.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
@@ -13,6 +15,7 @@ import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
+import jp.co.rakus.ecommers.repository.OrderItemRepository;
 import jp.co.rakus.ecommers.web.CartListChildPage;
 import jp.co.rakus.ecommers.web.CartListPage;
 import jp.co.rakus.ecommers.web.InsertForm;
@@ -33,6 +36,9 @@ public class CartService {
 	@Autowired
 	private CinemaRepository cinemaRepository;
 
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+
 	/**
 	 * カートに商品を追加するメソッド.
 	 * 
@@ -40,32 +46,33 @@ public class CartService {
 	 *            userID
 	 * @param form
 	 */
-	public void insertCart(User user, InsertForm form) {
+	@Transactional
+	public void insertCart(User user, OrderItem orderItem) {
 
 		java.util.Date utilDate = new java.util.Date();
 
-		Order order = orderCinemaRepository.searchOrder(user);
-
+		Order order = orderCinemaRepository.findCart(user);
+		System.err.println(order);		
 		if (order == null) {
+
 			order = new Order();
+			order.setOrderNumber("20160623123456");
+			order.setDate(utilDate);
+//			long utilMillisecond = utilDate.getTime();
+//			java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
+//			order.setDate(sqlDate);
 
-			long utilMillisecond = utilDate.getTime();
-			java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
-
-			order.setDate(sqlDate);
-
-			orderCinemaRepository.insertOrder(user, sqlDate);
+			orderCinemaRepository.insertOrder(user, order);
+			order = orderCinemaRepository.findCart(user);
 		}
+		
+		
+		orderCinemaRepository.saveOrderItem(orderItem, order);
 
-		orderCinemaRepository.saveOrderItem(form, order);
-
-		List<Cart> orderItemList = orderCinemaRepository.findAllOrder(order, form.getCinemaId());
-
-		order.setTotalPrice(sumPrice(orderItemList));
-
-		long utilMillisecond = utilDate.getTime();
-		java.sql.Date sqlDate = new java.sql.Date(utilMillisecond);
-		order.setDate(sqlDate);
+		order = orderCinemaRepository.findCart(user);
+		
+		order.setTotalPrice(sumPrice(order.getOrderCinemaList()));
+		order.setDate(utilDate);
 
 		orderCinemaRepository.updateOrder(order);
 
@@ -81,43 +88,27 @@ public class CartService {
 	public CartListPage findAllCart(User user) {
 		CartListPage page = new CartListPage();
 		List<CartListChildPage> init = new ArrayList<>();
-		
+
 		page.setCartListChildPage(init);
-		Order order = orderCinemaRepository.searchOrder(user);
+		Order order = orderCinemaRepository.findCart(user);
+		// List<OrderItem> orderItemList =
+		// orderCinemaRepository.findAllOrderItem(order);
 
-		List<OrderItem> orderItemList = orderCinemaRepository.findAllOrderItem(order);
-		
-		System.out.println("========================================================");
-		System.out.println(order);
-		System.out.println("========================================================");
-		
-		int totalPrice = 0;
-		for (OrderItem orderItem : orderItemList) {
-			Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
-			totalPrice = totalPrice + cinema.getPrice() * orderItem.getQuantity();
-		}
-
-		System.out.println("========================================================");
-		System.out.println(order);
-		System.out.println("========================================================");
-		
-		order.setTotalPrice(totalPrice);
-
-		if (order.getOrderCinemaList() == null) {
-			page.getCartListChildPage().add(null);
+		if (order == null || order.getOrderCinemaList() == null) {
+			page.setCartListChildPage(null);
 			return page;
 		}
-		for (OrderItem orderItems : order.getOrderCinemaList()) {
+
+		for (OrderItem orderItem : order.getOrderCinemaList()) {
 			CartListChildPage childPage = new CartListChildPage();
-			Cinema cinema = cinemaRepository.findOne(orderItems.getCinemaId());
-			childPage.setOrderCinemaId(orderItems.getCinemaId());
+			Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
+			childPage.setOrderCinemaId(orderItem.getId());
 			childPage.setTitle(cinema.getTitle());
 			childPage.setPrice(cinema.getPrice());
-			childPage.setQuantity(orderItems.getQuantity());
+			childPage.setQuantity(orderItem.getQuantity());
 
 			page.getCartListChildPage().add(childPage);
 		}
-		
 		return page;
 	}
 
@@ -126,15 +117,27 @@ public class CartService {
 	 * 
 	 * @param orderCinemaId
 	 */
+	@Transactional
 	public void deleteCart(long orderCinemaId) {
+		OrderItem orderItem = orderItemRepository.load(orderCinemaId);
 		orderCinemaRepository.deleteByCinemaId(orderCinemaId);
+		Order order = orderCinemaRepository.load(orderItem.getOrderId());
+		order.setTotalPrice(sumPrice(order.getOrderCinemaList()));
+//		order.setDate(new Date());
+		orderCinemaRepository.updateOrder(order);
 	}
 
-	public int sumPrice(List<Cart> orderItemList) {
+	/**
+	 * @param orderItemList
+	 * @return
+	 */
+	public int sumPrice(List<OrderItem> orderItemList) {
 		int sum = 0;
-		for (Cart cart : orderItemList) {
-			Cinema cinema = cinemaRepository.findOne(cart.getCinemaId());
-			sum = sum + cinema.getPrice() * cart.getQuantity();
+		if (orderItemList != null && ! orderItemList.isEmpty()) {
+			for (OrderItem orderItem: orderItemList) {
+				Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
+				sum = sum + cinema.getPrice() * orderItem.getQuantity();
+			}
 		}
 		return sum;
 	}

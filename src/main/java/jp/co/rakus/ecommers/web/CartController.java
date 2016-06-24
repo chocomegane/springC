@@ -2,6 +2,7 @@ package jp.co.rakus.ecommers.web;
 
 import java.security.Principal;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.rakus.ecommers.domain.LoginUser;
+import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.service.CartService;
 
@@ -39,9 +41,11 @@ public class CartController {
 	@RequestMapping(value = "/insert")
 	public String insertCart(Principal principal, InsertForm form, Model model) {
 		// principalからユーザーの情報を受け取るための操作
+		OrderItem orderItem = new OrderItem();
+		BeanUtils.copyProperties(form, orderItem);
 		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
-		service.insertCart(user, form);
+		service.insertCart(user, orderItem);
 		return "redirect:/cinemaShop/view";
 	}
 
@@ -58,7 +62,8 @@ public class CartController {
 		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
 		User user = loginUser.getUser();
 		CartListPage cartPage = service.findAllCart(user);
-		if (cartPage.getCartListChildPage().isEmpty()) {
+		
+		if (cartPage.getCartListChildPage() == null) {
 			model.addAttribute("message", "カートに何も入ってません");
 			return "viewShoppingCart";
 		} else {
@@ -77,7 +82,6 @@ public class CartController {
 	 */
 	@RequestMapping(value = "/delete")
 	public String deleteCart(@RequestParam long orderCinemaId, Model model) {
-		System.err.println(orderCinemaId);
 		service.deleteCart(orderCinemaId);
 		return "redirect:/cinemaShop/view";
 	}
