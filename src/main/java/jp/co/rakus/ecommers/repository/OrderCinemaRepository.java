@@ -309,6 +309,25 @@ public class OrderCinemaRepository {
 		}
 	}
 	
+	/**
+	 * オーダーIDで最新の注文番号を取得.
+	 * 
+	 * @param order
+	 * @return
+	 */
+	public String findByOrderId(long orderId) {
+		String sql = "SELECT order_number FROM orders WHERE status > 1 AND MAX(id) - 1";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", orderId);
+		String orderNumber = template.queryForObject(sql, param, String.class);
+		return orderNumber;
+	}
+	
+	public void updateOrderNumber(long orderId, String orderNumber) {
+		String sql = "UPDATE orders SET order_number = :order_number WHERE id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", orderNumber).addValue("id", orderId);
+		template.update(sql, param);
+	}
+	
 	public Order findByOrderNumber(String orderNumber) {
 		String sql = "SELECT * FROM orders WHERE order_number = :orderNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderNumber", orderNumber);

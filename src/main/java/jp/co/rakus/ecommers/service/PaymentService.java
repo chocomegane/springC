@@ -79,11 +79,23 @@ public class PaymentService {
 	/**
 	 * 注文情報のステータスを1(未入金）、日付に現在の日時へ更新する
 	 * 
+	 * order_numberの更新処理を追加
+	 * 
 	 * @param orderId
 	 *            注文情報のid
 	 * @return 成功したらtrueを失敗したらfalseを返す
 	 */
 	public Boolean updateOrder(Long orderId) {
+		
+		/*******************************************************************************/
+		/** 追加分 */
+		
+		int orderNumber = Integer.parseInt(orderRepository.findByOrderId(orderId));
+		orderNumber = orderNumber + 1;
+		String number = String.valueOf(orderNumber);
+		orderRepository.updateOrderNumber(orderId, number);
+		/*******************************************************************************/
+		
 		return orderRepository.updateStatus(orderId);
 	}
 }

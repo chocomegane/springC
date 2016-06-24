@@ -1,6 +1,8 @@
 package jp.co.rakus.ecommers.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +49,18 @@ public class CartService {
 	public void insertCart(User user, OrderItem orderItem) {
 		java.util.Date utilDate = new java.util.Date();
 
+//		Calendar cal = Calendar.getInstance();
+//		SimpleDateFormat sdf = new SimpleDateFormat();
+//		sdf.applyPattern("yyyyMMdd");
+//		String orderNumberDate = sdf.format(cal);
+
 		Order order = orderCinemaRepository.findCart(user);
+
 		if (order == null) {
 			order = new Order();
-			order.setOrderNumber("20160623123456");
+
+			order.setOrderNumber("UNCONFIRMED");
+			
 			order.setDate(utilDate);
 			orderCinemaRepository.insertOrder(user, order);
 			order = orderCinemaRepository.findCart(user);
@@ -96,9 +106,9 @@ public class CartService {
 
 			page.getCartListChildPage().add(childPage);
 		}
-		
+
 		page.setTotalPrice(order.getTotalPrice());
-		
+
 		return page;
 	}
 
@@ -113,7 +123,7 @@ public class CartService {
 		orderCinemaRepository.deleteByCinemaId(orderCinemaId);
 		Order order = orderCinemaRepository.load(orderItem.getOrderId());
 		order.setTotalPrice(sumPrice(order.getOrderCinemaList()));
-//		order.setDate(new Date());
+		// order.setDate(new Date());
 		orderCinemaRepository.updateOrder(order);
 	}
 
@@ -125,17 +135,18 @@ public class CartService {
 	 */
 	public int sumPrice(List<OrderItem> orderItemList) {
 		int sum = 0;
-		if (orderItemList != null && ! orderItemList.isEmpty()) {
-			for (OrderItem orderItem: orderItemList) {
+		if (orderItemList != null && !orderItemList.isEmpty()) {
+			for (OrderItem orderItem : orderItemList) {
 				Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
 				sum = sum + cinema.getPrice() * orderItem.getQuantity();
 			}
 		}
 		return sum;
 	}
-	
+
 	/**
 	 * ログイン時にゲストで追加したカートの中身をユーザーのカートに移すメソッド.
+	 * 
 	 * @param user
 	 * @param guestId
 	 */

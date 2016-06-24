@@ -40,7 +40,7 @@
 			<th><c:out value="${child.price}"/>円</th>
 			<th>
 				<form:form action="">
-					<input type="submit" value="削除">
+					<input type="button" value="削除(次期開発)">
 				</form:form>
 			</th>
 		</tr>
