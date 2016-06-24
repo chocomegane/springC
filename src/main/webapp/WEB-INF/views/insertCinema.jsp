@@ -22,7 +22,7 @@
 			<tr><th>上映時間</th><td><form:textarea path="time" rows="1" cols="40"/><form:errors path="time" cssStyle="color:red" element="div"/></td></tr>
 			
 			<%-- <tr><th>公開日</th><td><form:textarea path="releaseDate" rows="1" cols="40"/><form:errors path="releaseDate" cssStyle="color:red" element="div"/></td></tr> --%>
-			<tr><th>公開日</th><td><form:input type ="date" path="releaseDate"/></td></tr>
+			<tr><th>公開日</th><td><input type="date" name="releaseDate" value="2016-03-03"></td></tr>
 			
 			<tr><th>メディアタイプ</th><td><form:textarea path="mediaType" rows="1" cols="40"/><form:errors path="mediaType" cssStyle="color:red" element="div"/></td></tr>
 			
@@ -34,7 +34,7 @@
 			
 			<tr><th>概要（ストーリー）</th><td><form:textarea path="description" rows="15" cols="40"/><form:errors path="description" cssStyle="color:red" element="div"/></td></tr>
 			
-			<tr><th>イメージ画像</th><td><form:input type="file" path="imagePath"/><form:errors path="imagePath" cssStyle="color:red" element="div"/></td></tr>
+			<tr><th><c:out value="${err}" /><br>イメージ画像<br></th><td><form:input type="file" path="imagePath"/><form:errors path="imagePath" cssStyle="color:red" element="div"/></td></tr>
 		
 		</table>
 		<input type="submit" value="登録">

@@ -25,7 +25,6 @@
 			<tr><th>監督</th><td><form:input path="directedBy" rows="1" cols="40" value="${cinema.directedBy}"/></td></tr>
 			<tr><th>レーディング</th><td><form:input path="rating" rows="1" cols="40" value="${cinema.rating}"/></td></tr>	
 			<tr><th>概要（ストーリー）</th><td><form:input path="description" rows="15" cols="40" value="${cinema.description}"/></td></tr>
-
 			<tr><th>イメージ画像</th><td><form:input type="file" path="imagePath"/></td></tr>
 		</table>
 		<input type="submit" value="更新">

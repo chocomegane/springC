@@ -67,7 +67,19 @@ public class InsertCinemaController {
 		System.err.println(form.getReleaseDate());
 		// エラーチェック
 		if(result.hasErrors()) {
+			if(form.getImagePath().getOriginalFilename().equals(""))
+			{
+				String err = "画像を選択してください";
+				model.addAttribute("err", err);
+			}
 			return index(model);
+		}
+		 System.out.println(form.getImagePath().getOriginalFilename());
+		if(form.getImagePath().getOriginalFilename().equals(""))
+		{
+			String err = "画像を選択してください";
+			model.addAttribute("err", err);
+			return "insertCinema";
 		}
 		/*************************************************************************/
 		try {
