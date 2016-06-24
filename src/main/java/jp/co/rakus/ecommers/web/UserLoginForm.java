@@ -17,5 +17,6 @@ public class UserLoginForm {
 	/** パスワード */
 	@NotBlank(message = "値を入力してください")
 	private String password;
-
+	/** ログイン前に持っていたCookieのJSESSIONID */
+	private String cookieValue;
 }

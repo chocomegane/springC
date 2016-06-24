@@ -43,7 +43,7 @@ public class PaymentService {
 		Order order = orderRepository.findCart(user);
 		System.out.println(order);
 		// チャイルドページのリストを作成と価格計算
-		int totalPrice = 0;
+//		int totalPrice = 0;
 		List<PaymentChildPage> paymentChildPageList = new ArrayList<PaymentChildPage>();
 		for (OrderItem orderItem : order.getOrderCinemaList()) {
 			PaymentChildPage paymentChildPage = new PaymentChildPage();
@@ -59,13 +59,13 @@ public class PaymentService {
 			// 商品の値段×個数で小計を算出と全合計に加算
 			int subTotalPrice = quantity * price;
 			paymentChildPage.setSubTotalPrice(subTotalPrice);
-			totalPrice += subTotalPrice;
+//			totalPrice += subTotalPrice;
 //			// 商品の小計（税込み）を算出
 //			paymentChildPage.setPretaxTotalPrice((int) (subTotalPrice * TAX_RATIO));
 
 			paymentChildPageList.add(paymentChildPage);
 		}
-
+		Integer totalPrice = order.getTotalPrice();
 		Integer totalTax = (int) (totalPrice * TAX_RATIO);
 		Integer postage = POSTAGE;
 		Integer AllTotalPrice = totalTax + postage + totalPrice;

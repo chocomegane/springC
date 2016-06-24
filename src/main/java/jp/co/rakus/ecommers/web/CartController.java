@@ -2,12 +2,14 @@ package jp.co.rakus.ecommers.web;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,9 +28,12 @@ import jp.co.rakus.ecommers.service.CartService;
 @Transactional
 @RequestMapping(value = "/cinemaShop")
 public class CartController {
-
+	/** Longに変換した時に桁あふれせずに変換できる16進数の最大桁数 */
+	private static final int LONG_DIGIT = 15;
 	@Autowired
 	private CartService service;
+	@Autowired
+	private HttpSession session;
 
 	/**
 	 * カートに商品を追加
@@ -39,12 +44,11 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insert")
-	public String insertCart(Principal principal, InsertForm form, Model model) {
+	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, InsertForm form, Model model) {
 		// principalからユーザーの情報を受け取るための操作
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(form, orderItem);
-		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
-		User user = loginUser.getUser();
+		User user = chkUser(principal, cookie);
 		service.insertCart(user, orderItem);
 		return "redirect:/cinemaShop/view";
 	}
@@ -57,10 +61,9 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/view")
-	public String viewCart(Principal principal, Model model) {
+	public String viewCart(Principal principal, @CookieValue("JSESSIONID") String cookie, Model model) {
 		// principalからユーザーの情報を受け取るための操作
-		LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
-		User user = loginUser.getUser();
+		User user = chkUser(principal, cookie);
 		CartListPage cartPage = service.findAllCart(user);
 		
 		if (cartPage.getCartListChildPage() == null) {
@@ -71,6 +74,49 @@ public class CartController {
 			model.addAttribute("payment", "決済へ");
 			return "viewShoppingCart";
 		}
+	}
+
+	/**
+	 * Cookieの情報とログインユーザーの情報を統合するメソッド.
+	 * @param principal
+	 * @param cookie
+	 * @return
+	 */
+	private User chkUser(Principal principal, String cookie) {
+		User user = null;
+		try {
+			if (principal == null) {
+				user = new User();
+				long guestid = makeUserId(cookie);
+				user.setId(guestid);
+				user.setName("ゲスト");
+			} else {
+				LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
+				user = loginUser.getUser();
+				if (loginUser.getGuestId() == null) {
+					String jsessionId = (String) session.getAttribute("guestid");
+					long guestId = makeUserId(jsessionId);
+					loginUser.setGuestId(guestId);
+					service.joinCart(user, guestId);
+				}
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return user;
+	}
+
+	/**
+	 * JSESSIONIDからDBに登録可能なUserIDを生成するメソッド.
+	 * @param jsessionId
+	 * @return
+	 */
+	private long makeUserId(String jsessionId) {
+		int digit = jsessionId.length() - LONG_DIGIT;
+		digit = digit > 0 ? digit : 0; 
+		long guestId = Long.parseLong(jsessionId.substring(digit), 16);
+		return guestId;
 	}
 
 	/**
