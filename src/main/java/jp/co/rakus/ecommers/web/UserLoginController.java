@@ -33,9 +33,9 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping("/loginForm")
-	String loginForm(@CookieValue(value="JSESSIONID",required=false) String guestid, Model model) {
+	String loginForm(@CookieValue(value="JSESSIONID",required=false,defaultValue="0") String guestid, Model model) {
 		model.addAttribute("guestid", guestid);
-		System.out.println(guestid);
+		System.out.println("guestid:" + guestid);
 		return "userLogin";
 	}
 	

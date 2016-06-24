@@ -76,12 +76,18 @@ public class CartController {
 		}
 	}
 
+	/**
+	 * Cookieの情報とログインユーザーの情報を統合するメソッド.
+	 * @param principal
+	 * @param cookie
+	 * @return
+	 */
 	private User chkUser(Principal principal, String cookie) {
-		User user;
+		User user = null;
 		try {
 			if (principal == null) {
 				user = new User();
-				long guestid = Long.parseLong(cookie.substring(cookie.length() - LONG_DIGIT), 16);
+				long guestid = makeUserId(cookie);
 				user.setId(guestid);
 				user.setName("ゲスト");
 			} else {
@@ -89,7 +95,7 @@ public class CartController {
 				user = loginUser.getUser();
 				if (loginUser.getGuestId() == null) {
 					String jsessionId = (String) session.getAttribute("guestid");
-					long guestId = Long.parseLong(jsessionId.substring(cookie.length() - LONG_DIGIT), 16);
+					long guestId = makeUserId(jsessionId);
 					loginUser.setGuestId(guestId);
 					service.joinCart(user, guestId);
 				}
@@ -99,6 +105,18 @@ public class CartController {
 			throw e;
 		}
 		return user;
+	}
+
+	/**
+	 * JSESSIONIDからDBに登録可能なUserIDを生成するメソッド.
+	 * @param jsessionId
+	 * @return
+	 */
+	private long makeUserId(String jsessionId) {
+		int digit = jsessionId.length() - LONG_DIGIT;
+		digit = digit > 0 ? digit : 0; 
+		long guestId = Long.parseLong(jsessionId.substring(digit), 16);
+		return guestId;
 	}
 
 	/**

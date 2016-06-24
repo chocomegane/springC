@@ -104,7 +104,7 @@ public class OrderCinemaRepository {
 				orders.add(currentOrder);
 				currentOrder.setId(orderId);
 				currentOrder.setOrderNumber(rs.getString("order_number"));
-				currentOrder.setUserId(rs.getInt("user_id"));
+				currentOrder.setUserId(rs.getLong("user_id"));
 				currentOrder.setStatus(rs.getInt("status"));
 				currentOrder.setTotalPrice(rs.getInt("total_price"));
 				currentOrder.setDate(rs.getTimestamp("date"));
@@ -118,7 +118,7 @@ public class OrderCinemaRepository {
 				currentItem = new OrderItem();
 				currentItem.setId(itemId);
 				currentItem.setOrderId(orderId);
-				currentItem.setCinemaId(rs.getInt("cinema_id"));
+				currentItem.setCinemaId(rs.getLong("cinema_id"));
 				currentItem.setQuantity(rs.getInt("quantity"));
 				currentOrder.getOrderCinemaList().add(currentItem);
 			}

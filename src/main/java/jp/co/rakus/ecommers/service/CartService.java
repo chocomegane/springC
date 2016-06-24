@@ -1,7 +1,6 @@
 package jp.co.rakus.ecommers.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,11 @@ import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
-import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.repository.CinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.repository.OrderItemRepository;
 import jp.co.rakus.ecommers.web.CartListChildPage;
 import jp.co.rakus.ecommers.web.CartListPage;
-import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
  * カートの操作をするServiceクラス.
@@ -130,7 +127,20 @@ public class CartService {
 		return sum;
 	}
 	
+	/**
+	 * ログイン時にゲストで追加したカートの中身をユーザーのカートに移すメソッド.
+	 * @param user
+	 * @param guestId
+	 */
 	public void joinCart(User user, Long guestId) {
-		Order order = orderCinemaRepository.findCart(user);
+		User guest = new User();
+		guest.setId(guestId);
+		Order guestOrder = orderCinemaRepository.findCart(guest);
+		if (guestOrder != null) {
+			for (OrderItem orderItem : guestOrder.getOrderCinemaList()) {
+				insertCart(user, orderItem);
+				deleteCart(orderItem.getId());
+			}
+		}
 	}
 }
