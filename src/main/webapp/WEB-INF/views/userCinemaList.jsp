@@ -62,8 +62,8 @@
 						class="img-responsive img-rounded" width="100" height="300">
 						</a>
 						<br><a href="/cinemaShop/detail/${child.id}"><c:out value="${child.title}"/></a><br>
-						<br><c:out value="${child.directedBy}"></c:out><br>
-						<br><c:out value="${child.price}"/>円<br>
+						<br><c:out value="${child.directedBy}"/><br>
+						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 				</th>
 				<c:if test="${status.count%4==0}">
 					</tr>

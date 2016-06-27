@@ -160,9 +160,14 @@ public class CinemaRepository {
 	 * @return
 	 */
 	public List<Cinema> findByTitle(String title){
-		String sql="SELECT id,title,price,genre,time,release_date,media_type,"
+		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE title LIKE :title ORDER BY title";
+				+ "FROM cinemas WHERE translate(UPPER(title),"
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ', "
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ　') "
+				+ "LIKE translate(UPPER(:title), "
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ', " 
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ　') ORDER BY title";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
