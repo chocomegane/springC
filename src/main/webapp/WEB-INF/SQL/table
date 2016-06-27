@@ -176,3 +176,19 @@ INSERT INTO cinemas( title, price, genre, time, release_date, media_type, compan
 VALUES('ミッション:インポッシブル/ローグ・ネイション', 1300, 'アクション', 94, '2016-06-03 00:00:00', 'DVD', 'パラマウント', 'クリストファー・マッカリー', '全年齢対象', 'トム・クルーズ主演によるスパイアクションシリーズ第5弾。IMFのエージェント、イーサン・ハントは多国籍スパイ組織・シンジケートを追っていたが、捕らえられてしまう。拷問が始まろうとしたその時、謎の女に助けられ…。“ハッピー・ザ・ベスト!”。', 'missionroag.jpg', false);
 
 
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES("劇場版「進撃の巨人」前編～紅蓮の弓矢～", 4104, "アニメ", 2015-03-18 00:00:00, "DVD", "ポニーキャニオン", "荒木哲郎", "全年齢対象", "世界が震撼したあの衝撃をスクリーンで体感せよ！！コミックス累計発行部数4,200万部を誇る大ヒット漫画「進撃の巨人」のTVアニメを再構築した劇場版のDVDが登場！", 7156PuyIKXL._SL1134_.jpg, FALSE);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES("劇場版「進撃の巨人」前編～紅蓮の弓矢～", 4104, "アニメ", 2015-12-16 00:00:00, "DVD", "ポニーキャニオン", "荒木哲郎", "全年齢対象", "世界が震撼したあの衝撃をスクリーンで体感せよ！！コミックス累計発行部数4,200万部を誇る大ヒット漫画「進撃の巨人」のTVアニメを再構築した劇場版のDVDが登場！", 7156PuyIKXL._SL1134_.jpg, FALSE);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES("劇場版「空の境界」俯瞰風景3D", 5400, "アニメ", 2016-03-03 00:00:00, "BD", "アニプレックス", "あおきえい", "全年齢対象", "「行こう、行こう、行こう、行こう――」私はただ望んだだけ。この窓の外の世界を。彼に連れて行ってほしかっただけ。", 71nIVJHO1JL._SL1500_.jpg, FALSE);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES("コマンドー(ディレクターズ・カット)", 1533, "アクション", 2016-03-03 00:00:00, "BD", "20世紀フォックス・ホーム・エンターテイメント・ジャパン", "マーク・L・レスター", "全年齢対象", "衝撃シーンが追加された<ディレクターズ・カット>&ファン待望の日本語吹替収録版! 
+映画の言葉 「とんでもねぇ、待ってたんだ」", 51aqGX8+AwL.jpg, FALSE);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES("劇場版 魔法少女まどか☆マギカ[前編]はじまりの物語/[後編]永遠の物語【完全生産限定版】", 11000, "アニメ", 2013-07-24 00:00:00, "BD", "アニプレックス", "宮本幸祐、新房昭之", "全年齢対象", "それは、まだ誰も見たことのない、魔法少女の物語。", 6134GJaz44L._SL1378_.jpg, FALSE);
+
