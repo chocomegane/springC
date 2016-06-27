@@ -18,4 +18,6 @@ import lombok.NoArgsConstructor;
 public class CartListPage {
 
 	private List<CartListChildPage> cartListChildPage;
+	
+	private int totalPrice;
 }

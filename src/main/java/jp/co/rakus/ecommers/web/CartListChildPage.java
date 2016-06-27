@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartListChildPage {
 
-	/** 商品ID */
+	/** 映画ID */
+	private long cinemaId;
+	/** オーダーID */
 	private long orderCinemaId;
 	/** タイトル */
 	private String title;
@@ -23,4 +25,6 @@ public class CartListChildPage {
 	private Integer price;
 	/** 注文個数 */
 	private Integer quantity;
+	/** イメージ画像 */
+	private String imagePath;
 }
