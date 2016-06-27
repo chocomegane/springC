@@ -20,7 +20,7 @@ public class CinemaForm {
 	@NotBlank(message = "タイトルは必須です")
 	private String title;
 	/** 価格 */
-	@Max(value=500000, message= "500001以上まだは文字は入力はできません" )
+	@Max(value=500000, message= "500001以上または文字は入力はできません" )
 	@Min(value =1 ,message = "0以下または文字入力はできません")
 	@NotNull(message = "価格は必須です")
 	private String price;//メッセージ：価格の上限５０００００にします
@@ -29,7 +29,7 @@ public class CinemaForm {
 	@NotBlank(message = "ジャンルは必須です")
 	private String genre;
 	/** 上映時間(単位:分) */
-	@Max(value=601, message= "601以上まだは文字は入力はできません" )
+	@Max(value=601, message= "601以上または文字は入力はできません" )
 	@Min(value =1 ,message = "0以下をまたは文字は入力はできません")
 	@NotNull(message = "上映時間は必須です")
 	private String time;  //メッセージ：数字じゃない場合err 
