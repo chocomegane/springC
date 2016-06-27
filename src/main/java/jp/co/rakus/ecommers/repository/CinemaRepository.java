@@ -178,11 +178,26 @@ public class CinemaRepository {
 		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
 				+ "FROM cinemas WHERE translate(UPPER(title),"
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ', "
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ　') "
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
+				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
+				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
+				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
+				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
+				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
+				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
 				+ "LIKE translate(UPPER(:title), "
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ', " 
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ　') ORDER BY title";
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
+				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
+				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
+				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
+				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
+				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
+				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
+				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') ORDER BY title";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
