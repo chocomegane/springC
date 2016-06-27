@@ -84,18 +84,95 @@ VALUES(1, 1, 1);
 
 --cinemasテーブルに追加する素材
 
-INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
-VALUES( 'オデッセイ', 3163, 'SF', 142, '2016-06-03 00:00:00', 'DVD', '20世紀フォックス・ホーム・エンターテイメント・ジャパン', 'リドリー・スコット', '全年齢対象','70億人が、彼の帰りを待っている', 'imagePath', false);
 
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
-VALUES('呪怨2', 2018, 'ホラー', 76, '2014-10-10 00:00:00', 'DVD', '東映株式会社', '清水崇', '15歳以上対象', '再び佐伯家への入居者に再び伽椰子の呪いが降りかかる...', 'imagePath', false);
+VALUES( 'CHAPPIE/チャッピー', 1600, 'SF', 120, '2015-09-18 00:00:00', 'DVD', 'ソニー・ピクチャーズエンタテインメント', ' ニール・ブロムカンプ', '12歳以上対象','『第９地区』監督の原点回帰的最新作！圧倒的リアリティと衝撃の結末を体感せよ！
+２０１６年―犯罪多発地区、南アフリカ　ヨハネスブルグに世界で唯一の“感じ、考え、成長する”AI（人工知能）を搭載したロボットが誕生。
+彼の名はチャッピー。
+起動したばかりのチャッピーは真っ新でまるで子供のようだが、彼の余命はたった5日間しかない。ギャングにさらわれたチャッピーは、ギャング式の生きる術を覚え加速度的に成長する。
+ただ「生きたい」と願うチャッピーの人知を超えた行動に、我々は衝撃の結末を目撃する。', 'chappie.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES( 'スター・ウォーズ/フォースの覚醒 ', 3100, 'SF', 136, '2016-05-04 00:00:00', 'DVD', 'ウォルト・ディズニー・ジャパン株式会社', 'J.J.エイブラムス', '全年齢対象','砂漠の惑星で家族を待ち続けている孤独な女性レイは、謎のドロイドBB-8とストームトルーパーの脱走兵フィンと出会い運命が一変する。
+一方、十字型のライトセーバーを操るカイロ・レンに率いられた帝国軍の残党であるファースト・オーダーは、消えたとされる最後のジェダイ、ルーク・スカイウォーカーの行方を追っていた。銀河に新たな脅威が迫る中、レイたちはハン・ソロとチューバッカに出会う。', 'starwars.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES( 'ジュラシック・ワールド ', 2000, 'SF', 124, '2016-02-24 00:00:00', 'DVD', 'NBCユニバーサル・エンターテイメントジャパン', 'コリン・トレボロウ', '全年齢対象','人気SFアクション「ジュラシック・パーク」シリーズ第4弾。恐竜と触れ合える高級リゾート、ジュラシック・ワールドで働くクレアを訪ねて来た甥っ子・ザックとグレイ。だが、凶暴な恐竜が施設から逃亡し…。', 'jurassicworld.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES( 'オデッセイ', 3100, 'SF', 142, '2016-06-03 00:00:00', 'DVD', '20世紀フォックス・ホーム・エンターテイメント・ジャパン', 'リドリー・スコット', '全年齢対象','『プロメテウス』のリドリー・スコット監督が描く奇跡のSFサバイバル超大作! 
+
+70億人が、彼の還りを待っている。', 'odessei.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('呪怨2', 2000, 'ホラー', 76, '2014-10-10 00:00:00', 'DVD', '東映株式会社', '清水崇', '15歳以上対象', 'かつて夫に妻・伽椰子が惨殺されたり、そこに住んだ人々に次々と不幸が起きた家。その噂をききつけたテレビクルーが、この“幽霊屋敷”にホラーの女王と呼ばれる女優・京子を連れて取材へ。そんなクルーたちにさまざまな呪いがふりかかっていく……。', 'juon2.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('呪怨', 2000, 'ホラー', 70, '2014-10-10 00:00:00', 'DVD', '東映株式会社', '清水崇', '15歳以上対象', 'かつてない角度から生み落とされたJホラーの先駆け
+
+「呪怨」とは、つよい怨みを抱いて死んだモノの呪い…呪われた家から溢れ出す、九の連続した死。「リング」シリーズの高橋洋(監修)が、清水崇監督とともに贈る究極の恐怖体験! 。', 'juon.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('ゴーストバスターズ 1&2パック', 2300, 'ホラー', 213, '2014-12-03 00:00:00', 'DVD', 'ソニー・ピクチャーズエンタテインメント', 'アイバン・ライトマン', '全年齢対象', 'ニューヨークにはゴーストがいっぱい。
+危機に立ち向かえるのは彼らしかいない! 
+ピーター、レイモンド、イーガンの科学者3人組が結成したオバケ撃退部隊“ゴーストバスターズ"。', 'goastbasters.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('シャイニング', 1200, 'ホラー', 119, '2010-04-21 00:00:00', 'DVD', 'ワーナー・ホーム・ビデオ', 'スタンリー・キューブリック', '12年齢対象', 'スティーブン・キングの原作小説を基に、監督スタンリー・キューブリック自らが共同脚色を手がけた、ホラー映画の金字塔。鮮やかな演技、戦慄の設定、そしてトラッキング・ショットによる幻想的な映像を融合し、かつてない恐怖の世界を描き出す。ジャック・ニコルソン(「お客様だよ!」の台詞はあまりにも有名)演じるジャック・トランスは、妻(シェリー・デュバル)と息子(ダニー・ロイド)と共に優雅なオーバールック・ホテルを冬季管理人として訪れたことから物語は始まる。トランスはこのホテルを訪れたことはないはずなのだが ― 果たして?その答えは、狂気と殺戮が渦巻くこの場所にある。', 'shining.jpg', false);
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('インサイドヘッド', 3100, 'ファンタジー', 95, '2015-11-18 00:00:00', 'DVD', 'ピクサー', 'ピートドクター', '全年齢対象', 'もっと自分が好きになる―
+ディズニー/ピクサー待望の最新作。感動と驚きの冒険ファンタジー! 
+
+はじめまして。
+私たち、あなたの中の<きもち>です。', 'insidehead.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('映画 妖怪ウォッチ エンマ大王と5つの物語だニャン!', 1900, 'ファンタジー', 94, '2016-07-06 00:00:00', 'DVD', 'KADOKAWA メディアファクトリー', '髙橋滋春, ウシロシンジ', '全年齢対象', '驚きと興奮! 超てんこもりの大冒険! 楽しさ鬼盛りの5つの奇跡! ! 
+「映画 妖怪ウォッチ」第2弾がリリース! 待たせたニャン! ! 
+
+妖怪旋風再び! 2014年、日本中を熱狂させた妖怪たちが再びスクリーンに帰ってきた! ! 
+超妖怪級大ヒットムービー「映画 妖怪ウォッチ」第2弾がいよいよDVD&ブルーレイでリリース! ', 'youkaienma.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('映画ドラえもん 新・のび太の日本誕生 ', 1900, 'ファンタジー', 104, '2016-08-10 00:00:00', 'DVD', 'ポニーキャニオン', '八鍬新之介', '全年齢対象', '「決心したぞ! 僕は家出する! ! 」家でも学校でも叱られてばかりののび太は、家出をしようと思い立つが、どこに行っても持ち主のいない土地はないことを知る。
+そして、ドラえもん、しずか、ジャイアン、スネ夫もそれぞれの理由で家出を決心。みんなで行くところがなく途方に暮れていた。
+それならばいっそのことまだ誰も住んでいない原始時代の日本へ行こうと思い立ち、史上最大の家出へと出発することに。たどり着いたのは7万年前の日本。
+自分たちだけのパラダイスを作り、たっぷり遊んだのび太たちは、いったん家に帰ることにしたが、なぜか現代で原始人のククルと出会う。どうやら時空乱流に巻き込まれて現代に来てしまったらしい。
+そして、ククルの家族がいるヒカリ族は、精霊王ギガゾンビとクラヤミ族に襲われたという…。
+ククルとともに原始時代に戻った5人は、ヒカリ族を救うため立ち上がる! 
+
+史上最大の家出から、史上最大の冒険が始まる! ! ', 'doraemonnobita.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('映画 クレヨンしんちゃん　ヘンダーランドの大冒険', 1300, 'ファンタジー', 100, '2016-11-26 00:00:00', 'DVD', 'バンダイビジュアル', '本郷みつる, ウシロシンジ', '全年齢対象', '２０周年記念スペシャルプライス!!「映画クレヨンしんちゃん」シリーズ１６作品を一挙リリース!!
+第４作目は、オラが地球のピンチをお助けするゾ！！
+ナンカヘンダー、ヘンダーランド！　ウソだと思うなら、チョイとおいで～', 'kureyonsintyanhenda.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('サイクロンZ', 1391, 'アクション', 94, '2011-12-09 00:00:00', 'DVD', 'パラマウントホームエンタテイメントジャパン', 'ジャッキーチェン', '全年齢対象', 'ジャッキー・チェン、サモ・ハン・キンポー、ユン・ピョウの3大スターが再集結したアクションコメディ。熱血弁護士が工場の汚染問題をきっかけに麻薬組織とバトルを繰り広げる香港映画のエネルギーみなぎる傑作。“ハッピー・ザ・ベスト!”。', 'saikuronz.jpg', false);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('ヒットマン:エージェント47 2枚組ブルーレイ&DVD(初回生産限定) ', 3100, 'アクション', 97, '2016-09-02 00:00:00', 'DVD', '20世紀フォックス・ホーム・エンターテイメント・ジャパン', 'アレクサンデル・バッハ', '12歳以上対象', 'DNA操作により作り上げられた最高の暗殺者エージェント47。感情も恐怖もなく、与えられたミッションを完璧に遂行するエリート暗殺者。そんな彼の新たな任務が、48時間以内に邪魔者を消し、カティアという名の女性を見つけること。時を同じくして、シンジケート社もまた、彼女を捜し出そうとドイツにひとりの男を送り込む。男はカティアを見つけ出し、「47が君を殺しに来る。助けられるのは僕だけだ」と告げるが、そこに銃を手にした47が現れ、壮絶で華麗なバトルが幕を開ける。訳も分からず危険へと巻き込まれていくカティア、執拗なまでに彼女を追い続ける男と47――ふたりは彼女の敵なのか、味方なのか? 彼らの狙いは何なのか? そして、彼女は一体何者なのか……?', 'hittoman.jpg', false);
 
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
-VALUES('インサイドヘッド', 3127, 'ファンタジー', 95, '2015-11-18 00:00:00', 'DVD', 'ピクサー', 'ピートドクター', '全年齢対象', '初めまして。私たち、あなたの中の<きもち>です', 'imagePath', false);
+VALUES( 'バットマン vs スーパーマン ジャスティスの誕生', 3200, 'SF', 151, '2016-08-10 00:00:00', 'DVD', 'ワーナー・ブラザース・ホームエンターテイメント', 'リドリー・スコット', '全年齢対象','世紀の対決。
+スーパーマンが悪に染まる
 
+スーパーヒーロー映画の歴代No.1(全世界オープニング3日間)
+世界的人気を誇る2大スーパーヒーローが激突! 
+超人的な力で地球を救ってきたスーパーマン。
+しかし皮肉にも人類の平和を守るために、街に甚大な被害を出してしまい、いつしか“正義の味方"から“人類の脅威"となっていく―。
+そんな中、闇夜で正義を果たしてきたバットマンが、人類の希望を背負い、戦いの表舞台へ立つことになる。
+この世紀の戦いに、勝つのはどっちだ―。
+
+新バットマンはベン・アフレック、スーパーマンは『マン・オブ・スティール』に続きヘンリー・カビルが務める。
+スーパーマンの宿敵レックス・ルーサー役はジェシー・アイゼンバーグが怪演する。
+ワンダーウーマンは「ワイルド・スピード」シリーズのガル・ガドット。
+監督は鬼才ザック・スナイダー。製作総指揮は巨匠クリストファー・ノーラン。', 'badmansuperman.jpg', false);
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
-VALUES('サイクロンZ', 1391, 'アクション', 94, '2011-12-09 00:00:00', 'DVD', 'パラマウントホームエンタテイメントジャパン', 'ジャッキーチェン', '全年齢対象', '戦う弁護士ジャッキーチェンのアクションコメディ', 'imagePath', false);
+VALUES('ミッション:インポッシブル/ローグ・ネイション', 1300, 'アクション', 94, '2016-06-03 00:00:00', 'DVD', 'パラマウント', 'クリストファー・マッカリー', '全年齢対象', 'トム・クルーズ主演によるスパイアクションシリーズ第5弾。IMFのエージェント、イーサン・ハントは多国籍スパイ組織・シンジケートを追っていたが、捕らえられてしまう。拷問が始まろうとしたその時、謎の女に助けられ…。“ハッピー・ザ・ベスト!”。', 'missionroag.jpg', false);
+
 
