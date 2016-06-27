@@ -2,7 +2,6 @@ package jp.co.rakus.ecommers.web;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -24,6 +23,7 @@ public class UserRegisterForm {
 	@Size(min =1, max=127, message = "メールアドレスを入力して下さい")
 	private String email;
 	/** パスワード */
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\[\\!\\#\\$\\%\\&\\(\\)\\?\\]\\\\]).+",message = "記号、大文字、小文字、数字を含ませてください")
 	@NotBlank(message = "パスワードを入力して下さい")
 	@Size(min =8, max=16,message = "パスワードは8文字以上16文字以下で登録してください")
 	private String password;
@@ -34,6 +34,7 @@ public class UserRegisterForm {
 	/** 電話番号 のトップ*/
 	@Min(1)
 	@Max(4)
+	@NotBlank
 	private String telephoneTop;
 	
 	/** 住所 */
@@ -43,11 +44,13 @@ public class UserRegisterForm {
 	/** 電話番号 のミドル*/
 	@Min(1)
 	@Max(4)
+	@NotBlank
 	private String telephoneMiddle;
 	
 	/** 電話番号 のラスト*/
 	@Min(1)
 	@Max(4)
+	@NotBlank
 	private String telephoneLast;
 
 }
