@@ -67,11 +67,11 @@ public class CartController {
 		CartListPage cartPage = service.findAllCart(user);
 		
 		if (cartPage.getCartListChildPage() == null) {
-			model.addAttribute("message", "カートに何も入ってません");
+			model.addAttribute("flag", false);
 			return "viewShoppingCart";
 		} else {
+			model.addAttribute("flag", true);
 			model.addAttribute("cartPage", cartPage);
-			model.addAttribute("payment", "決済へ");
 			return "viewShoppingCart";
 		}
 	}
