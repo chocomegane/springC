@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -20,8 +19,6 @@ import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
-import jp.co.rakus.ecommers.web.InsertForm;
-import scala.annotation.meta.getter;
 
 /**
  * ordersテーブルを操作するRepositoryクラス
