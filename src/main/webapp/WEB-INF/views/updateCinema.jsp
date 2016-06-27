@@ -49,6 +49,7 @@
 </div>
 <br>
 <div align="center">
+	<a href="/admin/displayList">商品一覧画面へ戻る</a>
 	<a href="/admin/menu">メニューへ戻る</a>
 </div>
 </body>
