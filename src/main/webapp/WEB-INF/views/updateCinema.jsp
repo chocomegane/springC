@@ -36,6 +36,7 @@
 				<td align="center">
 					<form:hidden path="originallyImagePath" value="${cinema.imagePath}"/>
 					<form:input type="file" path="imagePath"/><div><c:out value="${cinema.imagePath}"/></div>
+					<div><font color="red"><c:out value="${err3}"/></font></div>
 				</td>
 			</tr>
 		</table>

@@ -34,6 +34,7 @@
 				<td align="center">
 					<form:input type="file" path="imagePath"/>
 					<div><font color="red"><c:out value="${err}"/></font></div>
+					<div><font color="red"><c:out value="${err3}"/></font></div>
 				</td>
 			</tr>
 		</table>

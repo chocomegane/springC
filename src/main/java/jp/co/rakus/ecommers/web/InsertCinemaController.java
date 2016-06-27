@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.MultipartConfig;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import jp.co.rakus.ecommers.service.OrderListService;
 @Controller
 @Transactional
 @RequestMapping(value = "/admin")
+// @MultipartConfig(maxFileSize=1024*1024*5, maxRequestSize=1024*1024*50)
 public class InsertCinemaController {
 	
 	/** ListViewServiceを利用するためのDI */
@@ -39,6 +41,8 @@ public class InsertCinemaController {
 	
 	@Autowired
 	private ServletContext context;
+	
+	private static final int MAX_FILE_SIZE = 5242880; // 1024*1024*5 5MB = 5242880byte
 		
 	@ModelAttribute
 	public CinemaForm setUpForm() {
@@ -70,6 +74,11 @@ public class InsertCinemaController {
 		
 		boolean errorFlagOfImage = false;
 		boolean errorFlagOfTitle = false;
+		
+		if(form.getImagePath().getSize() > MAX_FILE_SIZE) {
+			model.addAttribute("err3", "【容量オーバー】5MB以内の画像を選択してください");
+			errorFlagOfImage = true;
+		}
 		
 		if(result.hasErrors()) {
 			if(form.getImagePath().getOriginalFilename().equals("")) {
@@ -123,9 +132,7 @@ public class InsertCinemaController {
 			cinema.setReleaseDate(date);
 						
 			BeanUtils.copyProperties(form, cinema);
-			
-			System.out.println("2:" + cinema.getReleaseDate());
-			
+						
 			cinema.setImagePath(form.getImagePath().getOriginalFilename());
 			cinema.setPrice(form.getIntPrice());
 			cinema.setTime(form.getIntTime());
@@ -135,6 +142,7 @@ public class InsertCinemaController {
 			redirectAttributes.addFlashAttribute("message", "正常に登録が完了しました");
 			return "redirect:/admin/insert";
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("不正な値が入力されました");
 			return "insertCinema";
 		}
