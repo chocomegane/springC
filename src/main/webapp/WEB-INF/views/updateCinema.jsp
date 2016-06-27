@@ -26,6 +26,7 @@
 			<tr><th>概要（ストーリー）</th><td align="center"><textarea name="description" style="width:20em; height:10em"><c:out value="${cinema.description}"/></textarea><form:errors path="description" cssStyle="color:red" element="div"/></td></tr>
 			<tr><th>イメージ画像</th><td align="center"><form:input type="file" path="imagePath"/><div><c:out value="${cinema.imagePath}"/></div><div><font color="red"><c:out value="${error}"/></font></div></td></tr>
 		</table>
+		<br>
 		<input type="submit" value="更新">
 	</form:form>
 </div>

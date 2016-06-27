@@ -56,6 +56,10 @@ public class OrderListService {
 	
 	// findAll()系
 	
+	public List<Cinema> findAll() {
+		return repository1.findAll();
+	}
+	
 	/**
 	 * DBからfindAllするためのメソッド. 取得してきた映画のリストを別に定義してあるPageクラスに反映させる
 	 * 
