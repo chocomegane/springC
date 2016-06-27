@@ -19,6 +19,11 @@ public class CinemaForm {
 	@Size(min=0, max= 127, message= "文字数上限はは127文字です")
 	@NotBlank(message = "タイトルは必須です")
 	private String title;
+	
+	// 映画の更新処理の際に使用
+	// jsp側で<form:hidden>タグを用いてその映画のもともとの映画名を飛ばす！
+	private String originallyTitle;
+	
 	/** 価格 */
 	@Max(value=500000, message= "500001以上または文字は入力はできません" )
 	@Min(value =1 ,message = "0以下または文字入力はできません")
@@ -54,6 +59,11 @@ public class CinemaForm {
 	private String description;
 	/** イメージ画像 */
 	private MultipartFile imagePath;
+	
+	// 映画の更新処理の際に使用
+	// jsp側で<form:hidden>タグを用いてその映画のもとも入っていた画像名を飛ばす！
+	private String originallyImagePath;
+	
 	/** フラグ（削除） */
 	private boolean deleted;
 	
