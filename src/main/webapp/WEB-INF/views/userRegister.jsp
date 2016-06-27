@@ -27,6 +27,7 @@
 				<td>
 				住所</td>
 				<td>
+				
 				<form:errors path = "address" cssStyle="color:red" element="div"/>
 				<form:input path="address"/></td>
 
@@ -36,8 +37,9 @@
 				電話番号
 				</td>
 				<td>
-				<form:errors path = "telephone" cssStyle="color:red" element="div"/>
-				<form:input path="telephone"/></td>
+				<font color="red"><c:out value="${telephoneErr1}"/></font><br>
+				<font color="red"><c:out value="${telephoneErr2}"/></font><br>
+				<form:input path="telephoneTop"/> - <form:input path="telephoneMiddle"/> - <form:input path="telephoneLast"/></td>
 
 			</tr>
 			<tr>
