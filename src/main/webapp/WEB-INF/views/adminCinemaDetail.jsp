@@ -10,44 +10,44 @@
 			<td colspan="2" rowspan="10"><img src="/img/${cinemaDetail.imagePath}" width="150"
 				height="150" alt="商品画像">
 			</td>
-			<th>商品名</th>
+			<th width="100">商品名</th>
 			<td align="center"><c:out value="${cinemaDetail.title}"/></td>
 		</tr>
 		<tr>
-			<th>価格</th>
+			<th width="100">価格</th>
 			<td align="center"><fmt:formatNumber value="${cinemaDetail.price}" pattern="###,###円"/></td>
 		</tr>
 		<tr>
-			<th>ジャンル</th>
+			<th width="100">ジャンル</th>
 			<td align="center"><c:out value="${cinemaDetail.genre}"/></td>
 		</tr>
 		<tr>
-			<th>上映時間</th>
+			<th width="100">上映時間</th>
 			<td align="center"><fmt:formatNumber value="${cinemaDetail.time}" pattern="###,###分"/></td>
 		</tr>
 		<tr>
-			<th>公開日</th>
+			<th width="100">公開日</th>
 			<td align="center"><fmt:formatDate value="${cinemaDetail.releaseDate}" pattern="yyyy/MM/dd"/></td>
 		</tr>
 		<tr>
-			<th>メディアタイプ</th>
+			<th width="100">メディアタイプ</th>
 			<td align="center"><c:out value="${cinemaDetail.mediaType}"/></td>
 		</tr>
 		<tr>
-			<th>制作会社</th>
+			<th width="100">制作会社</th>
 			<td align="center"><c:out value="${cinemaDetail.company}"/></td>
 		</tr>
 		<tr>
-			<th>監督</th>
+			<th width="100">監督</th>
 			<td align="center"><c:out value="${cinemaDetail.directedBy}"/></td>
 		</tr>
 		<tr>
-			<th>レーティング</th>
+			<th width="100">レーティング</th>
 			<td align="center"><c:out value="${cinemaDetail.rating}"/></td>
 		</tr>
 		<tr>
-			<th>概要</th>
-			<td align="center"><textarea rows="5" cols="30"><c:out value="${cinemaDetail.description}"/></textarea></td>
+			<th width="100">概要</th>
+			<td align="center"><textarea disabled="disabled" style="background-color:white;" rows="5" cols="30"><c:out value="${cinemaDetail.description}"/></textarea></td>
 		</tr>
 	</table>
 </div>

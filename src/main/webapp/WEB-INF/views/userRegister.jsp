@@ -45,6 +45,7 @@
 				パスワード<br>
 				</td>
 				<td>
+				<br>
 				<form:errors path = "password" cssStyle="color:red" element="div"/>
 				<form:password path="password"/></td>
 
@@ -54,6 +55,7 @@
 				確認用パスワード<br>
 				</td>
 				<td>
+				<c:out value="${err}"/><br>
 				<form:errors path = "confirmPassword" cssStyle="color:red" element="div"/>
 				<form:password path="confirmPassword"/></td>
 

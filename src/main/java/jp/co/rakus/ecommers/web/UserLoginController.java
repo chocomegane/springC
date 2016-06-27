@@ -62,10 +62,10 @@ public class UserLoginController {
      * @return
      */
     @RequestMapping(value = "/loginError")
-    public String loginError(UserLoginForm form,BindingResult result,Model model) {
+    public String loginError(UserLoginForm form,BindingResult result,@CookieValue(value="JSESSIONID",required=false,defaultValue="0") String guestid,Model model) {
     	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
         result.addError(error);
-        return loginForm(null,model);
+        return loginForm(guestid,model);
     }
 
 }

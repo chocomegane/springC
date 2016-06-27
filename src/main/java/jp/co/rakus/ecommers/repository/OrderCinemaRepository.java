@@ -19,7 +19,6 @@ import jp.co.rakus.ecommers.domain.Cart;
 import jp.co.rakus.ecommers.domain.Order;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
-import jp.co.rakus.ecommers.web.InsertForm;
 
 /**
  * ordersテーブルを操作するRepositoryクラス
