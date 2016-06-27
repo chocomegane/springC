@@ -20,7 +20,7 @@
             </tr>
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>
-				<td><a href="/cinemaShop/detail/${cartItem.cinemaId}"><img src="/img/pc.jpg" width="150"height="125" alt="商品画像"></a></td>
+				<td><a href="/cinemaShop/detail/${cartItem.cinemaId}"><img src="/img/${cartItem.imagePath}" width="150"height="125" alt="商品画像"></a></td>
                 <td><a href="/cinemaShop/detail/${cartItem.cinemaId}"><c:out value="${cartItem.title}"/></a></td>
                 <td>¥<fmt:formatNumber value="${cartItem.price}" pattern="###,###,###,###,###"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
@@ -30,11 +30,7 @@
                 		<input type="hidden" name="quantity" value="1">
                         <input type="submit" value="1個追加"/>
                 </form:form>
-                <form:form action="/cinemaShop/insert" modelAttribute="cartForm">
-                		<input type="hidden" name="cinemaId" value="<c:out value="${cartItem.cinemaId}"/>">
-                		<input type="hidden" name="quantity" value="-1">
-                        <input type="submit" value="1個削除"/>
-                </form:form>
+                
                 <form:form action="/cinemaShop/delete" modelAttribute="">
                 		<input type="hidden" name="orderCinemaId" value="<c:out value="${cartItem.orderCinemaId}"/>">
                         <input type="submit" value="まとめて削除"/>
