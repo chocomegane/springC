@@ -37,7 +37,7 @@
 			<th>
 			<a href="/admin/cinemaDetail/detail/${child.id}"><c:out value="${child.title}"/></a>
 			</th>
-			<th><c:out value="${child.price}"/>円</th>
+			<th><fmt:formatNumber value="${child.price}" pattern="#,###"/>円</th>
 			<th>
 				<form:form action="">
 					<input type="button" value="削除(次期開発)">
