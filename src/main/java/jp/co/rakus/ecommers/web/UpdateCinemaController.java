@@ -3,6 +3,7 @@ package jp.co.rakus.ecommers.web;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -65,15 +66,33 @@ public class UpdateCinemaController {
 	@RequestMapping(value = "/execute", method=RequestMethod.POST)
 	public String output(@Validated CinemaForm form, BindingResult result, Model model) {
 		
+		boolean errorFlag = false;
+		boolean errorFlagOfTitle = false;
+		
 		if(result.hasErrors()) {
-			if(form.getImagePath().getOriginalFilename().equals("")) {
-				model.addAttribute("error", "画像を選択してください");
+			errorFlag = true;
+		}
+						
+		// 追加
+		List<Cinema> cinemaList = service.findAll();
+		for(Cinema item : cinemaList) {
+			if(form.getTitle().equals(item.getTitle())) {
+				if(!form.getOriginallyTitle().equals(item.getTitle())) {
+					errorFlagOfTitle = true;
+				}
+			}
+		}
+		
+		if(errorFlagOfTitle == true) {
+			String err2 = "そのタイトルはすでに使われています";
+			model.addAttribute("err2", err2);
+			if(errorFlag == true) {
+				return index(form.getId(), model);
 			}
 			return index(form.getId(), model);
 		}
 		
-		if(form.getImagePath().getOriginalFilename().equals("")) {
-			model.addAttribute("error", "画像を選択してください");
+		if(errorFlag == true) {
 			return index(form.getId(), model);
 		}
 		
@@ -83,12 +102,17 @@ public class UpdateCinemaController {
 			String strReleaseDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(before);
 			Date after = new SimpleDateFormat("yyyy-MM-dd").parse(strReleaseDate);
 			String path = context.getRealPath("/img/");
-			form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
 			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(after);
 			BeanUtils.copyProperties(form, cinema);
-			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			
+			if( ! form.getImagePath().isEmpty() ) {
+				form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+				cinema.setImagePath(form.getImagePath().getOriginalFilename());
+			} else {
+				cinema.setImagePath(form.getOriginallyImagePath());
+			}
 			cinema.setPrice(form.getIntPrice());
 			cinema.setTime(form.getIntTime());
 			
@@ -96,6 +120,7 @@ public class UpdateCinemaController {
 		    model.addAttribute("message", "正常に登録が完了しました");
 			return index(form.getId(), model);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("不正な値が入力されました");
 			return "updateCinema";
 		}

@@ -68,23 +68,22 @@ public class InsertCinemaController {
 		System.err.println(form.getReleaseDate());
 		// エラーチェック
 		
-		boolean errorFlag = false;
+		boolean errorFlagOfImage = false;
+		boolean errorFlagOfTitle = false;
 		
 		if(result.hasErrors()) {
-			if(form.getImagePath().getOriginalFilename().equals(""))
-			{
+			if(form.getImagePath().getOriginalFilename().equals("")) {
 				String err = "画像を選択してください";
 				model.addAttribute("err", err);
-				errorFlag = true;
+				errorFlagOfImage = true;
 			}
 			// return index(model);
 		}
 				
-		if(form.getImagePath().getOriginalFilename().equals(""))
-		{
+		if(form.getImagePath().getOriginalFilename().equals("")) {
 			String err = "画像を選択してください";
 			model.addAttribute("err", err);
-			errorFlag = true;
+			errorFlagOfImage = true;
 			// return "insertCinema";
 		}
 		
@@ -92,13 +91,20 @@ public class InsertCinemaController {
 		List<Cinema> cinemaList = service.findAll();
 		for(Cinema item : cinemaList) {
 			if(form.getTitle().equals(item.getTitle())) {
-				errorFlag = true;
+				errorFlagOfTitle = true;
 			}
 		}
 		
-		if(errorFlag == true) {
+		if(errorFlagOfTitle == true) {
 			String err2 = "そのタイトルはすでに使われています";
 			model.addAttribute("err2", err2);
+			if(errorFlagOfImage == true) {
+				return "insertCinema";
+			}
+			return "insertCinema";
+		}
+		
+		if(errorFlagOfImage == true) {
 			return "insertCinema";
 		}
 		

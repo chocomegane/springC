@@ -99,10 +99,10 @@ public class OrderListService {
 			OrderListChildPage child = new OrderListChildPage();
 			switch (order.getStatus()) {
 			case 1:
-				child.setStatus("入金済み");
+				child.setStatus("未入金");
 				break;
 			case 2:
-				child.setStatus("未入金");
+				child.setStatus("入金済み");
 				break;
 			case 3:
 				child.setStatus("発送済み");

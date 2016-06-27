@@ -79,8 +79,8 @@ public class CreatePageService {
 		page.setGrandTotal(total + tax + 500);
 
 		Map<Integer, String> statusMap = new LinkedHashMap<>();
-		statusMap.put(1, "入金済み");
-		statusMap.put(2, "未入金");
+		statusMap.put(1, "未入金");
+		statusMap.put(2, "入金済み");
 		statusMap.put(3, "発送済み");
 		statusMap.put(4, "キャンセル");
 
@@ -88,10 +88,10 @@ public class CreatePageService {
 
 		switch (order.getStatus()) {
 		case 1:
-			page.setStatus("入金済み");
+			page.setStatus("未入金");
 			break;
 		case 2:
-			page.setStatus("未入金");
+			page.setStatus("入金済み");
 			break;
 		case 3:
 			page.setStatus("発送済み");
