@@ -115,7 +115,7 @@ public class CartController {
 	private long makeUserId(String jsessionId) {
 		int digit = jsessionId.length() - LONG_DIGIT;
 		digit = digit > 0 ? digit : 0; 
-		long guestId = Long.parseLong(jsessionId.substring(digit), 16);
+		long guestId = -Long.parseLong(jsessionId.substring(digit), 16);
 		return guestId;
 	}
 
