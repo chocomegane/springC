@@ -1,8 +1,11 @@
 package jp.co.rakus.ecommers.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,10 +93,19 @@ public class PaymentService {
 		/*******************************************************************************/
 		/** 追加分 */
 		
-		int orderNumber = Integer.parseInt(orderRepository.findByOrderId(orderId));
-		orderNumber = orderNumber + 1;
-		String number = String.valueOf(orderNumber);
-		orderRepository.updateOrderNumber(orderId, number);
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		
+		sdf.applyPattern("yyyyMMdd");
+		Order lastOrder = orderRepository.findLastOrder(orderId);
+		int orderNumberAfter = 0;
+		if(lastOrder != null){
+			orderNumberAfter = Integer.parseInt(lastOrder.getOrderNumber().substring(8));
+		}
+		orderNumberAfter = orderNumberAfter + 1;
+		String number = String.format("%1$06d", orderNumberAfter);
+		String orderNumber = sdf.format(cal.getTime()) + number;
+		orderRepository.updateOrderNumber(orderId, orderNumber);
 		/*******************************************************************************/
 		
 		return orderRepository.updateStatus(orderId);

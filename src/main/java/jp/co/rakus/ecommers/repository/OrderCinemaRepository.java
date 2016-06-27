@@ -209,6 +209,7 @@ public class OrderCinemaRepository {
 			int  existingQuantity = template.queryForObject(sql, param, Integer.class);
 
 			int totalQuantity = existingQuantity + orderItem.getQuantity();
+			if(totalQuantity < 0)totalQuantity = 0;
 			String updateSql = "UPDATE order_items SET quantity=:quantity WHERE cinema_id = :cinema_id AND order_id = :order_id";
 			SqlParameterSource updateParam = new MapSqlParameterSource().addValue("quantity", totalQuantity)
 					.addValue("cinema_id", orderItem.getCinemaId()).addValue("order_id", order.getId());
@@ -315,11 +316,22 @@ public class OrderCinemaRepository {
 	 * @param order
 	 * @return
 	 */
-	public String findByOrderId(long orderId) {
-		String sql = "SELECT order_number FROM orders WHERE status > 1 AND MAX(id) - 1";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", orderId);
-		String orderNumber = template.queryForObject(sql, param, String.class);
-		return orderNumber;
+	public Order findLastOrder(long orderId) {
+		try{
+		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date"
+				+ " FROM orders AS o"
+				+ " JOIN ("
+				+ "  SELECT MAX(date) AS last"
+				+ "  FROM orders"
+				+ "  WHERE status > 0 AND date_part('year',date) = date_part('year',now())"
+				+ " ) AS comfirmd"
+				+ " ON o.date = comfirmd.last";
+		SqlParameterSource param = new MapSqlParameterSource();
+		Order order = template.queryForObject(sql, param, orderRowMapper);
+		return order;
+		}catch(EmptyResultDataAccessException e){
+			return null;
+		}
 	}
 	
 	public void updateOrderNumber(long orderId, String orderNumber) {
@@ -357,7 +369,7 @@ public class OrderCinemaRepository {
 	 */
 	public Boolean updateStatus(Long id) {
 		try {
-			String sql = "UPDATE orders SET status=1, date=cast(now() as date) WHERE id=:id";
+			String sql = "UPDATE orders SET status=1, date=now() WHERE id=:id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 			template.update(sql, param);
 			return true;

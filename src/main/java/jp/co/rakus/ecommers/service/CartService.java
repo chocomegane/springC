@@ -141,6 +141,7 @@ public class CartService {
 				sum = sum + cinema.getPrice() * orderItem.getQuantity();
 			}
 		}
+		if(sum < 0)sum = 0;
 		return sum;
 	}
 
