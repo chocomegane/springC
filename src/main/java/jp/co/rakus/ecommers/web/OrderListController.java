@@ -31,8 +31,14 @@ public class OrderListController {
 	public String output(Model model) {
 		
 		OrderListPage page = service.findAllOfOrderList();
+		if (!page.getCinemaList().isEmpty()) {
+			model.addAttribute("page", page);
+			model.addAttribute("flag", true);
+			return "orderList";
+		} else {
+			model.addAttribute("flag", false);
+			return "orderList";
+		}
 		
-		model.addAttribute("page", page);
-		return "orderList";
 	}
 }
