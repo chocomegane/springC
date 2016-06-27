@@ -72,7 +72,7 @@ public class InsertCinemaController {
 				String err = "画像を選択してください";
 				model.addAttribute("err", err);
 			}
-			return index(model);
+			return "insertCinema";
 		}
 		 System.out.println(form.getImagePath().getOriginalFilename());
 		if(form.getImagePath().getOriginalFilename().equals(""))
