@@ -16,8 +16,8 @@ public class UserRegisterForm {
 	@NotBlank(message="お名前を入力して下さい" )
 	private String name;
 	/** メールアドレス */
-	@Email(message = "アドレスを入力して下さい")
-	@Size(min =1, max=127, message = "アドレスが不正です。")
+	@Email(message = "メールアドレスが不正です")
+	@Size(min =1, max=127, message = "メールアドレスを入力して下さい")
 	private String email;
 	/** パスワード */
 	@NotBlank(message = "パスワードを入力して下さい")
@@ -29,11 +29,11 @@ public class UserRegisterForm {
 	private String confirmPassword;
 	/** 電話番号 */
 	@NotBlank(message = "電話番号を入力して下さい")
-	@Size(min =1, max=127,message = "電話番号を入力して下さい")
+	@Size(min =0, max=120,message = "120文字までです")
 	private String telephone;
 	/** 住所 */
 	@NotBlank(message = "アドレスを入力してください")
-	@Size(min =1, max=127,message = "アドレスを入力してください")
+	@Size(min =0, max=120,message = "120文字までです")
 	private String address;
 
 }

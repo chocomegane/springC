@@ -3,6 +3,7 @@ package jp.co.rakus.ecommers.web;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -66,21 +67,41 @@ public class InsertCinemaController {
 		/*************************************************************************/
 		System.err.println(form.getReleaseDate());
 		// エラーチェック
+		
+		boolean errorFlag = false;
+		
 		if(result.hasErrors()) {
 			if(form.getImagePath().getOriginalFilename().equals(""))
 			{
 				String err = "画像を選択してください";
 				model.addAttribute("err", err);
+				errorFlag = true;
 			}
-			return "insertCinema";
+			// return index(model);
 		}
-		 System.out.println(form.getImagePath().getOriginalFilename());
+				
 		if(form.getImagePath().getOriginalFilename().equals(""))
 		{
 			String err = "画像を選択してください";
 			model.addAttribute("err", err);
+			errorFlag = true;
+			// return "insertCinema";
+		}
+		
+		// 追加
+		List<Cinema> cinemaList = service.findAll();
+		for(Cinema item : cinemaList) {
+			if(form.getTitle().equals(item.getTitle())) {
+				errorFlag = true;
+			}
+		}
+		
+		if(errorFlag == true) {
+			String err2 = "そのタイトルはすでに使われています";
+			model.addAttribute("err2", err2);
 			return "insertCinema";
 		}
+		
 		/*************************************************************************/
 		try {
 			// cinemaFormのreleaseDateがString型なので、Date型に変換
@@ -94,9 +115,7 @@ public class InsertCinemaController {
 			
 			Cinema cinema = new Cinema();
 			cinema.setReleaseDate(date);
-			
-			
-			
+						
 			BeanUtils.copyProperties(form, cinema);
 			
 			System.out.println("2:" + cinema.getReleaseDate());
@@ -105,10 +124,9 @@ public class InsertCinemaController {
 			cinema.setPrice(form.getIntPrice());
 			cinema.setTime(form.getIntTime());
 			
-			
 			service.save(cinema);
 			
-		    redirectAttributes.addFlashAttribute("message", "正常に登録が完了しました");
+			redirectAttributes.addFlashAttribute("message", "正常に登録が完了しました");
 			return "redirect:/admin/insert";
 		} catch (Exception e) {
 			System.err.println("不正な値が入力されました");

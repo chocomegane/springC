@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.service.AdministerRegisterService;
@@ -47,7 +48,7 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/adminRegister")
-	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result,Model model)
+	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result, RedirectAttributes redirect, Model model)
 	{
 		String email = form.getEmail(); //
 		String confirmationPassword = form.getConfirmationPassword();
@@ -58,11 +59,14 @@ public class AdministerRegisterController {
 			return index();
 		}
 		
+		boolean error = false; 
+		
 		if(!password.equals(confirmationPassword))
 		{
 			String err = "確認パスワードとパスワードが違います";
-			model.addAttribute("err", err);
-			return "redirect:/administerRegister";
+			redirect.addFlashAttribute("err1", err);
+			error = true;
+			// return "redirect:/admin/register/";
 		}
 		AdminUser adminUser = new AdminUser();
 		BeanUtils.copyProperties(form, adminUser);
@@ -73,11 +77,14 @@ public class AdministerRegisterController {
 	 
 	    if(!(testUser == null)) {
 	    	String err = "そのアドレスはすでに使われています" ;
-	    	model.addAttribute("err",err);
-	    	return "redirect:/administerRegister";
+	    	redirect.addFlashAttribute("err2",err);
+	    	error = true;
+	    	// return "redirect:/admin/register/";
 	    }
 //	    System.out.println(adminUser);
 
+	    if(error == true) return "redirect:/admin/register/";
+	    
 		service.adminInsert(adminUser);
 		return "redirect:/admin/menu";
 		
