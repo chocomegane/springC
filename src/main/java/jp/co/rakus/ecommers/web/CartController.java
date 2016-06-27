@@ -9,14 +9,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.LoginUser;
 import jp.co.rakus.ecommers.domain.OrderItem;
 import jp.co.rakus.ecommers.domain.User;
+import jp.co.rakus.ecommers.repository.OrderCinemaRepository;
 import jp.co.rakus.ecommers.service.CartService;
+import jp.co.rakus.ecommers.service.OrderListService;
 
 /**
  * カートを操作するコントローラ.
@@ -33,6 +38,8 @@ public class CartController {
 	@Autowired
 	private CartService service;
 	@Autowired
+	private OrderListService orderListService;
+	@Autowired
 	private HttpSession session;
 
 	/**
@@ -44,7 +51,12 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insert")
-	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, InsertForm form, Model model) {
+	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, @Validated CartForm form, BindingResult result, Model model) {
+		if(result.hasErrors()){
+			Cinema cinema = orderListService.findOne(form.getCinemaId());
+			model.addAttribute("cinemaDetail", cinema);
+			return "userCinemaDetail";
+		}
 		// principalからユーザーの情報を受け取るための操作
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(form, orderItem);

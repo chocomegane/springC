@@ -10,7 +10,7 @@
 <br>
 <br>
 <form:form modelAttribute="" action="/cinemaShop/displayList">
-<input type="button" value="戻る">
+<input type="submit" value="戻る">
 </form:form>
 </body>
 </html>

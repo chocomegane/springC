@@ -63,7 +63,7 @@
 				<option value="9">9</option>
 			</select> -->
 			<form:errors path="quantity" cssStyle="color:red" element="div"/>
-			注文個数<form:input path="quantity"/><br>
+			注文個数<input type="text" name="quantity"/><br>
 		<form:hidden path="cinemaId" value="${cinemaDetail.id}"/>
 		<div id="sendCart" align="center"><p><input type="submit" value="カートに入れる"></p></div>
 		<div id="backList" align="center"><p><a href="/cinemaShop/displayList">商品一覧画面へ戻る</a></p></div>

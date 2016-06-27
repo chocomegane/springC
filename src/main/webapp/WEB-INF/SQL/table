@@ -180,7 +180,7 @@ INSERT INTO cinemas( title, price, genre, time, release_date, media_type, compan
 VALUES("劇場版「進撃の巨人」前編～紅蓮の弓矢～", 4104, "アニメ", 2015-03-18 00:00:00, "DVD", "ポニーキャニオン", "荒木哲郎", "全年齢対象", "世界が震撼したあの衝撃をスクリーンで体感せよ！！コミックス累計発行部数4,200万部を誇る大ヒット漫画「進撃の巨人」のTVアニメを再構築した劇場版のDVDが登場！", 7156PuyIKXL._SL1134_.jpg, FALSE);
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
-VALUES("劇場版「進撃の巨人」前編～紅蓮の弓矢～", 4104, "アニメ", 2015-12-16 00:00:00, "DVD", "ポニーキャニオン", "荒木哲郎", "全年齢対象", "世界が震撼したあの衝撃をスクリーンで体感せよ！！コミックス累計発行部数4,200万部を誇る大ヒット漫画「進撃の巨人」のTVアニメを再構築した劇場版のDVDが登場！", 7156PuyIKXL._SL1134_.jpg, FALSE);
+VALUES("劇場版「進撃の巨人」後編～自由の翼～", 4104, "アニメ", 2015-12-16 00:00:00, "DVD", "ポニーキャニオン", "荒木哲郎", "全年齢対象", "世界が震撼したあの衝撃をスクリーンで体感せよ！！コミックス累計発行部数4,200万部を誇る大ヒット漫画「進撃の巨人」のTVアニメを再構築した劇場版のDVDが登場！", 71KTqXUk79L._SL1000_.jpg, FALSE);
 
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
 VALUES("劇場版「空の境界」俯瞰風景3D", 5400, "アニメ", 2016-03-03 00:00:00, "BD", "アニプレックス", "あおきえい", "全年齢対象", "「行こう、行こう、行こう、行こう――」私はただ望んだだけ。この窓の外の世界を。彼に連れて行ってほしかっただけ。", 71nIVJHO1JL._SL1500_.jpg, FALSE);
