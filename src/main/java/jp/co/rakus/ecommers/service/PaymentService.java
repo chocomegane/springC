@@ -8,6 +8,7 @@ import java.util.List;
 import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Order;
@@ -88,7 +89,8 @@ public class PaymentService {
 	 *            注文情報のid
 	 * @return 成功したらtrueを失敗したらfalseを返す
 	 */
-	public Boolean updateOrder(Long orderId) {
+	@Transactional
+	public synchronized Boolean updateOrder(Long orderId) {
 		
 		/*******************************************************************************/
 		/** 追加分 */
