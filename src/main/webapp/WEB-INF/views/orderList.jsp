@@ -13,7 +13,7 @@
 
 <c:choose >
 
-	<c:when test="${page.cinemaList != null}">
+	<c:when test="${flag}">
 		<table border="1">
 			<tr>
 				<th>注文番号</th>
