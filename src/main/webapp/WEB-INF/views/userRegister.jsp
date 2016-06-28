@@ -52,7 +52,7 @@
 		<tr>
 			<td>確認用パスワード</td>
 			<td>
-				<c:out value="${err}"/><br>
+				<c:out value="${err}"/>
 				<form:errors path = "confirmPassword" cssStyle="color:red" element="div"/>
 				<form:password path="confirmPassword"/>
 			</td>
