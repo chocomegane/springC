@@ -9,8 +9,8 @@ header {
  margin-right: auto;
 }
 
-.linkHeader {
-          float: center;
+#linkHeader {
+          float: left;
 }
 
 #userHeader {
