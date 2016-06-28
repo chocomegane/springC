@@ -35,7 +35,7 @@ public class SecurityConfig {
         private LoginAdminUserService loginAdminUserService;
         @Override
         public void configure(WebSecurity web) throws Exception {
-        	web.ignoring().antMatchers("/css/**", "/img/**");
+        	web.ignoring().antMatchers("/css/**", "/img/**", "/js/**", "/fonts/**");
         }
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -61,6 +61,8 @@ public class SecurityConfig {
                 .logout()
                 	.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
                 	.logoutSuccessUrl("/admin/login")
+                .and()
+                .exceptionHandling().accessDeniedPage("/admin/403")
                 ;
         }
     }
@@ -104,6 +106,8 @@ public class SecurityConfig {
                 .logout()
                 	.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
                 	.logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
                 ;
         }
     }
