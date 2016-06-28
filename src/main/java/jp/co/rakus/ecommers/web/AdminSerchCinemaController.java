@@ -35,6 +35,17 @@ public class AdminSerchCinemaController {
 	public String listGenre(@RequestParam String genre, Model model) {
 		CinemaListPage listPage = service.findByGenre(genre);
 
+		// 何も取得できなかったらメッセージを表示する
+		if (listPage.getChildPageList().size() == 0) {
+			model.addAttribute("message2", "商品がありません");
+			// findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "administerCinemaList";
+		}
+
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + genre);
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
@@ -53,6 +64,19 @@ public class AdminSerchCinemaController {
 	public String listMediaType(@RequestParam String mediaType, Model model) {
 		CinemaListPage listPage = service.findByMediaType(mediaType);
 
+		// 何も取得できなかったらメッセージを表示する
+		if (listPage.getChildPageList().size() == 0) {
+			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + mediaType);
+			// findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "administerCinemaList";
+		}
+
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + mediaType);
+		
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
@@ -76,14 +100,18 @@ public class AdminSerchCinemaController {
 		if(price.equals("0")){
 			minPrice = 0;
 			maxPrice = 1000;
+			price = "～1000円";
 		}else if(price.equals("1")){
 			minPrice = 1000;
 			maxPrice = 2000;
+			price = "1000円～2000円";
 		}else if(price.equals("2")){
 			minPrice = 2000;
 			maxPrice = 3000;
+			price = "2000円～3000円";
 		}else if(price.equals("3")){
 			minPrice = 3000;
+			price = "3000円～";
 		}
 		
 		CinemaListPage listPage = new CinemaListPage();
@@ -93,6 +121,19 @@ public class AdminSerchCinemaController {
 		}else{
 			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
 		}
+		
+		// 何も取得できなかったらメッセージを表示する
+		if (listPage.getChildPageList().size() == 0) {
+			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + price);
+			// findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "administerCinemaList";
+		}
+
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + price);
 		
 		model.addAttribute("listPage", listPage);
 
@@ -119,18 +160,22 @@ public class AdminSerchCinemaController {
 		}
 
 		// あいまい検索のためにtitleに%を付ける
-		title = "%" + title + "%";
-		System.out.println("titleの中身の確認" + title);
-
-		CinemaListPage listPage = service.findByTitle(title);
+		String titleSearch = "%" + title + "%";
+		
+		CinemaListPage listPage = service.findByTitle(titleSearch);
 
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + title);
 			// findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
 		}
+		
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + title);
 		
 		model.addAttribute("listPage", listPage);
 

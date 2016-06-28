@@ -2,11 +2,9 @@
 <%@ include file="adminCommon.jsp" %>
 <body>
 
+<br>
 <div class="main">
-
 <!-- テキスト検索 -->
-<c:out value="${message}"/>
-<c:out value="${message2}"/><br>
 <form action="/admin/serchCinema/title">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
@@ -46,11 +44,16 @@
 	<select name="mediaType" class="form-control" style="width: 180px" onchange="findByMediaType();">
 	  <option>メディアタイプ</option>
 	  <option value="DVD">DVD</option>
+	  <option value="ブルーレイ">ブルーレイ</option>
 	</select>
 </form>
 
 </div>
-
+<br>
+	<c:out value="${searchResult}"/>
+	<font color="red">
+	&nbsp;&nbsp;&nbsp;<c:out value="${message}"/><c:out value="${message2}"/>
+	</font>
 <br><br><br>
 <script type="text/javascript">
 function deleteConfirm(btn){
