@@ -57,8 +57,9 @@
 	<form:form modelAttribute="cinemaForm" action="/admin/updateCinema">
 		<form:hidden path="id" value="${cinemaDetail.id}"/>
 		<div align="center"><p><input type="submit" value="更新"></p></div>
-		<div align="center"><p><a href="/admin/displayList">商品一覧画面へ戻る</a></p></div>
 	</form:form>
+		<div align="center"><p><a href="/admin/displayList">商品一覧画面へ戻る</a></p></div>
+		<div align="center"><p><a href="/admin/menu">メニューへ戻る</a></p></div>
 	</div>
 </body>
 </html>

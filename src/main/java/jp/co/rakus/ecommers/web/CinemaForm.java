@@ -3,13 +3,14 @@ package jp.co.rakus.ecommers.web;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
+import scala.annotation.varargs;
 
 @Data
 public class CinemaForm {
@@ -39,6 +40,7 @@ public class CinemaForm {
 	@NotNull(message = "上映時間は必須です")
 	private String time;  //メッセージ：数字じゃない場合err 
 	/** 公開日 */
+	@Pattern(regexp = "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]" ,message = "入力してください。")
 	private String releaseDate; //メッセージ：date型いがいはerr
 	/** メディアタイプ */
 	@NotBlank(message = "メディアタイプは必須です")

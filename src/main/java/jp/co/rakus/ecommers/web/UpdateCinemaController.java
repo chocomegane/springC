@@ -39,6 +39,8 @@ public class UpdateCinemaController {
 	@Autowired
 	private ServletContext context;
 	
+	private static final int MAX_FILE_SIZE = 5242880; // 1024*1024*5 5MB = 5242880byte
+	
 	@ModelAttribute
 	public CinemaForm setUpForm() {
 		return new CinemaForm();
@@ -68,6 +70,11 @@ public class UpdateCinemaController {
 		
 		boolean errorFlag = false;
 		boolean errorFlagOfTitle = false;
+		
+		if(form.getImagePath().getSize() > MAX_FILE_SIZE) {
+			model.addAttribute("err3", "【容量オーバー】5MB以内の画像を選択してください");
+			errorFlag = true;
+		}
 		
 		if(result.hasErrors()) {
 			errorFlag = true;

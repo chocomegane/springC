@@ -36,6 +36,7 @@
 				<td align="center">
 					<form:hidden path="originallyImagePath" value="${cinema.imagePath}"/>
 					<form:input type="file" path="imagePath"/><div><c:out value="${cinema.imagePath}"/></div>
+					<div><font color="red"><c:out value="${err3}"/></font></div>
 				</td>
 			</tr>
 		</table>
@@ -48,6 +49,7 @@
 </div>
 <br>
 <div align="center">
+	<a href="/admin/displayList">商品一覧画面へ戻る</a>
 	<a href="/admin/menu">メニューへ戻る</a>
 </div>
 </body>
