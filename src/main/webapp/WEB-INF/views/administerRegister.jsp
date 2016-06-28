@@ -44,7 +44,7 @@
 		</tr>
 	</table>
 	<br>
-	<input type="submit" value="登録">&nbsp;&nbsp;<input type="reset" value="クリア">
+	<input type="submit" value="登録" onclick="DisableButton(this)">&nbsp;&nbsp;<input type="reset" value="クリア">
 </form:form>
 
 </div>
