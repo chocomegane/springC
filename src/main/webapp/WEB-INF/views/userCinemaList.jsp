@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="userCommon.jsp" %>
 
-
+<div class="main">
 <!-- テキスト検索 -->
 <c:out value="${message}"/>
 <c:out value="${message2}"/><br>
 
-<form action="/cinemaShop/searchCinemaTitle">
+<form action="/searchCinemaTitle">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
 	<span class="input-group-btn">
@@ -73,5 +73,6 @@
 			</tr>
 	</tbody>
 </table>
+</div>
 </body>
 </html>
