@@ -4,14 +4,26 @@
 <body>
 <br>
 <br>
-<img src="/img/ヒトラー.png">
-<br>
-<h1>お探しのページは見つかりませんでした</h1>
 <br>
 <br>
+
+
+<CENTER>
+<h2>お探しのページは見つかりませんでした</h2>
+
+
+<script type="text/javascript">
+	img = new Array();
+	img[0] = "/img/コマンドー.jpg";
+	img[1] = "/img/ヒトラー.png";
+	img[2] = "/img/DeathNote.jpg";
+	n=Math.floor(Math.random()*img.length);
+	document.write("<img src=\"" + img[n] + "\" width=\"600\">");
+</script>
+</CENTER>
 <br>
-<form:form modelAttribute="" action="/">
-<input type="submit" value="戻る">
-</form:form>
+<br>
+<br>
+<br>
 </body>
 </html>
