@@ -33,8 +33,6 @@ public class UserSearchCinemaController {
 	@RequestMapping(value="/searchCinemaGenre")
 	public String listGenre(@RequestParam String genre, Model model){
 		
-		System.out.println("genreの中身の確認" + genre);
-		
 		CinemaListPage listPage = service.findByGenre(genre);
 		
 		//商品結果をjspで表示
@@ -140,7 +138,6 @@ public class UserSearchCinemaController {
 	 */
 	@RequestMapping(value="/searchCinemaTitle")
 	public String listTitle(@RequestParam String title, Model model){
-		System.out.println("/searchCinemaTitle");
 		//titleの中身が空だったらエラーメッセージを返す
 		if(title.isEmpty()){
 			model.addAttribute("message", "何か入力してください");
@@ -150,12 +147,9 @@ public class UserSearchCinemaController {
 		}
 		
 		//あいまい検索のためにtitleに%を付ける
-		title = "%" + title + "%";
-		System.out.println("titleの中身の確認" + title);
+		String titleSearch = "%" + title + "%";
 		
-		CinemaListPage listPage = service.findByTitle(title);
-		
-		System.out.println("listPAgeの中身を確認" + listPage);
+		CinemaListPage listPage = service.findByTitle(titleSearch);
 		
 		//何も取得できなかったらメッセージを表示する
 		if(listPage.getChildPageList().size()==0){

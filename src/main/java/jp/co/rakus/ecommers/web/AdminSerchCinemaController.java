@@ -160,14 +160,15 @@ public class AdminSerchCinemaController {
 		}
 
 		// あいまい検索のためにtitleに%を付ける
-		title = "%" + title + "%";
-		System.out.println("titleの中身の確認" + title);
-
-		CinemaListPage listPage = service.findByTitle(title);
+		String titleSearch = "%" + title + "%";
+		
+		CinemaListPage listPage = service.findByTitle(titleSearch);
 
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + title);
 			// findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
