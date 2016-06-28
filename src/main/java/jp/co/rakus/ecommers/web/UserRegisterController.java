@@ -67,6 +67,7 @@ public class UserRegisterController {
 		{
 			String telephoneErr1 = "電話番号を入力してください";
 			model.addAttribute("telephoneErr1", telephoneErr1);
+			model.addAttribute("flag", false);
 			telephoneCheck = true;
 		}
 		
