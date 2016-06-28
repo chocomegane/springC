@@ -26,7 +26,7 @@ public class UserSearchCinemaController {
 	/**
 	 * ジャンルを条件に商品の情報を取得するメソッド.
 	 * 
-	 * @param genreStr 送られてきたリクエストパラメータ.
+	 * @param genre 送られてきたリクエストパラメータ.
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
@@ -45,7 +45,7 @@ public class UserSearchCinemaController {
 	/**
 	 * メディアタイプを条件に商品の情報を取得するメソッド.
 	 * 
-	 * @param mediaTypeStr リクエストパラメータ.
+	 * @param mediaType リクエストパラメータ.
 	 * @param model スコープに格納するパラム.
 	 * @return フォワード先の名前.
 	 */
@@ -62,8 +62,7 @@ public class UserSearchCinemaController {
 	/**
 	 * 価格を条件に商品検索をするメソッド.
 	 * 
-	 * @param minPriceStr
-	 * @param maxPriceStr
+	 * @param price
 	 * @param model
 	 * @return
 	 */
@@ -94,6 +93,14 @@ public class UserSearchCinemaController {
 		}else{
 			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
 		}
+		
+		//何も取得できなかったらメッセージを表示する
+		if(listPage.getChildPageList().size()==0){
+		model.addAttribute("message2", "商品がありません");
+		//findAllで全件取得をする
+		model.addAttribute("listPage", service.findAll());
+		return "userCinemaList";
+				}
 		
 		model.addAttribute("listPage", listPage);
 		
