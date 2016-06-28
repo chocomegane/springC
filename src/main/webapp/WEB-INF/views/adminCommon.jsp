@@ -48,7 +48,7 @@
 <header>
 
 		<div id="linkHeader" align="left">
-		<h1 align ="left"><a href="/cinemaShop/displayList">
+		<h1 align ="left"><a href="/admin/displayList">
 			<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ(管理者用ページ)
 		</a></h1>
 		</div>
