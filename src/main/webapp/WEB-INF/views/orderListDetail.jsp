@@ -11,17 +11,17 @@
 <h2 align="center">注文詳細画面</h2>
 <div align="center">
 	<table border="1">
-		<tr><th>注文番号</th><td><c:out value="${page.orderNumber}"/></td></tr>
-		<tr><th>名前</th><td><c:out value="${page.userName}"/></td></tr>
-		<tr><th>メールアドレス</th><td><c:out value="${page.email}"/></td></tr>
-		<tr><th>住所</th><td><c:out value="${page.address}"/></td></tr>
-		<tr><th>TEL</th><td><c:out value="${page.telephone}"/></td></tr>
+		<tr><th><center>注文番号</center></th><td><c:out value="${page.orderNumber}"/></td></tr>
+		<tr><th><center>名前</center></th><td><c:out value="${page.userName}"/></td></tr>
+		<tr><th><center>メールアドレス</center></th><td><c:out value="${page.email}"/></td></tr>
+		<tr><th><center>住所</center></th><td><c:out value="${page.address}"/></td></tr>
+		<tr><th><center>TEL</center></th><td><c:out value="${page.telephone}"/></td></tr>
 	</table>
 </div>
 <br>
 <div align="center">
 	<table border="1">
-		<tr><th>商品</th><th>価格</th><th>×</th><th>個数</th><th>金額</th></tr>
+		<tr><th><center>商品</center></th><th><center>価格</center></th><th><center>×</center></th><th><center>個数</center></th><th><center>金額</center></th></tr>
 		<c:forEach var="item" items="${page.childPage}">
 			<tr>
 				<td><c:out value="${item.title}"/></td>
@@ -36,18 +36,18 @@
 <br>
 <div align="center">
 	<table border="1">
-		<tr><th>小計</th><td><fmt:formatNumber value="${page.subTotal}" pattern="###,###円"/></td></tr>
-		<tr><th>税</th><td><fmt:formatNumber value="${page.tax}" pattern="###,###円"/></td></tr>
-		<tr><th>支払い方法</th><td>銀行振り込み</td></tr>
-		<tr><th>送料一律</th><td>500円</td></tr>
-		<tr><th>総計</th><td><fmt:formatNumber value="${page.grandTotal}" pattern="###,###円"/></td></tr>
+		<tr><th><center>小計</center></th><td><fmt:formatNumber value="${page.subTotal}" pattern="###,###円"/></td></tr>
+		<tr><th><center>税</center></th><td><fmt:formatNumber value="${page.tax}" pattern="###,###円"/></td></tr>
+		<tr><th><center>支払い方法</center></th><td>銀行振り込み</td></tr>
+		<tr><th><center>送料一律</center></th><td>500円</td></tr>
+		<tr><th><center>総計</center></th><td><fmt:formatNumber value="${page.grandTotal}" pattern="###,###円"/></td></tr>
 	</table>
 </div>
 <br>
 <form:form modelAttribute="orderForm" action="/admin/statusUpdate">
 	<div align="center">
 		<table border="1">
-			<tr><th>現在のステータス</th><th>ステータス変更</th></tr>
+			<tr><th><center>現在のステータス</center></th><th><center>ステータス変更</center></th></tr>
 			<tr>
 				<td><c:out value="${page.status}"/></td>
 				<td>
@@ -59,15 +59,13 @@
 		</table>
 	</div>
 </form:form>
-<br>
-<br>
+
 <div align="center">
 	<c:out value="${message}"/>
 </div>
 <br>
 <div align="center">
 	<a href="/admin/orderList">注文一覧へ戻る</a>
-	<br>
 	<br>
 	<a href="/admin/menu">メニューへ戻る</a>
 </div>
