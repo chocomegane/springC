@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/adminHeader.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%-- <sec:authentication property="principal.account" var="account" /> --%>
 
 <!-- Bootstrapのために追加 -->
@@ -27,17 +27,13 @@
 		function findByPrice(){
 			document.searchCinemaPriceForm.submit();
 	}
-	</script>
 	
 	<!-- Bootstrapのジャンル検索 -->
-	<script type="text/javascript">
 		function findByGenre(){
 			document.searchCinemaGenreForm.submit();
 		}
-	</script>
 
 	<!-- Bootstrapのメディアタイプ検索	 -->
-	<script type="text/javascript">
 		function findByMediaType(){
 			document.searchCinemaMediaTypeForm.submit();
 		}
@@ -53,17 +49,6 @@
 		</a></h1>
 		</div>
 
-
-<!--	<div id="linkHeader" align="left">
-		<h1 align ="left"><a href="/admin/displayList">
-			<img src="/img/rakus.jpg" width="50" height="50" alt="ロゴ画像">ＥＣサイトラクス
-		</a></h1>
-		</div>
--->
-<!--
- 		<div id="title" align="center">
-		</div>
- -->
  		<div id="userHeader" align="right">
 			<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
 	 			<sec:authentication var="admin" property="principal.adminUser.name" />

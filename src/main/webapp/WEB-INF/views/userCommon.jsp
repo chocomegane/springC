@@ -22,13 +22,6 @@
 <title>ECサイト</title>
 	<script type="text/javascript">
 
-	<!-- Bootstrapのタイトル検索 -->
-		function findByTitle(){
-			alert("test");
-			document.searchTitleForm.submit();
-	}
-
-
 	<!-- Bootstrapの値段検索 -->
 		function findByPrice(){
 			document.searchCinemaPriceForm.submit();
@@ -50,15 +43,17 @@
 <header>
 		<div id="linkHeader" align="left">
 		<h1 align ="left"><a href="/">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;
 			<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
 			</a>
 		</h1>
 		</div>
-<!-- 
-		<div id="title" align="center">
-		</div>
- -->
+
 		<div id="userHeader" align="right">
+		<br><br>
 			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
 	 			<sec:authentication var="user" property="principal.user.name" />
 				<p>こんにちは<c:out value="${user}"/>さん</p>
