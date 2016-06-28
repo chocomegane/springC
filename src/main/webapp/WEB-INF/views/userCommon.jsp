@@ -45,12 +45,14 @@
 </head>
 <body>
 <header>
-		<div id="linkHeader" align="left"> 
+		<!-- <div id="linkHeader" align="left">  -->
+		<center> 
 		<h1 align="left"><a href="/cinemaShop/displayList">
 			<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
 			</a>
 		</h1>
-		</div>
+		</center>
+		<!-- </div> -->
 <!-- 
 		<div id="title" align="center">
 		</div>
