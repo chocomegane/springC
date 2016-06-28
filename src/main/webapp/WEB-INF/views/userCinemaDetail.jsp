@@ -53,12 +53,12 @@
 </div>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelAttribute="cartForm" action="/cinemaShop/insert"><br>
+	<form:form modelAttribute="cartForm" action="/cart/insert"><br>
 			<form:errors path="quantity" cssStyle="color:red" element="div"/>
 			注文個数<input type="text" name="quantity" value="1"/><br>
 		<form:hidden path="cinemaId" value="${cinemaDetail.id}"/>
 		<div id="sendCart" align="center"><p><input type="submit" value="カートに入れる" onclick="DisableButton(this)"></p></div>
-		<div id="backList" align="center"><p><a href="/cinemaShop/displayList">商品一覧画面へ戻る</a></p></div>
+		<div id="backList" align="center"><p><a href="/">商品一覧画面へ戻る</a></p></div>
 	</form:form>
 	</div>
 </body>

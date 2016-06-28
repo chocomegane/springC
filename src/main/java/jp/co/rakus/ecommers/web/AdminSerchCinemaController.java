@@ -32,8 +32,8 @@ public class AdminSerchCinemaController {
 	 * @return フォワード先の名前.
 	 */
 	@RequestMapping(value = "/genre")
-	public String listGenre(@RequestParam String genreStr, Model model) {
-		CinemaListPage listPage = service.findByGenre(genreStr);
+	public String listGenre(@RequestParam String genre, Model model) {
+		CinemaListPage listPage = service.findByGenre(genre);
 
 		model.addAttribute("listPage", listPage);
 
@@ -50,8 +50,8 @@ public class AdminSerchCinemaController {
 	 * @return フォワード先の名前.
 	 */
 	@RequestMapping(value = "/mediaType")
-	public String listMediaType(@RequestParam String mediaTypeStr, Model model) {
-		CinemaListPage listPage = service.findByMediaType(mediaTypeStr);
+	public String listMediaType(@RequestParam String mediaType, Model model) {
+		CinemaListPage listPage = service.findByMediaType(mediaType);
 
 		model.addAttribute("listPage", listPage);
 
@@ -67,21 +67,33 @@ public class AdminSerchCinemaController {
 	 * @return
 	 */
 	@RequestMapping(value = "/price")
-	public String listPrice(@RequestParam String minPriceStr, @RequestParam String maxPriceStr, Model model) {
+	public String listPrice(@RequestParam String price, Model model) {
 
-		// minにしかリクエストパラメータが入っていなかったらfindByMinPriceメソッドを呼び出す
-
+		Integer minPrice = 0;
+		Integer maxPrice = 0;
+		
+		//リクエストパラメータのprice値を条件式にかける
+		if(price.equals("0")){
+			minPrice = 0;
+			maxPrice = 1000;
+		}else if(price.equals("1")){
+			minPrice = 1000;
+			maxPrice = 2000;
+		}else if(price.equals("2")){
+			minPrice = 2000;
+			maxPrice = 3000;
+		}else if(price.equals("3")){
+			minPrice = 3000;
+		}
+		
 		CinemaListPage listPage = new CinemaListPage();
-
-		if (maxPriceStr.isEmpty()) {
-			Integer minPrice = Integer.parseInt(minPriceStr);
+		
+		if(maxPrice.equals(0)){
 			listPage = service.findByMinPrice(minPrice);
-		} else {
-			Integer minPrice = Integer.parseInt(minPriceStr);
-			Integer maxPrice = Integer.parseInt(maxPriceStr);
+		}else{
 			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
 		}
-
+		
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
@@ -119,7 +131,7 @@ public class AdminSerchCinemaController {
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
 		}
-
+		
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";

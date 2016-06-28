@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.UserRegisterService;
  *
  **/
 @Controller
-@RequestMapping(value = "/cinemaShop")
+@RequestMapping(value = "/")
 public class UserRegisterController {
 	
 	@Autowired
@@ -67,6 +67,7 @@ public class UserRegisterController {
 		{
 			String telephoneErr1 = "電話番号を入力してください";
 			model.addAttribute("telephoneErr1", telephoneErr1);
+			model.addAttribute("flag", false);
 			telephoneCheck = true;
 		}
 		
@@ -109,7 +110,7 @@ public class UserRegisterController {
 	    }
 
 		service.userInsert(user);
-		return "redirect:/cinemaShop/loginForm";
+		return "redirect:/login";
 	}
 	
 	/**
