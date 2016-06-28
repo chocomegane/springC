@@ -20,23 +20,26 @@
 		<![endif]-->
 
 <title>ECサイト</title>
+	<script type="text/javascript">
+
+	<!-- Bootstrapのタイトル検索 -->
+		function findByTitle(){
+			alert("test");
+			document.searchTitleForm.submit();
+	}
+
 
 	<!-- Bootstrapの値段検索 -->
-	<script type="text/javascript">
 		function findByPrice(){
 			document.searchCinemaPriceForm.submit();
 	}
-	</script>
 	
 	<!-- Bootstrapのジャンル検索 -->
-	<script type="text/javascript">
 		function findByGenre(){
 			document.searchCinemaGenreForm.submit();
 		}
-	</script>
 
 	<!-- Bootstrapのメディアタイプ検索	 -->
-	<script type="text/javascript">
 		function findByMediaType(){
 			document.searchCinemaMediaTypeForm.submit();
 		}
@@ -45,14 +48,12 @@
 </head>
 <body>
 <header>
-		<!-- <div id="linkHeader" align="left">  -->
-		<center> 
-		<h1 align="left"><a href="/cinemaShop/displayList">
+		<div id="linkHeader" align="left">
+		<h1 align ="left"><a href="/">
 			<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
 			</a>
 		</h1>
-		</center>
-		<!-- </div> -->
+		</div>
 <!-- 
 		<div id="title" align="center">
 		</div>
@@ -61,14 +62,14 @@
 			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
 	 			<sec:authentication var="user" property="principal.user.name" />
 				<p>こんにちは<c:out value="${user}"/>さん</p>
-				<p><a href="/cinemaShop/logout">ログアウト</a><p>
+				<p><a href="/logout">ログアウト</a><p>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
 				<p>こんにちはゲストさん</p>
-				<p><a href="/cinemaShop/registerForm">新規登録</a><p>
-				<p><a href="/cinemaShop/loginForm">ログイン</a><p>
+				<p><a href="/registerForm">新規登録</a><p>
+				<p><a href="/login">ログイン</a><p>
 			</sec:authorize>
-			<p><a href="/cinemaShop/view">カートの中身を見る</a></p>
+			<p><a href="/cart/view">カートの中身を見る</a></p>
 		</div>
 
 </header>

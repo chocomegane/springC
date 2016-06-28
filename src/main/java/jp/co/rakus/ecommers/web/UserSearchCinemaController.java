@@ -17,7 +17,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="")
+@RequestMapping
 public class UserSearchCinemaController {
 
 	@Autowired
@@ -110,7 +110,7 @@ public class UserSearchCinemaController {
 	 */
 	@RequestMapping(value="/searchCinemaTitle")
 	public String listTitle(@RequestParam String title, Model model){
-		
+		System.out.println("/searchCinemaTitle");
 		//titleの中身が空だったらエラーメッセージを返す
 		if(title.isEmpty()){
 			model.addAttribute("message", "何か入力してください");

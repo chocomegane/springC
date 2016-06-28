@@ -7,6 +7,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  */
 @Controller
-@RequestMapping("/cinemaShop")
+@RequestMapping
 @SessionAttributes("guestid")
 public class UserLoginController {
 
@@ -29,43 +30,26 @@ public class UserLoginController {
 	}
 
 	/**
-	 * ログイン画面を表示する。
+	 * ユーザーのログイン画面を表示する。<br>
+	 * ログイン失敗の際はエラーメッセージを追加表示。
+	 * @param form
+	 * @param result
+	 * @param guestid
+	 * @param model
+	 * @param error ログイン失敗時に渡される。
 	 * @return
 	 */
-	@RequestMapping("/loginForm")
-	String loginForm(@CookieValue(value="JSESSIONID",required=false,defaultValue="0") String guestid, Model model) {
-		model.addAttribute("guestid", guestid);
-		System.out.println("guestid:" + guestid);
+	@RequestMapping("/login")
+	String loginForm(UserLoginForm form,BindingResult result,
+			@CookieValue(value="JSESSIONID",required=false,defaultValue="0") String guestid,
+			Model model,@RequestParam(required=false) String error) {
+//		System.err.println(error);
+		if (error != null) {
+	        result.addError(new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。"));
+		} else {
+			model.addAttribute("guestid", guestid);
+		}
 		return "userLogin";
 	}
 	
-//    /**
-//     * @param form
-//     * @param result
-//     * @param principal
-//     * @return
-//     */
-//    @RequestMapping(value = "/login")
-//    public String login(@CookieValue("JSESSIONID") String cookie, BindingResult result, Principal principal) {
-//        if (result.hasErrors()) {
-//            return loginForm();
-//        }
-//        LoginUser loginUser = (LoginUser) ((Authentication) principal).getPrincipal();
-//		loginUser.setCookieValue(cookie);
-//        return "redirect:/menu";
-//    }
-	
-    /**
-     * ログイン失敗時の処理を行うメソッド.
-     * @param form ログインフォーム
-     * @param result
-     * @return
-     */
-    @RequestMapping(value = "/loginError")
-    public String loginError(UserLoginForm form,BindingResult result,@CookieValue(value="JSESSIONID",required=false,defaultValue="0") String guestid,Model model) {
-    	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
-        result.addError(error);
-        return loginForm(guestid,model);
-    }
-
 }

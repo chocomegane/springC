@@ -50,9 +50,9 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 	.loginProcessingUrl("/admin/doAuth")
-                	.loginPage("/admin/loginForm")
-//                	.failureUrl("/admin/loginForm?error")
-                	.failureUrl("/admin/loginError")
+                	.loginPage("/admin/login")
+                	.failureUrl("/admin/login?error")
+//                	.failureUrl("/admin/loginError")
                 	.defaultSuccessUrl("/admin/menu",true)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 	.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout**"))
-                	.logoutSuccessUrl("/admin/loginForm")
+                	.logoutSuccessUrl("/admin/login")
                 ;
         }
     }
@@ -86,24 +86,24 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/cinemaShop/**")
+            	.antMatcher("/**")
                 .authorizeRequests()
-                	.antMatchers("/cinemaShop/**Payment**").hasRole("USER")
+                	.antMatchers("/**Payment**").hasRole("USER")
                     .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                	.loginProcessingUrl("/cinemaShop/doAuth")
-                	.loginPage("/cinemaShop/loginForm")
-//                	.failureUrl("/cinemaShop/loginForm?error")
-                	.failureUrl("/cinemaShop/loginError")
-                	.defaultSuccessUrl("/cinemaShop/displayList",false)
+                	.loginProcessingUrl("/doAuth")
+                	.loginPage("/login")
+                	.failureUrl("/login?error")
+//                	.failureUrl("/loginError")
+                	.defaultSuccessUrl("/",false)
                 	.usernameParameter("email")
                 	.passwordParameter("password")
                 	.permitAll()
                 .and()
                 .logout()
-                	.logoutRequestMatcher(new AntPathRequestMatcher("/cinemaShop/logout**"))
-                	.logoutSuccessUrl("/cinemaShop/displayList")
+                	.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
+                	.logoutSuccessUrl("/")
                 ;
         }
     }
