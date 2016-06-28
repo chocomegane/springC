@@ -60,7 +60,7 @@
 
 	<form:form action="/cinemaShop/finishPayment" method="post">
 		<input type="hidden" name="orderId" value="${paymentPage.orderId}">
-		<input type="submit" value="確定">
+		<input type="submit" value="確定" onclick="DisableButton(this)"/>
 	</form:form>
 </div>
 </body>

@@ -28,7 +28,7 @@
 		<form:errors path="confirmationPassword" cssStyle="color:red" element="div"/>
 		確認用パスワード</td><td><font color="red"><c:out value="${err1}"/></font><br><br><form:password path="confirmationPassword"/></td></tr>
 		</table>
-		<input type="submit" value="登録">
+		<input type="submit" value="登録" onclick="DisableButton(this)"/>
 	</form:form>
 	<form action="/admin/register/">
 		<input type="submit" value="クリア">

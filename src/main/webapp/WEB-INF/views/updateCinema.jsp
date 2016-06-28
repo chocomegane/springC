@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 		<br>
-		<input type="submit" value="更新">
+		<input type="submit" value="更新" onclick="DisableButton(this)"/>
 	</form:form>
 </div>
 <div align="center">

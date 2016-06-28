@@ -53,7 +53,7 @@
 				<td>
 					<form:hidden path="orderNumber" value="${page.orderNumber}"/>
 					<form:select path="status" items="${page.statusMap}" delimiter="<br>"/>
-					<input type="submit" value="更新">
+					<input type="submit" value="更新" onclick="DisableButton(this)"/>
 				</td>
 			</tr>
 		</table>
