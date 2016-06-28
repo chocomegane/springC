@@ -51,8 +51,7 @@
 <br>
 	<c:out value="${searchResult}"/>
 	<font color="red">
-	<c:out value="${message}"/>
-	<c:out value="${message2}"/>
+	&nbsp;&nbsp;&nbsp;<c:out value="${message}"/><c:out value="${message2}"/>
 	</font>
 <br><br><br>
 
