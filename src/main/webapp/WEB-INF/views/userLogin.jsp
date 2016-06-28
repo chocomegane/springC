@@ -8,7 +8,7 @@
   <form:form action="/cinemaShop/doAuth" method="post" modelAttribute="userLoginForm">
     <form:label path="email">メールアドレス：<form:input path="email"/></form:label><br>
     <form:label path="password">パスワード：<form:password path="password"/></form:label><br>
-    <input type="submit" value="ログイン">
+    <input type="submit" value="ログイン" onclick="DisableButton(this)"/>
   </form:form>
 </div>
 </body>

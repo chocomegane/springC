@@ -64,7 +64,7 @@
 			</tr>
 		</table>
 
-		<br> <br><input type="submit" value="お客様情報を登録する"> 
+		<br> <br><input type="submit" value="お客様情報を登録する" onclick="DisableButton(this)"/> 
 		
 </form:form>
 <form:form action="/cinemaShop/registerForm" >

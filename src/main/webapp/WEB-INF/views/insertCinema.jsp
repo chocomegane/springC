@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 		<br>
-		<input type="submit" value="登録">
+		<input type="submit" value="登録" onclick="DisableButton(this)"/>
 	</form:form>
 </div>
 
