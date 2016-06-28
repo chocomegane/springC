@@ -17,7 +17,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/cinemaShop")
+@RequestMapping(value="")
 public class UserSearchCinemaController {
 
 	@Autowired
