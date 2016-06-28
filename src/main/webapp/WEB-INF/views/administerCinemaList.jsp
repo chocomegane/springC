@@ -52,7 +52,13 @@
 </div>
 
 <br><br><br>
-
+<script type="text/javascript">
+function deleteConfirm(btn){
+	if(confirm("この商品を削除したいと思うことは確かですか？")){
+		btn.parentNode.submit();
+	}
+}
+</script>
 <table class="table table-striped">
 	<tbody>
 			<tr>
@@ -67,7 +73,7 @@
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 						<br>
 							<form:form action="/admin/delete?id=${child.id}">
-								<input type="submit" value="削除">
+								<input type="button" value="削除" onclick="deleteConfirm(this)">
 							</form:form>
 						<br>
 				</th>
