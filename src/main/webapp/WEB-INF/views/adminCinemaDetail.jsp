@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ include file="adminCommon.jsp" %>>
 <body>
-<h2  align="center">商品詳細</h2>
+<h2 align="center">商品詳細</h2>
 
 <div align="center">
 	<table border="1">
