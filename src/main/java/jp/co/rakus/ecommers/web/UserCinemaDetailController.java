@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommers.web;
 
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +42,17 @@ public class UserCinemaDetailController {
 	 */
 
 	@RequestMapping(value = "/detail/{id}")
-	public String detail(@PathVariable("id") long id, Model model) {
-		Cinema cinema = service.findOne(id);
-		if (cinema != null) {
-			CinemaDetailPage page = service.copyCinemaToPage(cinema);
-			model.addAttribute("cinemaDetail", page);
-			return "userCinemaDetail";
-		}else {
+	public String detail(@PathVariable("id") BigInteger id, Model model) {
+		try {
+			Cinema cinema = service.findOne(id.longValue());
+			if (cinema != null) {
+				CinemaDetailPage page = service.copyCinemaToPage(cinema);
+				model.addAttribute("cinemaDetail", page);
+				return "userCinemaDetail";
+			} else {
+				return "notFound";
+			}
+		} catch (NumberFormatException e) {
 			return "notFound";
 		}
 

@@ -4,9 +4,11 @@
 <body>
 <br>
 <br>
-<img src="/img/ヒトラー.png">
-<br>
+<CENTER>
 <h1>お探しのページは見つかりませんでした</h1>
+<img src="/img/コマンドー.jpg">
+</CENTER>
+<br>
 <br>
 <br>
 <br>
