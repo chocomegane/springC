@@ -4,7 +4,7 @@
 <body>
 新規利用者登録画面<br>
 お客様の情報を入力し、「お客様情報を登録する」ボタンをクリックしてください。 <br>
-<form:form action="/cinemaShop/register" modelAttribute="userRegisterForm">
+<form:form action="/register" modelAttribute="userRegisterForm">
 <table border="">
 <c:out value="${err}"/>
 
@@ -67,7 +67,7 @@
 		<br> <br><input type="submit" value="お客様情報を登録する"> 
 		
 </form:form>
-<form:form action="/cinemaShop/registerForm" >
+<form:form action="/registerForm" >
 <input type="submit" value="クリア">
 </form:form>
 </body>

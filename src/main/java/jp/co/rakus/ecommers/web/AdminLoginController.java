@@ -2,10 +2,12 @@ package jp.co.rakus.ecommers.web;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 管理者のログイン処理を行うコントローラー.
@@ -27,34 +29,20 @@ public class AdminLoginController {
 	}
 
 	/**
-	 * ログイン画面を表示.
-	 * @return 表示jspのパス
+	 * 管理者のログイン画面を表示する。<br>
+	 * ログイン失敗の際はエラーメッセージを追加表示。
+	 * @param form
+	 * @param result
+	 * @param guestid
+	 * @param model
+	 * @param error ログイン失敗時に渡される。
 	 */
-	@RequestMapping("/loginForm")
-	String loginForm() {
+	@RequestMapping("/login")
+	String loginForm(AdminLoginForm form,BindingResult result,
+			Model model,@RequestParam(required=false) String error) {
+		if (error != null) {
+	        result.addError(new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。"));
+		}
 		return "administerLogin";
 	}
-	
-	/* ログイン処理は実装しない。SpringSecurityの処理で行われる。
-    @RequestMapping(value = "/login")
-    public String login(@Valid LoginForm form, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "login/login";
-        }
-        return "redirect:/menu";
-    }
-	*/
-	
-    /**
-     * ログイン失敗時の処理を行うメソッド.
-     * @param form ログインフォーム
-     * @param result 
-     * @return
-     */
-    @RequestMapping(value = "/loginError")
-    public String loginError(AdminLoginForm form,BindingResult result) {
-    	ObjectError error = new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。");
-        result.addError(error);
-        return loginForm();
-    }
 }

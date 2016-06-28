@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.service.UserRegisterService;
  *
  **/
 @Controller
-@RequestMapping(value = "/cinemaShop")
+@RequestMapping(value = "/")
 public class UserRegisterController {
 	
 	@Autowired
@@ -109,7 +109,7 @@ public class UserRegisterController {
 	    }
 
 		service.userInsert(user);
-		return "redirect:/cinemaShop/loginForm";
+		return "redirect:/login";
 	}
 	
 	/**

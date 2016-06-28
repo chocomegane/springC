@@ -58,7 +58,7 @@
 	<c:out value="${paymentPage.userTelephone}" />
 	<br> <br>
 
-	<form:form action="/cinemaShop/finishPayment" method="post">
+	<form:form action="/finishPayment" method="post">
 		<input type="hidden" name="orderId" value="${paymentPage.orderId}">
 		<input type="submit" value="確定">
 	</form:form>
