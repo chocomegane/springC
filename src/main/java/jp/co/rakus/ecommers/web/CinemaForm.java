@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
-import scala.annotation.varargs;
 
 @Data
 public class CinemaForm {
@@ -40,7 +39,7 @@ public class CinemaForm {
 	@NotNull(message = "上映時間は必須です")
 	private String time;  //メッセージ：数字じゃない場合err 
 	/** 公開日 */
-	@Pattern(regexp = "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]" ,message = "入力してください。")
+	@Pattern(regexp = "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]", message = "公開日の入力は必須です")
 	private String releaseDate; //メッセージ：date型いがいはerr
 	/** メディアタイプ */
 	@NotBlank(message = "メディアタイプは必須です")
