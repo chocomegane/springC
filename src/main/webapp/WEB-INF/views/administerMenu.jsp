@@ -20,6 +20,14 @@
 		<tr align="center"><td><a href="/admin/register/">新規登録</a></td></tr>
 		<tr align="center"><td><a href="/admin/logout">ログアウト</a></td></tr>
 	</table>
+	<br>
+	<br>
+	<script>
+		img = new Array();
+		img = "/img/映画泥棒.jpg";
+		document.write("<img src=\""+img+"\" width=\"500\">");
+	</script>
+	
 </div>
 </body>
 </html>

@@ -53,12 +53,11 @@ public class AdministerRegisterController {
 		String email = form.getEmail(); //
 		String confirmationPassword = form.getConfirmationPassword();
 		String password = form.getPassword(); 
-	 System.out.println(password+":"+confirmationPassword);
+		System.out.println(password+":"+confirmationPassword);
 		if(result.hasErrors())
 		{
 			return index();
 		}
-		
 		boolean error = false; 
 		
 		if(!password.equals(confirmationPassword))
