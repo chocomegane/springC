@@ -6,11 +6,11 @@
 <c:out value="${message}"/>
 <c:out value="${message2}"/><br>
 
-<form action="/searchCinemaTitle">
+<form action="/searchCinemaTitle" name="searchTitleForm">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
- 	<span class="input-group-btn">
-		<button type="submit" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	<span class="input-group-btn">
+		<button type="submit" class="btn btn-default" aria-expanded="false" >
 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 		</button>
 	</span>

@@ -20,23 +20,26 @@
 		<![endif]-->
 
 <title>ECサイト</title>
+	<script type="text/javascript">
+
+	<!-- Bootstrapのタイトル検索 -->
+		function findByTitle(){
+			alert("test");
+			document.searchTitleForm.submit();
+	}
+
 
 	<!-- Bootstrapの値段検索 -->
-	<script type="text/javascript">
 		function findByPrice(){
 			document.searchCinemaPriceForm.submit();
 	}
-	</script>
 	
 	<!-- Bootstrapのジャンル検索 -->
-	<script type="text/javascript">
 		function findByGenre(){
 			document.searchCinemaGenreForm.submit();
 		}
-	</script>
 
 	<!-- Bootstrapのメディアタイプ検索	 -->
-	<script type="text/javascript">
 		function findByMediaType(){
 			document.searchCinemaMediaTypeForm.submit();
 		}

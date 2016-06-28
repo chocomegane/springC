@@ -16,7 +16,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
-@RequestMapping(value="/")
+@RequestMapping
 public class UserCinemaListController {
 
 	@Autowired
@@ -30,6 +30,7 @@ public class UserCinemaListController {
 	 */
 	@RequestMapping
 	public String list(Model model){
+		System.out.println("list");
 		CinemaListPage listPage = service.findAll();
 		
 		model.addAttribute("listPage", listPage);
