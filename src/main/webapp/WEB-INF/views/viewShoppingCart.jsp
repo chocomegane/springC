@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ include file="userCommon.jsp" %>
 <body>
-    
-     
+    <br>
     <h2 align="center">ショッピングカート一覧</h2>
 <c:if test="${!flag}">
    <p align="center">カートには何も入っていません</p>
@@ -16,7 +15,7 @@
                 <th colspan="2">商品名</th>
                 <th>価格</th>
                 <th>個数</th>
-                <th></th>
+                <th>ステータス変更</th>
             </tr>
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>

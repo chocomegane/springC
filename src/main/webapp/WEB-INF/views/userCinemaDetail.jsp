@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ include file="userCommon.jsp" %>
 <body>
+<br>
 <h2  align="center">商品詳細</h2>
 
 <div align="center">
