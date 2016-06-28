@@ -47,7 +47,6 @@
 	<input type="submit" value="登録">&nbsp;&nbsp;<input type="reset" value="クリア">
 </form:form>
 
->>>>>>> feature/listView
 </div>
 
 <br>
