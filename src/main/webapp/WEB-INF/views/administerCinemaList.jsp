@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="adminCommon.jsp" %>
 <body>
-
 <br>
 <div class="main">
+<h2>取り扱い商品一覧</h2>
 <!-- テキスト検索 -->
 <form action="/admin/serchCinema/title">
 <div class="input-group col-xs-6">

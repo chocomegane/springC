@@ -4,8 +4,9 @@
 
 <br>
 <div class="main">
+<h2>削除された商品一覧</h2>
 <!-- テキスト検索 -->
-<form action="/admin/serchCinema/title">
+<form action="/admin/serchCinema/deleteTitle">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
 	<span class="input-group-btn">
@@ -18,8 +19,8 @@
 <div style="display:inline-flex">
 
 <!-- 値段検索 -->
-<form action="/admin/serchCinema/price" name="searchCinemaPriceForm">
-	<select name="price" class="form-control" style="width: 180px" onchange="findByPrice();">
+<form action="/admin/serchCinema/deletePrice" name="searchDeleteCinemaPriceForm">
+	<select name="price" class="form-control" style="width: 180px" onchange="findByDeletePrice();">
 	  <option>価格</option>
 	  <option value="0">～1000円</option>
 	  <option value="1">1000円～2000円</option>
@@ -29,8 +30,8 @@
 </form>
 
 <!-- ジャンル検索 -->
-<form action="/admin/serchCinema/genre" name="searchCinemaGenreForm">	
-	<select name ="genre" class="form-control" style="width: 180px" onchange="findByGenre();">
+<form action="/admin/serchCinema/deleteGenre" name="searchDeleteCinemaGenreForm">	
+	<select name ="genre" class="form-control" style="width: 180px" onchange="findByDeleteGenre();">
 	  <option>ジャンル</option>
 	  <option value="SF">SF</option>
 	  <option value="ホラー">ホラー</option>
@@ -40,8 +41,8 @@
 </form>
 
 <!-- メディアタイプ検索 -->
-<form action="/admin/serchCinema/mediaType" name="searchCinemaMediaTypeForm">	
-	<select name="mediaType" class="form-control" style="width: 180px" onchange="findByMediaType();">
+<form action="/admin/serchCinema/deleteMediaType" name="searchDeleteCinemaMediaTypeForm">	
+	<select name="mediaType" class="form-control" style="width: 180px" onchange="findByDeleteMediaType();">
 	  <option>メディアタイプ</option>
 	  <option value="DVD">DVD</option>
 	  <option value="ブルーレイ">ブルーレイ</option>

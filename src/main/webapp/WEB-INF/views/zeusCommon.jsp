@@ -38,7 +38,7 @@
 		b.disabled = true;
 		b.form.submit();
 				}
-	<!-- 商品さくじょの警告 -->	
+	<!-- 商品削除の警告 -->	
 		function deleteConfirm(btn){
 			if(confirm("この商品を削除したいと思うことは確かですか？")){
 				btn.parentNode.submit();
@@ -50,6 +50,21 @@
 			if(confirm("この商品を再表示したいと思うことは確かですか？")){
 				btn.parentNode.submit();
 			}
+		}
+		
+	<!-- Bootstrapの削除された値段検索 -->
+		function findByDeletePrice(){
+			document.searchDeleteCinemaPriceForm.submit();
+	}
+	
+	<!-- Bootstrapの削除されたジャンル検索 -->
+		function findByDeleteGenre(){
+			document.searchDeleteCinemaGenreForm.submit();
+		}
+
+	<!-- Bootstrapの削除されたメディアタイプ検索	 -->
+		function findByDeleteMediaType(){
+			document.searchDeleteCinemaMediaTypeForm.submit();
 		}
 
 	</script>

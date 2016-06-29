@@ -213,6 +213,21 @@ public class CinemaRepository {
 		return template.update(sql,new MapSqlParameterSource().addValue("id", id));
 	}
 	
+	
+	/**
+	 * 削除した商品の再表示をする.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int redisplay(long id){
+		String sql = "UPDATE cinemas SET deleted = false WHERE id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		return template.update(sql, param);
+	}
+
+	/* 削除した商品のメソッド */
+	
 	/**
 	 * 削除済みの商品を取得するメソッド.
 	 * 
@@ -227,15 +242,108 @@ public class CinemaRepository {
 	}
 	
 	/**
-	 * 削除した商品の再表示をする.
+	 * タイトルの条件から削除された商品の情報を検索数メソッド.
 	 * 
-	 * @param id
+	 * @param title
 	 * @return
 	 */
-	public int redisplay(long id){
-		String sql = "UPDATE cinemas SET deleted = false WHERE id = :id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		return template.update(sql, param);
+	public List<Cinema> findByDeleteTitle(String title){
+		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE translate(UPPER(title),"
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
+				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
+				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
+				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
+				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
+				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
+				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+				+ "LIKE translate(UPPER(:title), "
+				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
+				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
+				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
+				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
+				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
+				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
+				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
+				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = true ORDER BY title";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * 二つの価格の条件から削除された商品を検索するメソッド.
+	 * 
+	 * @param minPrice
+	 *            最低価格.
+	 * @param maxPrice
+	 *            最高価格.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByDeleteMinMaxPrice(Integer minPrice, Integer maxPrice) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE :minPrice <= price AND price <= :maxPrice AND deleted = true ORDER BY title";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice).addValue("maxPrice",
+				maxPrice);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+
+	/**
+	 * 一つの価格の条件から削除された商品を検索するメソッド.
+	 * 
+	 * @param minPrice
+	 *            最低価格.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByDeleteMinPrice(Integer minPrice) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE :minPrice <= price AND deleted = true ORDER BY title";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+
+	/**
+	 * メディアタイプを条件に削除された商品検索をするメソッド.
+	 * 
+	 * @param mediaType
+	 *            メディアタイプ.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByDeleteMediaType(String mediaType) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE media_type = :mediaType AND deleted = true ORDER BY title";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mediaType", mediaType);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * ジャンルを条件に削除された映画を検索.
+	 * 
+	 * @param genre
+	 *            ジャンル.
+	 * @return List<Cinema> 映画の情報が入ったリスト.
+	 */
+	public List<Cinema> findByDeleteGenre(String genre) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
+				+ "company,directed_by,rating,description,image_path,deleted "
+				+ "FROM cinemas WHERE genre = :genre AND deleted = true ORDER BY title";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
+		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
+		return cinemaList;
 	}
 
 }

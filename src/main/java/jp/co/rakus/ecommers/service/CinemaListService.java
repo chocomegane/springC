@@ -185,16 +185,53 @@ public class CinemaListService {
 	}
 	
 	/**
+	 * 削除した商品の再表示をする.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int redisplay(long id){
+		return repository.redisplay(id);
+	}
+
+	/* 削除された商品の一覧を取得するメソッド */
+	
+	/**
 	 * 削除した商品の一覧を取得する.
 	 * 
 	 * @return
 	 */
 	public CinemaListPage findByDelete() {
 		List<Cinema> cinemaList = repository.findByDelete();
+		
+		CinemaListPage listPage = new CinemaListPage();
+		
+		// forの中でgetをしているため一度インスタンスを生成してsetしておく
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+		
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+			
+			listPage.getChildPageList().add(child);
+		}
+		
+		return listPage;
+		
+	}
+	
+	/**
+	 * タイトルを条件に削除された商品の情報を検索するメソッド.
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public CinemaListPage findByDeleteTitle(String title){
+		List<Cinema> cinemaList = repository.findByDeleteTitle(title);
 
 		CinemaListPage listPage = new CinemaListPage();
 
-		// forの中でgetをしているため一度インスタンスを生成してsetしておく
 		List<CinemaChildPage> childSet = new ArrayList<>();
 		listPage.setChildPageList(childSet);
 
@@ -206,17 +243,106 @@ public class CinemaListService {
 		}
 
 		return listPage;
+	}
 
+	/**
+	 * 二つの価格の条件から削除された商品を検索するメソッド.
+	 * 
+	 * @param minPrice 最低価格.
+	 * @param maxPrice　最高価格.
+	 * @return CinemaListPage childが入ったList.
+	 */
+	public CinemaListPage findByDeleteMinMaxPrice(Integer minPrice, Integer maxPrice){
+		List<Cinema> cinemaList = repository.findByDeleteMinMaxPrice(minPrice, maxPrice);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
 	}
 	
 	/**
-	 * 削除した商品の再表示をする.
+	 * 最低価格から削除された商品の情報を検索するメソッド.
 	 * 
-	 * @param id
+	 * @param minPrice
 	 * @return
 	 */
-	public int redisplay(long id){
-		return repository.redisplay(id);
+	public CinemaListPage findByDeleteMinPrice(Integer minPrice){
+		List<Cinema> cinemaList = repository.findByDeleteMinPrice(minPrice);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
+	
+	/**
+	 * ジャンルを検索条件に削除された映画の情報を取得するメソッド.
+	 * 
+	 * @param genre
+	 *            ジャンル.
+	 * @return CinemaListPage childが入ったList.
+	 */
+	public CinemaListPage findByDeleteGenre(String genre) {
+		List<Cinema> cinemaList = repository.findByDeleteGenre(genre);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
 	}
 
+	/**
+	 * メディアタイプを条件に削除された商品検索をするメソッド.
+	 * 
+	 * @param mediaType
+	 *            メディアタイプ.
+	 * @return CinemaListPage childが入ったList.
+	 */
+	public CinemaListPage findByDeleteMediaType(String mediaType) {
+		List<Cinema> cinemaList = repository.findByDeleteMediaType(mediaType);
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+	}
+	
 }
+
