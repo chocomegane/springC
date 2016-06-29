@@ -183,5 +183,40 @@ public class CinemaListService {
 	public int deleteCinema(long id) {
 		return repository.delete(id);
 	}
+	
+	/**
+	 * 削除した商品の一覧を取得する.
+	 * 
+	 * @return
+	 */
+	public CinemaListPage findByDelete() {
+		List<Cinema> cinemaList = repository.findByDelete();
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		// forの中でgetをしているため一度インスタンスを生成してsetしておく
+		List<CinemaChildPage> childSet = new ArrayList<>();
+		listPage.setChildPageList(childSet);
+
+		for (Cinema cinema : cinemaList) {
+			CinemaChildPage child = new CinemaChildPage();
+			BeanUtils.copyProperties(cinema, child);
+
+			listPage.getChildPageList().add(child);
+		}
+
+		return listPage;
+
+	}
+	
+	/**
+	 * 削除した商品の再表示をする.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int redisplay(long id){
+		return repository.redisplay(id);
+	}
 
 }
