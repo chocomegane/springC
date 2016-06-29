@@ -6,8 +6,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>ecommerce-springC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- <packaging>war</packaging> -->   <!-- warFail作成用 -->
-	<packaging>jar</packaging>
+	 <packaging>war</packaging>    <!-- warFail作成用 -->
+	<!-- <packaging>jar</packaging> -->
 	<name>ecommerce-springC</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -33,11 +33,11 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<!--///////////////////////////////////////////////////  -->
-		<!-- <dependency>
+		 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency> -->
+        </dependency> 
 		<!--///////////////////////////////////////////////////  -->
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
@@ -83,7 +83,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-	  <!-- <finalName>ecommerce-springC</finalName> -->       <!-- ファイル名 -->
+	   <finalName>ROOT</finalName>        <!-- ファイル名 -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
