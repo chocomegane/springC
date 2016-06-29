@@ -4,7 +4,7 @@
 
 <br>
 <div class="main">
-<h2>削除された商品一覧</h2>
+<h3>削除済み商品一覧</h3>
 <!-- テキスト検索 -->
 <form action="/admin/serchCinema/deleteTitle">
 <div class="input-group col-xs-6">
