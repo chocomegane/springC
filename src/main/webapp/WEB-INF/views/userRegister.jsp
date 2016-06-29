@@ -37,8 +37,8 @@
 		<tr>
 			<td>電話番号</td>
 			<td>
-				<font color="red"><c:out value="${telephoneErr1}"/></font>
-				<font color="red"><c:out value="${telephoneErr2}"/></font>
+				<font color="red"><c:out value="${telephoneErr1}"/></font><c:if test="${flag1}"><br></c:if>
+				<font color="red"><c:out value="${telephoneErr2}"/></font><c:if test="${flag2}"><br></c:if>
 				<form:input path="telephoneTop"/> - <form:input path="telephoneMiddle"/> - <form:input path="telephoneLast"/>
 			</td>
 		</tr>

@@ -70,6 +70,7 @@ public class UserRegisterController {
 			System.out.println("err2");
 			String telephoneErr1 = "電話番号を入力してください";
 			model.addAttribute("telephoneErr1", telephoneErr1);
+			model.addAttribute("flag1", true);
 			telephoneCheck = true;
 		}
 		
@@ -78,6 +79,7 @@ public class UserRegisterController {
 			System.out.println("222");
 			String telephoneErr2 = "文字入力はできません";
 			model.addAttribute("telephoneErr2", telephoneErr2);
+			model.addAttribute("flag2", true);
 			telephoneCheck = true;
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////
