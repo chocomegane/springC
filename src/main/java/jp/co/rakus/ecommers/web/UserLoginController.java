@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.web;
 
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,9 +58,8 @@ public class UserLoginController {
 	 * @return
 	 */
 	@RequestMapping("/403")
-	String handleAccessDenied (AccessDeniedException ex, Model model){
-		model.addAttribute("message", ex.getMessage());
-		return "adminError";
+	String handleAccessDenied (){
+		return "adminAccessError";
 	}
 	
 }
