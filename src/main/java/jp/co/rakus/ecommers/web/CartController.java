@@ -55,6 +55,9 @@ public class CartController {
 		// principalからユーザーの情報を受け取るための操作
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(form, orderItem);
+		if (orderItem.getQuantity() == null) {
+			orderItem.setQuantity(Integer.parseInt(form.getQuantity()));
+		}
 		User user = userService.chkUser(principal, cookie);
 		service.insertCart(user, orderItem);
 		return "redirect:/cart/view";
