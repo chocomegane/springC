@@ -55,6 +55,13 @@
 	&nbsp;&nbsp;&nbsp;<c:out value="${message}"/><c:out value="${message2}"/>
 	</font>
 <br><br><br>
+<script type="text/javascript">
+function deleteConfirm(btn){
+	if(confirm("この商品を削除したいと思うことは確かですか？")){
+		btn.parentNode.submit();
+	}
+}
+</script>
 <table class="table table-striped">
 	<tbody>
 			<tr>
@@ -68,8 +75,8 @@
 						<br><c:out value="${child.directedBy}"/><br>
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 						<br>
-							<form:form action="/admin/delete?id=${child.id}">
-								<input type="button" value="削除" onclick="deleteConfirm(this)">
+							<form:form action="/admin/redisplay?id=${child.id}">
+								<input type="button" value="再表示" onclick="displayConfirm(this)">
 							</form:form>
 						<br>
 				</th>

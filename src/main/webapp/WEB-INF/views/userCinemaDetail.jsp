@@ -12,7 +12,7 @@
 				 alt="商品画像">
 			</td>
 			<th width="100">商品名</th>
-			<td align="center"><c:out value="${cinemaDetail.title}"/></td>
+			<td align="center" width="100"><c:out value="${cinemaDetail.title}"/></td>
 		</tr>
 		<tr>
 			<th width="100">価格</th>

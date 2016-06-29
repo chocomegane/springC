@@ -32,8 +32,8 @@ public class UserRegisterForm {
 	@Size(min =8, max=16,message = "確認パスワードは8文字以上16文字以下で登録してください")
 	private String confirmPassword;
 	/** 電話番号 のトップ*/
-	@Min(1)
-	@Max(4)
+	@Min(-1)
+	@Max(100000)
 	@NotBlank
 	private String telephoneTop;
 	
@@ -42,14 +42,14 @@ public class UserRegisterForm {
 	@Size(min =0, max=120,message = "120文字までです")
 	private String address;
 	/** 電話番号 のミドル*/
-	@Min(1)
-	@Max(4)
+	@Min(-1)
+	@Max(10000)
 	@NotBlank
 	private String telephoneMiddle;
 	
 	/** 電話番号 のラスト*/
-	@Min(1)
-	@Max(4)
+	@Min(-1)
+	@Max(10000)
 	@NotBlank
 	private String telephoneLast;
 

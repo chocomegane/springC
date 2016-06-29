@@ -345,12 +345,22 @@ public class OrderCinemaRepository {
 		return order;
 	}
 
+	/**
+	 * 注文のfindAll()メソッド．
+	 * order_numberを用いて注文一覧を取得する
+	 * @return 注文のリスト
+	 */
 	public List<Order> findAll() {
 		String sql = "SELECT * FROM orders ORDER BY order_number";
 		List<Order> orderList = template.query(sql, orderRowMapper);
 		return orderList;
 	}
 
+	/**
+	 * 注文ステータスを変更するメソッド．
+	 * @param status 注文ステータス 1:未入金，2：入金済み，3：発送済み，4：キャンセル
+	 * @param orderNumber ステータスの変更を行いたい注文を識別する番号
+	 */
 	public void statusUpdate(Integer status, String orderNumber) {
 		String sql = "UPDATE orders SET status = :status WHERE order_number = :orderNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("orderNumber",

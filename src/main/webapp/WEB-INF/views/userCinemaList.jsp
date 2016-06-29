@@ -57,7 +57,7 @@
 
 <table class="table table-striped">
 	<tbody>
-			<tr>
+		<tr>
 		<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
 					<th>
 						<a href="/detail/${child.id}">
@@ -66,14 +66,14 @@
 						</a>
 						<br><a href="/detail/${child.id}"><c:out value="${child.title}"/></a><br>
 						<br><c:out value="${child.directedBy}"/><br>
-						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
-				</th>
-				<c:if test="${status.count%4==0}">
+						<br><fmt:formatNumber value="${child.price}" pattern="#,###円"/>
+					</th>
+					<c:if test="${status.count%4==0}">
 					</tr>
 					<tr>
-				</c:if>
+					</c:if>
 		</c:forEach>
-			</tr>
+		</tr>
 	</tbody>
 </table>
 </div>
