@@ -60,7 +60,7 @@
 				<p>こんにちは<c:out value="${user}"/>さん</p>
 				<p><a href="/logout">ログアウト</a><p>
 			</sec:authorize>
-			<sec:authorize access="!isAuthenticated()">
+			<sec:authorize access="isAnonymous()">
 				<p>こんにちはゲストさん</p>
 				<p><a href="/registerForm">新規登録</a><p>
 				<p><a href="/login">ログイン</a><p>
