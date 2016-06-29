@@ -1,0 +1,17 @@
+--管理者のテーブル
+
+create table admin_users (
+  id bigserial not null
+  , name text not null
+  , email text not null
+  , password text not null
+  , constraint admin_users_PKC primary key (id)
+) ;
+
+-- 管理者の登録
+-- password: admin
+insert into admin_users (name,email,password) values (
+  'admin',
+  'admin@rakus.co.jp',
+  '$2a$10$55NBCcBIG7iB6R1Xo/uLBexr2ht1.LM9nIkiQ2wPY8LbORkoPooA6' --password:admin
+)
