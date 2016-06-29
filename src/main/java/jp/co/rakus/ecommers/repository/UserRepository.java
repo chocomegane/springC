@@ -68,10 +68,12 @@ public class UserRepository {
 	}
 
 	public void userInsert(User user) {
+		
+		
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		String sql = "INSERT INTO users(name, email, password,address, telephone) VALUES(:name, :email, :password , :address, :telephone)";
-
+		System.out.println("repg err6");
 		jdbcTemplate.update(sql, param);
 	}
 }
