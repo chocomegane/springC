@@ -11,6 +11,7 @@
     <form:label path="password">パスワード： <form:password path="password"/></form:label></pre>
     <input type="submit" value="ログイン" onclick="DisableButton(this)"/>
   </form:form>
+  <p><a href="/registerForm">新規登録はこちら</a>
 </div>
 </body>
 </html>
