@@ -12,6 +12,7 @@
 <div align="center">
 	<table border="1">
 		<tr align="center"><td><a href="/admin/displayList">取り扱い商品一覧</a></td></tr>
+		<tr align="center"><td><a href="/admin/deleteList">削除済み商品一覧</a></td></tr>
 		<tr align="center"><td><a href="/admin/orderList">注文一覧</a></td></tr>
 		<tr align="center"><td><a href="/admin/insert">商品を登録</a></td></tr>
 	</table>

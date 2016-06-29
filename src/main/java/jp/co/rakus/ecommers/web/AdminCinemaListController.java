@@ -48,4 +48,30 @@ public class AdminCinemaListController {
 		service.deleteCinema(id);
 		return "redirect:/admin/displayList";
 	}
+	
+	/**
+	 * 削除された商品の一覧を取得する	.
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/deleteList")
+	public String deleteCinemaList(Model model){
+		CinemaListPage listPage = service.findByDelete();
+		model.addAttribute("listPage", listPage);
+		return "administerDeleteCinemaList";
+	}
+	
+	/**
+	 * 削除した商品の再表示.
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/redisplay")
+	public String redisplay(@RequestParam long id, Model model){
+		service.redisplay(id);
+		return "redirect:/admin/deleteList";
+	}
 }

@@ -90,7 +90,7 @@ public class CinemaRepository {
 	 */
 	public Cinema findOne(long id) {
 		try {
-			String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id AND deleted = false";
+			String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 			Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
 			return cinema;
@@ -211,6 +211,31 @@ public class CinemaRepository {
 	public int delete(long id) {
 		String sql = "UPDATE cinemas SET deleted = true WHERE id = :id";
 		return template.update(sql,new MapSqlParameterSource().addValue("id", id));
+	}
+	
+	/**
+	 * 削除済みの商品を取得するメソッド.
+	 * 
+	 * @return
+	 */
+	public List<Cinema> findByDelete(){
+		String sql = "SELECT id, title, price, genre, time, release_date, media_type,"
+				+ " company, directed_by, rating, description, image_path, deleted "
+				+ "FROM cinemas WHERE deleted = true ORDER BY title";
+		List<Cinema> cinemaList = template.query(sql, cinemaRowMapper);
+		return cinemaList;
+	}
+	
+	/**
+	 * 削除した商品の再表示をする.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int redisplay(long id){
+		String sql = "UPDATE cinemas SET deleted = false WHERE id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		return template.update(sql, param);
 	}
 
 }
