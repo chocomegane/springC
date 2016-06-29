@@ -1,6 +1,26 @@
---映画のテーブル
+--drop table admin_users;
+--drop table orders;
+--drop table cinemas;
+--drop table order_items cascade;
+--drop table orders cascade;
+--drop table users;
 
-drop table cinemas;
+--管理者のテーブル
+create table admin_users (
+  id bigserial not null
+  , name text not null
+  , email text not null
+  , password text not null
+  , constraint admin_users_PKC primary key (id)
+) ;
+
+-- 管理者の登録
+-- password: admin
+insert into admin_users (name,email,password) values (
+  'admin',
+  'admin@rakus.co.jp',
+  '$2a$10$55NBCcBIG7iB6R1Xo/uLBexr2ht1.LM9nIkiQ2wPY8LbORkoPooA6'
+);
 
 create table cinemas (
 	id bigserial not null,
@@ -20,9 +40,6 @@ create table cinemas (
 );
 
 --cinemasテーブルに追加する素材
-
-
-
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
 VALUES( 'CHAPPIE/チャッピー', 1600, 'SF', 120, '2015-09-18 00:00:00', 'DVD', 'ソニー・ピクチャーズエンタテインメント', ' ニール・ブロムカンプ', '12歳以上対象','『第９地区』監督の原点回帰的最新作！圧倒的リアリティと衝撃の結末を体感せよ！
 ２０１６年―犯罪多発地区、南アフリカ　ヨハネスブルグに世界で唯一の“感じ、考え、成長する”AI（人工知能）を搭載したロボットが誕生。
@@ -137,7 +154,6 @@ VALUES('DEATH NOTE デスノート', 3378, 'サスペンス', 126, '2007-03-14 0
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
 VALUES('トランスフォーマー/ロストエイジ', 1419, 'アクション', 165, '2015-06-10 00:00:00', 'DVD', 'パラマウント ホーム エンタテイメント ジャパン', 'マイケル・ベイ', '全年齢対象', '元オートボット司令官センチネル・プライムとディセプティコン破壊大帝メガトロンが引き起こしたシカゴの惨劇から5年。結果的にオートボットの協力によって地球が守られた事実をもって地球人の彼らに対する認識は変化しつつあるがオートボット否定派による迫害も激しくなっており、オートボット達は姿を消していた。テキサス州でしがない廃品回収業を営む発明家ケイド・イェーガーは仕事で赴いた映画館の中で眠っていたトレーラートラックを見つけ、それを自宅に持ち帰る。さっそくケイドはそのトラックを解体しようとした所、それがトランスフォーマーである事を知る。', '91p585IRC8L._SL1500_.jpg', FALSE);
 
-~~~~~~~~~~~
 
 --INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
 --VALUES('女幽霊', 2000, 'ホラー', 72, '2014-08-01 00:00:00', 'DVD', '株式会社オールイン　エンタテインメント', '江尻大', '全年齢対象', 'そのフィルムを観てはいけない
@@ -162,3 +178,35 @@ VALUES('うさぎドロップ', 2850, '日常', 114, '2012-02-02 00:00:00', 'DVD
 【ストーリー】
 27歳、彼女なし。ごくフツーのサラリーマンであるダイキチが、祖父のお葬式で出会った孤独で悲しげな女の子は、おじいちゃんの隠し子だった!?引き取り手のないその少女・りんを男気を見せて連れ帰ったダイキチ。こうして、突然、二人の共同生活が始まった!
 慣れない子育てにあたふたしつつも、いつもりんのことを一番に考え、底なしの優しさで包み込み育てていくダイキチ。そんなダイキチに心を開き、無邪気な笑顔を見せるようになるりん。ひょんなことから一緒に暮らすことになった二人が、周りのみんなに支えられ、見守られながら、本当の家族のような愛情と絆で結ばれていく。', '澤村.jpg', FALSE);
+
+-- 注文
+create table orders (
+  id bigserial not null
+  , order_number text not null
+  , user_id bigint not null
+  , status integer not null
+  , total_price integer not null
+  , date timestamp not null
+  , constraint orders_PKC primary key (id)
+) ;
+
+-- 注文詳細
+create table order_items (
+  id bigserial not null
+  , cinema_id bigint not null
+  , order_id bigint REFERENCES orders(id) not null
+  , quantity integer not null
+  , constraint order_items_PKC primary key (id)
+) ;
+
+
+--利用者のテーブル
+create table users (
+  id bigserial not null
+  , name text not null
+  , email text not null
+  , password text not null
+  , address text not null
+  , telephone text not null
+  , constraint users_PKC primary key (id)
+) ;
