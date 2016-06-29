@@ -61,10 +61,13 @@ public class UserRegisterController {
 		String telephoneMiddle = form.getTelephoneMiddle();
 		String telephoneLast = form.getTelephoneLast();
 		
+		System.out.println("err1");
+		
 		Boolean telephoneCheck = false;
 		//Telephoneの確認////////////////////////////////////////////////////////////////////////////////
 		if(telephoneTop.equals("") || telephoneMiddle.equals("") || telephoneLast.equals(""))
 		{
+			System.out.println("err2");
 			String telephoneErr1 = "電話番号を入力してください";
 			model.addAttribute("telephoneErr1", telephoneErr1);
 			telephoneCheck = true;
@@ -72,6 +75,7 @@ public class UserRegisterController {
 		
 		if(telephoneCheck(telephoneTop, telephoneMiddle, telephoneLast))
 		{
+			System.out.println("222");
 			String telephoneErr2 = "文字入力はできません";
 			model.addAttribute("telephoneErr2", telephoneErr2);
 			telephoneCheck = true;
@@ -81,6 +85,8 @@ public class UserRegisterController {
  	 
 		if(result.hasErrors() || telephoneCheck )
 		{
+			System.out.println(result);
+			System.out.println("err3");
 			
 			return index();
 		}
@@ -88,6 +94,7 @@ public class UserRegisterController {
 		//確認用パスワードとパスワードの比較//////////////////////////////////////////////////////
 		if(!password.equals(confirmPassword))
 		{
+			System.out.println("err4");
 			String err = "確認パスワードとパスワードが違います";
 			model.addAttribute("err", err);
 			return "userRegister";
@@ -97,18 +104,21 @@ public class UserRegisterController {
 		User user = new User();
 		BeanUtils.copyProperties(form, user);
 		String telephone = telephoneTop+ "-" +telephoneMiddle+ "-" +telephoneLast;
-		user.setEmail(telephone);
+		user.setEmail(email);
+		user.setTelephone(telephone);
 		String rawPssword = user.getPassword();
 	    register(user, rawPssword);
 	    User testUser = service.findByEmail(email);
 	 
 	    if(!(testUser == null)) {
+	    	System.out.println("err5");
 	    	String err = "そのアドレスはすでに使われています" ;
 	    	model.addAttribute("err",err);
 	    	return "userRegister";
 	    }
 
 		service.userInsert(user);
+		System.out.println("goal");
 		return "redirect:/login";
 	}
 	
