@@ -69,6 +69,7 @@ public class UserRepository {
 
 	public void userInsert(User user) {
 
+	    System.err.println(user);
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		String sql = "INSERT INTO users(name, email, password,address, telephone) VALUES(:name, :email, :password , :address, :telephone)";
 
