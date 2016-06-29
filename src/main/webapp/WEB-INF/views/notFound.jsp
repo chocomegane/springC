@@ -9,9 +9,10 @@
 
 
 <CENTER>
+<div class="well">
 <h1>404 Not Found</h1>
 <h2>お探しのページは見つかりませんでした</h2>
-
+</div>
 
 <script type="text/javascript">
 	img = new Array();
@@ -21,10 +22,12 @@
 	n=Math.floor(Math.random()*img.length);
 	document.write("<img src=\"" + img[n] + "\" width=\"600\">");
 </script>
+
+<br>
+<br>
+<br>
+<br>
+<a href="/">トップページへ戻る</a>
 </CENTER>
-<br>
-<br>
-<br>
-<br>
 </body>
 </html>
