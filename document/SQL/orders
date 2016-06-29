@@ -1,0 +1,17 @@
+-- 注文
+--drop table orders cascade;
+
+create table orders (
+  id bigserial not null
+  , order_number text not null
+  , user_id bigint not null
+  , status integer not null
+  , total_price integer not null
+  , date timestamp not null
+  , constraint orders_PKC primary key (id)
+) ;
+
+--ordersテーブルに追加するデータ
+
+INSERT INTO orders( order_number, user_id, status, total_price, date)
+VALUES( '00001', 1, 1, 3163, '2016-06-03 00:00:00');

@@ -1,33 +1,3 @@
-
---管理者のテーブル
-
-create table admin_users (
-  id bigserial not null
-  , name text not null
-  , email text not null
-  , password text not null
-  , constraint admin_users_PKC primary key (id)
-) ;
-
--- 管理者の登録
--- password: admin
-insert into admin_users (name,email,password) values (
-  'admin',
-  'admin@rakus.co.jp',
-  '$2a$10$55NBCcBIG7iB6R1Xo/uLBexr2ht1.LM9nIkiQ2wPY8LbORkoPooA6'
-)
---利用者のテーブル
-
-create table users (
-  id bigserial not null
-  , name text not null
-  , email text not null
-  , password text not null
-  , address text not null
-  , telephone text not null
-  , constraint users_PKC primary key (id)
-) ;
-
 --映画のテーブル
 
 create table cinemas (
@@ -46,41 +16,6 @@ create table cinemas (
 	deleted boolean default false not null,
 	constraint cinemas_PKC primary key (id)
 );
-
--- 注文
---drop table orders cascade;
-
-create table orders (
-  id bigserial not null
-  , order_number text not null
-  , user_id bigint not null
-  , status integer not null
-  , total_price integer not null
-  , date timestamp not null
-  , constraint orders_PKC primary key (id)
-) ;
-
---ordersテーブルに追加するデータ
-
-INSERT INTO orders( order_number, user_id, status, total_price, date)
-VALUES( '00001', 1, 1, 3163, '2016-06-03 00:00:00');
-
--- 注文詳細
---drop table order_items cascade;
-
-create table order_items (
-  id bigserial not null
-  , cinema_id bigint not null
-  , order_id bigint REFERENCES orders(id) not null
-  , quantity integer not null
-  , constraint order_items_PKC primary key (id)
-) ;
-
---order_itemsテーブルに追加するデータ
-
-INSERT INTO orders_items( item_id, order_id, quantity)
-VALUES(1, 1, 1);
-
 
 --cinemasテーブルに追加する素材
 
@@ -197,3 +132,6 @@ VALUES('ヒトラー～最後の12日間', 1135, '戦争ドラマ', 155, '2015-0
 INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
 VALUES('DEATH NOTE デスノート', 3378, 'サスペンス', 126, '2007-03-14 00:00:00', 'DVD', 'バップ', '金子修介', '全年齢対象', '頭脳戦を制するものが、新世界を制す。
 退屈な死神が人間界にノートを落とし、退屈な天才がそのノートを拾った。<このノートに名前を書かれた人間は死ぬ。>', '21fCgzaArIL.jpg', FALSE);
+
+INSERT INTO cinemas( title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted)
+VALUES('トランスフォーマー/ロストエイジ', 1419, 'アクション', 165, '2015-06-10 00:00:00', 'DVD', 'パラマウント ホーム エンタテイメント ジャパン', 'マイケル・ベイ', '全年齢対象', '元オートボット司令官センチネル・プライムとディセプティコン破壊大帝メガトロンが引き起こしたシカゴの惨劇から5年。結果的にオートボットの協力によって地球が守られた事実をもって地球人の彼らに対する認識は変化しつつあるがオートボット否定派による迫害も激しくなっており、オートボット達は姿を消していた。テキサス州でしがない廃品回収業を営む発明家ケイド・イェーガーは仕事で赴いた映画館の中で眠っていたトレーラートラックを見つけ、それを自宅に持ち帰る。さっそくケイドはそのトラックを解体しようとした所、それがトランスフォーマーである事を知る。', '91p585IRC8L._SL1500_.jpg', FALSE);

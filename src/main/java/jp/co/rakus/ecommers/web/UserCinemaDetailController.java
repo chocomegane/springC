@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -53,12 +54,16 @@ public class UserCinemaDetailController {
 				model.addAttribute("cinemaDetail", page);
 				return "userCinemaDetail";
 			} else {
-				return "notFound";
+				throw new NotFoundException("CinemaNotFound");
 			}
 		} catch (NumberFormatException e) {
-			return "notFound";
+			throw new NotFoundException("CinemaNotFound");
 		}
 
+	}
+	
+	public class sampleException extends Exception {
+		
 	}
 
 }
