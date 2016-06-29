@@ -76,7 +76,7 @@ public class CinemaRepository {
 	 * @return 映画のリスト
 	 */
 	public List<Cinema> findAll() {
-		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas ORDER BY title";
+		String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE deleted = false ORDER BY title";
 		List<Cinema> cinemaList = template.query(sql, cinemaRowMapper);
 		return cinemaList;
 	}
@@ -90,7 +90,7 @@ public class CinemaRepository {
 	 */
 	public Cinema findOne(long id) {
 		try {
-			String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id";
+			String sql = "SELECT id, title, price, genre, time, release_date, media_type, company, directed_by, rating, description, image_path, deleted FROM cinemas WHERE id=:id AND deleted = false";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 			Cinema cinema = template.queryForObject(sql, param, cinemaRowMapper);
 			return cinema;
@@ -109,7 +109,7 @@ public class CinemaRepository {
 	public List<Cinema> findByGenre(String genre) {
 		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE genre = :genre ORDER BY title";
+				+ "FROM cinemas WHERE genre = :genre AND deleted = false ORDER BY title";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
@@ -125,7 +125,7 @@ public class CinemaRepository {
 	public List<Cinema> findByMediaType(String mediaType) {
 		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE media_type = :mediaType ORDER BY title";
+				+ "FROM cinemas WHERE media_type = :mediaType AND deleted = false ORDER BY title";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mediaType", mediaType);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
@@ -143,7 +143,7 @@ public class CinemaRepository {
 	public List<Cinema> findByMinMaxPrice(Integer minPrice, Integer maxPrice) {
 		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE :minPrice <= price AND price <= :maxPrice ORDER BY title";
+				+ "FROM cinemas WHERE :minPrice <= price AND price <= :maxPrice AND deleted = false ORDER BY title";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice).addValue("maxPrice",
 				maxPrice);
@@ -161,7 +161,7 @@ public class CinemaRepository {
 	public List<Cinema> findByMinPrice(Integer minPrice) {
 		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE :minPrice <= price ORDER BY title";
+				+ "FROM cinemas WHERE :minPrice <= price AND deleted = false ORDER BY title";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("minPrice", minPrice);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
@@ -197,11 +197,20 @@ public class CinemaRepository {
 				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
 				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
 				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
-				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') ORDER BY title";
+				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = false ORDER BY title";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	public int delete(long id) {
+		String sql = "UPDATE cinemas SET deleted = true WHERE id = :id";
+		return template.update(sql,new MapSqlParameterSource().addValue("id", id));
 	}
 
 }

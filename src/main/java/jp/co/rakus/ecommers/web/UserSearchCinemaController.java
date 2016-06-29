@@ -33,10 +33,10 @@ public class UserSearchCinemaController {
 	@RequestMapping(value="/searchCinemaGenre")
 	public String listGenre(@RequestParam String genre, Model model){
 		
-		System.out.println("genreの中身の確認" + genre);
-		
 		CinemaListPage listPage = service.findByGenre(genre);
 		
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + genre);
 		model.addAttribute("listPage", listPage);
 		
 		return "userCinemaList";
@@ -53,6 +53,19 @@ public class UserSearchCinemaController {
 	public String listMediaType(@RequestParam String mediaType, Model model){
 		
 		CinemaListPage listPage = service.findByMediaType(mediaType);
+		
+		//何も取得できなかったらメッセージを表示する
+		if(listPage.getChildPageList().size()==0){
+			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + mediaType);
+			//findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
+
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + mediaType);
 		
 		model.addAttribute("listPage", listPage);
 		
@@ -76,14 +89,18 @@ public class UserSearchCinemaController {
 		if(price.equals("0")){
 			minPrice = 0;
 			maxPrice = 1000;
+			price = "～1000円";
 		}else if(price.equals("1")){
 			minPrice = 1000;
 			maxPrice = 2000;
+			price = "1000円～2000円";
 		}else if(price.equals("2")){
 			minPrice = 2000;
 			maxPrice = 3000;
+			price = "2000円～3000円";
 		}else if(price.equals("3")){
 			minPrice = 3000;
+			price = "3000円～";
 		}
 		
 		CinemaListPage listPage = new CinemaListPage();
@@ -97,11 +114,15 @@ public class UserSearchCinemaController {
 		//何も取得できなかったらメッセージを表示する
 		if(listPage.getChildPageList().size()==0){
 		model.addAttribute("message2", "商品がありません");
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + price);
 		//findAllで全件取得をする
 		model.addAttribute("listPage", service.findAll());
 		return "userCinemaList";
 				}
 		
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + price);
 		model.addAttribute("listPage", listPage);
 		
 		return "userCinemaList";
@@ -117,7 +138,6 @@ public class UserSearchCinemaController {
 	 */
 	@RequestMapping(value="/searchCinemaTitle")
 	public String listTitle(@RequestParam String title, Model model){
-		System.out.println("/searchCinemaTitle");
 		//titleの中身が空だったらエラーメッセージを返す
 		if(title.isEmpty()){
 			model.addAttribute("message", "何か入力してください");
@@ -127,20 +147,22 @@ public class UserSearchCinemaController {
 		}
 		
 		//あいまい検索のためにtitleに%を付ける
-		title = "%" + title + "%";
-		System.out.println("titleの中身の確認" + title);
+		String titleSearch = "%" + title + "%";
 		
-		CinemaListPage listPage = service.findByTitle(title);
-		
-		System.out.println("listPAgeの中身を確認" + listPage);
+		CinemaListPage listPage = service.findByTitle(titleSearch);
 		
 		//何も取得できなかったらメッセージを表示する
 		if(listPage.getChildPageList().size()==0){
 			model.addAttribute("message2", "商品がありません");
+			//商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + title);
 			//findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "userCinemaList";
 		}
+		
+		//商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + title);
 		
 		model.addAttribute("listPage", listPage);
 		

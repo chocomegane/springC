@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.rakus.ecommers.service.CinemaListService;
 
@@ -37,4 +38,14 @@ public class AdminCinemaListController {
 		return "administerCinemaList";
 	}
 	
+	/**
+	 * 商品削除機能．
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/delete")
+	public String deleteCinema(@RequestParam long id) {
+		service.deleteCinema(id);
+		return "redirect:/admin/displayList";
+	}
 }

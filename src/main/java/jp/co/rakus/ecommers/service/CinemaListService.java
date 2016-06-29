@@ -175,5 +175,13 @@ public class CinemaListService {
 
 		return listPage;
 	}
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public int deleteCinema(long id) {
+		return repository.delete(id);
+	}
 
 }
