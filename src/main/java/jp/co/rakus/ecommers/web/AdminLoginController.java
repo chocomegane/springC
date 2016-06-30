@@ -41,6 +41,7 @@ public class AdminLoginController {
 	String loginForm(AdminLoginForm form,BindingResult result,
 			Model model,@RequestParam(required=false) String error) {
 		if (error != null) {
+			System.err.println("admin: login failed");
 	        result.addError(new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。"));
 		}
 		return "administerLogin";

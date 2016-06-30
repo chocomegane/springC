@@ -1,5 +1,4 @@
 --drop table admin_users;
---drop table orders;
 --drop table cinemas;
 --drop table order_items cascade;
 --drop table orders cascade;

@@ -17,7 +17,7 @@
 <script type="text/javascript">
 	img = new Array();
 	img[0] = "/img/コマンドー.jpg";
-	img[1] = "/img/ヒトラー.png";
+	img[1] = "/img/ヒトラー.jpg";
 	img[2] = "/img/DeathNote.jpg";
 	n=Math.floor(Math.random()*img.length);
 	document.write("<img src=\"" + img[n] + "\" width=\"600\">");
