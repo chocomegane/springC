@@ -3,7 +3,7 @@
 <body>
 <br>
 <div class="main">
-<h2>取り扱い商品一覧</h2>
+<h3>取り扱い商品一覧</h3>
 <!-- テキスト検索 -->
 <form action="/admin/serchCinema/title">
 <div class="input-group col-xs-6">
