@@ -234,8 +234,8 @@ public class AdminSerchCinemaController {
 			model.addAttribute("message2", "商品がありません");
 			//商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + mediaType);
-			// findAllで全件取得をする
-			model.addAttribute("listPage", service.findAll());
+			// findByDeleteで全件取得をする
+			model.addAttribute("listPage", service.findByDelete());
 			return "administerDeleteCinemaList";
 		}
 

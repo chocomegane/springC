@@ -1,0 +1,7 @@
+○利用者トップページ
+　http://localhost:8080/
+
+○管理者ログインページ
+　http://localhost:8080/admin
+　メール：admin@rakus.co.jp
+　パスワード：admin
