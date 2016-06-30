@@ -11,58 +11,58 @@
 <!-- Bootstrapのために追加 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 <!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
 <script type="text/javascript">
-	<!-- Bootstrapの値段検索 -->
+	//<!-- Bootstrapの値段検索 -->
 		function findByPrice(){
 			document.searchCinemaPriceForm.submit();
-	}
+	};
 	
-	<!-- Bootstrapのジャンル検索 -->
+	//<!-- Bootstrapのジャンル検索 -->
 		function findByGenre(){
 			document.searchCinemaGenreForm.submit();
-		}
+		};
 
-	<!-- Bootstrapのメディアタイプ検索	 -->
+	//<!-- Bootstrapのメディアタイプ検索	 -->
 		function findByMediaType(){
 			document.searchCinemaMediaTypeForm.submit();
 		}
 		
-	<!-- ダブルサブミット対策 -->	
+	//<!-- ダブルサブミット対策 -->	
 		function DisableButton(b){
 		b.disabled = true;
 		b.form.submit();
 				}
-	<!-- 商品削除の警告 -->	
+	//<!-- 商品削除の警告 -->	
 		function deleteConfirm(btn){
 			if(confirm("この商品を削除したいと思うことは確かですか？")){
 				btn.parentNode.submit();
 			}
 	}
 		
-	<!-- 商品の再表示の警告 -->
+	//<!-- 商品の再表示の警告 -->
 		function displayConfirm(btn){
 			if(confirm("この商品を再表示したいと思うことは確かですか？")){
 				btn.parentNode.submit();
 			}
 		}
 		
-	<!-- Bootstrapの削除された値段検索 -->
+	//<!-- Bootstrapの削除された値段検索 -->
 		function findByDeletePrice(){
 			document.searchDeleteCinemaPriceForm.submit();
 	}
 	
-	<!-- Bootstrapの削除されたジャンル検索 -->
+	//<!-- Bootstrapの削除されたジャンル検索 -->
 		function findByDeleteGenre(){
 			document.searchDeleteCinemaGenreForm.submit();
 		}
 
-	<!-- Bootstrapの削除されたメディアタイプ検索	 -->
+	//<!-- Bootstrapの削除されたメディアタイプ検索	 -->
 		function findByDeleteMediaType(){
 			document.searchDeleteCinemaMediaTypeForm.submit();
 		}

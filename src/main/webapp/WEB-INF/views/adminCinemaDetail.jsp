@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="adminCommon.jsp" %>>
+    <%@ include file="adminCommon.jsp" %>
 <body>
+<br>
 <h2 align="center">商品詳細</h2>
 
 <div align="center">
