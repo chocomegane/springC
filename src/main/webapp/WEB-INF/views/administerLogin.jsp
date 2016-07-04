@@ -5,7 +5,7 @@
 	<br>
   <h2>管理者ログイン</h2>
   <form:errors path="adminLoginForm.*" />
-  <form:form action="/admin/doAuth" method="post" modelAttribute="adminLoginForm">
+  <form:form action="<%=request.getContextPath() %>/admin/doAuth" method="post" modelAttribute="adminLoginForm">
   	<!-- <pre><form:label path="email">    メールアドレス:<form:input path="email"/></form:label>
 	<form:label path="password">パスワード:<form:password path="password"/></form:label></pre>-->
 	<pre><form:label path="email">メールアドレス： <form:input path="email"/></form:label><br>

@@ -35,7 +35,7 @@ public class SecurityConfig {
         private LoginAdminUserService loginAdminUserService;
         @Override
         public void configure(WebSecurity web) throws Exception {
-        	web.ignoring().antMatchers("/css/**", "/img/**", "/js/**", "/fonts/**");
+        	web.ignoring().antMatchers("/ecommerce-springC-sawamura/css/**", "/ecommerce-springC-sawamura/img/**", "/ecommerce-springC-sawamura/js/**", "/ecommerce-springC-sawamura/fonts/**");
         }
         @Override
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,7 +44,7 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/admin/**")
+            	.antMatcher("ecommerce-springC-sawamura/admin/**")
                 .authorizeRequests()
                     .anyRequest().hasRole("ADMIN")
                 .and()
@@ -88,7 +88,7 @@ public class SecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
-            	.antMatcher("/**")
+            	.antMatcher("ecommerce-springC-sawamura/**")
                 .authorizeRequests()
                 	.antMatchers("/**Payment**").hasRole("USER")
                     .anyRequest().permitAll()

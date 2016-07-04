@@ -10,7 +10,7 @@
 <body>
 <h2 align="center">商品更新画面</h2>
 <div align="center">
-	<form:form modelAttribute="cinemaForm" action="/admin/updateCinema/execute" enctype="multipart/form-data">
+	<form:form modelAttribute="cinemaForm" action="<%=request.getContextPath() %>/admin/updateCinema/execute" enctype="multipart/form-data">
 		<table border="1">
 			<form:hidden path="id" value="${cinema.id}"/>
 			<tr>
@@ -49,8 +49,8 @@
 </div>
 <br>
 <div align="center">
-	<a href="/admin/displayList">商品一覧画面へ戻る</a><br>
-	<a href="/admin/menu">メニューへ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/displayList">商品一覧画面へ戻る</a><br>
+	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 </body>
 </html>

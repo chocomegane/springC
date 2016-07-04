@@ -5,12 +5,12 @@
 	<br>
   <h2>ログイン</h2>
   <form:errors path="userLoginForm.*" />
-  <form:form action="/doAuth" method="post" modelAttribute="userLoginForm">
+  <form:form action="<%=request.getContextPath() %>/doAuth" method="post" modelAttribute="userLoginForm">
     <pre><form:label path="email">メールアドレス： <form:input path="email"/></form:label><br>
     <form:label path="password">パスワード： <form:password path="password"/></form:label></pre>
     <input type="submit" value="ログイン" onclick="DisableButton(this)"/>
   </form:form>
-  <p><a href="/registerForm">新規登録はこちら</a>
+  <p><a href="<%=request.getContextPath() %>/registerForm">新規登録はこちら</a>
 </div>
 </body>
 </html>

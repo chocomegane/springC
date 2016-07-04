@@ -25,7 +25,7 @@
 			<c:forEach var="order" items="${page.cinemaList}">
 				<tr>
 					<td>
-						<a href="/admin/orderListDetail?orderNumber=<c:out value="${order.orderNumber}"/>">
+						<a href="<%=request.getContextPath() %>/admin/orderListDetail?orderNumber=<c:out value="${order.orderNumber}"/>">
 						<c:out value="${order.orderNumber}"/></a>
 					</td>
 					<td><fmt:formatDate value="${order.date}" pattern="yyyy/MM/dd"/></td>
@@ -46,7 +46,7 @@
 </div>
 <br>
 <div align="center">
-	<a href="/admin/menu">メニューへ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 </body>
 </html>
