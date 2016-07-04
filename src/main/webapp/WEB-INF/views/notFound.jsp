@@ -16,9 +16,9 @@
 
 <script type="text/javascript">
 	img = new Array();
-	img[0] = "/img/コマンドー.jpg";
-	img[1] = "/img/ヒトラー.jpg";
-	img[2] = "/img/DeathNote.jpg";
+	img[0] = "<%=request.getContextPath() %>/img/コマンドー.jpg";
+	img[1] = "<%=request.getContextPath() %>/img/ヒトラー.jpg";
+	img[2] = "<%=request.getContextPath() %>/img/DeathNote.jpg";
 	n=Math.floor(Math.random()*img.length);
 	document.write("<img src=\"" + img[n] + "\" width=\"600\">");
 </script>
@@ -27,7 +27,7 @@
 <br>
 <br>
 <br>
-<a href="/">トップページへ戻る</a>
+<a href="<%=request.getContextPath() %>/">トップページへ戻る</a>
 </CENTER>
 </body>
 </html>

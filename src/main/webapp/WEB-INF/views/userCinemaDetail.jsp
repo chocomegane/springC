@@ -54,7 +54,7 @@
 </div>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelAttribute="cartForm" action="/cart/insert"><br>
+	<form:form modelAttribute="cartForm" action="<%=request.getContextPath() %>/cart/insert"><br>
 			<form:errors path="quantity" cssStyle="color:red" element="div"/>
 			注文個数<input type="text" name="quantity" value="1"/><br>
 		<form:hidden path="cinemaId" value="${cinemaDetail.id}"/>

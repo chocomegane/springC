@@ -1,9 +1,11 @@
 spring:
     datasource:
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/ecommerce
+        url: jdbc:postgresql://172.16.0.17:5432/kanekotsubasa
         username: postgres
         password: postgres
     view:
         prefix: /WEB-INF/views/
         suffix: .jsp
+    server:
+        contextPath: /ecommerce-springC-sawamura

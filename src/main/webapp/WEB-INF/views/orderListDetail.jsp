@@ -44,7 +44,7 @@
 	</table>
 </div>
 <br>
-<form:form modelAttribute="orderForm" action="/admin/statusUpdate">
+<form:form modelAttribute="orderForm" action="<%=request.getContextPath() %>/admin/statusUpdate">
 	<div align="center">
 		<table border="1">
 			<tr><th><center>現在のステータス</center></th><th><center>ステータス変更</center></th></tr>
@@ -65,9 +65,9 @@
 </div>
 <br>
 <div align="center">
-	<a href="/admin/orderList">注文一覧へ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/orderList">注文一覧へ戻る</a>
 	<br>
-	<a href="/admin/menu">メニューへ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 </body>
 </html>
