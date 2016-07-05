@@ -76,7 +76,7 @@ function deleteConfirm(btn){
 						<br><c:out value="${child.directedBy}"/><br>
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 						<br>
-							<form:form action="<%=request.getContextPath() %>/admin/redisplay?id=${child.id}">
+							<form:form action="${pageContext.request.contextPath}/admin/redisplay?id=${child.id}">
 								<input type="button" value="再表示" onclick="displayConfirm(this)">
 							</form:form>
 						<br>

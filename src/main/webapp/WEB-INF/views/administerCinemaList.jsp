@@ -68,7 +68,7 @@
 						<br><c:out value="${child.directedBy}"/><br>
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 						<br>
-							<form:form action="<%=request.getContextPath() %>/admin/delete?id=${child.id}">
+							<form:form action="${pageContext.request.contextPath}/admin/delete?id=${child.id}">
 								<input type="button" value="削除" onclick="deleteConfirm(this)">
 							</form:form>
 						<br>

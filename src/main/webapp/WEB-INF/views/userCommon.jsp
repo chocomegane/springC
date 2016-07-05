@@ -12,7 +12,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;
-			<a href="/">
+			<a href="<%=request.getContextPath() %>/">
 				<img src="<%=request.getContextPath() %>/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
 			</a>
 		</h1>

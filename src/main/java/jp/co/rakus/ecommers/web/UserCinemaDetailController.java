@@ -45,15 +45,20 @@ public class UserCinemaDetailController {
 	@RequestMapping(value = "/detail/{id}")
 	public String detail(@PathVariable("id") BigInteger id, Model model) {
 		try {
+			System.out.println("O");
 			Cinema cinema = service.findOne(id.longValue());
 			if (cinema != null) {
 				CinemaDetailPage page = service.copyCinemaToPage(cinema);
+				System.out.println(page);
 				model.addAttribute("cinemaDetail", page);
+				
 				return "userCinemaDetail";
 			} else {
+				System.out.println("err1");
 				throw new NotFoundException("CinemaNotFound");
 			}
 		} catch (NumberFormatException e) {
+			System.out.println("err2");
 			throw new NotFoundException("CinemaNotFound");
 		}
 

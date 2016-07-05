@@ -10,7 +10,7 @@
 管理者の情報を入力し、「管理者情報を登録する」ボタンをクリックしてください。
 <br>
 <br>
-<form:form action="<%=request.getContextPath() %>/admin/register/adminRegister" modelAttribute="adminUserRegisterForm">
+<form:form action="${pageContext.request.contextPath}/admin/register/adminRegister" modelAttribute="adminUserRegisterForm">
 	<table border="1">
 		<tr>
 			<td align="center">名前</td>

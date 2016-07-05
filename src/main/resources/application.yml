@@ -7,5 +7,7 @@ spring:
     view:
         prefix: /WEB-INF/views/
         suffix: .jsp
-    server:
-        contextPath: /ecommerce-springC-sawamura
+#    server:
+#        contextPath: /ecommerce-springC-sawamura
+server:
+  context-path: /ecommerce-springC-sawamura

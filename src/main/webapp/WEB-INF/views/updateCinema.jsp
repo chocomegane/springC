@@ -10,7 +10,7 @@
 <body>
 <h2 align="center">商品更新画面</h2>
 <div align="center">
-	<form:form modelAttribute="cinemaForm" action="<%=request.getContextPath() %>/admin/updateCinema/execute" enctype="multipart/form-data">
+	<form:form modelAttribute="cinemaForm" action="${pageContext.request.contextPath}/admin/updateCinema/execute" enctype="multipart/form-data">
 		<table border="1">
 			<form:hidden path="id" value="${cinema.id}"/>
 			<tr>

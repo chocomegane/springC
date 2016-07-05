@@ -55,7 +55,7 @@
 	
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelAttribute="cinemaForm" action="<%=request.getContextPath() %>/admin/updateCinema">
+	<form:form modelAttribute="cinemaForm" action="${pageContext.request.contextPath}/admin/updateCinema">
 		<form:hidden path="id" value="${cinemaDetail.id}"/>
 		<div align="center"><p><input type="submit" value="更新" onclick="DisableButton(this)"/></p></div>
 	</form:form>

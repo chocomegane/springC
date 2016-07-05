@@ -20,7 +20,7 @@
 	img[1] = "<%=request.getContextPath() %>/img/ヒトラー.jpg";
 	img[2] = "<%=request.getContextPath() %>/img/DeathNote.jpg";
 	n=Math.floor(Math.random()*img.length);
-	document.write("<img src=\"" + img[n] + "\" width=\"600\">");
+	document.write("<img src=\ecommerce-springC-sawamura\"" + img[n] + "\" width=\"600\">");
 </script>
 
 <br>

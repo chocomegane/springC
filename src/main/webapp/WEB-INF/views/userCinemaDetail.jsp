@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="userCommon.jsp" %>
 <body>
@@ -8,7 +8,7 @@
 <div align="center">
 	<table border="1">
 		<tr>
-			<td colspan="2" rowspan="10"><img src="/img/${cinemaDetail.imagePath}" width="150"
+			<td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
 				 alt="商品画像">
 			</td>
 			<th width="100">商品名</th>
@@ -54,12 +54,12 @@
 </div>
 	<br>
 	<div id="selectQuantity" align="center">
-	<form:form modelAttribute="cartForm" action="<%=request.getContextPath() %>/cart/insert"><br>
+	<form:form modelAttribute="cartForm" action="${pageContext.request.contextPath}/cart/insert"><br>
 			<form:errors path="quantity" cssStyle="color:red" element="div"/>
 			注文個数<input type="text" name="quantity" value="1"/><br>
 		<form:hidden path="cinemaId" value="${cinemaDetail.id}"/>
 		<div id="sendCart" align="center"><p><input type="submit" value="カートに入れる" onclick="DisableButton(this)"></p></div>
-		<div id="backList" align="center"><p><a href="/">商品一覧画面へ戻る</a></p></div>
+		<div id="backList" align="center"><p><a href="<%=request.getContextPath() %>/">商品一覧画面へ戻る</a></p></div>
 	</form:form>
 	</div>
 </body>

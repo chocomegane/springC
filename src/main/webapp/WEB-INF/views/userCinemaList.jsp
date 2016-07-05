@@ -54,21 +54,20 @@
 	&nbsp;&nbsp;&nbsp;<c:out value="${message}"/><c:out value="${message2}"/>
 	</font>
 <br><br><br>
-
 <table class="table table-striped">
 	<tbody>
 		<tr>
-		<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
+	<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
 					<th>
 						<a href="<%=request.getContextPath() %>/detail/${child.id}">
-						<img src="../img/${child.imagePath}" 
+						<img src="<%=request.getContextPath() %>/img/${child.imagePath}" 
 						class="img-responsive img-rounded" width="100" height="300">
 						</a>
 						<br><a href="<%=request.getContextPath() %>/detail/${child.id}"><c:out value="${child.title}"/></a><br>
 						<br><c:out value="${child.directedBy}"/><br>
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###円"/>
 					</th>
-					<c:if test="${status.count%4==0}">
+					<c:if test="${status.count%4==0}"> 
 					</tr>
 					<tr>
 					</c:if>

@@ -24,13 +24,13 @@
                 <td>&yen;<fmt:formatNumber value="${cartItem.price}"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>
                 <td>
-                <form:form action="<%=request.getContextPath() %>/cart/insert" modelAttribute="cartForm">
+                <form:form action="${listPage.childPageList}/cart/insert" modelAttribute="cartForm">
                 		<input type="hidden" name="cinemaId" value="<c:out value="${cartItem.cinemaId}"/>">
                 		<input type="hidden" name="quantity" value="1">
                         <input type="submit" value="1個追加"/>
                 </form:form>
                 
-                <form:form action="<%=request.getContextPath() %>/cart/delete" modelAttribute="">
+                <form:form action="${listPage.childPageList}/cart/delete" modelAttribute="">
                 		<input type="hidden" name="orderCinemaId" value="<c:out value="${cartItem.orderCinemaId}"/>">
                         <input type="submit" value="まとめて削除"/>
                 </form:form>

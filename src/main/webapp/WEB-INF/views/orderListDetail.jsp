@@ -44,7 +44,7 @@
 	</table>
 </div>
 <br>
-<form:form modelAttribute="orderForm" action="<%=request.getContextPath() %>/admin/statusUpdate">
+<form:form modelAttribute="orderForm" action="${pageContext.request.contextPath}/admin/statusUpdate">
 	<div align="center">
 		<table border="1">
 			<tr><th><center>現在のステータス</center></th><th><center>ステータス変更</center></th></tr>

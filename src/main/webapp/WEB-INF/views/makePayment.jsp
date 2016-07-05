@@ -58,7 +58,8 @@
 	<c:out value="${paymentPage.userTelephone}" />
 	<br> <br>
 
-	<form:form action="<%=request.getContextPath() %>/finishPayment" method="post">
+	<%-- <form:form action="ecommerce-springC-sawamura/finishPayment" method="post"> --%>
+	<form:form action="${pageContext.request.contextPath}/finishPayment" method="post">
 		<input type="hidden" name="orderId" value="${paymentPage.orderId}">
 		<input type="submit" value="確定" onclick="DisableButton(this)"/>
 	</form:form>
