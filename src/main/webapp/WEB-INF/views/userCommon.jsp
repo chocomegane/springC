@@ -21,14 +21,16 @@
 		<div id="userHeader" align="right">
 		<br>
 			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-	 			<sec:authentication var="user" property="principal.user.name" />
-				<p>こんにちは<c:out value="${user}"/>さん</p>
+	 			<sec:authentication var="name" property="principal.user.name" />
+				<p>こんにちは<c:out value="${name}"/>さん</p>
 				<p><a href="<%=request.getContextPath() %>/logout">ログアウト</a><p>
+				<p><a href="<%=request.getContextPath() %>/myPage/">マイページ</a><p>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<p>こんにちはゲストさん</p>
 				<p><a href="<%=request.getContextPath() %>/registerForm">新規登録</a><p>
 				<p><a href="<%=request.getContextPath() %>/login">ログイン</a><p>
+				
 			</sec:authorize>
 			<p><a href="<%=request.getContextPath() %>/cart/view">カートの中身を見る</a></p>
 		</div>

@@ -61,10 +61,12 @@ public class UserRepository {
 	}
 	
 	public User findById(Long id) {
+		
 		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE id=:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
 		User user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
 		return user;
+		
 	}
 
 	public void userInsert(User user) {
@@ -75,6 +77,24 @@ public class UserRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(user);
 		String sql = "INSERT INTO users(name, email, password,address, telephone) VALUES(:name, :email, :password , :address, :telephone)";
 		System.out.println("repg err6");
+		jdbcTemplate.update(sql, param);
+	}
+	
+	
+	/**
+	 * 
+	 * ユーザーの情報を更新します。
+	 * @param name
+	 * @param email
+	 * @param telephone
+	 * @param address
+	 * @param id
+	 */
+	public void updetaUser(String name,String email,String telephone, String address, long id)
+	{
+		System.out.println(id+name+email);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("name", name).addValue("email", email).addValue("telephone", telephone).addValue("address", address);
+		String sql = "update users SET name=:name, email=:email, address=:address, telephone=:telephone where id=:id";
 		jdbcTemplate.update(sql, param);
 	}
 }

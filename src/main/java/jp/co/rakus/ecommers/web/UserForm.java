@@ -19,5 +19,15 @@ public class UserForm {
 	private String password;
 	/** 電話番号 */
 	private String telephone;
-
+	/** 住所 */
+	private String address;
+	/**id*/
+	private String id;
+	/**確認用パスワード*/
+	private String confirmPassword;
+	
+	public long getLongId()
+	{
+		return Integer.parseInt(id);
+	}
 }
