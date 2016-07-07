@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.service.MyPageService;
+import jp.co.rakus.ecommers.service.OrderListService;
 
 
 
@@ -27,6 +28,8 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService service;
+    
+	@Autowired
 	
 	@ModelAttribute
 	public UserForm setUpForm() {
@@ -35,11 +38,43 @@ public class MyPageController {
 	
 	
 	
+	/**
+	 * 注文詳細画面へ移動
+	 * @return
+	 */
 	@RequestMapping(value = "/")
-	public String myPageTop()
+	public String myPageTop(@RequestParam long id, Model model)
 	{
-		return "myPageTop";
+		
+		OrderListPage page = service.findByOne(id);
+		System.out.println("err");
+		if (!page.getCinemaList().isEmpty()) {
+			model.addAttribute("page", page);
+			model.addAttribute("flag", true);
+			return "myPageTop";
+		} else {
+			System.out.println("eles");
+			model.addAttribute("flag", false);
+			return "myPageTop";
+		}
 	}
+	
+//	@RequestMapping("/myPage/output")
+//	public String output(@RequestParam long id, Model model)
+//	{
+//		OrderListPage page = service.findByOne(id);
+//		System.out.println("err");
+//		if (!page.getCinemaList().isEmpty()) {
+//			model.addAttribute("page", page);
+//			model.addAttribute("flag", true);
+//			return "myPageTop";
+//		} else {
+//			System.out.println("eles");
+//			model.addAttribute("flag", false);
+//			return "myPageTop";
+//		}
+//		
+//	}
 	
 	/**
 	 * ユーザー情報をもらい
@@ -52,6 +87,7 @@ public class MyPageController {
 	@RequestMapping(value = "/userUpdate")
 	public String findAll(@RequestParam long id, Model model )
 	{
+		
 		User user =service.findById(id);
 		model.addAttribute("user",user);
 		return "userUpdate";

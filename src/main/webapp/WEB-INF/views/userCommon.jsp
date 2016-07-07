@@ -22,9 +22,10 @@
 		<br>
 			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
 	 			<sec:authentication var="name" property="principal.user.name" />
+	 			<sec:authentication var = "id" property="principal.user.id"/>
 				<p>こんにちは<c:out value="${name}"/>さん</p>
 				<p><a href="<%=request.getContextPath() %>/logout">ログアウト</a><p>
-				<p><a href="<%=request.getContextPath() %>/myPage/">マイページ</a><p>
+				<p><a href="<%=request.getContextPath() %>/myPage/?id=${id}">マイページ</a><p>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				<p>こんにちはゲストさん</p>
