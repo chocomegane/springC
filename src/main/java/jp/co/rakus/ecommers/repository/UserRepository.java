@@ -84,17 +84,29 @@ public class UserRepository {
 	/**
 	 * 
 	 * ユーザーの情報を更新します。
-	 * @param name
-	 * @param email
-	 * @param telephone
-	 * @param address
-	 * @param id
+	 * @param name ユーザ名
+	 * @param emailメールアドレス
+	 * @param telephone　電話番号
+	 * @param address住所
+	 * @param id　ID
 	 */
 	public void updetaUser(String name,String email,String telephone, String address, long id)
 	{
-		System.out.println(id+name+email);
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("name", name).addValue("email", email).addValue("telephone", telephone).addValue("address", address);
 		String sql = "update users SET name=:name, email=:email, address=:address, telephone=:telephone where id=:id";
 		jdbcTemplate.update(sql, param);
 	}
+	
+	/**
+	 * パスワードを更新します
+	 * @param password　新規パスワード
+	 * @param id
+	 */
+	public void passWordUpdate(String password , long id)
+	{
+		SqlParameterSource param = new MapSqlParameterSource().addValue("password", password).addValue("id", id);
+		String sql = "update users SET password=:password where id = :id";
+		jdbcTemplate.update(sql, param);
+	}
+	
 }

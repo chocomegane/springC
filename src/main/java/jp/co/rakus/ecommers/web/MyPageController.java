@@ -1,7 +1,6 @@
 
 package jp.co.rakus.ecommers.web;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.domain.User;
 import jp.co.rakus.ecommers.service.MyPageService;
+
+
 
 
 /**
@@ -87,7 +88,28 @@ public class MyPageController {
 	{
 		return "passWordUpdate";
 	}
-	
+	@RequestMapping("/passWordUpdate/execuse")
+	public String passWordUpdate(UserForm form, Model model)
+	{
+		//宣言
+		String rawPassword = form.getPassword();
+		long id = form.getLongId();
+		String confirmPassword = form.getConfirmPassword();
+		String password = newPassWordRegister(rawPassword);
+		//確認用パスワードとパスワードの一致確認
+		if (!rawPassword.equals(confirmPassword))
+		{
+			String err = "パスワードと確認用パスワードが一致していません";
+			model.addAttribute("newPassWordErr",err);
+			return "passWordUpdate";
+		}
+		
+		service.passWordUpdate(password, id);
+		String result = "更新が完了しました"; 
+		model.addAttribute("result" ,result);
+		
+		return "passWordUpdate";
+	}
 	
 	
 	
@@ -101,5 +123,16 @@ public class MyPageController {
 		String encryptPassword = spe.encode(rawPssword);
 		adminUser.setPassword(encryptPassword);
 	}
+	
+	/**
+	 * 新規パスワードの暗号化
+	 * @param rawPssword
+	 * @return
+	 */
+	public String newPassWordRegister( String rawPssword) {
+		BCryptPasswordEncoder spe = new BCryptPasswordEncoder();
+		return spe.encode(rawPssword);
+	}
+
 
 }

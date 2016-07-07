@@ -35,5 +35,14 @@ public class MyPageService {
 		repository.updetaUser(name, email,telephone,address, id);
 	}
 	
+	/**
+	 * パスワードを更新するためのレポジトリを呼び出します。
+	 * @param password　新規パスワード
+	 * @param id　Id
+	 */
+	public void passWordUpdate(String password , long id){
+		repository.passWordUpdate(password, id);
+	}
+	
 
 }
