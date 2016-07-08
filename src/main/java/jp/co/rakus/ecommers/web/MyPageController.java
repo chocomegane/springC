@@ -53,6 +53,7 @@ public class MyPageController {
 	
 	
 	/**
+	 * ユーザーのみの注文情報を受け取り
 	 * 注文詳細画面へ移動
 	 * @return
 	 */
@@ -95,6 +96,15 @@ public class MyPageController {
 	{
 		
 		User user =service.findById(id);
+		System.out.println(user.getTelephone());
+		String telephone[] = user.getTelephone().split("-",0);
+		String telephoneTop = telephone[0];
+		String telephoneMidle = telephone[1];
+		String telephoneLast = telephone[2];
+		System.out.println(telephoneTop+telephoneMidle+telephoneLast);
+		user.setTelephoneTop(telephoneTop);
+		user.setTelephoneMiddle(telephoneMidle);
+		user.setTelephoneLast(telephoneLast);
 		model.addAttribute("user",user);
 		return "userUpdate";
 	}
@@ -105,7 +115,7 @@ public class MyPageController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userUpdate/execuse")
-	public String userUpdate( @Validated UserUpdateForm form, BindingResult result, Model model,User user)//更新ボタンのとき
+	public String userUpdate( @Validated UserUpdateForm form, BindingResult result, Model model,User user)
 	{
 		String name = form.getName();
 		String email =form.getEmail();
@@ -209,10 +219,10 @@ public class MyPageController {
 	 * @param adminUser
 	 * @param rawPssword
 	 */
-	public void register(AdminUser adminUser, String rawPssword) {
+	public void register(User user, String rawPssword) {
 		BCryptPasswordEncoder spe = new BCryptPasswordEncoder();
 		String encryptPassword = spe.encode(rawPssword);
-		adminUser.setPassword(encryptPassword);
+		user.setPassword(encryptPassword);
 	}
 	
 	/**
@@ -224,6 +234,13 @@ public class MyPageController {
 		BCryptPasswordEncoder spe = new BCryptPasswordEncoder();
 		return spe.encode(rawPssword);
 	}
+	/**
+	 * 
+	 * @param telephoneTop
+	 * @param telephoneMidle
+	 * @param telephoneLast
+	 * @return
+	 */
 	public boolean telephoneCheck(String telephoneTop, String telephoneMidle, String telephoneLast) {
 		try {
 			Integer.parseInt(telephoneLast);

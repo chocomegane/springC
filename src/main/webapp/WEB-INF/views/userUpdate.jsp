@@ -35,7 +35,7 @@
 			<td align="center"><form:errors path="telephoneTop" cssStyle="color:red" element="div"/>
 				<form:errors path="telephoneMiddle" cssStyle="color:red" element="div"/>
 				<form:errors path="telephoneLast" cssStyle="color:red" element="div"/>電話番号:
-				<form:input path="telephoneTop"/> - <form:input path="telephoneMiddle"/> - <form:input path="telephoneLast"/>
+				<form:input path="telephoneTop" value="${user.telephoneTop}" /> - <form:input value="${user.telephoneMiddle}" path="telephoneMiddle"/> - <form:input value="${user.telephoneLast}" path="telephoneLast"/>
 			</td>
 		</tr>
 </table>

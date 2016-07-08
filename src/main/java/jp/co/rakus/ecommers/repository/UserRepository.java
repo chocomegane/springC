@@ -36,7 +36,7 @@ public class UserRepository {
 		String password = rs.getString("password");
 		String address = rs.getString("address");
 		String telephone = rs.getString("telephone");
-		return new User(id, name, email, password, address, telephone);
+		return new User(id, name, email, password, address, telephone, null, null, null);
 	};
 
 	/**
