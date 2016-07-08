@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.rakus.ecommers.domain.AdminUser;
 import jp.co.rakus.ecommers.domain.User;
+import jp.co.rakus.ecommers.service.CreatePageService;
 import jp.co.rakus.ecommers.service.MyPageService;
 import jp.co.rakus.ecommers.service.OrderListService;
 
@@ -30,10 +33,21 @@ public class MyPageController {
 	private MyPageService service;
     
 	@Autowired
+	private CreatePageService service2;
 	
 	@ModelAttribute
-	public UserForm setUpForm() {
+	public UserForm setUpUserForm() {
 		return new UserForm();
+	}
+	
+	@ModelAttribute
+	public PassWordForm setUpPassWordForm() {
+		return new PassWordForm();
+	}
+	
+	@ModelAttribute
+	public UserUpdateForm setUpUserUpdateForm() {
+		return new UserUpdateForm();
 	}
 	
 	
@@ -58,23 +72,15 @@ public class MyPageController {
 			return "myPageTop";
 		}
 	}
-	
-//	@RequestMapping("/myPage/output")
-//	public String output(@RequestParam long id, Model model)
-//	{
-//		OrderListPage page = service.findByOne(id);
-//		System.out.println("err");
-//		if (!page.getCinemaList().isEmpty()) {
-//			model.addAttribute("page", page);
-//			model.addAttribute("flag", true);
-//			return "myPageTop";
-//		} else {
-//			System.out.println("eles");
-//			model.addAttribute("flag", false);
-//			return "myPageTop";
-//		}
-//		
-//	}
+	@RequestMapping("/orderDetailed")
+	public String orderDetailed(@RequestParam String orderNumber , Model model)
+	{
+		OrderListDetailPage page = service2.list(orderNumber);
+		
+		model.addAttribute("page", page);
+		System.out.println("zyake");
+		return "orderDetailed";
+	}
 	
 	/**
 	 * ユーザー情報をもらい
@@ -99,13 +105,51 @@ public class MyPageController {
 	 * @return
 	 */
 	@RequestMapping(value = "/userUpdate/execuse")
-	public String userUpdate( Model model,User user,UserForm form)//更新ボタンのとき
+	public String userUpdate( @Validated UserUpdateForm form, BindingResult result, Model model,User user)//更新ボタンのとき
 	{
 		String name = form.getName();
 		String email =form.getEmail();
-		String telephone =form.getTelephone();
 		String address = form.getAddress();
 		long id = form.getLongId();
+		String telephoneTop = form.getTelephoneTop();
+		String telephoneMiddle = form.getTelephoneMiddle();
+		String telephoneLast = form.getTelephoneLast();
+
+		
+		System.out.println("err1");
+		
+		Boolean telephoneCheck = false;
+		//Telephoneの確認////////////////////////////////////////////////////////////////////////////////
+		if(telephoneTop.equals("") || telephoneMiddle.equals("") || telephoneLast.equals(""))
+		{
+			System.out.println("err2");
+			String telephoneErr1 = "電話番号を入力してください";
+			model.addAttribute("telephoneErr1", telephoneErr1);
+			model.addAttribute("flag1", true);
+			telephoneCheck = true;
+		}
+		
+		if(telephoneCheck(telephoneTop, telephoneMiddle, telephoneLast))
+		{
+			System.out.println("222");
+			String telephoneErr2 = "文字入力はできません";
+			model.addAttribute("telephoneErr2", telephoneErr2);
+			model.addAttribute("flag2", true);
+			telephoneCheck = true;
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		
+ 	 
+		if(result.hasErrors() || telephoneCheck )
+		{
+			System.out.println(result);
+			System.out.println("err3");
+			
+			return "userUpdate";
+		}
+		String telephone = telephoneTop + "-" + telephoneMiddle + "-" + telephoneLast;
+		
+	
 		System.out.println(form);
 		System.out.println(user);
 		service.userUpdate(name,email, telephone,address, id);
@@ -125,23 +169,34 @@ public class MyPageController {
 		return "passWordUpdate";
 	}
 	@RequestMapping("/passWordUpdate/execuse")
-	public String passWordUpdate(UserForm form, Model model)
+	public String passWordUpdate( @Validated PassWordForm form, BindingResult results, Model model,User user)
 	{
+		if(results.hasErrors())
+		{
+			System.out.println(results);
+			System.out.println("err3");
+			
+			return "passWordUpdate";
+		}
 		//宣言
 		String rawPassword = form.getPassword();
+		System.out.println("form="+form);
 		long id = form.getLongId();
 		String confirmPassword = form.getConfirmPassword();
-		String password = newPassWordRegister(rawPassword);
-		//確認用パスワードとパスワードの一致確認
 		if (!rawPassword.equals(confirmPassword))
 		{
 			String err = "パスワードと確認用パスワードが一致していません";
+			System.out.println(err);
 			model.addAttribute("newPassWordErr",err);
 			return "passWordUpdate";
 		}
+		String password = newPassWordRegister(rawPassword);
+		//確認用パスワードとパスワードの一致確認
+		
 		
 		service.passWordUpdate(password, id);
 		String result = "更新が完了しました"; 
+		System.out.println("dddd");
 		model.addAttribute("result" ,result);
 		
 		return "passWordUpdate";
@@ -168,6 +223,16 @@ public class MyPageController {
 	public String newPassWordRegister( String rawPssword) {
 		BCryptPasswordEncoder spe = new BCryptPasswordEncoder();
 		return spe.encode(rawPssword);
+	}
+	public boolean telephoneCheck(String telephoneTop, String telephoneMidle, String telephoneLast) {
+		try {
+			Integer.parseInt(telephoneLast);
+			Integer.parseInt(telephoneMidle);
+			Integer.parseInt(telephoneTop);
+		} catch (NumberFormatException e) {
+			return true;
+		}
+		return false;
 	}
 
 

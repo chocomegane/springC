@@ -5,7 +5,7 @@
 <br>
 <h2  align="center">商品詳細</h2>
 
-<div align="center">
+<div align="center" >
 	<table border="1">
 		<tr>
 			<td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"

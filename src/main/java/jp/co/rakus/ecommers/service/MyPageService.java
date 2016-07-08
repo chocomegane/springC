@@ -16,54 +16,57 @@ import jp.co.rakus.ecommers.web.OrderListPage;
 
 /**
  * userページ関連のserviceです
+ * 
  * @author rakus
  *
  */
 @Service
 public class MyPageService {
-	//依存性の注入
+	// 依存性の注入
 	@Autowired
 	private UserRepository repository;
 	@Autowired
 	private OrderCinemaRepository repository2;
 	@Autowired
 	private UserRepository repository3;
+
 	/**
 	 * レポジトリのメソッドを呼び出します
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public User findById(Long id)
-	{
+	public User findById(Long id) {
 		return repository.findById(id);
-		
+
 	}
-	
-	
-	/**ユーザー情報を更新します*/
-	public void userUpdate(String name,String email,String telephone, String address, long id)
-	{
-		repository.updetaUser(name, email,telephone,address, id);
+
+	/** ユーザー情報を更新します */
+	public void userUpdate(String name, String email, String telephone, String address, long id) {
+		repository.updetaUser(name, email, telephone, address, id);
 	}
-	
+
 	/**
 	 * パスワードを更新するためのレポジトリを呼び出します。
-	 * @param password　新規パスワード
-	 * @param id　Id
+	 * 
+	 * @param password
+	 *            新規パスワード
+	 * @param id
+	 *            Id
 	 */
-	public void passWordUpdate(String password , long id){
+	public void passWordUpdate(String password, long id) {
 		repository.passWordUpdate(password, id);
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * DBからfindAllするためのメソッド. 取得してきた映画のリストを別に定義してあるPageクラスに反映させる
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public OrderListPage findByOne(long id)
-	{
-		
+	public OrderListPage findByOne(long id) {
+
 		List<Order> orderList = repository2.findById(id);
 		List<OrderListChildPage> init = new ArrayList<>();
 		OrderListPage page = new OrderListPage();
@@ -85,21 +88,20 @@ public class MyPageService {
 			case 4:
 				child.setStatus("キャンセル");
 				break;
-			default :
-				child.setStatus(null);				
+			default:
+				child.setStatus(null);
 				break;
 			}
 			BeanUtils.copyProperties(order, child);
-			if( child.getStatus() != null ) {
+			if (child.getStatus() != null) {
 				System.out.println(order);
 				User user = repository3.findById(id);
 				child.setUserName(user.getName());
 				page.getCinemaList().add(child);
 			}
-		
-	}
-		return page;
-	
 
-}
+		}
+		return page;
 	}
+	
+}

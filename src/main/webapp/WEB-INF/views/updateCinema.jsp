@@ -8,6 +8,7 @@
 <title>商品登録画面</title>
 </head>
 <body>
+
 <h2 align="center">商品更新画面</h2>
 <div align="center">
 	<form:form modelAttribute="cinemaForm" action="${pageContext.request.contextPath}/admin/updateCinema/execute" enctype="multipart/form-data">
