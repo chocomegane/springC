@@ -19,7 +19,15 @@
             </tr>
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>
-				<td><a href="<%=request.getContextPath() %>/detail/${cartItem.cinemaId}"><img src="<%=request.getContextPath() %>/img/${cartItem.imagePath}" width="150" alt="商品画像"></a></td>
+				<td>
+				
+				<c:if test="${cinemaDetail.imagePath.length() < 60}">
+				<a href="<%=request.getContextPath() %>/detail/${cartItem.cinemaId}"><img src="<%=request.getContextPath() %>/img/${cartItem.imagePath}" width="150" alt="商品画像"></a>
+				</c:if>
+				<a href="<%=request.getContextPath() %>/detail/${cartItem.cinemaId}"><img src="${cartItem.imagePath}" width="150" alt="商品画像"></a>
+				<c:if test="${cinemaDetail.imagePath.length() > 60}">
+				</c:if>
+				</td>
                 <td><a href="<%=request.getContextPath() %>/detail/${cartItem.cinemaId}"><c:out value="${cartItem.title}"/></a></td>
                 <td>&yen;<fmt:formatNumber value="${cartItem.price}"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>

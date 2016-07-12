@@ -5,9 +5,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品登録画面</title>
+<title>商品編集画面</title>
 </head>
 <body>
+
+
+<script type="text/javascript">
+$(function() {
+  // 2button／buttonsetメソッドでボタンに整形
+  /* $('button').button();
+  $('input[type="button"]').button();
+  $('input[type="submit"]').button();
+  $('a').button();
+  $('input.only').button();
+  $('.group').buttonset(); */
+  
+  var a =$("#aaa").text();
+  
+  a="fff";
+});
+</script>
+
 
 <h2 align="center">商品更新画面</h2>
 <div align="center">
@@ -36,9 +54,14 @@
 				<th><center>イメージ画像</center></th>
 				<td align="center">
 					<form:hidden path="originallyImagePath" value="${cinema.imagePath}"/>
-					<form:input type="file" path="imagePath"/><div>デフォルト:<c:out value="${cinema.imagePath}"/></div>
+					<form:input type="file" path="imagePath"/><div></div>
 					<div><font color="red"><c:out value="${err3}"/></font></div>
 				</td>
+			</tr>
+			<tr>
+			  <td id="aaa">
+			    aaa
+			  </td>
 			</tr>
 		</table>
 		<br>

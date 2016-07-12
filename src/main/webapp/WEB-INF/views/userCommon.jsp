@@ -28,7 +28,7 @@
 				<p><a href="<%=request.getContextPath() %>/myPage/?id=${id}">マイページ</a><p>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
-				<p>こんにちはゲストさん</p>
+				<p>こんにちは<c:out value="${guest.name}"/>さん</p>
 				<p><a href="<%=request.getContextPath() %>/registerForm">新規登録</a><p>
 				<p><a href="<%=request.getContextPath() %>/login">ログイン</a><p>
 				

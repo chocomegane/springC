@@ -61,8 +61,14 @@
 		<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
 				<th>
 						<a href="<%=request.getContextPath() %>/admin/cinemaDetail/detail/${child.id}">
-						<img src="<%=request.getContextPath() %>/img/${child.imagePath}" 
-						class="img-responsive img-rounded" width="100" height="300">
+						<c:if test="${child.imagePath.length() < 60}">
+						<img src="<%=request.getContextPath() %>/img/${child.imagePath} "class="img-responsive img-rounded" width="100" height="300">
+						</c:if>
+						<c:if test="${child.imagePath.length() > 60}">
+						<img src="${child.imagePath}" class="img-responsive img-rounded" width="100" height="300">
+						</c:if>
+						 
+					
 						</a>
 						<br><a href="<%=request.getContextPath() %>/admin/cinemaDetail/detail/${child.id}"><c:out value="${child.title}"/></a><br>
 						<br><c:out value="${child.directedBy}"/><br>

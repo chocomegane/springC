@@ -8,8 +8,14 @@
 <div align="center">
 	<table border="1">
 		<tr>
-			<td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
+		<c:if test="${cinemaDetail.imagePath.length() < 60}">
+			 <td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
+				alt="商品画像"> 
+				</c:if>
+				<c:if test="${cinemaDetail.imagePath.length() > 60}">
+				<td colspan="2" rowspan="10"><img src="${cinemaDetail.imagePath}" width="150"
 				alt="商品画像">
+				</c:if>
 			</td>
 			<th width="100">商品名</th>
 			<td align="center" width="100"><c:out value="${cinemaDetail.title}"/></td>

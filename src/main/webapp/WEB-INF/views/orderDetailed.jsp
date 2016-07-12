@@ -25,7 +25,7 @@
 </div>
 <br>
 <div align="center">
-<h3 align="center">発送先</h3>
+<h3 align="center">商品</h3>
 	<table class="table table-striped">
 		<tr><th><center>商品</center></th><th><center>価格</center></th><th><center>×</center></th><th><center>個数</center></th><th><center>金額</center></th></tr>
 		<c:forEach var="item" items="${page.childPage}">

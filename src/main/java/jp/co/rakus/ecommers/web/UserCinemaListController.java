@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jp.co.rakus.ecommers.domain.Guest;
 import jp.co.rakus.ecommers.service.CinemaListService;
 
 /**
@@ -16,6 +18,7 @@ import jp.co.rakus.ecommers.service.CinemaListService;
  */
 @Controller
 @Transactional
+@SessionAttributes("guest")
 @RequestMapping
 public class UserCinemaListController {
 
@@ -30,7 +33,12 @@ public class UserCinemaListController {
 	 */
 	@RequestMapping
 	public String list(Model model){
-		System.out.println("list");
+		
+		Guest guest = new Guest();
+		guest.setName("ゲスト");
+		model.addAttribute("guest",guest);
+		
+		
 		CinemaListPage listPage = service.findAll();
 		
 		model.addAttribute("listPage", listPage);

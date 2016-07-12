@@ -5,11 +5,17 @@
 <br>
 <h2  align="center">商品詳細</h2>
 
-<div align="center" >
-	<table border="1">
+<div align="center" class="table-condensed" >
+	<table  class = "table-striped">
 		<tr>
+		<c:if test="${cinemaDetail.imagePath.length() < 60}">
 			<td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
 				 alt="商品画像">
+				 </c:if>
+				 <c:if test="${cinemaDetail.imagePath.length() > 60}">
+				 <td colspan="2" rowspan="10"><img src="${cinemaDetail.imagePath}" width="150"
+				 alt="商品画像">
+				 </c:if>
 			</td>
 			<th width="100">商品名</th>
 			<td align="center" width="100"><c:out value="${cinemaDetail.title}"/></td>

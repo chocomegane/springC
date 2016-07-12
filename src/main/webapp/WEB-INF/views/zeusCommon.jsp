@@ -69,7 +69,11 @@
 
 	</script>
 	
-	<!-- Bootstarapで使うために追加 -->
+	<!-- Bootstarapで使うために追加                        +  jqueryUI   -->
+	<!-- <link rel="stylesheet" href="themes/base/jquery.ui.all.css"> -->
+<!-- <script type="text/javascript" src="ui/jquery-ui-1.8.12.custom.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
+	
+	
 
