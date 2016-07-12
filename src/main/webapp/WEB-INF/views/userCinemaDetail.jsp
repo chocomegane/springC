@@ -9,7 +9,7 @@
 	<table  class = "table-striped">
 		<tr>
 		<c:if test="${cinemaDetail.imagePath.length() < 60}">
-			<td colspan="2" rowspan="10"><img src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
+			<td colspan="2" rowspan="10"><img class="imgBox" src="<%=request.getContextPath() %>/img/${cinemaDetail.imagePath}" width="150"
 				 alt="商品画像">
 				 </c:if>
 				 <c:if test="${cinemaDetail.imagePath.length() > 60}">
@@ -68,5 +68,7 @@
 		<div id="backList" align="center"><p><a href="<%=request.getContextPath() %>/">商品一覧画面へ戻る</a></p></div>
 	</form:form>
 	</div>
+	
 </body>
 </html>
+

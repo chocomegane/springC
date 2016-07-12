@@ -10,21 +10,7 @@
 <body>
 
 
-<script type="text/javascript">
-$(function() {
-  // 2button／buttonsetメソッドでボタンに整形
-  /* $('button').button();
-  $('input[type="button"]').button();
-  $('input[type="submit"]').button();
-  $('a').button();
-  $('input.only').button();
-  $('.group').buttonset(); */
-  
-  var a =$("#aaa").text();
-  
-  a="fff";
-});
-</script>
+
 
 
 <h2 align="center">商品更新画面</h2>
@@ -59,13 +45,9 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-			  <td id="aaa">
-			    aaa
-			  </td>
-			</tr>
 		</table>
 		<br>
-		<input type="submit" value="更新" onclick="DisableButton(this)"/>
+		<input id="registrationButton" type="submit" value="更新" onclick="DisableButton(this)"/>
 	</form:form>
 </div>
 <div align="center">
