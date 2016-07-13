@@ -8,7 +8,7 @@
 <div align="center">
 	<table border="1">
 		<tr>
-			<td colspan="2" rowspan="10"><img src="/img/${cinemaDetail.imagePath}" width="150"
+			<td colspan="2" rowspan="10"><img src="${cinemaDetail.imagePath}" width="150"
 				 alt="商品画像">
 			</td>
 			<th width="100">商品名</th>

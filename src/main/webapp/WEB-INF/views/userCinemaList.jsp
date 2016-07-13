@@ -61,7 +61,7 @@
 		<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
 					<th>
 						<a href="/detail/${child.id}">
-						<img src="../img/${child.imagePath}" 
+						<img src="${child.imagePath}" 
 						class="img-responsive img-rounded" width="100" height="300">
 						</a>
 						<br><a href="/detail/${child.id}"><c:out value="${child.title}"/></a><br>

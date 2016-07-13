@@ -19,7 +19,7 @@
             </tr>
             <c:forEach var="cartItem" items="${cartPage.cartListChildPage}">
             <tr>
-				<td><a href="/detail/${cartItem.cinemaId}"><img src="/img/${cartItem.imagePath}" width="150" alt="商品画像"></a></td>
+				<td><a href="/detail/${cartItem.cinemaId}"><img src="${cartItem.imagePath}" width="150" alt="商品画像"></a></td>
                 <td><a href="/detail/${cartItem.cinemaId}"><c:out value="${cartItem.title}"/></a></td>
                 <td>&yen;<fmt:formatNumber value="${cartItem.price}"/></td>
                 <td><c:out value="${cartItem.quantity}"/>枚</td>

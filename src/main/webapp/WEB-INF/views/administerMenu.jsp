@@ -25,7 +25,7 @@
 	<br>
 	<script>
 		img = new Array();
-		img = "/img/映画泥棒.jpg";
+		img = "映画泥棒.jpg";
 		document.write("<img src=\""+img+"\" width=\"500\">");
 	</script>
 	

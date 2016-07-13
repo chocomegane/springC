@@ -10,7 +10,7 @@
 		<h1 align ="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/admin/displayList">
-			<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ(管理者用ページ)
+			<img src="${pageContext.request.contextPath}/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ(管理者用ページ)
 		</a></h1>
 		</div>
 
@@ -18,8 +18,8 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
 	 			<sec:authentication var="admin" property="principal.adminUser.name" />
 				<p>こんにちは<c:out value="${admin}"/>さん</p>
-				<p><a href="/admin/menu">メニュー画面</a></p>
-				<p><a href="/admin/logout">ログアウト</a><p>
+				<p><a href="<%=request.getContextPath() %>/admin/menu">メニュー画面</a></p>
+				<p><a href="<%=request.getContextPath() %>/admin/logout">ログアウト</a><p>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
 				<p>こんにちは管理者さん</p>

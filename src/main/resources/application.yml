@@ -1,5 +1,13 @@
 spring:
-    datasource:
+  profiles:
+    active: dev
+
+
+
+---     
+spring:
+    profiles: test
+    datasource: 
         driverClassName: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/ecommerce
         username: postgres
@@ -7,3 +15,21 @@ spring:
     view:
         prefix: /WEB-INF/views/
         suffix: .jsp
+
+#    server:
+#        contextPath: /ecommerce-springC-sawamura
+
+---
+spring:
+    profiles: dev
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://172.16.0.17:5432/ecommerce_yuki_sawamura
+        username: postgres
+        password: postgres
+    view:
+        prefix: /WEB-INF/views/
+        suffix: .jsp
+        
+server:
+  context-path: /ecommerce-springC-sawamura
