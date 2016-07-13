@@ -2,6 +2,7 @@ package jp.co.rakus.ecommers.web;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -125,15 +126,21 @@ public class InsertCinemaController {
 			
 			
 			// imagePath関係の処理
-			String path = context.getRealPath("/img/");
-			form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+//			String path = context.getRealPath("/img/");
+//			form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+			
 			
 			Cinema cinema = new Cinema();
+			//画像のパスをセット////////////////////////////////////////
+			String encode = Base64.getEncoder().encodeToString(form.getImagePath().getBytes());
+			String encodeImage = "data:;base64," + encode;
+			cinema.setImagePath(encodeImage);
+			/////////////////////////////////////////////////////
 			cinema.setReleaseDate(date);
 						
 			BeanUtils.copyProperties(form, cinema);
 						
-			cinema.setImagePath(form.getImagePath().getOriginalFilename());
+//			ひとつ前の仕様→ cinema.setImagePath(form.getImagePath().getOriginalFilename());
 			cinema.setPrice(form.getIntPrice());
 			cinema.setTime(form.getIntTime());
 			
