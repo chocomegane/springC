@@ -21,7 +21,7 @@ public class UserRegisterForm {
 	@Size(min =1, max=127, message = "メールアドレスを入力して下さい")
 	private String email;
 	/** パスワード */
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\[\\!\\#\\$\\%\\&\\(\\)\\?\\]\\\\]).+",message = "記号、大文字、小文字、数字を含ませてください")
+	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\[\\!\\#\\$\\%\\&\\(\\)\\?\\]\\\\\\@]).+",message = "記号、大文字、小文字、数字を含ませてください")
 	@NotBlank(message = "パスワードを入力して下さい")
 	@Size(min =8, max=16,message = "パスワードは8文字以上16文字以下で登録してください")
 	private String password;

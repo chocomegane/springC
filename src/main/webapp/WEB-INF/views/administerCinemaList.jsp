@@ -63,12 +63,13 @@
 						<a href="<%=request.getContextPath() %>/admin/cinemaDetail/detail/${child.id}">
 						<img src="${child.imagePath}" 
 						class="img-responsive img-rounded" width="100" height="300">
+
 						</a>
 						<br><a href="<%=request.getContextPath() %>/admin/cinemaDetail/detail/${child.id}"><c:out value="${child.title}"/></a><br>
 						<br><c:out value="${child.directedBy}"/><br>
 						<br><fmt:formatNumber value="${child.price}" pattern="#,###"/>円
 						<br>
-							<form:form action="/admin/delete?id=${child.id}">
+							<form:form action="${pageContext.request.contextPath}/admin/delete?id=${child.id}">
 								<input type="button" value="削除" onclick="deleteConfirm(this)">
 							</form:form>
 						<br>

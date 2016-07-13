@@ -10,7 +10,7 @@
 <body>
 <h2 align="center">商品登録画面</h2>
 <div align="center">
-	<form:form modelAttribute="cinemaForm" action="/admin/insert" enctype="multipart/form-data">
+	<form:form modelAttribute="cinemaForm" action="${pageContext.request.contextPath}/admin/insert" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<th><center>タイトル</center></th>
@@ -47,7 +47,7 @@
 </div>
 <br>
 <div align="center">
-	<a href="/admin/menu">メニューへ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 
 </body>

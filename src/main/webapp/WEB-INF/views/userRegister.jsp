@@ -10,7 +10,7 @@
 お客様の情報を入力し、「お客様情報を登録する」ボタンをクリックしてください。 
 <br>
 <br>
-<form:form action="register" modelAttribute="userRegisterForm">
+<form:form action="${pageContext.request.contextPath}/register" modelAttribute="userRegisterForm">
 	<table border="1">
 		<c:out value="${err}"/>
 		<tr>

@@ -36,7 +36,7 @@ public class UserRepository {
 		String password = rs.getString("password");
 		String address = rs.getString("address");
 		String telephone = rs.getString("telephone");
-		return new User(id, name, email, password, address, telephone);
+		return new User(id, name, email, password, address, telephone, null, null, null);
 	};
 
 	/**
@@ -61,10 +61,12 @@ public class UserRepository {
 	}
 	
 	public User findById(Long id) {
+		
 		String sql = "SELECT id,name, email, password,address, telephone FROM " + TABLE_NAME + " WHERE id=:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
 		User user = jdbcTemplate.queryForObject(sql,param, USER_ROW_MAPPER);
 		return user;
+		
 	}
 
 	public void userInsert(User user) {
@@ -77,4 +79,34 @@ public class UserRepository {
 		System.out.println("repg err6");
 		jdbcTemplate.update(sql, param);
 	}
+	
+	
+	/**
+	 * 
+	 * ユーザーの情報を更新します。
+	 * @param name ユーザ名
+	 * @param emailメールアドレス
+	 * @param telephone　電話番号
+	 * @param address住所
+	 * @param id　ID
+	 */
+	public void updetaUser(String name,String email,String telephone, String address, long id)
+	{
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("name", name).addValue("email", email).addValue("telephone", telephone).addValue("address", address);
+		String sql = "update users SET name=:name, email=:email, address=:address, telephone=:telephone where id=:id";
+		jdbcTemplate.update(sql, param);
+	}
+	
+	/**
+	 * パスワードを更新します
+	 * @param password　新規パスワード
+	 * @param id
+	 */
+	public void passWordUpdate(String password , long id)
+	{
+		SqlParameterSource param = new MapSqlParameterSource().addValue("password", password).addValue("id", id);
+		String sql = "update users SET password=:password where id = :id";
+		jdbcTemplate.update(sql, param);
+	}
+	
 }

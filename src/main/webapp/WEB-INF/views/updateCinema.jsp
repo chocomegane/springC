@@ -5,12 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品登録画面</title>
+<title>商品編集画面</title>
 </head>
 <body>
+
+
+
+
+
 <h2 align="center">商品更新画面</h2>
 <div align="center">
-	<form:form modelAttribute="cinemaForm" action="/admin/updateCinema/execute" enctype="multipart/form-data">
+	<form:form modelAttribute="cinemaForm" action="${pageContext.request.contextPath}/admin/updateCinema/execute" enctype="multipart/form-data">
 		<table border="1">
 			<form:hidden path="id" value="${cinema.id}"/>
 			<tr>
@@ -35,13 +40,14 @@
 				<th><center>イメージ画像</center></th>
 				<td align="center">
 					<form:hidden path="originallyImagePath" value="${cinema.imagePath}"/>
-					<form:input type="file" path="imagePath"/><div>デフォルト:<c:out value="${cinema.imagePath}"/></div>
+					<form:input type="file" path="imagePath"/><div></div>
 					<div><font color="red"><c:out value="${err3}"/></font></div>
 				</td>
 			</tr>
+			<tr>
 		</table>
 		<br>
-		<input type="submit" value="更新" onclick="DisableButton(this)"/>
+		<input id="registrationButton" type="submit" value="更新" onclick="DisableButton(this)"/>
 	</form:form>
 </div>
 <div align="center">
@@ -49,8 +55,8 @@
 </div>
 <br>
 <div align="center">
-	<a href="/admin/displayList">商品一覧画面へ戻る</a><br>
-	<a href="/admin/menu">メニューへ戻る</a>
+	<a href="<%=request.getContextPath() %>/admin/displayList">商品一覧画面へ戻る</a><br>
+	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 </body>
 </html>

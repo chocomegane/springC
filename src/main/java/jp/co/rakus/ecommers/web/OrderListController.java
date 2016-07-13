@@ -23,7 +23,7 @@ public class OrderListController {
 	private OrderListService service;
 		
 	/**
-	 * 注文詳細ページを表示する
+	 * 注文一覧ページを表示する
 	 * @param model requestスコープを扱うための変数
 	 * @return orderList.jspへフォワード
 	 */
@@ -31,11 +31,13 @@ public class OrderListController {
 	public String output(Model model) {
 		
 		OrderListPage page = service.findAllOfOrderList();
+		System.out.println("err");
 		if (!page.getCinemaList().isEmpty()) {
 			model.addAttribute("page", page);
 			model.addAttribute("flag", true);
 			return "orderList";
 		} else {
+			System.out.println("eles");
 			model.addAttribute("flag", false);
 			return "orderList";
 		}

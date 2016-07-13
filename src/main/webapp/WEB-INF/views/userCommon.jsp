@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="zeusCommon.jsp" %>
-<link rel="stylesheet" type="text/css" href="/css/ecHeader.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/ecHeader.css" />
 <title>ECサイト</title>
 </head>
 <body>
@@ -12,8 +12,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;
-			<a href="/">
-				<img src="/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
+			<a href="<%=request.getContextPath() %>/">
+				<img src="<%=request.getContextPath() %>/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ
 			</a>
 		</h1>
 		</div>
@@ -21,16 +21,19 @@
 		<div id="userHeader" align="right">
 		<br>
 			<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-	 			<sec:authentication var="user" property="principal.user.name" />
-				<p>こんにちは<c:out value="${user}"/>さん</p>
-				<p><a href="/logout">ログアウト</a><p>
+	 			<sec:authentication var="name" property="principal.user.name" />
+	 			<sec:authentication var = "id" property="principal.user.id"/>
+				<p>こんにちは<c:out value="${name}"/>さん</p>
+				<p><a href="<%=request.getContextPath() %>/logout">ログアウト</a><p>
+				<p><a href="<%=request.getContextPath() %>/myPage/?id=${id}">マイページ</a><p>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
-				<p>こんにちはゲストさん</p>
-				<p><a href="/registerForm">新規登録</a><p>
-				<p><a href="/login">ログイン</a><p>
+				<p>こんにちは<c:out value="${guest.name}"/>さん</p>
+				<p><a href="<%=request.getContextPath() %>/registerForm">新規登録</a><p>
+				<p><a href="<%=request.getContextPath() %>/login">ログイン</a><p>
+				
 			</sec:authorize>
-			<p><a href="/cart/view">カートの中身を見る</a></p>
+			<p><a href="<%=request.getContextPath() %>/cart/view">カートの中身を見る</a></p>
 		</div>
 
 </header>

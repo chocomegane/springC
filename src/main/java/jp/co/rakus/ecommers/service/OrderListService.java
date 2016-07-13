@@ -114,9 +114,9 @@ public class OrderListService {
 				child.setStatus(null);				
 				break;
 			}
-			
 			BeanUtils.copyProperties(order, child);
 			if( child.getStatus() != null ) {
+				System.out.println(order);
 				User user = repository3.findById(order.getUserId());
 				child.setUserName(user.getName());
 				page.getCinemaList().add(child);

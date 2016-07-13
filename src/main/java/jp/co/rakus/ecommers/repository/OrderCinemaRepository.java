@@ -353,7 +353,23 @@ public class OrderCinemaRepository {
 	public List<Order> findAll() {
 		String sql = "SELECT * FROM orders ORDER BY order_number";
 		List<Order> orderList = template.query(sql, orderRowMapper);
+		System.out.println(orderList);
 		return orderList;
+	}
+	
+	
+	/**
+	 * idを用いて注文一覧を取得
+	 * @param id ユーザーid
+	 * @return ユーザーの注文のリスト
+	 */
+	public List<Order> findById(long id)
+	{
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		String sql = "SELECT * FROM orders WHERE user_id=:id ORDER BY order_number ";
+		List<Order> orderList = template.query(sql, param,orderRowMapper);
+		return orderList;
+		
 	}
 
 	/**

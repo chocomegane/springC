@@ -27,4 +27,10 @@ public class User {
 	private String address;
 	/** 電話番号 */
 	private String telephone;
+	/**電話番号の上の桁*/
+	private String telephoneTop; 
+	/**電話番号の中の桁*/
+	private String telephoneMiddle;
+	/**電話番号の下の桁*/
+	private String telephoneLast;
 }
