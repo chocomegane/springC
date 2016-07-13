@@ -9,13 +9,9 @@
 		<div id="linkHeader" align="left">
 		<h1 align ="left">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<<<<<<< HEAD
-		<a href="/admin/displayList">
-			<img src="${pageContext.request.contextPath}/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ(管理者用ページ)
-=======
+
 		<a href="<%=request.getContextPath() %>/admin/displayList">
 			<img src="<%=request.getContextPath() %>/img/rogo.png" width="50" height="50" alt="ロゴ画像">ECシネマショップ(管理者用ページ)
->>>>>>> master
 		</a></h1>
 		</div>
 

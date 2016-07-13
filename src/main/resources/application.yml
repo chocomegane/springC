@@ -1,6 +1,5 @@
 spring:
   profiles:
-<<<<<<< HEAD
     active: dev
 
 
@@ -9,27 +8,21 @@ spring:
 spring:
     profiles: test
     datasource: 
-=======
-    active: test
-
----
-spring:
-    profiles: dev
-    datasource:
->>>>>>> master
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://172.16.0.17:5432/ecommerce_yuki_sawamura
+        url: jdbc:postgresql://localhost:5432/ecommerces
         username: postgres
         password: postgres
     view:
         prefix: /WEB-INF/views/
         suffix: .jsp
+
+
 ---     
 spring:
-    profiles: test
+    profiles: dev
     datasource: 
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/student
+        url: jdbc:postgresql://172.16.0.17:5432/ecommerce_yuki_sawamura
         username: postgres
         password: postgres
     view:
@@ -37,24 +30,6 @@ spring:
         suffix: .jsp
 
 #    server:
-#        contextPath: /ecommerce-springC-sawamura
-<<<<<<< HEAD
-
----
-spring:
-    profiles: dev
-    datasource:
-        driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://172.16.0.17:5432/ecommerce_yuki_sawamura
-        username: postgres
-        password: postgres
-    view:
-        prefix: /WEB-INF/views/
-        suffix: .jsp
-        
+#        contextPath: /ecommerce-springC-sawamura 
 server:
   context-path: /ecommerce-springC-sawamura
-=======
-server:
-  context-path: /ecommerce-springC-sawamura
->>>>>>> master
