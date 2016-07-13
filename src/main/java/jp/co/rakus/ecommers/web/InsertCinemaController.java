@@ -144,6 +144,8 @@ public class InsertCinemaController {
 			cinema.setPrice(form.getIntPrice());
 			cinema.setTime(form.getIntTime());
 			
+
+			
 			service.save(cinema);
 			
 			redirectAttributes.addFlashAttribute("message", "正常に登録が完了しました");

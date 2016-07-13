@@ -29,3 +29,25 @@ a#toInsertMember{
   height: 226px;
   display: inline-block;
 }
+
+#accordion {
+  border: 1px #ccc solid;
+  border-top: none;
+  width:500px;
+}
+#accordion dt {
+  background: #ddd;
+  padding: 10px;
+  border-top: 1px #ccc solid;
+}
+#accordion dt a {
+  color: #000;
+  text-decoration: none;
+  display:block;
+}
+#accordion dd {
+  padding: 10px;
+  font-size: 1.5em;
+  font-size: 80%;
+}
+

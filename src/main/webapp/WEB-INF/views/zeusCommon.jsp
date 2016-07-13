@@ -46,7 +46,7 @@ $(document).ready(function(){
 }); */
 
 //スクロールボックス
-/* $(function () {
+ /*$(function () {
     $('.imgBox img').hide(); //ページ上の画像を隠す
 });
 
@@ -82,7 +82,16 @@ $(function(){
     $(".open").click(function(){
       $("#slideBox").slideToggle("slow");
     });
-}); */
+});*/
+$(function() {
+	  $('#accordion dd').hide();
+	  $('#accordion dt a').click(function(){
+	    $('#accordion dd').slideUp();
+	    $(this).parent().next().slideDown();
+	    return false;
+	  });
+	});
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

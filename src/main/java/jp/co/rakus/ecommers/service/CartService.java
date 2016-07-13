@@ -138,7 +138,9 @@ public class CartService {
 		if (orderItemList != null && !orderItemList.isEmpty()) {
 			for (OrderItem orderItem : orderItemList) {
 				Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
+				System.out.println("cinema="+cinema);
 				sum = sum + cinema.getPrice() * orderItem.getQuantity();
+				System.out.println(sum);
 			}
 		}
 		if(sum < 0)sum = 0;

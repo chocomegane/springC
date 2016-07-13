@@ -1,7 +1,7 @@
 package jp.co.rakus.ecommers.web;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -102,27 +102,41 @@ public class UpdateCinemaController {
 		if(errorFlag == true) {
 			return index(form.getId(), model);
 		}
-		
+		System.out.println("testdate=");
 		try {
-			String releaseDate = form.getReleaseDate();
-			Date before = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate);
-			String strReleaseDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(before);
-			Date after = new SimpleDateFormat("yyyy-MM-dd").parse(strReleaseDate);
-			String path = context.getRealPath("/img/");
+			//公開日のフォーマット変更
 			
 			Cinema cinema = new Cinema();
-			cinema.setReleaseDate(after);
+			String releaseDate = form.getReleaseDate();
+			System.out.println("date" + releaseDate);
+			
+			
+			
+			
+			//
+			//String path = context.getRealPath("/img/");
+			
+			
 			BeanUtils.copyProperties(form, cinema);
 			
+			
+				Date before = new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate);
+				String strReleaseDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(before);
+				Date after = new SimpleDateFormat("yyyy-MM-dd").parse(strReleaseDate);
+				cinema.setReleaseDate(after);
+				
+			
 			if( ! form.getImagePath().isEmpty() ) {
-				form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
-				cinema.setImagePath(form.getImagePath().getOriginalFilename());
+				
+				String encode = Base64.getEncoder().encodeToString(form.getImagePath().getBytes());
+				cinema.setImagePath(encode);
+				/*↓イメージの画像の名前を分けて取得しています*/
+				//form.getImagePath().transferTo( new File( path + form.getImagePath().getOriginalFilename() ));
+				//cinema.setImagePath(form.getImagePath().getOriginalFilename());
 			} else {
 				cinema.setImagePath(form.getOriginallyImagePath());
 			}
-			cinema.setPrice(form.getIntPrice());
-			cinema.setTime(form.getIntTime());
-			
+		
 			service.save(cinema);
 		    model.addAttribute("message", "正常に登録が完了しました");
 			return index(form.getId(), model);
