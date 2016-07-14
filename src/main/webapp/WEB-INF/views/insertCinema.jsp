@@ -47,6 +47,7 @@
 </div>
 <br>
 <div align="center">
+<a href="<%=request.getContextPath() %>/admin/bulkDownload/">商品一括ダウンロード</a>
 	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>
 

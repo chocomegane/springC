@@ -67,7 +67,7 @@ function doThis() {
     $('img:hidden').eq(0).fadeIn(500);//一つずつ表示する
     i++;
 } 
-
+*/
 
 $(function() {
 	  $('#accordion dd').hide();
@@ -82,15 +82,8 @@ $(function(){
     $(".open").click(function(){
       $("#slideBox").slideToggle("slow");
     });
-});*/
-$(function() {
-	  $('#accordion dd').hide();
-	  $('#accordion dt a').click(function(){
-	    $('#accordion dd').slideUp();
-	    $(this).parent().next().slideDown();
-	    return false;
-	  });
-	});
+});
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,13 +1,16 @@
 package jp.co.rakus.ecommers.web;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import au.com.bytecode.opencsv.CSVReader;
 import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.service.OrderListService;
 
@@ -40,14 +45,20 @@ public class InsertCinemaController {
 	@Autowired
 	private OrderListService service;
 	
+	
 	@Autowired
 	private ServletContext context;
 	
 	private static final int MAX_FILE_SIZE = 5242880; // 1024*1024*5 5MB = 5242880byte
 		
 	@ModelAttribute
-	public CinemaForm setUpForm() {
+	public CinemaForm setUpCinemaForm() {
 		return new CinemaForm();
+	}
+	
+	@ModelAttribute
+	public BulkCinemaForm setUpBulkCinemaForm() {
+		return new BulkCinemaForm();
 	}
 	
 	/**
@@ -156,4 +167,57 @@ public class InsertCinemaController {
 			return "insertCinema";
 		}
 	}
-}
+
+		/**
+		 * 一括ダウンロード用メソッド.
+		 * @return
+		 */
+
+		@RequestMapping("/bulkDownload")
+		public String BulkDownload()
+		{
+			return "bulkDownload";
+		}
+		
+		
+		
+		@RequestMapping("/bulkDownload/exe")
+		public String BulkInsert(BulkCinemaForm form) throws IllegalStateException, IOException, ParseException
+		{
+			MultipartFile csvMultipartFile=  form.getCsvFile();
+			String path = context.getRealPath("/tmp/upload/");
+			csvMultipartFile.transferTo( new File( path + csvMultipartFile.getOriginalFilename() ));
+			try{
+				File csvFile = new File(path + csvMultipartFile.getOriginalFilename());
+				CSVReader reader= new CSVReader(new FileReader(csvFile));
+				String[] cinemaInformation;
+				 while((cinemaInformation = reader.readNext()) != null){
+					 Cinema cinema = new Cinema();
+					    cinema.setTitle(cinemaInformation[0]);
+ 					    cinema.setPrice(Integer.parseInt(cinemaInformation[1]));
+					    cinema.setGenre(cinemaInformation[2]);
+					    cinema.setTime(Integer.parseInt(cinemaInformation[3]));
+					    cinema.setReleaseDate( new SimpleDateFormat("yyyy/MM/dd").parse(cinemaInformation[4]));
+					    cinema.setMediaType(cinemaInformation[5]);
+					    cinema.setCompany(cinemaInformation[6]);
+					    cinema.setDirectedBy(cinemaInformation[7]);
+					    cinema.setRating(cinemaInformation[8]);
+					    cinema.setDescription(cinemaInformation[9]);
+					    cinema.setImagePath(cinemaInformation[10]);
+					    cinema.setDeleted(false);
+					    
+					    service.save(cinema);    
+				 }
+			}catch(FileNotFoundException e)
+			{
+				System.out.println(e);
+			}catch (IOException e) {
+				System.out.println(e);
+			}
+				
+			
+			
+			return "bulkDownload";
+		}
+		
+	}

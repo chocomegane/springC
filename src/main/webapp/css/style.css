@@ -39,6 +39,7 @@ a#toInsertMember{
   background: #ddd;
   padding: 10px;
   border-top: 1px #ccc solid;
+  
 }
 #accordion dt a {
   color: #000;
@@ -47,7 +48,5 @@ a#toInsertMember{
 }
 #accordion dd {
   padding: 10px;
-  font-size: 1.5em;
-  font-size: 80%;
 }
 
