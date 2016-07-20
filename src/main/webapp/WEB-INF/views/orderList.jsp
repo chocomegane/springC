@@ -35,6 +35,7 @@
 				</tr>
 			</c:forEach>	
 		</table>
+		<a href="<%=request.getContextPath() %>/admin/csvDownload">csvfileダウンロード</a>
 	</c:when>
 	
 	<c:otherwise>
@@ -43,8 +44,10 @@
 			
 </c:choose>	
 
+
 </div>
 <br>
+	<c:out value="${errMessage}" />
 <div align="center">
 	<a href="<%=request.getContextPath() %>/admin/menu">メニューへ戻る</a>
 </div>

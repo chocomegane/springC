@@ -6,6 +6,8 @@
 <body>
 <div align="center" >
 <h1>一括ダウンロード</h1>
+<h2>csvfileは　"タイトル","金額","ジャンル","公開日","メディアタイプ","作成会社","監督","レーティング","詳細","imgCode or imgPath"の順で作成してください</h2>
+<h2>zipfileには直下にイメージを入れてください</h2>
 <h3>イメージコード</h3>
 <form:form action="${pageContext.request.contextPath}/admin/bulkDownload/exe" modelAttribute="bulkCinemaForm" enctype="multipart/form-data">
 <c:out value="${csvErrMassegePath}" />

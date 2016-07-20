@@ -414,6 +414,11 @@ public class InsertCinemaController {
 		return "bulkDownload";
 
 	}
+	
+	
+	
+	
+	
 
 	/**
 	 * 拡張子をとるメソッド
@@ -422,8 +427,9 @@ public class InsertCinemaController {
 	 * @return
 	 */
 	public static String getSuffix(String fileName) {
-		if (fileName == null)
+		if (fileName == null){
 			return null;
+			}
 		int point = fileName.lastIndexOf(".");
 		if (point != -1) {
 			return fileName.substring(point + 1);
