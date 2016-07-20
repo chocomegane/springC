@@ -12,4 +12,8 @@ import lombok.NoArgsConstructor;
 public class BulkCinemaForm {
 	/** csv*/
 	private MultipartFile csvFile;
+	
+	private MultipartFile zipFile;
+	
+	private String downloadType;
 }
