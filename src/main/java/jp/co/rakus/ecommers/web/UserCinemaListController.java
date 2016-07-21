@@ -1,14 +1,20 @@
 package jp.co.rakus.ecommers.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jp.co.rakus.ecommers.domain.Cinema;
 import jp.co.rakus.ecommers.domain.Guest;
 import jp.co.rakus.ecommers.service.CinemaListService;
+import net.arnx.jsonic.JSON;
 
 /**
  * 商品一覧を取得するクラス.
@@ -22,8 +28,6 @@ import jp.co.rakus.ecommers.service.CinemaListService;
 @RequestMapping
 public class UserCinemaListController {
 
-	@Autowired
-	private CinemaListService service;
 	
 	/**
 	 * 商品一覧を全件取得するメソッド.
@@ -34,14 +38,14 @@ public class UserCinemaListController {
 	@RequestMapping
 	public String list(Model model){
 		
+		
 		Guest guest = new Guest();
 		guest.setName("ゲスト");
 		model.addAttribute("guest",guest);
 		
-		
-		CinemaListPage listPage = service.findAll();
-		
-		model.addAttribute("listPage", listPage);
+//		CinemaListPage listPage = service.findAll();
+//		
+//		model.addAttribute("listPage", listPage);
 		
 		return "userCinemaList";
 	}
