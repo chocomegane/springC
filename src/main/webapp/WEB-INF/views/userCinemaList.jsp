@@ -1,67 +1,143 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="userCommon.jsp"%>
 <script type="text/javascript">
+$(function(){
+	
+	var contextPath = $("#contextPath").val();
+	
+	$.getJSON(
+			contextPath + '/json/exe',
+			function(json) {
+
+					var htmlSource ="<br>";
+				for (var i = 0; i < json.length; i++) {
+
+					var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
+					var imagePath = json[i].imagePath;
+					var title = json[i].title;
+					var director = json[i].directedBy;
+					var price = String(json[i].price).replace(
+							numberFormat, '$1,');
+					var id = json[i].id;
+					if ((i+1) % 4 == 0 && !i == 0) {
+						var cinemaDataTemplate =
+						'<th>'
+								+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+								+ '</tr><tr>'
+								provisionalHtmlSource =  cinemaDataTemplate
+										.replace(/%{ID}/g, id)
+										.replace(/%{CONTEXTPATH}/g,
+												contextPath)
+										.replace(/%{IMAGEPATH}/g,
+												imagePath)
+										.replace(/%{DIRECTOR}/g,
+												director)
+										.replace(/%{TITLE}/g, title)
+										.replace(/%{PRICE}/g, price)
+								
+					}else {
+						var cinemaDataTemplate = '<th>'
+								+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
+					
+						 provisionalHtmlSource =  cinemaDataTemplate
+										.replace(/%{ID}/g, id)
+										.replace(/%{CONTEXTPATH}/g,
+												contextPath)
+										.replace(/%{IMAGEPATH}/g,
+												imagePath)
+										.replace(/%{DIRECTOR}/g,
+												director)
+										.replace(/%{TITLE}/g, title)
+										.replace(/%{PRICE}/g, price)
+								
+
+					}
+					htmlSource = htmlSource + provisionalHtmlSource;
+				
+
+				}
+				
+				htmlSource = '<table class="table table-striped"><tbody><tr>'
+					+htmlSource+ '</tr></tbody></table>';
+					
+					$("#dvd").append(htmlSource);
+
+			});	
+});
+
 	$(function() {
 		var contextPath = $("#contextPath").val();
-		$
-				.getJSON(
-						contextPath + '/json/exe',
-						function(json) {
 
-								var htmlSource ="<br>";
-							for (var i = 0; i < json.length; i++) {
+		$('.pagings').on('click',function(){
+			
+			var page = $(this).val();
+			
+			
+			
+			$.getJSON(
+					contextPath + '/json/exe/paging?page='+page,
+					function(json) {
 
-								var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
-								var imagePath = json[i].imagePath;
-								var title = json[i].title;
-								var director = json[i].directedBy;
-								var price = String(json[i].price).replace(
-										numberFormat, '$1,');
-								var id = json[i].id;
-								if ((i+1) % 4 == 0 && !i == 0) {
-									var cinemaDataTemplate =
-									'<th>'
-											+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-											+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
-											+ '</tr><tr>'
-											provisionalHtmlSource =  cinemaDataTemplate
-													.replace(/%{ID}/g, id)
-													.replace(/%{CONTEXTPATH}/g,
-															contextPath)
-													.replace(/%{IMAGEPATH}/g,
-															imagePath)
-													.replace(/%{DIRECTOR}/g,
-															director)
-													.replace(/%{TITLE}/g, title)
-													.replace(/%{PRICE}/g, price)
-											
-								}else {
-									var cinemaDataTemplate = '<th>'
-											+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-											+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
-									/* '</tr></tbody></table>' */
-									 provisionalHtmlSource =  cinemaDataTemplate
-													.replace(/%{ID}/g, id)
-													.replace(/%{CONTEXTPATH}/g,
-															contextPath)
-													.replace(/%{IMAGEPATH}/g,
-															imagePath)
-													.replace(/%{DIRECTOR}/g,
-															director)
-													.replace(/%{TITLE}/g, title)
-													.replace(/%{PRICE}/g, price)
-											
+							var htmlSource ="<br>";
+						for (var i = 0; i < json.length; i++) {
 
-								}
-								htmlSource = htmlSource + provisionalHtmlSource;
+							var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
+							var imagePath = json[i].imagePath;
+							var title = json[i].title;
+							var director = json[i].directedBy;
+							var price = String(json[i].price).replace(
+									numberFormat, '$1,');
+							var id = json[i].id;
+							if ((i+1) % 4 == 0 && !i == 0) {
+								var cinemaDataTemplate =
+								'<th>'
+										+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+										+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+										+ '</tr><tr>'
+										provisionalHtmlSource =  cinemaDataTemplate
+												.replace(/%{ID}/g, id)
+												.replace(/%{CONTEXTPATH}/g,
+														contextPath)
+												.replace(/%{IMAGEPATH}/g,
+														imagePath)
+												.replace(/%{DIRECTOR}/g,
+														director)
+												.replace(/%{TITLE}/g, title)
+												.replace(/%{PRICE}/g, price)
+										
+							}else {
+								var cinemaDataTemplate = '<th>'
+										+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+										+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
 							
+								 provisionalHtmlSource =  cinemaDataTemplate
+												.replace(/%{ID}/g, id)
+												.replace(/%{CONTEXTPATH}/g,
+														contextPath)
+												.replace(/%{IMAGEPATH}/g,
+														imagePath)
+												.replace(/%{DIRECTOR}/g,
+														director)
+												.replace(/%{TITLE}/g, title)
+												.replace(/%{PRICE}/g, price)
+										
 
 							}
-							htmlSource = '<table class="table table-striped"><tbody><tr>'
-								+htmlSource+ '</tr></tbody></table>';
-								$("#dvd").append(htmlSource);
+							htmlSource = htmlSource + provisionalHtmlSource;
+						
 
-						});
+						}
+						
+						htmlSource = '<table class="table table-striped"><tbody><tr>'
+							+htmlSource+ '</tr></tbody></table>';
+							
+							$("#dvd").append(htmlSource);
+
+					});	
+		});
+		
 	});
 	<!--
 //-->
@@ -130,32 +206,28 @@
 
 	<div id="dvd">
 
-		<%-- <table class="table table-striped">
-	<tbody>
-		<tr>
-	<c:forEach var="child" items="${listPage.childPageList}" varStatus="status">
-					<th>
-
-						<a href="<%=request.getContextPath() %>/detail/${child.id}">
-						<img src="${child.imagePath}" 
-						class="img-responsive img-rounded" width="100" height="300">
-						
-						</a>
-						<br><a href="<%=request.getContextPath() %>/detail/${child.id}"><c:out value="${child.title}"/></a><br>
-						<br><c:out value="${child.directedBy}"/><br>
-						<br><fmt:formatNumber value="${child.price}" pattern="#,###円"/>
-					</th>
-					<c:if test="${status.count%4==0}"> 
-					</tr>
-					<tr>
-					</c:if>
-		</c:forEach>
-		</tr>
-	</tbody>
-</table> --%>
+		
 	</div>
+	 <div id="page">
+	 <table>
+	 <tr>
+	 <c:forEach varStatus="status" begin="1" step="1" end="${pageNumber}">
+	 <td>
+	 <p class="document">
+	 <input  type="submit" value="${status.index}" id="paging_${status.index}" class="pagings"/>
+	 <%-- <a href="<%= request.getContextPath()%>/?pageNumber="+<c:out value="${status.index}"/>"><c:out value="${status.index}" /></a> --%>
+	 </p>
+	 </td>
+	 </c:forEach>
+	 </tr>
+	 </table>
+	 
 
+	 
+	</div> 
+	<input type="hidden" id="pageNumber" value="${pageNumber}">
 	<input type="hidden" id="contextPath"
 		value="${pageContext.request.contextPath}">
-	</body>
+		
+		</body>
 	</html>

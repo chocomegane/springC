@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -26,6 +27,9 @@ public class CinemaRepository {
 	/** NamedParameterJdbcTemplateを利用するためのDI */
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	/**
 	 * 映画クラスのRowMapper
@@ -344,6 +348,26 @@ public class CinemaRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("genre", genre);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
+	}
+	
+	/**
+	 * シネマの数を検索します。
+	 * @return
+	 */
+	public long cinemasNumber()
+	{
+		String sql =  "select count(*) from cinemas";
+		
+		return jdbcTemplate.queryForObject(sql,Long.class);
+	}
+	
+	public List<Cinema> cinemaNumberSearch(int firstListNumber)
+	{
+		SqlParameterSource param = new MapSqlParameterSource().addValue("firstListNumber", firstListNumber);
+		String sql = "select * from cinemas order by title limit 20 offset :firstListNumber";
+		template.query(sql, param, cinemaRowMapper);
+		
+		return template.query(sql, param, cinemaRowMapper);
 	}
 
 }

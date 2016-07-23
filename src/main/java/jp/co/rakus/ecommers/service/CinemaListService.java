@@ -344,5 +344,14 @@ public class CinemaListService {
 		return listPage;
 	}
 	
+	public long cinemaNumber()
+	{
+		return repository.cinemasNumber();
+	}
+	public List<Cinema> cinemaNumberSearch(int firstListNumber)
+	{
+		return repository.cinemaNumberSearch(firstListNumber);
+	}
+	
 }
 
