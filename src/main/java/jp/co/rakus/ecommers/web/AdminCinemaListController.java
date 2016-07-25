@@ -32,6 +32,9 @@ public class AdminCinemaListController {
 	@RequestMapping(value="/displayList")
 	public String list(Model model){
 		CinemaListPage listPage = service.findAll();
+		long cinemaNumber =  service.cinemaNumber();
+		long pageNumber = cinemaNumber%20;
+		model.addAttribute("pageNumber", pageNumber);
 		
 		model.addAttribute("listPage", listPage);
 		
