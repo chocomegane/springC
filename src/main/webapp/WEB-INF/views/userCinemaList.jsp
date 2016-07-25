@@ -22,8 +22,8 @@ $(function(){
 					if ((i+1) % 4 == 0 && !i == 0) {
 						var cinemaDataTemplate =
 						'<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
 								+ '</tr><tr>'
 								provisionalHtmlSource =  cinemaDataTemplate
 										.replace(/%{ID}/g, id)
@@ -38,8 +38,8 @@ $(function(){
 								
 					}else {
 						var cinemaDataTemplate = '<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
+								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
 					
 						 provisionalHtmlSource =  cinemaDataTemplate
 										.replace(/%{ID}/g, id)
@@ -59,7 +59,7 @@ $(function(){
 
 				}
 				
-				htmlSource = '<table class="table table-striped"><tbody><tr>'
+				htmlSource = '1ページ<br><table class="table table-striped"><tbody><tr>'
 					+htmlSource+ '</tr></tbody></table>';
 					
 					$("#dvd").append(htmlSource);
@@ -73,8 +73,7 @@ $(function(){
 		$('.pagings').on('click',function(){
 			
 			var page = $(this).val();
-			
-			
+			page=page-1;
 			
 			$.getJSON(
 					contextPath + '/json/exe/paging?page='+page,
@@ -82,6 +81,7 @@ $(function(){
 
 							var htmlSource ="<br>";
 						for (var i = 0; i < json.length; i++) {
+							
 
 							var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
 							var imagePath = json[i].imagePath;
@@ -93,8 +93,8 @@ $(function(){
 							if ((i+1) % 4 == 0 && !i == 0) {
 								var cinemaDataTemplate =
 								'<th>'
-										+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-										+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+										+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+										+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
 										+ '</tr><tr>'
 										provisionalHtmlSource =  cinemaDataTemplate
 												.replace(/%{ID}/g, id)
@@ -109,8 +109,8 @@ $(function(){
 										
 							}else {
 								var cinemaDataTemplate = '<th>'
-										+ '<a href="%{CONTEXTPATH}/detail/?id=%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-										+ '<br><a href="%{CONTEXTPATH}/detail/?id=%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
+										+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+										+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
 							
 								 provisionalHtmlSource =  cinemaDataTemplate
 												.replace(/%{ID}/g, id)
@@ -126,14 +126,15 @@ $(function(){
 
 							}
 							htmlSource = htmlSource + provisionalHtmlSource;
+								
 						
 
 						}
 						
-						htmlSource = '<table class="table table-striped"><tbody><tr>'
+						htmlSource = page+1+'ページ<br><table class="table table-striped"><tbody><tr>'
 							+htmlSource+ '</tr></tbody></table>';
+							$("#dvd").html(htmlSource);
 							
-							$("#dvd").append(htmlSource);
 
 					});	
 		});
@@ -205,8 +206,6 @@ $(function(){
 	</font> <br> <br> <br>
 
 	<div id="dvd">
-
-		
 	</div>
 	 <div id="page">
 	 <table>
