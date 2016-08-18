@@ -30,6 +30,10 @@ public class CinemaRepository {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	StringBuilder sb = new StringBuilder();
+	
+	private final String SERCHCHARACTER =  serchCharacter();
 
 	/**
 	 * 映画クラスのRowMapper
@@ -179,29 +183,37 @@ public class CinemaRepository {
 	 * @return
 	 */
 	public List<Cinema> findByTitle(String title){
+//		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
+//				+ "company,directed_by,rating,description,image_path,deleted "
+//				+ "FROM cinemas WHERE translate(UPPER(title),"
+//				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
+//				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
+//				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
+//				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
+//				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
+//				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
+//				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
+//				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+//				+ "LIKE translate(UPPER(:title), "
+//				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
+//				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
+//				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
+//				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
+//				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
+//				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
+//				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
+//				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
+//				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = false ORDER BY title";
+		
 		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
 				+ "FROM cinemas WHERE translate(UPPER(title),"
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
-				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
-				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
-				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
-				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
-				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
-				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+				+SERCHCHARACTER
 				+ "LIKE translate(UPPER(:title), "
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
-				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
-				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
-				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
-				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
-				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
-				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
-				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = false ORDER BY title";
+				+ SERCHCHARACTER 
+				+ " AND deleted = false ORDER BY title";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
@@ -252,29 +264,13 @@ public class CinemaRepository {
 	 * @return
 	 */
 	public List<Cinema> findByDeleteTitle(String title){
+		
 		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
 				+ "FROM cinemas WHERE translate(UPPER(title),"
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
-				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
-				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
-				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
-				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
-				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
-				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+				+ SERCHCHARACTER
 				+ "LIKE translate(UPPER(:title), "
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
-				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
-				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
-				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
-				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
-				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
-				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
-				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = true ORDER BY title";
+				+ SERCHCHARACTER +" AND deleted = true ORDER BY title";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
@@ -368,6 +364,23 @@ public class CinemaRepository {
 		template.query(sql, param, cinemaRowMapper);
 		
 		return template.query(sql, param, cinemaRowMapper);
+	}
+	
+	public String serchCharacter()
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+		.append("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ")
+		.append("ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ")
+		.append("でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー")
+		.append("ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', ")
+		.append("'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ")
+		.append("サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ")
+		.append("ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ")
+		.append("ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー')");
+		
+		return sb.toString();
 	}
 
 }

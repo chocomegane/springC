@@ -35,16 +35,13 @@ public class UserCinemaListController {
 	@RequestMapping
 	public String list( Model model){
 		
-		
-
 		Guest guest = new Guest();
 		guest.setName("ゲスト");
 		model.addAttribute("guest",guest);
 		long cinemaNumber =  service.cinemaNumber();
 		long pageNumber = cinemaNumber%20;
-		
  		model.addAttribute("pageNumber",pageNumber);
- 		
+ 		model.addAttribute("cinemaNumber",cinemaNumber);
 		
 		return "userCinemaList";
 	}

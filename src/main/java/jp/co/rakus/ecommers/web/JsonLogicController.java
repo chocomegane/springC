@@ -52,4 +52,44 @@ public class JsonLogicController {
 	
 	
 	
+	@RequestMapping("/exe/searchTitle")
+	@ResponseBody
+	public String searchTitleJson(@RequestParam String title)
+	{
+		CinemaListPage page = service.findByTitle(title);
+		String json = JSON.encode(page.getChildPageList());
+		
+		return json;
+	}
+	
+//	@RequestMapping("/exe/items")
+//	@ResponseBody
+//	public String itemsJson(@RequestParam String searchType)
+//	{
+//		
+//		if(searchType.equals("title"))
+//		{
+//			//todo
+//			//return json;
+//		}
+//		if()
+//		{
+//			//todo
+//			//return json;
+//		}
+//		if(){
+//			//todo
+//			//return json;
+//		}
+//		long items = service.cinemaNumber();
+//        String json = JSON.encode(items);
+//		
+//		return json;
+//	}
+	
+	
+	
+	
+	
+	
 }
