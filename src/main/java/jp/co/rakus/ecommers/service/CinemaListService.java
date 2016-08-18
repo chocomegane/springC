@@ -74,19 +74,7 @@ public class CinemaListService {
 	public CinemaListPage findByMinMaxPrice(Integer minPrice, Integer maxPrice) {
 		List<Cinema> cinemaList = repository.findByMinMaxPrice(minPrice, maxPrice);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return cinemaListPageAdd(cinemaList);
 	}
 
 	/**
@@ -160,6 +148,7 @@ public class CinemaListService {
 
 		return cinemaListPageAdd(cinemaList);
 	}
+
 	/**
 	 * 二つの価格の条件から削除された商品を検索するメソッド.
 	 * 
@@ -172,7 +161,6 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteMinMaxPrice(Integer minPrice, Integer maxPrice) {
 		List<Cinema> cinemaList = repository.findByDeleteMinMaxPrice(minPrice, maxPrice);
 
-		
 		return cinemaListPageAdd(cinemaList);
 	}
 
@@ -218,13 +206,12 @@ public class CinemaListService {
 	public List<Cinema> cinemaNumberSearch(int firstListNumber) {
 		return repository.cinemaNumberSearch(firstListNumber);
 	}
-	
+
 	/**
 	 * @param cinemaList
 	 * @return
 	 */
-	public CinemaListPage cinemaListPageAdd( List<Cinema> cinemaList)
-	{
+	public CinemaListPage cinemaListPageAdd(List<Cinema> cinemaList) {
 		CinemaListPage listPage = new CinemaListPage();
 
 		List<CinemaChildPage> childSet = new ArrayList<>();
@@ -237,5 +224,5 @@ public class CinemaListService {
 		}
 		return listPage;
 	}
-		
+
 }
