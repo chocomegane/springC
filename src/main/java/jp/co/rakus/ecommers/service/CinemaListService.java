@@ -32,20 +32,7 @@ public class CinemaListService {
 	public CinemaListPage findAll() {
 		List<Cinema> cinemaList = repository.findAll();
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		// forの中でgetをしているため一度インスタンスを生成してsetしておく
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 
 	}
 
@@ -59,19 +46,7 @@ public class CinemaListService {
 	public CinemaListPage findByGenre(String genre) {
 		List<Cinema> cinemaList = repository.findByGenre(genre);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 
 	/**
@@ -84,19 +59,7 @@ public class CinemaListService {
 	public CinemaListPage findByMediaType(String mediaType) {
 		List<Cinema> cinemaList = repository.findByMediaType(mediaType);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	/**
@@ -109,19 +72,7 @@ public class CinemaListService {
 	public CinemaListPage findByMinMaxPrice(Integer minPrice, Integer maxPrice){
 		List<Cinema> cinemaList = repository.findByMinMaxPrice(minPrice, maxPrice);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	/**
@@ -133,19 +84,7 @@ public class CinemaListService {
 	public CinemaListPage findByMinPrice(Integer minPrice){
 		List<Cinema> cinemaList = repository.findByMinPrice(minPrice);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	public Cinema findById(Long id) {
@@ -161,19 +100,7 @@ public class CinemaListService {
 	public CinemaListPage findByTitle(String title){
 		List<Cinema> cinemaList = repository.findByTitle(title);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	/**
@@ -204,20 +131,7 @@ public class CinemaListService {
 	public CinemaListPage findByDelete() {
 		List<Cinema> cinemaList = repository.findByDelete();
 		
-		CinemaListPage listPage = new CinemaListPage();
-		
-		// forの中でgetをしているため一度インスタンスを生成してsetしておく
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-		
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-			
-			listPage.getChildPageList().add(child);
-		}
-		
-		return listPage;
+		return listPageAdd(cinemaList);
 		
 	}
 	
@@ -230,19 +144,7 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteTitle(String title){
 		List<Cinema> cinemaList = repository.findByDeleteTitle(title);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 
 	/**
@@ -255,19 +157,7 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteMinMaxPrice(Integer minPrice, Integer maxPrice){
 		List<Cinema> cinemaList = repository.findByDeleteMinMaxPrice(minPrice, maxPrice);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	/**
@@ -279,19 +169,7 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteMinPrice(Integer minPrice){
 		List<Cinema> cinemaList = repository.findByDeleteMinPrice(minPrice);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 	
 	/**
@@ -304,19 +182,7 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteGenre(String genre) {
 		List<Cinema> cinemaList = repository.findByDeleteGenre(genre);
 
-		CinemaListPage listPage = new CinemaListPage();
-
-		List<CinemaChildPage> childSet = new ArrayList<>();
-		listPage.setChildPageList(childSet);
-
-		for (Cinema cinema : cinemaList) {
-			CinemaChildPage child = new CinemaChildPage();
-			BeanUtils.copyProperties(cinema, child);
-
-			listPage.getChildPageList().add(child);
-		}
-
-		return listPage;
+		return listPageAdd(cinemaList);
 	}
 
 	/**
@@ -329,6 +195,20 @@ public class CinemaListService {
 	public CinemaListPage findByDeleteMediaType(String mediaType) {
 		List<Cinema> cinemaList = repository.findByDeleteMediaType(mediaType);
 
+		return listPageAdd(cinemaList);
+	}
+	
+	public long cinemaNumber()
+	{
+		return repository.cinemasNumber();
+	}
+	public List<Cinema> cinemaNumberSearch(int firstListNumber)
+	{
+		return repository.cinemaNumberSearch(firstListNumber);
+	}
+	
+	public CinemaListPage listPageAdd(List<Cinema> cinemaList)
+	{
 		CinemaListPage listPage = new CinemaListPage();
 
 		List<CinemaChildPage> childSet = new ArrayList<>();
@@ -342,15 +222,6 @@ public class CinemaListService {
 		}
 
 		return listPage;
-	}
-	
-	public long cinemaNumber()
-	{
-		return repository.cinemasNumber();
-	}
-	public List<Cinema> cinemaNumberSearch(int firstListNumber)
-	{
-		return repository.cinemaNumberSearch(firstListNumber);
 	}
 	
 }
