@@ -18,5 +18,5 @@ import lombok.NoArgsConstructor;
 public class CinemaListPage {
 
 	private List<CinemaChildPage> childPageList;
-	
+
 }

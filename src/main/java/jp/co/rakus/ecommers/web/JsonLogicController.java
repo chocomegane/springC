@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.web;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,10 @@ public class JsonLogicController {
 
 	@Autowired
 	private CinemaListService service;
-	
-	
+
 	/**
 	 * jsonの実装メソッドfindAllします
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/exe")
@@ -31,25 +30,23 @@ public class JsonLogicController {
 	public String jsonExe() {
 
 		// json
-		
+
 		int firstListNumber = 0;
 		List<Cinema> cinemaList = service.cinemaNumberSearch(firstListNumber);
 		String json = JSON.encode(cinemaList);
-		
+
 		return json;
-		
+
 	}
+
 	@RequestMapping("/exe/paging")
 	@ResponseBody
-	public String jsonExe(@RequestParam int page)
-	{
-		int firstListNumber = 20*page;
+	public String jsonExe(@RequestParam int page) {
+		int firstListNumber = 20 * page;
 		List<Cinema> cinemaList = service.cinemaNumberSearch(firstListNumber);
 		String json = JSON.encode(cinemaList);
-		
+
 		return json;
 	}
-	
-	
-	
+
 }

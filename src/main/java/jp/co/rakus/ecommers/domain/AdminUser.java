@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 管理者を表すDTOクラス.
+ * 
  * @author kohei.sakata
  *
  */

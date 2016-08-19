@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/test")
 public class Test {
 	@RequestMapping()
-	public String test()
-	{
+	public String test() {
 		return "test";
 	}
 

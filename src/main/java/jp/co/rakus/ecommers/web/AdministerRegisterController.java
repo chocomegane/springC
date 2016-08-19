@@ -48,20 +48,18 @@ public class AdministerRegisterController {
 	 * @return 管理者メニューにフォワード
 	 */
 	@RequestMapping(value = "/adminRegister")
-	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result, RedirectAttributes redirect, Model model)
-	{
+	public String adminInsert(@Validated AdminUserRegisterForm form, BindingResult result, RedirectAttributes redirect,
+			Model model) {
 		String email = form.getEmail(); //
 		String confirmationPassword = form.getConfirmationPassword();
-		String password = form.getPassword(); 
-		System.out.println(password+":"+confirmationPassword);
-		if(result.hasErrors())
-		{
+		String password = form.getPassword();
+		System.out.println(password + ":" + confirmationPassword);
+		if (result.hasErrors()) {
 			return index();
 		}
-		boolean error = false; 
-		
-		if(!password.equals(confirmationPassword))
-		{
+		boolean error = false;
+
+		if (!password.equals(confirmationPassword)) {
 			String err = "確認パスワードとパスワードが違います";
 			redirect.addFlashAttribute("err1", err);
 			error = true;
@@ -70,23 +68,24 @@ public class AdministerRegisterController {
 		AdminUser adminUser = new AdminUser();
 		BeanUtils.copyProperties(form, adminUser);
 		String rawPssword = adminUser.getPassword();
-	    register(adminUser, rawPssword);
-//	    System.out.println(adminUser);
-	    AdminUser testUser = service.findByEmail(email);
-	 
-	    if(!(testUser == null)) {
-	    	String err = "そのアドレスはすでに使われています" ;
-	    	redirect.addFlashAttribute("err2",err);
-	    	error = true;
-	    	// return "redirect:/admin/register/";
-	    }
-//	    System.out.println(adminUser);
+		register(adminUser, rawPssword);
+		// System.out.println(adminUser);
+		AdminUser testUser = service.findByEmail(email);
 
-	    if(error == true) return "redirect:/admin/register/";
-	    
+		if (!(testUser == null)) {
+			String err = "そのアドレスはすでに使われています";
+			redirect.addFlashAttribute("err2", err);
+			error = true;
+			// return "redirect:/admin/register/";
+		}
+		// System.out.println(adminUser);
+
+		if (error == true)
+			return "redirect:/admin/register/";
+
 		service.adminInsert(adminUser);
 		return "redirect:/admin/menu";
-		
+
 	}
 
 	/**

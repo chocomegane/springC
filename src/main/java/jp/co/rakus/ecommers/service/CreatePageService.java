@@ -19,6 +19,7 @@ import jp.co.rakus.ecommers.web.OrderListDetailPage;
 /**
  * OrderListDetailPageオブジェクトを作成するためのService.
  * 注)私のServiceクラスの実装の仕方が悪かったので、このServiceクラスから他のServiceクラスを呼んでます
+ * 
  * @author yusuke.nakano
  *
  */
@@ -42,11 +43,11 @@ public class CreatePageService {
 		// (orderNumber=注文番号'00001') 購入者の住所
 		Order order = service1.findByOrderNumber(orderNumber);
 		User user = service2.findById(order.getUserId());
-		
+
 		System.out.println("1");
 		System.out.println(order);
 		System.out.println(user);
-							
+
 		// 購入商品詳細
 		List<OrderItem> itemList = service3.findById(order.getId());
 		List<Cinema> cinemaList = new LinkedList<>();
@@ -54,11 +55,11 @@ public class CreatePageService {
 			Cinema cinema = service4.findById(item.getCinemaId());
 			cinemaList.add(cinema);
 		}
-		
+
 		System.out.println("2");
 		System.out.println(itemList);
 		System.out.println(cinemaList);
-		
+
 		OrderListDetailPage page = new OrderListDetailPage();
 		List<OrderListDetailChildPage> init = new ArrayList<>();
 		page.setChildPage(init);
@@ -68,10 +69,10 @@ public class CreatePageService {
 		page.setEmail(user.getEmail());
 		page.setAddress(user.getAddress());
 		page.setTelephone(user.getTelephone());
-		
+
 		System.out.println("3");
 		System.out.println(page);
-		
+
 		for (int i = 0; i < itemList.size(); i++) {
 			OrderListDetailChildPage childPage = new OrderListDetailChildPage();
 			childPage.setTitle(cinemaList.get(i).getTitle());
@@ -80,9 +81,9 @@ public class CreatePageService {
 			childPage.setTotal(cinemaList.get(i).getPrice() * itemList.get(i).getQuantity());
 			page.getChildPage().add(childPage);
 		}
-		
+
 		System.out.println("4");
-		
+
 		Integer total = 0;
 		Integer tax = 0;
 		for (int j = 0; j < page.getChildPage().size(); j++) {
@@ -115,7 +116,7 @@ public class CreatePageService {
 			page.setStatus("キャンセル");
 			break;
 		}
-				
+
 		return page;
 	}
 }

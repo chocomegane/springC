@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.domain;
 
-
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +31,7 @@ public class Cart {
 	private Date date;
 	/** カート内にある映画のID */
 	private long orderCinemaId;
-	/**映画ID */
+	/** 映画ID */
 	private long cinemaId;
 	/** 注文個数 */
 	private Integer quantity;

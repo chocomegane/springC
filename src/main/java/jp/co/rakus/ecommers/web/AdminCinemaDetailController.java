@@ -21,37 +21,36 @@ import jp.co.rakus.ecommers.service.OrderListService;
 @Transactional
 @RequestMapping(value = "/admin/cinemaDetail")
 public class AdminCinemaDetailController {
-	
+
 	@Autowired
 	private OrderListService service;
-	
+
 	@ModelAttribute
 	public CartForm setUpForm1() {
 		return new CartForm();
 	}
-	
+
 	// 追加
 	@ModelAttribute
 	public CinemaForm setUpForm2() {
 		return new CinemaForm();
 	}
-	
-//	@RequestMapping(value = "/")
-//	public String index(Model model){
-//		return "userCinemaList";
-//	}
-	
+
+	// @RequestMapping(value = "/")
+	// public String index(Model model){
+	// return "userCinemaList";
+	// }
+
 	/**
-	 * 商品の詳細表示を行う.
-	 * 商品一覧からリンクのIDを受け取り、それをもとに商品の検索を行う
+	 * 商品の詳細表示を行う. 商品一覧からリンクのIDを受け取り、それをもとに商品の検索を行う
 	 * 受け取った結果をCinemaDetailPageに格納し、それをリクエストスコープに入れる
 	 * 
 	 * @param model
-	 * @return　フォワード
+	 * @return フォワード
 	 */
 
 	@RequestMapping(value = "detail/{id}")
-	public String detail(@PathVariable("id") long id,Model model){
+	public String detail(@PathVariable("id") long id, Model model) {
 		CinemaDetailPage page = service.copyCinemaToPage(service.findOne(id));
 		model.addAttribute("cinemaDetail", page);
 		return "adminCinemaDetail";

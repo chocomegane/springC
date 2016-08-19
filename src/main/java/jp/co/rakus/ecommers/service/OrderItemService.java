@@ -10,6 +10,7 @@ import jp.co.rakus.ecommers.repository.OrderItemRepository;
 
 /**
  * OrderItemRepositoryを扱うserviceクラス.
+ * 
  * @author yusuke.nakano
  *
  */
@@ -18,9 +19,9 @@ public class OrderItemService {
 
 	@Autowired
 	private OrderItemRepository repository;
-	
+
 	public List<OrderItem> findById(Long id) {
 		return repository.findById(id);
 	}
-	
+
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 映画のDTO.
+ * 
  * @author yusuke.nakano
  *
  */
@@ -42,7 +43,7 @@ public class Cinema {
 	private String imagePath;
 	/** フラグ（削除） */
 	private boolean deleted;
-	
+
 	public String getStrReleaseDate() {
 		try {
 			Date date = this.releaseDate;

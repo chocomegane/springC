@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderListDetailPage {
-	
+
 	private String orderNumber;
 	private String userName;
 	private String email;
 	private String address;
 	private String telephone;
-	
+
 	private List<OrderListDetailChildPage> childPage;
-	
+
 	private Integer subTotal;
 	private Integer tax;
 	private Integer grandTotal;

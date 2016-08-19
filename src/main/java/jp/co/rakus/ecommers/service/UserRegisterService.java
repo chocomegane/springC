@@ -10,17 +10,13 @@ import jp.co.rakus.ecommers.repository.UserRepository;
 public class UserRegisterService {
 	@Autowired
 	private UserRepository repository;
-	
-	public void userInsert(User user)
-	{
+
+	public void userInsert(User user) {
 		repository.userInsert(user);
 	}
-	
-	public User findByEmail(String email)
-	{
-		 return repository.findByEmail(email);
+
+	public User findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
-	
-	
 
 }

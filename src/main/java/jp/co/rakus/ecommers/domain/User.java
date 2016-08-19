@@ -1,4 +1,4 @@
-		package jp.co.rakus.ecommers.domain;
+package jp.co.rakus.ecommers.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-	
+
 	/** 主キー */
 	private Long id;
 	/** 名前 */
@@ -27,10 +27,10 @@ public class User {
 	private String address;
 	/** 電話番号 */
 	private String telephone;
-	/**電話番号の上の桁*/
-	private String telephoneTop; 
-	/**電話番号の中の桁*/
+	/** 電話番号の上の桁 */
+	private String telephoneTop;
+	/** 電話番号の中の桁 */
 	private String telephoneMiddle;
-	/**電話番号の下の桁*/
+	/** 電話番号の下の桁 */
 	private String telephoneLast;
 }

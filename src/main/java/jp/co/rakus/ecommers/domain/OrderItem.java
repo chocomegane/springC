@@ -23,5 +23,5 @@ public class OrderItem {
 	private long orderId;
 	/** 個数 */
 	private Integer quantity;
-	
+
 }

@@ -19,7 +19,7 @@ import jp.co.rakus.ecommers.domain.AdminUser;
  */
 @Repository
 public class AdminUserRepository {
-	/** このRepositoyで扱うテーブルの名前  */
+	/** このRepositoyで扱うテーブルの名前 */
 	private static final String TABLE_NAME = "admin_users";
 
 	/** NamedParameterJdbcTemplateを利用するためのDI */
@@ -39,44 +39,35 @@ public class AdminUserRepository {
 
 	/**
 	 * メールアドレスから管理者を取得.
-	 * @param email メールアドレス
+	 * 
+	 * @param email
+	 *            メールアドレス
 	 * @return 管理者情報.管理者が存在しない場合はnull.
 	 */
 	public AdminUser findByEmail(String email) {
 		String sql = "SELECT id,name,email,password FROM " + TABLE_NAME + " WHERE email=:email;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("email",email);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		AdminUser adminUser = null;
-		try{
-			adminUser = jdbcTemplate.queryForObject(sql,param, ADMIN_ROW_MAPPER);
+		try {
+			adminUser = jdbcTemplate.queryForObject(sql, param, ADMIN_ROW_MAPPER);
 			return adminUser;
-		} catch(DataAccessException e) {
+		} catch (DataAccessException e) {
 			System.err.println("admin not found");
 			e.printStackTrace();
 			return null;
 		}
-		
-		
-		
-		
+
 	}
-	
-	
+
 	/**
 	 * 管理者追加メソッド
 	 * 
 	 * @param adminUser
 	 */
-	public void adminInsert(AdminUser adminUser)
-	{
+	public void adminInsert(AdminUser adminUser) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(adminUser);
 		String sql = "INSERT INTO admin_users(name, email, password) VALUES(:name, :email, :password)";
-		jdbcTemplate.update(sql, param);	
+		jdbcTemplate.update(sql, param);
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

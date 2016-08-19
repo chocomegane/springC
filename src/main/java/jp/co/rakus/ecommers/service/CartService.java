@@ -49,10 +49,10 @@ public class CartService {
 	public void insertCart(User user, OrderItem orderItem) {
 		java.util.Date utilDate = new java.util.Date();
 
-//		Calendar cal = Calendar.getInstance();
-//		SimpleDateFormat sdf = new SimpleDateFormat();
-//		sdf.applyPattern("yyyyMMdd");
-//		String orderNumberDate = sdf.format(cal);
+		// Calendar cal = Calendar.getInstance();
+		// SimpleDateFormat sdf = new SimpleDateFormat();
+		// sdf.applyPattern("yyyyMMdd");
+		// String orderNumberDate = sdf.format(cal);
 
 		Order order = orderCinemaRepository.findCart(user);
 
@@ -60,7 +60,7 @@ public class CartService {
 			order = new Order();
 
 			order.setOrderNumber("UNCONFIRMED");
-			
+
 			order.setDate(utilDate);
 			orderCinemaRepository.insertOrder(user, order);
 			order = orderCinemaRepository.findCart(user);
@@ -138,12 +138,13 @@ public class CartService {
 		if (orderItemList != null && !orderItemList.isEmpty()) {
 			for (OrderItem orderItem : orderItemList) {
 				Cinema cinema = cinemaRepository.findOne(orderItem.getCinemaId());
-				System.out.println("cinema="+cinema);
+				System.out.println("cinema=" + cinema);
 				sum = sum + cinema.getPrice() * orderItem.getQuantity();
 				System.out.println(sum);
 			}
 		}
-		if(sum < 0)sum = 0;
+		if (sum < 0)
+			sum = 0;
 		return sum;
 	}
 

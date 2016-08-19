@@ -51,7 +51,7 @@ public class UserCinemaDetailController {
 				CinemaDetailPage page = service.copyCinemaToPage(cinema);
 				System.out.println(page);
 				model.addAttribute("cinemaDetail", page);
-				
+
 				return "userCinemaDetail";
 			} else {
 				System.out.println("err1");

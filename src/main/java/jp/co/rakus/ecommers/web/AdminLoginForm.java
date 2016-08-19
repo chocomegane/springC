@@ -6,6 +6,7 @@ import lombok.Data;
 
 /**
  * 管理者ログイン関連のリクエストパラメータが入るフォーム.
+ * 
  * @author kohei.sakata
  *
  */

@@ -39,5 +39,5 @@ public class CinemaDetailPage {
 	private String description;
 	/** イメージ画像 */
 	private String imagePath;
-	
+
 }

@@ -25,13 +25,14 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
-	
+
 	public User findById(long id) {
 		return repository.findById(id);
 	}
 
 	/**
 	 * Cookieの情報とログインユーザーの情報を統合するメソッド.
+	 * 
 	 * @param principal
 	 * @param cookie
 	 * @return
@@ -63,13 +64,14 @@ public class UserService {
 
 	/**
 	 * JSESSIONIDからDBに登録可能なUserIDを生成するメソッド.
+	 * 
 	 * @param jsessionId
 	 * @return
 	 */
 	private long makeUserId(String jsessionId) {
 		int digit = jsessionId.length() - LONG_DIGIT;
-		digit = digit > 0 ? digit : 0; 
-		long guestId = - Long.parseLong(jsessionId.substring(digit), 16);
+		digit = digit > 0 ? digit : 0;
+		long guestId = -Long.parseLong(jsessionId.substring(digit), 16);
 		return guestId;
 	}
 }

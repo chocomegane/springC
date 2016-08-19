@@ -46,8 +46,9 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insert")
-	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, @Validated CartForm form, BindingResult result, Model model) {
-		if(result.hasErrors()){
+	public String insertCart(Principal principal, @CookieValue("JSESSIONID") String cookie, @Validated CartForm form,
+			BindingResult result, Model model) {
+		if (result.hasErrors()) {
 			Cinema cinema = orderListService.findOne(form.getCinemaId());
 			model.addAttribute("cinemaDetail", cinema);
 			return "userCinemaDetail";
@@ -75,7 +76,7 @@ public class CartController {
 		// principalからユーザーの情報を受け取るための操作
 		User user = userService.chkUser(principal, cookie);
 		CartListPage cartPage = service.findAllCart(user);
-		
+
 		if (cartPage.getCartListChildPage() == null) {
 			model.addAttribute("flag", false);
 			return "viewShoppingCart";

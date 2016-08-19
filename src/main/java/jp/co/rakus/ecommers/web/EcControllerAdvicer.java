@@ -42,7 +42,6 @@ public class EcControllerAdvicer {
 		return mav;
 	}
 
-	
 	/**
 	 * @param ex
 	 * @param request
@@ -67,8 +66,8 @@ public class EcControllerAdvicer {
 	}
 
 	/**
-	 * 例外の種類によって表示するエラーページを選択するメソッド．
-	 * 管理者用。
+	 * 例外の種類によって表示するエラーページを選択するメソッド． 管理者用。
+	 * 
 	 * @param ex
 	 * @return
 	 */
@@ -84,8 +83,8 @@ public class EcControllerAdvicer {
 	}
 
 	/**
-	 * 例外の種類によって表示するエラーページを選択するメソッド．
-	 * 利用者用。
+	 * 例外の種類によって表示するエラーページを選択するメソッド． 利用者用。
+	 * 
 	 * @param ex
 	 * @return
 	 */

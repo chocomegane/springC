@@ -14,6 +14,7 @@ import jp.co.rakus.ecommers.domain.OrderItem;
 
 /**
  * order_itemsテーブルを扱うRepository.
+ * 
  * @author yusuke.nakano
  *
  */
@@ -22,19 +23,21 @@ public class OrderItemRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	private static final RowMapper<OrderItem> orderItemRowMapper = (rs, i) -> {
 		Long id = rs.getLong("id");
 		Long cinemaId = rs.getLong("cinema_id");
 		Integer quantity = rs.getInt("quantity");
 		Long orderId = rs.getLong("order_id");
 		return new OrderItem(id, cinemaId, orderId, quantity);
-	}; 
+	};
 
 	/**
 	 * ordersテーブルのidを引数に、order_itemsテーブルのorder_idと一致する<br>
 	 * 注文一覧を取得するメソッド.
-	 * @param id ordersテーブルのid
+	 * 
+	 * @param id
+	 *            ordersテーブルのid
 	 * @return order_itemsテーブルのリスト
 	 */
 	public List<OrderItem> findById(Long id) {
@@ -43,7 +46,7 @@ public class OrderItemRepository {
 		List<OrderItem> itemList = template.query(sql, param, orderItemRowMapper);
 		return itemList;
 	}
-	
+
 	/**
 	 * order_itemをIDで検索
 	 * 
@@ -51,14 +54,14 @@ public class OrderItemRepository {
 	 * @return
 	 */
 	public OrderItem load(long id) {
-		try{
-		String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE id=:id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		OrderItem orderItem = template.queryForObject(sql, param, orderItemRowMapper);
-		return orderItem;
-		}catch(EmptyResultDataAccessException e){
+		try {
+			String sql = "SELECT id, cinema_id, order_id, quantity FROM order_items WHERE id=:id";
+			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+			OrderItem orderItem = template.queryForObject(sql, param, orderItemRowMapper);
+			return orderItem;
+		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
-		
+
 }

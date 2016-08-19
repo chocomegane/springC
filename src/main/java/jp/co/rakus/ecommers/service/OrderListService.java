@@ -29,17 +29,17 @@ public class OrderListService {
 	/** CinemaRepositoryを利用するためのDI */
 	@Autowired
 	private CinemaRepository repository1;
-	
+
 	@Autowired
 	private OrderCinemaRepository repository2;
-	
+
 	@Autowired
 	private UserRepository repository3;
-	
+
 	/**********************************************************************************************************************/
-	
+
 	// findBy()系
-	
+
 	/**
 	 * @param id
 	 * @return
@@ -47,19 +47,19 @@ public class OrderListService {
 	public Cinema findOne(long id) {
 		return repository1.findOne(id);
 	}
-	
+
 	public Order findByOrderNumber(String orderNumber) {
 		return repository2.findByOrderNumber(orderNumber);
 	}
-	
+
 	/**********************************************************************************************************************/
-	
+
 	// findAll()系
-	
+
 	public List<Cinema> findAll() {
 		return repository1.findAll();
 	}
-	
+
 	/**
 	 * DBからfindAllするためのメソッド. 取得してきた映画のリストを別に定義してあるPageクラスに反映させる
 	 * 
@@ -81,7 +81,7 @@ public class OrderListService {
 
 		return page;
 	}
-	
+
 	/**
 	 * DBからfindAllするためのメソッド. 取得してきた映画のリストを別に定義してあるPageクラスに反映させる
 	 * 
@@ -89,7 +89,7 @@ public class OrderListService {
 	 */
 	public OrderListPage findAllOfOrderList() {
 		List<Order> orderList = repository2.findAll();
-		
+
 		OrderListPage page = new OrderListPage();
 		List<OrderListChildPage> init = new ArrayList<>();
 
@@ -110,12 +110,12 @@ public class OrderListService {
 			case 4:
 				child.setStatus("キャンセル");
 				break;
-			default :
-				child.setStatus(null);				
+			default:
+				child.setStatus(null);
 				break;
 			}
 			BeanUtils.copyProperties(order, child);
-			if( child.getStatus() != null ) {
+			if (child.getStatus() != null) {
 				System.out.println(order);
 				User user = repository3.findById(order.getUserId());
 				child.setUserName(user.getName());
@@ -126,9 +126,9 @@ public class OrderListService {
 	}
 
 	/**********************************************************************************************************************/
-	
+
 	// save()系
-	
+
 	/**
 	 * DBへのinsert, updateを行うためのメソッド.
 	 * 
@@ -142,11 +142,11 @@ public class OrderListService {
 	public void statusUpdate(Integer status, String orderNumber) {
 		repository2.statusUpdate(status, orderNumber);
 	}
-	
+
 	/**********************************************************************************************************************/
-	
+
 	// copyPage()系
-	
+
 	/**
 	 * Cinemaの情報をCinemaDetailPageにコピー.
 	 * 
@@ -159,6 +159,6 @@ public class OrderListService {
 		BeanUtils.copyProperties(cinema, cinemaDetail);
 		return cinemaDetail;
 	}
-	
-	/**********************************************************************************************************************/	
+
+	/**********************************************************************************************************************/
 }

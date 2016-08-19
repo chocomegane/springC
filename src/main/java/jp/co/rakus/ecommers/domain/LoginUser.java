@@ -12,12 +12,14 @@ public class LoginUser extends org.springframework.security.core.userdetails.Use
 	private User user;
 	/** ログイン前に持っていたCookieのJSESSIONIDから変換したゲスト用UserId */
 	private Long guestId;
+
 	/**
 	 * 通常の管理者情報に加え、認可用ロールを設定する。
+	 * 
 	 * @param user
 	 */
 	public LoginUser(User user) {
-		super(user.getEmail(), user.getPassword(),AuthorityUtils.createAuthorityList("ROLE_USER"));
+		super(user.getEmail(), user.getPassword(), AuthorityUtils.createAuthorityList("ROLE_USER"));
 		this.user = user;
 	}
 }

@@ -82,8 +82,8 @@ public class OrderListController {
 				// CSVファイル内部に記載する形式で文字列を設定
 
 				// CSVファイルに書き込み
-				if(i == 0){
-				pw.print("注文番号,日付,利用者名,現在のステータス,総計（税込み）\r\n");
+				if (i == 0) {
+					pw.print("注文番号,日付,利用者名,現在のステータス,総計（税込み）\r\n");
 				}
 				pw.print(outputString);
 

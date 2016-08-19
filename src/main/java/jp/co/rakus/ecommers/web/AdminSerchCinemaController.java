@@ -45,7 +45,7 @@ public class AdminSerchCinemaController {
 			return "administerCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + genre);
 
 		model.addAttribute("listPage", listPage);
@@ -69,16 +69,16 @@ public class AdminSerchCinemaController {
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + mediaType);
 			// findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + mediaType);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
@@ -97,46 +97,46 @@ public class AdminSerchCinemaController {
 
 		Integer minPrice = 0;
 		Integer maxPrice = 0;
-		
-		//リクエストパラメータのprice値を条件式にかける
-		if(price.equals("0")){
+
+		// リクエストパラメータのprice値を条件式にかける
+		if (price.equals("0")) {
 			minPrice = 0;
 			maxPrice = 1000;
 			price = "～1000円";
-		}else if(price.equals("1")){
+		} else if (price.equals("1")) {
 			minPrice = 1000;
 			maxPrice = 2000;
 			price = "1000円～2000円";
-		}else if(price.equals("2")){
+		} else if (price.equals("2")) {
 			minPrice = 2000;
 			maxPrice = 3000;
 			price = "2000円～3000円";
-		}else if(price.equals("3")){
+		} else if (price.equals("3")) {
 			minPrice = 3000;
 			price = "3000円～";
 		}
-		
+
 		CinemaListPage listPage = new CinemaListPage();
-		
-		if(maxPrice.equals(0)){
+
+		if (maxPrice.equals(0)) {
 			listPage = service.findByMinPrice(minPrice);
-		}else{
+		} else {
 			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
 		}
-		
+
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + price);
 			// findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + price);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
@@ -163,29 +163,28 @@ public class AdminSerchCinemaController {
 
 		// あいまい検索のためにtitleに%を付ける
 		String titleSearch = "%" + title + "%";
-		
+
 		CinemaListPage listPage = service.findByTitle(titleSearch);
 
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + title);
 			// findAllで全件取得をする
 			model.addAttribute("listPage", service.findAll());
 			return "administerCinemaList";
 		}
-		
-		//商品結果をjspで表示
+
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + title);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerCinemaList";
 	}
 
-	
-/* 削除済み商品一覧のメソッド */
+	/* 削除済み商品一覧のメソッド */
 
 	/**
 	 * ジャンルを条件に削除された商品の情報を取得するメソッド.
@@ -208,7 +207,7 @@ public class AdminSerchCinemaController {
 			return "administerDeleteCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + genre);
 
 		model.addAttribute("listPage", listPage);
@@ -232,16 +231,16 @@ public class AdminSerchCinemaController {
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + mediaType);
 			// findByDeleteで全件取得をする
 			model.addAttribute("listPage", service.findByDelete());
 			return "administerDeleteCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + mediaType);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerDeleteCinemaList";
@@ -267,27 +266,27 @@ public class AdminSerchCinemaController {
 
 		// あいまい検索のためにtitleに%を付ける
 		String titleSearch = "%" + title + "%";
-		
+
 		CinemaListPage listPage = service.findByDeleteTitle(titleSearch);
 
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + title);
 			// findByDeleteで全件取得をする
 			model.addAttribute("listPage", service.findByDelete());
 			return "administerDeleteCinemaList";
 		}
-		
-		//商品結果をjspで表示
+
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + title);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerDeleteCinemaList";
 	}
-	
+
 	/**
 	 * 価格を条件に削除された商品の一覧を取得するメソッド.
 	 * 
@@ -300,51 +299,50 @@ public class AdminSerchCinemaController {
 
 		Integer minPrice = 0;
 		Integer maxPrice = 0;
-		
-		//リクエストパラメータのprice値を条件式にかける
-		if(price.equals("0")){
+
+		// リクエストパラメータのprice値を条件式にかける
+		if (price.equals("0")) {
 			minPrice = 0;
 			maxPrice = 1000;
 			price = "～1000円";
-		}else if(price.equals("1")){
+		} else if (price.equals("1")) {
 			minPrice = 1000;
 			maxPrice = 2000;
 			price = "1000円～2000円";
-		}else if(price.equals("2")){
+		} else if (price.equals("2")) {
 			minPrice = 2000;
 			maxPrice = 3000;
 			price = "2000円～3000円";
-		}else if(price.equals("3")){
+		} else if (price.equals("3")) {
 			minPrice = 3000;
 			price = "3000円～";
 		}
-		
+
 		CinemaListPage listPage = new CinemaListPage();
-		
-		if(maxPrice.equals(0)){
+
+		if (maxPrice.equals(0)) {
 			listPage = service.findByDeleteMinPrice(minPrice);
-		}else{
+		} else {
 			listPage = service.findByDeleteMinMaxPrice(minPrice, maxPrice);
 		}
-		
+
 		// 何も取得できなかったらメッセージを表示する
 		if (listPage.getChildPageList().size() == 0) {
 			model.addAttribute("message2", "商品がありません");
-			//商品結果をjspで表示
+			// 商品結果をjspで表示
 			model.addAttribute("searchResult", "検索結果：" + price);
 			// findByDeleteで全件取得をする
 			model.addAttribute("listPage", service.findByDelete());
 			return "administerDeleteCinemaList";
 		}
 
-		//商品結果をjspで表示
+		// 商品結果をjspで表示
 		model.addAttribute("searchResult", "検索結果：" + price);
-		
+
 		model.addAttribute("listPage", listPage);
 
 		return "administerDeleteCinemaList";
 
 	}
-	
-	
+
 }

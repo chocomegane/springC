@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 管理者のログイン処理を行うコントローラー.
+ * 
  * @author kohei.sakata
  *
  */
@@ -21,6 +22,7 @@ public class AdminLoginController {
 
 	/**
 	 * フォームを初期化します.
+	 * 
 	 * @return フォーム
 	 */
 	@ModelAttribute
@@ -31,29 +33,31 @@ public class AdminLoginController {
 	/**
 	 * 管理者のログイン画面を表示する。<br>
 	 * ログイン失敗の際はエラーメッセージを追加表示。
+	 * 
 	 * @param form
 	 * @param result
 	 * @param guestid
 	 * @param model
-	 * @param error ログイン失敗時に渡される。
+	 * @param error
+	 *            ログイン失敗時に渡される。
 	 */
 	@RequestMapping("/login")
-	String loginForm(AdminLoginForm form,BindingResult result,
-			Model model,@RequestParam(required=false) String error) {
+	String loginForm(AdminLoginForm form, BindingResult result, Model model,
+			@RequestParam(required = false) String error) {
 		if (error != null) {
 			System.err.println("admin: login failed");
-	        result.addError(new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。"));
+			result.addError(new ObjectError("loginError", "メールアドレスまたはパスワードが不正です。"));
 		}
 		return "administerLogin";
 	}
-	
+
 	/**
 	 * @param ex
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/403")
-	String handleAccessDenied (){
+	String handleAccessDenied() {
 		return "userAccessError";
 	}
 }

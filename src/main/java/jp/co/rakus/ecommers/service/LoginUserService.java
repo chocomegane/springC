@@ -12,6 +12,7 @@ import jp.co.rakus.ecommers.repository.UserRepository;
 
 /**
  * ユーザーの情報を仲介するサービスクラス.
+ * 
  * @author kohei.sakata
  *
  */
@@ -21,9 +22,11 @@ public class LoginUserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
-	 * DBから検索をし、ログイン情報を構成して返す。
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.core.userdetails.UserDetailsService#
+	 * loadUserByUsername(java.lang.String) DBから検索をし、ログイン情報を構成して返す。
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

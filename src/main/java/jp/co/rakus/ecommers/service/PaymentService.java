@@ -46,7 +46,7 @@ public class PaymentService {
 		Order order = orderRepository.findCart(user);
 		System.out.println(order);
 		// チャイルドページのリストを作成と価格計算
-//		int totalPrice = 0;
+		// int totalPrice = 0;
 		List<PaymentChildPage> paymentChildPageList = new ArrayList<PaymentChildPage>();
 		for (OrderItem orderItem : order.getOrderCinemaList()) {
 			PaymentChildPage paymentChildPage = new PaymentChildPage();
@@ -62,9 +62,10 @@ public class PaymentService {
 			// 商品の値段×個数で小計を算出と全合計に加算
 			int subTotalPrice = quantity * price;
 			paymentChildPage.setSubTotalPrice(subTotalPrice);
-//			totalPrice += subTotalPrice;
-//			// 商品の小計（税込み）を算出
-//			paymentChildPage.setPretaxTotalPrice((int) (subTotalPrice * TAX_RATIO));
+			// totalPrice += subTotalPrice;
+			// // 商品の小計（税込み）を算出
+			// paymentChildPage.setPretaxTotalPrice((int) (subTotalPrice *
+			// TAX_RATIO));
 
 			paymentChildPageList.add(paymentChildPage);
 		}
@@ -90,17 +91,17 @@ public class PaymentService {
 	 */
 	@Transactional
 	public synchronized Boolean updateOrder(Long orderId) {
-		
+
 		/*******************************************************************************/
 		/** 追加分 */
-		
+
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat();
-		
+
 		sdf.applyPattern("yyyyMMdd");
 		Order lastOrder = orderRepository.findLastOrder(orderId);
 		int orderNumberAfter = 0;
-		if(lastOrder != null){
+		if (lastOrder != null) {
 			orderNumberAfter = Integer.parseInt(lastOrder.getOrderNumber().substring(8));
 		}
 		orderNumberAfter = orderNumberAfter + 1;
@@ -108,7 +109,7 @@ public class PaymentService {
 		String orderNumber = sdf.format(cal.getTime()) + number;
 		orderRepository.updateOrderNumber(orderId, orderNumber);
 		/*******************************************************************************/
-		
+
 		return orderRepository.updateStatus(orderId);
 	}
 }

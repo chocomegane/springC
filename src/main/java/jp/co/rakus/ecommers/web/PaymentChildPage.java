@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 決済確定表示画面の商品一つの情報を表すチャイルドページ
+ * 
  * @author rksuser
  */
 @Data
@@ -20,6 +21,6 @@ public class PaymentChildPage {
 	private Integer quantity;
 	/** 小計（税抜き） */
 	private Integer subTotalPrice;
-//	/** 小計（税あり） */
-//	private Integer pretaxTotalPrice;
+	// /** 小計（税あり） */
+	// private Integer pretaxTotalPrice;
 }

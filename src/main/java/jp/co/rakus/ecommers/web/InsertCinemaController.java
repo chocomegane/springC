@@ -212,9 +212,8 @@ public class InsertCinemaController {
 	public String BulkInsert(BulkCinemaForm form, Model model) throws Exception {
 		List<String> imgErr = new ArrayList<>();
 		String path = null;
-		System.out.println("通過:"+ form.getDownloadType());
-		
-		
+		System.out.println("通過:" + form.getDownloadType());
+
 		if (form.getDownloadType().equals("imgCode")) {
 
 			boolean errFlg = false;
@@ -227,9 +226,9 @@ public class InsertCinemaController {
 			try {
 				/* プロジェクト内のファイルをとってくる */
 				File csvFile = new File(path + csvMultipartFile.getOriginalFilename());
-				InputStreamReader is = new InputStreamReader( new FileInputStream(csvFile),"SJIS");
+				InputStreamReader is = new InputStreamReader(new FileInputStream(csvFile), "SJIS");
 				CSVReader reader = new CSVReader(is);
-				
+
 				String[] cinemaInformation;
 				while ((cinemaInformation = reader.readNext()) != null) {
 					Cinema cinema = new Cinema();
@@ -265,160 +264,152 @@ public class InsertCinemaController {
 
 			return "bulkDownload";
 		}
-		if(form.getDownloadType().equals("imgPath"))
-		
-		try {
-			/* path設定 */
-			path = context.getRealPath("/tmp/upload/");
-			/* 新しいディレクトリをつくる */
-			File newdir = new File(path);
-			newdir.mkdir();
+		if (form.getDownloadType().equals("imgPath"))
 
-			String dirName = null;
-			/* イメージパスを使用する場合 */
-			if (form.getDownloadType().equals("imgPath")) {
-				boolean errFlg = false;
-				/* csvfile取得しプロジェクトのフォルダに追加 */
-				
-				MultipartFile csvMultipartFile = form.getCsvFile();
-				csvMultipartFile.transferTo(new File(path + csvMultipartFile.getOriginalFilename()));
-				System.out.println("path確認1csvMultipartFile："+path + csvMultipartFile.getOriginalFilename());
+			try {
+				/* path設定 */
+				path = context.getRealPath("/tmp/upload/");
+				/* 新しいディレクトリをつくる */
+				File newdir = new File(path);
+				newdir.mkdir();
 
-				/* zipfile取得しプロジェクトのフォルダに追加 */////////////////////////////////////////////////////////////////////////////////////////////////
-				MultipartFile zipMultipartFile = form.getZipFile();
-				zipMultipartFile.transferTo(new File(path + zipMultipartFile.getOriginalFilename()));
-				System.out.println("path確認2zipMultipartFile："+path + zipMultipartFile.getOriginalFilename());
-				
+				String dirName = null;
+				/* イメージパスを使用する場合 */
+				if (form.getDownloadType().equals("imgPath")) {
+					boolean errFlg = false;
+					/* csvfile取得しプロジェクトのフォルダに追加 */
 
-				/* プロジェクト内のファイルをとってくる */
-				File csvFile = new File(path + csvMultipartFile.getOriginalFilename());
-				File zipFile = new File(path + zipMultipartFile.getOriginalFilename());
-				
-				
-				System.out.println("path確認3csvFile："+path + csvMultipartFile.getOriginalFilename());
-				System.out.println("path確認4zipFile："+path + zipMultipartFile.getOriginalFilename());
-				
-				/* 拡張子確認 */
-				if ("zip".equals(getSuffix(zipFile.getName()))) {
-					/* ZipInputStreamでオープンする */
-					ZipInputStream is = new ZipInputStream(new FileInputStream(zipFile));
-					/* ZipInputStream から ZipEntryを取り出す。 */
+					MultipartFile csvMultipartFile = form.getCsvFile();
+					csvMultipartFile.transferTo(new File(path + csvMultipartFile.getOriginalFilename()));
+					System.out.println("path確認1csvMultipartFile：" + path + csvMultipartFile.getOriginalFilename());
 
-					dirName = zipFile.getName().substring(0, zipFile.getName().lastIndexOf("."));
-					new File(path+dirName).mkdir();
-					System.out.println("path確認5mkdir："+path+dirName);
-					/* 解凍に使う道具 */
-					ZipEntry entry;
-					while ((entry = is.getNextEntry()) != null) {
-						// ディレクトリの場合はスキップ
-						if (entry.isDirectory())
-							continue;
+					/* zipfile取得しプロジェクトのフォルダに追加 */////////////////////////////////////////////////////////////////////////////////////////////////
+					MultipartFile zipMultipartFile = form.getZipFile();
+					zipMultipartFile.transferTo(new File(path + zipMultipartFile.getOriginalFilename()));
+					System.out.println("path確認2zipMultipartFile：" + path + zipMultipartFile.getOriginalFilename());
 
-						// ディレクトリ作成
-						String[] dirs = entry.getName().split("/");
-						String subDirName = dirName;
-						for (int i = 0; i < dirs.length - 1; i++) {
-							subDirName += "/" + dirs[i];
-							System.out.println("path確認6subDirName："+subDirName);
-							new File(subDirName).mkdir();
-							
+					/* プロジェクト内のファイルをとってくる */
+					File csvFile = new File(path + csvMultipartFile.getOriginalFilename());
+					File zipFile = new File(path + zipMultipartFile.getOriginalFilename());
+
+					System.out.println("path確認3csvFile：" + path + csvMultipartFile.getOriginalFilename());
+					System.out.println("path確認4zipFile：" + path + zipMultipartFile.getOriginalFilename());
+
+					/* 拡張子確認 */
+					if ("zip".equals(getSuffix(zipFile.getName()))) {
+						/* ZipInputStreamでオープンする */
+						ZipInputStream is = new ZipInputStream(new FileInputStream(zipFile));
+						/* ZipInputStream から ZipEntryを取り出す。 */
+
+						dirName = zipFile.getName().substring(0, zipFile.getName().lastIndexOf("."));
+						new File(path + dirName).mkdir();
+						System.out.println("path確認5mkdir：" + path + dirName);
+						/* 解凍に使う道具 */
+						ZipEntry entry;
+						while ((entry = is.getNextEntry()) != null) {
+							// ディレクトリの場合はスキップ
+							if (entry.isDirectory())
+								continue;
+
+							// ディレクトリ作成
+							String[] dirs = entry.getName().split("/");
+							String subDirName = dirName;
+							for (int i = 0; i < dirs.length - 1; i++) {
+								subDirName += "/" + dirs[i];
+								System.out.println("path確認6subDirName：" + subDirName);
+								new File(subDirName).mkdir();
+
+							}
+
+							// 指定のディレクトリに内容をファイル書き込み
+							System.out.println("path確認os：" + dirName + "/" + entry.getName());
+							OutputStream os = new FileOutputStream(path + "/" + entry.getName());// プロジェクト内のディレクトリに指定した名前で保存
+
+							int i;
+							while ((i = is.read()) != -1)
+								os.write(i);
+							is.closeEntry();
+							os.close();
 						}
+						is.close();
 
-						// 指定のディレクトリに内容をファイル書き込み
-						System.out.println("path確認os："+dirName + "/" + entry.getName());
-						OutputStream os = new FileOutputStream(path+"/" + entry.getName());//プロジェクト内のディレクトリに指定した名前で保存
-						
-						int i;
-						while ((i = is.read()) != -1)
-							os.write(i);
-						is.closeEntry();
-						os.close();
+					} else {
+
+						String zipErrMassege = "zipfileを選択してください";
+						model.addAttribute("zipErrMassege", zipErrMassege);
+						errFlg = true;
 					}
+
+					if ("csv".equals(getSuffix(csvFile.getName()))) {
+						String csvErrMassege = "csvfileを選択してください";
+						model.addAttribute("csvErrMassege", csvErrMassege);
+					}
+
+					System.out.println("通過1：" + errFlg);
+
+					// errがあった場合の処理を行います。
+					if (errFlg) {
+						System.err.println("エラー発生");
+
+						// プロジェクト内のディレクトリを削除
+						FileUtils.deleteDirectory(newdir);
+						return "bulkDownload";
+					}
+					InputStreamReader is = new InputStreamReader(new FileInputStream(csvFile), "SJIS");
+					CSVReader reader = new CSVReader(is);
+
+					String[] cinemaInformation;
+
+					while ((cinemaInformation = reader.readNext()) != null) {
+						Cinema cinema = new Cinema();
+						// 0→タイトル 1→金額 2→ジャンル 3→時間 4→公開日 5→メディアタイプ 6→作成会社 7→監督
+						// 8→レーティング 9→詳細 10→画像
+
+						cinema.setTitle(cinemaInformation[0]);
+						cinema.setPrice(Integer.parseInt(cinemaInformation[1]));
+						cinema.setGenre(cinemaInformation[2]);
+						cinema.setTime(Integer.parseInt(cinemaInformation[3]));
+						cinema.setReleaseDate(new SimpleDateFormat("yyyy/MM/dd").parse(cinemaInformation[4]));
+						cinema.setMediaType(cinemaInformation[5]);
+						cinema.setCompany(cinemaInformation[6]);
+						cinema.setDirectedBy(cinemaInformation[7]);
+						cinema.setRating(cinemaInformation[8]);
+						cinema.setDescription(cinemaInformation[9]);
+						cinema.setImagePath(cinemaInformation[10]);
+						cinema.setDeleted(false);
+						System.out.println("通過2：" + checkFile(cinema, dirName));
+						// ファイルの存在確認
+						if (checkFile(cinema, dirName)) {
+
+							String imgPath = path + "/" + dirName + "/" + cinema.getImagePath();
+							byte[] imgFile = readFileToByte(imgPath);
+							String encode = Base64.getEncoder().encodeToString(imgFile);
+							String encodeImage = "data:;base64," + encode;
+							cinema.setImagePath(encodeImage);
+							System.out.println("通過3：" + checkFile(cinema, dirName));
+							service.save(cinema);
+
+						}
+					}
+					/* 取り入れたプロジェクトのファイルを削除 */
 					is.close();
-
-				} else {
-
-					String zipErrMassege = "zipfileを選択してください";
-					model.addAttribute("zipErrMassege", zipErrMassege);
-					errFlg = true;
-				}
-				
-				if ("csv".equals(getSuffix(csvFile.getName())))
-				{
-					String csvErrMassege = "csvfileを選択してください";
-					model.addAttribute("csvErrMassege", csvErrMassege);
-				}
-				
-				System.out.println("通過1："+errFlg);
-				
-				// errがあった場合の処理を行います。
-				if (errFlg) {
-					System.err.println("エラー発生");
-			
-					//プロジェクト内のディレクトリを削除
+					reader.close();
+					System.out.println(newdir);
 					FileUtils.deleteDirectory(newdir);
 					return "bulkDownload";
 				}
-				InputStreamReader is = new InputStreamReader( new FileInputStream(csvFile),"SJIS");
-				CSVReader reader = new CSVReader(is);
-				
-				String[] cinemaInformation;
-				
-				while ((cinemaInformation = reader.readNext()) != null) {
-					Cinema cinema = new Cinema();
-					// 0→タイトル 1→金額 2→ジャンル 3→時間 4→公開日 5→メディアタイプ 6→作成会社 7→監督
-					// 8→レーティング 9→詳細 10→画像
-
-					cinema.setTitle(cinemaInformation[0]);
-					cinema.setPrice(Integer.parseInt(cinemaInformation[1]));
-					cinema.setGenre(cinemaInformation[2]);
-					cinema.setTime(Integer.parseInt(cinemaInformation[3]));
-					cinema.setReleaseDate(new SimpleDateFormat("yyyy/MM/dd").parse(cinemaInformation[4]));
-					cinema.setMediaType(cinemaInformation[5]);
-					cinema.setCompany(cinemaInformation[6]);
-					cinema.setDirectedBy(cinemaInformation[7]);
-					cinema.setRating(cinemaInformation[8]);
-					cinema.setDescription(cinemaInformation[9]);
-					cinema.setImagePath(cinemaInformation[10]);
-					cinema.setDeleted(false);
-					System.out.println("通過2："+checkFile(cinema, dirName));
-					//ファイルの存在確認
-					if (checkFile(cinema, dirName)) {
-						
-						String imgPath =path+"/"+ dirName + "/" + cinema.getImagePath();
-						byte[] imgFile = readFileToByte(imgPath);
-						String encode = Base64.getEncoder().encodeToString(imgFile);
-						String encodeImage = "data:;base64," + encode;
-						cinema.setImagePath(encodeImage);
-						System.out.println("通過3："+checkFile(cinema, dirName));
-						service.save(cinema);
-						
-					}
-				}
-				/* 取り入れたプロジェクトのファイルを削除 */
-				is.close();
-				reader.close();
-				System.out.println(newdir);
-				FileUtils.deleteDirectory(newdir);
-				return "bulkDownload";
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
 			}
-		} catch (FileNotFoundException e) {
-			System.out.println(e);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
-		
-		String errMessage ="予期せぬエラーが起きましたもう一度failお確かめください" ;
+
+		String errMessage = "予期せぬエラーが起きましたもう一度failお確かめください";
 		model.addAttribute("errMessage", errMessage);
 		System.err.println("通過5：NG");
 		return "bulkDownload";
 
 	}
-	
-	
-	
-	
-	
 
 	/**
 	 * 拡張子をとるメソッド
@@ -427,9 +418,9 @@ public class InsertCinemaController {
 	 * @return
 	 */
 	public static String getSuffix(String fileName) {
-		if (fileName == null){
+		if (fileName == null) {
 			return null;
-			}
+		}
 		int point = fileName.lastIndexOf(".");
 		if (point != -1) {
 			return fileName.substring(point + 1);
@@ -446,7 +437,7 @@ public class InsertCinemaController {
 	 */
 	private static boolean checkFile(Cinema cinema, String dirName) {
 		try {
-			
+
 			File file = new File(dirName + "/" + cinema.getImagePath());
 			return true;
 		} catch (NullPointerException e) {
@@ -479,5 +470,3 @@ public class InsertCinemaController {
 		return b;
 	}
 }
-
-

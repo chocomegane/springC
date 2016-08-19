@@ -185,8 +185,7 @@ public class OrderCinemaRepository {
 	public void insertOrder(User user, Order order) {
 		String sql = "INSERT INTO orders(order_number, user_id, status, total_price, date)"
 				+ " VALUES(:order_number, :user_id, :status, :total_price, :date)";
-		SqlParameterSource param = new MapSqlParameterSource()
-				.addValue("order_number", order.getOrderNumber())
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", order.getOrderNumber())
 				.addValue("user_id", user.getId()).addValue("status", ORDER_STATUS)
 				.addValue("total_price", ORDER_TOTAL_PRICE).addValue("date", order.getDate());
 		template.update(sql, param);
@@ -204,10 +203,11 @@ public class OrderCinemaRepository {
 			String sql = "SELECT quantity FROM order_items WHERE cinema_id = :cinema_id AND order_id = :order_id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("cinema_id", orderItem.getCinemaId())
 					.addValue("order_id", order.getId());
-			int  existingQuantity = template.queryForObject(sql, param, Integer.class);
+			int existingQuantity = template.queryForObject(sql, param, Integer.class);
 
 			int totalQuantity = existingQuantity + orderItem.getQuantity();
-			if(totalQuantity < 0)totalQuantity = 0;
+			if (totalQuantity < 0)
+				totalQuantity = 0;
 			String updateSql = "UPDATE order_items SET quantity=:quantity WHERE cinema_id = :cinema_id AND order_id = :order_id";
 			SqlParameterSource updateParam = new MapSqlParameterSource().addValue("quantity", totalQuantity)
 					.addValue("cinema_id", orderItem.getCinemaId()).addValue("order_id", order.getId());
@@ -249,8 +249,7 @@ public class OrderCinemaRepository {
 		List<Cart> orderList = new ArrayList<>();
 		try {
 			String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price,"
-					+ " o.date, i.id, i.cinema_id, i.quantity" + " FROM orders AS o"
-					+ " INNER JOIN order_items AS i"
+					+ " o.date, i.id, i.cinema_id, i.quantity" + " FROM orders AS o" + " INNER JOIN order_items AS i"
 					+ " ON o.id = i.order_id" + " WHERE o.status = 0" + " AND o.user_id = :user_id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("user_id", order.getUserId());
 			orderList = template.query(sql, param, orderListRowMapper);
@@ -294,8 +293,7 @@ public class OrderCinemaRepository {
 		try {
 			String sql = "SELECT o.id AS o_id, o.order_number, o.user_id, o.status, o.total_price, o.date,"
 					+ " i.id AS i_id, i.cinema_id, i,quantity" + " From orders AS o"
-					+ " LEFT OUTER JOIN order_items AS i" + " ON o.id = i.order_id"
-					+ " WHERE o.id=:id";
+					+ " LEFT OUTER JOIN order_items AS i" + " ON o.id = i.order_id" + " WHERE o.id=:id";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 			template.query(sql, param, orderRowCallbackHandler);
 			if (orderRowCallbackHandler.getOrders().isEmpty()) {
@@ -307,7 +305,7 @@ public class OrderCinemaRepository {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * オーダーIDで最新の注文番号を取得.
 	 * 
@@ -315,29 +313,26 @@ public class OrderCinemaRepository {
 	 * @return
 	 */
 	public Order findLastOrder(long orderId) {
-		try{
-		String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date"
-				+ " FROM orders AS o"
-				+ " JOIN ("
-				+ "  SELECT MAX(date) AS last"
-				+ "  FROM orders"
-				+ "  WHERE status > 0 AND date_part('year',date) = date_part('year',now())"
-				+ " ) AS comfirmd"
-				+ " ON o.date = comfirmd.last";
-		SqlParameterSource param = new MapSqlParameterSource();
-		Order order = template.queryForObject(sql, param, orderRowMapper);
-		return order;
-		}catch(EmptyResultDataAccessException e){
+		try {
+			String sql = "SELECT o.id, o.order_number, o.user_id, o.status, o.total_price, o.date" + " FROM orders AS o"
+					+ " JOIN (" + "  SELECT MAX(date) AS last" + "  FROM orders"
+					+ "  WHERE status > 0 AND date_part('year',date) = date_part('year',now())" + " ) AS comfirmd"
+					+ " ON o.date = comfirmd.last";
+			SqlParameterSource param = new MapSqlParameterSource();
+			Order order = template.queryForObject(sql, param, orderRowMapper);
+			return order;
+		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
-	
+
 	public void updateOrderNumber(long orderId, String orderNumber) {
 		String sql = "UPDATE orders SET order_number = :order_number WHERE id = :id";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", orderNumber).addValue("id", orderId);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_number", orderNumber).addValue("id",
+				orderId);
 		template.update(sql, param);
 	}
-	
+
 	public Order findByOrderNumber(String orderNumber) {
 		String sql = "SELECT * FROM orders WHERE order_number = :orderNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderNumber", orderNumber);
@@ -346,8 +341,8 @@ public class OrderCinemaRepository {
 	}
 
 	/**
-	 * 注文のfindAll()メソッド．
-	 * order_numberを用いて注文一覧を取得する
+	 * 注文のfindAll()メソッド． order_numberを用いて注文一覧を取得する
+	 * 
 	 * @return 注文のリスト
 	 */
 	public List<Order> findAll() {
@@ -356,26 +351,29 @@ public class OrderCinemaRepository {
 		System.out.println(orderList);
 		return orderList;
 	}
-	
-	
+
 	/**
 	 * idを用いて注文一覧を取得
-	 * @param id ユーザーid
+	 * 
+	 * @param id
+	 *            ユーザーid
 	 * @return ユーザーの注文のリスト
 	 */
-	public List<Order> findById(long id)
-	{
+	public List<Order> findById(long id) {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		String sql = "SELECT * FROM orders WHERE user_id=:id ORDER BY order_number ";
-		List<Order> orderList = template.query(sql, param,orderRowMapper);
+		List<Order> orderList = template.query(sql, param, orderRowMapper);
 		return orderList;
-		
+
 	}
 
 	/**
 	 * 注文ステータスを変更するメソッド．
-	 * @param status 注文ステータス 1:未入金，2：入金済み，3：発送済み，4：キャンセル
-	 * @param orderNumber ステータスの変更を行いたい注文を識別する番号
+	 * 
+	 * @param status
+	 *            注文ステータス 1:未入金，2：入金済み，3：発送済み，4：キャンセル
+	 * @param orderNumber
+	 *            ステータスの変更を行いたい注文を識別する番号
 	 */
 	public void statusUpdate(Integer status, String orderNumber) {
 		String sql = "UPDATE orders SET status = :status WHERE order_number = :orderNumber";

@@ -22,12 +22,15 @@ public class PaymentController {
 	private UserService userService;
 	@Autowired
 	private PaymentService paymentService;
-	
+
 	/**
 	 * 決済表示画面を表示する
-	 * @param principal ログイン中のユーザー情報
-	 * @param model モデルオブジェクト
-	 * @return　決済表示画面のｊｓｐ
+	 * 
+	 * @param principal
+	 *            ログイン中のユーザー情報
+	 * @param model
+	 *            モデルオブジェクト
+	 * @return 決済表示画面のｊｓｐ
 	 */
 	@RequestMapping("/mekePayment")
 	public String makePayment(Principal principal, @CookieValue("JSESSIONID") String cookie, Model model) {
@@ -35,12 +38,12 @@ public class PaymentController {
 		model.addAttribute("paymentPage", paymentService.createPaymentPage(user));
 		return "makePayment";
 	}
-	
+
 	@RequestMapping("/finishPayment")
-	public String finishPayment(@RequestParam Long orderId, Model model){
-		if(paymentService.updateOrder(orderId)){
+	public String finishPayment(@RequestParam Long orderId, Model model) {
+		if (paymentService.updateOrder(orderId)) {
 			model.addAttribute("message", "決済が完了しました！\nこの度はご注文ありがとうございます。\n\nお支払い先は、お送りしたメールに記載してありますのでご確認ください。");
-		}else{
+		} else {
 			model.addAttribute("message", "注文情報がありません");
 		}
 		return "finishPayment";

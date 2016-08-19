@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommers.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,28 +24,24 @@ public class UserCinemaListController {
 	@Autowired
 	private CinemaListService service;
 
-	
 	/**
 	 * 商品一覧を全件取得するメソッド.
 	 * 
 	 * @param model
-	 * @return　利用者の商品一覧画面.
+	 * @return 利用者の商品一覧画面.
 	 */
 	@RequestMapping
-	public String list( Model model){
-		
-		
+	public String list(Model model) {
 
 		Guest guest = new Guest();
 		guest.setName("ゲスト");
-		model.addAttribute("guest",guest);
-		long cinemaNumber =  service.cinemaNumber();
-		long pageNumber = cinemaNumber%20;
-		
- 		model.addAttribute("pageNumber",pageNumber);
- 		
-		
+		model.addAttribute("guest", guest);
+		long cinemaNumber = service.cinemaNumber();
+		long pageNumber = cinemaNumber % 20;
+
+		model.addAttribute("pageNumber", pageNumber);
+
 		return "userCinemaList";
 	}
-	
+
 }

@@ -27,7 +27,7 @@ public class CinemaRepository {
 	/** NamedParameterJdbcTemplateを利用するためのDI */
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -178,31 +178,21 @@ public class CinemaRepository {
 	 * @param title
 	 * @return
 	 */
-	public List<Cinema> findByTitle(String title){
-		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
+	public List<Cinema> findByTitle(String title) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE translate(UPPER(title),"
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
-				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
-				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
+				+ "FROM cinemas WHERE translate(UPPER(title)," + "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ" + "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ" + "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
 				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
-				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
-				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
-				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
-				+ "LIKE translate(UPPER(:title), "
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
-				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
-				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
-				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
-				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
-				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
-				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ" + "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
+				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ" + "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+				+ "LIKE translate(UPPER(:title), " + "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ" + "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
+				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ" + "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ" + "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
+				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ" + "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
 				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = false ORDER BY title";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
@@ -214,73 +204,62 @@ public class CinemaRepository {
 	 */
 	public int delete(long id) {
 		String sql = "UPDATE cinemas SET deleted = true WHERE id = :id";
-		return template.update(sql,new MapSqlParameterSource().addValue("id", id));
+		return template.update(sql, new MapSqlParameterSource().addValue("id", id));
 	}
-	
-	
+
 	/**
 	 * 削除した商品の再表示をする.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public int redisplay(long id){
+	public int redisplay(long id) {
 		String sql = "UPDATE cinemas SET deleted = false WHERE id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		return template.update(sql, param);
 	}
 
 	/* 削除した商品のメソッド */
-	
+
 	/**
 	 * 削除済みの商品を取得するメソッド.
 	 * 
 	 * @return
 	 */
-	public List<Cinema> findByDelete(){
+	public List<Cinema> findByDelete() {
 		String sql = "SELECT id, title, price, genre, time, release_date, media_type,"
 				+ " company, directed_by, rating, description, image_path, deleted "
 				+ "FROM cinemas WHERE deleted = true ORDER BY title";
 		List<Cinema> cinemaList = template.query(sql, cinemaRowMapper);
 		return cinemaList;
 	}
-	
+
 	/**
 	 * タイトルの条件から削除された商品の情報を検索数メソッド.
 	 * 
 	 * @param title
 	 * @return
 	 */
-	public List<Cinema> findByDeleteTitle(String title){
-		String sql= "SELECT id,title,price,genre,time,release_date,media_type,"
+	public List<Cinema> findByDeleteTitle(String title) {
+		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
-				+ "FROM cinemas WHERE translate(UPPER(title),"
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ"
-				+ "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ"
-				+ "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
+				+ "FROM cinemas WHERE translate(UPPER(title)," + "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへ" + "ほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづ" + "でどばびぶべぼぱぴぷぺぽぁぃぅぇぉっゃゅょー"
 				+ "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ"
-				+ "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
-				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ"
-				+ "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
-				+ "LIKE translate(UPPER(:title), "
-				+ "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ"
-				+ "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
-				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ"
-				+ "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', " 
-				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ"
-				+ "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
-				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ"
-				+ "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺアイウエオカキクケコ" + "サシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾ"
+				+ "ダヂヅデドバビブベボパピプペポァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌ" + "ネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') "
+				+ "LIKE translate(UPPER(:title), " + "'-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむ" + "めもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼ"
+				+ "ぱぴぷぺぽぁぃぅぇぉっゃゅょーｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋ" + "ﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝｧｨｩｪｫｯｬｭｮﾜｲｴｶｹｰ', "
+				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ" + "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
+				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ" + "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
 				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = true ORDER BY title";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
 	}
-	
+
 	/**
 	 * 二つの価格の条件から削除された商品を検索するメソッド.
 	 * 
@@ -333,7 +312,7 @@ public class CinemaRepository {
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
 	}
-	
+
 	/**
 	 * ジャンルを条件に削除された映画を検索.
 	 * 
@@ -349,24 +328,23 @@ public class CinemaRepository {
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
 	}
-	
+
 	/**
 	 * シネマの数を検索します。
+	 * 
 	 * @return
 	 */
-	public long cinemasNumber()
-	{
-		String sql =  "select count(*) from cinemas";
-		
-		return jdbcTemplate.queryForObject(sql,Long.class);
+	public long cinemasNumber() {
+		String sql = "select count(*) from cinemas";
+
+		return jdbcTemplate.queryForObject(sql, Long.class);
 	}
-	
-	public List<Cinema> cinemaNumberSearch(int firstListNumber)
-	{
+
+	public List<Cinema> cinemaNumberSearch(int firstListNumber) {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("firstListNumber", firstListNumber);
 		String sql = "select * from cinemas order by title limit 20 offset :firstListNumber";
 		template.query(sql, param, cinemaRowMapper);
-		
+
 		return template.query(sql, param, cinemaRowMapper);
 	}
 

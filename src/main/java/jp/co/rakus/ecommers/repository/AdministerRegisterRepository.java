@@ -11,18 +11,18 @@ import jp.co.rakus.ecommers.domain.AdminUser;
 
 /**
  * 管理者追加repository
+ * 
  * @author rakus
  */
 @Repository
 @Transactional
 public class AdministerRegisterRepository {
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
-	public void adminInsert(AdminUser adminUser)
-	{
-		
+
+	public void adminInsert(AdminUser adminUser) {
+
 		SqlParameterSource param = new BeanPropertySqlParameterSource(adminUser);
 		String sql = "INSERT INTO admin_users(name, email, password) VALUES(:name, :email, :password)";
 		jdbcTemplate.update(sql, param);
