@@ -187,6 +187,7 @@ public class CinemaListService {
 		List<Cinema> cinemaList = repository.findByDeleteGenre(genre);
 
 		return listPageAdd(cinemaList);
+
 	}
 
 	/**
@@ -198,7 +199,6 @@ public class CinemaListService {
 	 */
 	public CinemaListPage findByDeleteMediaType(String mediaType) {
 		List<Cinema> cinemaList = repository.findByDeleteMediaType(mediaType);
-
 		return listPageAdd(cinemaList);
 	}
 
@@ -206,22 +206,27 @@ public class CinemaListService {
 		return repository.cinemasNumber();
 	}
 
+
+
+
+
+
 	public List<Cinema> cinemaNumberSearch(int firstListNumber) {
 		return repository.cinemaNumberSearch(firstListNumber);
 	}
 
 	public CinemaListPage listPageAdd(List<Cinema> cinemaList) {
+
 		CinemaListPage listPage = new CinemaListPage();
 
 		List<CinemaChildPage> childSet = new ArrayList<>();
+		// forの中でgetをしているため一度インスタンスを生成してsetしておく
 		listPage.setChildPageList(childSet);
 		for (Cinema cinema : cinemaList) {
 			CinemaChildPage child = new CinemaChildPage();
 			BeanUtils.copyProperties(cinema, child);
-
 			listPage.getChildPageList().add(child);
 		}
-
 		return listPage;
 	}
 

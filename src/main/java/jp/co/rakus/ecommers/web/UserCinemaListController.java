@@ -31,16 +31,16 @@ public class UserCinemaListController {
 	 * @return 利用者の商品一覧画面.
 	 */
 	@RequestMapping
-	public String list(Model model) {
-
+	public String list( Model model){
+		
 		Guest guest = new Guest();
 		guest.setName("ゲスト");
-		model.addAttribute("guest", guest);
-		long cinemaNumber = service.cinemaNumber();
-		long pageNumber = cinemaNumber % 20;
-
-		model.addAttribute("pageNumber", pageNumber);
-
+		model.addAttribute("guest",guest);
+		long cinemaNumber =  service.cinemaNumber();
+		long pageNumber = cinemaNumber%20;
+ 		model.addAttribute("pageNumber",pageNumber);
+ 		model.addAttribute("cinemaNumber",cinemaNumber);
+		
 		return "userCinemaList";
 	}
 

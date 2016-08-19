@@ -30,6 +30,10 @@ public class CinemaRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	StringBuilder sb = new StringBuilder();
+	
+
 
 	/**
 	 * 映画クラスのRowMapper
@@ -193,6 +197,7 @@ public class CinemaRepository {
 				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ" + "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
 				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = false ORDER BY title";
 
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
 		return cinemaList;
@@ -240,6 +245,7 @@ public class CinemaRepository {
 	 * @param title
 	 * @return
 	 */
+
 	public List<Cinema> findByDeleteTitle(String title) {
 		String sql = "SELECT id,title,price,genre,time,release_date,media_type,"
 				+ "company,directed_by,rating,description,image_path,deleted "
@@ -254,6 +260,7 @@ public class CinemaRepository {
 				+ "'－０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ" + "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤ"
 				+ "ユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポ" + "ァィゥェォッャュョーアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフ"
 				+ "ヘホマミムメモヤユヨラリルレロワヲンァィゥェォッャュョヮヰヱヵヶー') AND deleted = true ORDER BY title";
+
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("title", title);
 		List<Cinema> cinemaList = template.query(sql, param, cinemaRowMapper);
@@ -347,5 +354,7 @@ public class CinemaRepository {
 
 		return template.query(sql, param, cinemaRowMapper);
 	}
+	
+
 
 }

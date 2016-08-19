@@ -22,8 +22,8 @@ $(function(){
 					if ((i+1) % 4 == 0 && !i == 0) {
 						var cinemaDataTemplate =
 						'<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+								+ '<a href="%{CONTEXTPATH}/admin/cinemaDetail/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/admin/cinemaDetail/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
 								+ '</tr><tr>'
 								provisionalHtmlSource =  cinemaDataTemplate
 										.replace(/%{ID}/g, id)
@@ -38,8 +38,8 @@ $(function(){
 								
 					}else {
 						var cinemaDataTemplate = '<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
+								+ '<a href="%{CONTEXTPATH}/admin/cinemaDetail/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+								+ '<br><a href="%{CONTEXTPATH}/admin/cinemaDetail/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
 					
 						 provisionalHtmlSource =  cinemaDataTemplate
 										.replace(/%{ID}/g, id)
