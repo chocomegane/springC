@@ -1,155 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="userCommon.jsp"%>
-<script type="text/javascript">
-
-$(function(){
-	
-	var contextPath = $("#contextPath").val();
-	
-	$.getJSON(
-			contextPath + '/json/exe',
-			function(json) {
-
-					var htmlSource ="<br>";
-				for (var i = 0; i < json.length; i++) {
-
-					var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
-					var imagePath = json[i].imagePath;
-					var title = json[i].title;
-					var director = json[i].directedBy;
-					var price = String(json[i].price).replace(
-							numberFormat, '$1,');
-					var id = json[i].id;
-					if ((i+1) % 4 == 0 && !i == 0) {
-						var cinemaDataTemplate =
-						'<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
-								+ '</tr><tr>'
-								provisionalHtmlSource =  cinemaDataTemplate
-										.replace(/%{ID}/g, id)
-										.replace(/%{CONTEXTPATH}/g,
-												contextPath)
-										.replace(/%{IMAGEPATH}/g,
-												imagePath)
-										.replace(/%{DIRECTOR}/g,
-												director)
-										.replace(/%{TITLE}/g, title)
-										.replace(/%{PRICE}/g, price)
-								
-					}else {
-						var cinemaDataTemplate = '<th>'
-								+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-								+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
-					
-						 provisionalHtmlSource =  cinemaDataTemplate
-										.replace(/%{ID}/g, id)
-										.replace(/%{CONTEXTPATH}/g,
-												contextPath)
-										.replace(/%{IMAGEPATH}/g,
-												imagePath)
-										.replace(/%{DIRECTOR}/g,
-												director)
-										.replace(/%{TITLE}/g, title)
-										.replace(/%{PRICE}/g, price)
-								
-
-					}
-					htmlSource = htmlSource + provisionalHtmlSource;
-				
-
-				}
-				
-				htmlSource = '1ページ<br><table class="table table-striped"><tbody><tr>'
-					+htmlSource+ '</tr></tbody></table>';
-					
-					$("#dvd").append(htmlSource);
-
-			});	
-});
-
-	$(function() {
-		var contextPath = $("#contextPath").val();
-
-		$('.pagings').on('click',function(){
-			
-			var page = $(this).val();
-			page=page-1;
-			
-			$.getJSON(
-					contextPath + '/json/exe/paging?page='+page,
-					function(json) {
-
-							var htmlSource ="<br>";
-						for (var i = 0; i < json.length; i++) {
-							
-
-							var numberFormat = /(\d)(?=(\d\d\d)+(?!\d))/g;
-							var imagePath = json[i].imagePath;
-							var title = json[i].title;
-							var director = json[i].directedBy;
-							var price = String(json[i].price).replace(
-									numberFormat, '$1,');
-							var id = json[i].id;
-							if ((i+1) % 4 == 0 && !i == 0) {
-								var cinemaDataTemplate =
-								'<th>'
-										+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-										+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
-										+ '</tr><tr>'
-										provisionalHtmlSource =  cinemaDataTemplate
-												.replace(/%{ID}/g, id)
-												.replace(/%{CONTEXTPATH}/g,
-														contextPath)
-												.replace(/%{IMAGEPATH}/g,
-														imagePath)
-												.replace(/%{DIRECTOR}/g,
-														director)
-												.replace(/%{TITLE}/g, title)
-												.replace(/%{PRICE}/g, price)
-										
-							}else {
-								var cinemaDataTemplate = '<th>'
-										+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-										+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
-							
-								 provisionalHtmlSource =  cinemaDataTemplate
-												.replace(/%{ID}/g, id)
-												.replace(/%{CONTEXTPATH}/g,
-														contextPath)
-												.replace(/%{IMAGEPATH}/g,
-														imagePath)
-												.replace(/%{DIRECTOR}/g,
-														director)
-												.replace(/%{TITLE}/g, title)
-												.replace(/%{PRICE}/g, price)
-										
-
-							}
-							htmlSource = htmlSource + provisionalHtmlSource;
-								
-						
-
-						}
-						
-						htmlSource = page+1+'ページ<br><table class="table table-striped"><tbody><tr>'
-							+htmlSource+ '</tr></tbody></table>';
-							$("#dvd").html(htmlSource);
-							
-
-					});	
-		});
-		
-	});
-	<!--
-//-->
-</script>
-<body>
+<script src="<%=request.getContextPath()%>/js/cinemaListJson.js"></script><body>
 <br>
 <div class="main">
 <h3>取り扱い商品一覧</h3>
 <!-- テキスト検索 -->
-<form action="<%=request.getContextPath() %>/serchCinema/title">
+<form action="<%=request.getContextPath() %>/serchCinemaTitle">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
 	<span class="input-group-btn">
@@ -162,7 +18,7 @@ $(function(){
 <div style="display:inline-flex">
 
 <!-- 値段検索 -->
-<form action="<%=request.getContextPath() %>/serchCinema/price" name="searchCinemaPriceForm">
+<form action="<%=request.getContextPath() %>/serchCinemaPrice" name="searchCinemaPriceForm">
 	<select name="price" class="form-control" style="width: 180px" onchange="findByPrice();">
 	  <option>価格</option>
 	  <option value="0">～1000円</option>
@@ -173,7 +29,7 @@ $(function(){
 </form>
 
 <!-- ジャンル検索 -->
-<form action="<%=request.getContextPath() %>/serchCinema/genre" name="searchCinemaGenreForm">	
+<form action="<%=request.getContextPath() %>/searchCinemaGenre" name="searchCinemaGenreForm">	
 	<select name ="genre" class="form-control" style="width: 180px" onchange="findByGenre();">
 	  <option>ジャンル</option>
 	  <option value="SF">SF</option>
