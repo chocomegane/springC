@@ -5,7 +5,7 @@
 <div class="main">
 <h3>取り扱い商品一覧</h3>
 <!-- テキスト検索 -->
-<form action="<%=request.getContextPath() %>/serchCinemaTitle">
+<form action="<%=request.getContextPath() %>/serachCinemaTitle">
 <div class="input-group col-xs-6">
 		<input type="text" name="title" class="form-control" placeholder="検索したい商品を入力してください">
 	<span class="input-group-btn">
@@ -18,15 +18,15 @@
 <div style="display:inline-flex">
 
 <!-- 値段検索 -->
-<form action="<%=request.getContextPath() %>/serchCinemaPrice" name="searchCinemaPriceForm">
+<%-- <form action="<%=request.getContextPath() %>/searchCinemaPrice" name="searchCinemaPriceForm"> --%>
 	<select name="price" class="form-control" style="width: 180px" onchange="findByPrice();">
 	  <option>価格</option>
-	  <option value="0">～1000円</option>
-	  <option value="1">1000円～2000円</option>
-	  <option value="2">2000円～3000円</option>
-	  <option value="3">3000円～</option>
+	  <option class="searchCinemaPrice"  value="0">～1000円</option>
+	  <option class="searchCinemaPrice" value="1">1000円～2000円</option>
+	  <option class="searchCinemaPrice" value="2">2000円～3000円</option>
+	  <option class="searchCinemaPrice" value="3">3000円～</option>
 	</select>
-</form>
+<!-- </form> -->
 
 <!-- ジャンル検索 -->
 <form action="<%=request.getContextPath() %>/searchCinemaGenre" name="searchCinemaGenreForm">	
@@ -40,7 +40,7 @@
 </form>
 
 <!-- メディアタイプ検索 -->
-<form action="<%=request.getContextPath() %>/serchCinema/mediaType" name="searchCinemaMediaTypeForm">	
+<form action="<%=request.getContextPath() %>/searchCinemaMediaType" name="searchCinemaMediaTypeForm">	
 	<select name="mediaType" class="form-control" style="width: 180px" onchange="findByMediaType();">
 	  <option>メディアタイプ</option>
 	  <option value="DVD">DVD</option>

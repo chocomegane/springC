@@ -48,4 +48,56 @@ public class JsonLogicController {
 
 		return json;
 	}
+	
+	@RequestMapping("/exe/searchCinemaPrice")
+	@ResponseBody
+	public String earchCinemaPriceExe(@RequestParam String price, Model model) {
+		Integer minPrice = 0;
+		Integer maxPrice = 0;
+
+		// リクエストパラメータのprice値を条件式にかける
+		if (price.equals("0")) {
+			minPrice = 0;
+			maxPrice = 1000;
+			price = "～1000円";
+		} else if (price.equals("1")) {
+			minPrice = 1000;
+			maxPrice = 2000;
+			price = "1000円～2000円";
+		} else if (price.equals("2")) {
+			minPrice = 2000;
+			maxPrice = 3000;
+			price = "2000円～3000円";
+		} else if (price.equals("3")) {
+			minPrice = 3000;
+			price = "3000円～";
+		}
+
+		CinemaListPage listPage = new CinemaListPage();
+
+		if (maxPrice.equals(0)) {
+			listPage = service.findByMinPrice(minPrice);
+		} else {
+			listPage = service.findByMinMaxPrice(minPrice, maxPrice);
+		}
+
+		// 何も取得できなかったらメッセージを表示する
+		if (listPage.getChildPageList().size() == 0) {
+			model.addAttribute("message2", "商品がありません");
+			// 商品結果をjspで表示
+			model.addAttribute("searchResult", "検索結果：" + price);
+			// findAllで全件取得をする
+			model.addAttribute("listPage", service.findAll());
+			return "userCinemaList";
+		}
+
+		// 商品結果をjspで表示
+		model.addAttribute("searchResult", "検索結果：" + price);
+		model.addAttribute("listPage", listPage);
+		String json = JSON.encode(listPage);
+
+		return json;
+	}
+	
+	
 }

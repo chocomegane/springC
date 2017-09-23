@@ -140,7 +140,7 @@ public class UserSearchCinemaController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/searchCinemaTitle")
+	@RequestMapping(value = "/serachCinemaTitle")
 	public String listTitle(@RequestParam String title, Model model) {
 		// titleの中身が空だったらエラーメッセージを返す
 		if (title.isEmpty()) {

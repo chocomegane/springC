@@ -32,4 +32,4 @@ spring:
 
 
 server:
-  context-path: /ecommerce-springC-sawamura
+  context-path: /ecsite

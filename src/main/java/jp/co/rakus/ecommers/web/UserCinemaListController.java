@@ -40,7 +40,6 @@ public class UserCinemaListController {
 		long pageNumber = cinemaNumber%20;
  		model.addAttribute("pageNumber",pageNumber);
  		model.addAttribute("cinemaNumber",cinemaNumber);
-		
 		return "userCinemaList";
 	}
 
