@@ -9,7 +9,7 @@ spring:
     profiles: test
     datasource: 
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/ecommerce_yuki_sawamura
+        url: jdbc:postgresql://localhost:5432/postgres
         username: postgres
         password: postgres
     view:
@@ -24,7 +24,7 @@ spring:
     profiles: dev
     datasource: 
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://172.16.0.17:5432/ecommerce_yuki_sawamura
+        url: jdbc:postgresql://172.16.0.17:5432/postgres
         username: postgres
         password: postgres
     view:

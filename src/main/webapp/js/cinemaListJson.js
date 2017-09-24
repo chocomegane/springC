@@ -1,5 +1,9 @@
 /**
- * 映画のリストをとってくるjson
+ * 
+ * 検索を取得し映画リストに反映させます
+ * ※映画一覧が表示されるたび呼び出し
+ * 
+ * 
  */
 
 function createHtml(json) {
@@ -15,23 +19,24 @@ function createHtml(json) {
 		var price = String(json[i].price).replace(numberFormat, '$1,');
 		var id = json[i].id;
 		if ((i + 1) % 4 == 0 && !i == 0) {
+			
 			var cinemaDataTemplate = '<th>'
-					+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-					+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
+					+ '<a href="/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+					+ '<br><a href="detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}</th>'
 					+ '</tr><tr>'
 			provisionalHtmlSource = cinemaDataTemplate.replace(/%{ID}/g, id)
-					.replace(/%{CONTEXTPATH}/g, contextPath).replace(
+					.replace(
 							/%{IMAGEPATH}/g, imagePath).replace(/%{DIRECTOR}/g,
 							director).replace(/%{TITLE}/g, title).replace(
 							/%{PRICE}/g, price)
 
 		} else {
 			var cinemaDataTemplate = '<th>'
-					+ '<a href="%{CONTEXTPATH}/detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
-					+ '<br><a href="%{CONTEXTPATH}/detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
+					+ '<a href="detail/%{ID}"><img src="%{IMAGEPATH}" class="img-responsive img-rounded" width="100" height="300"></a>'
+					+ '<br><a href="detail/%{ID}">%{TITLE}</a><br><br>%{DIRECTOR}<br><br>%{PRICE}円</th>'
 
 			provisionalHtmlSource = cinemaDataTemplate.replace(/%{ID}/g, id)
-					.replace(/%{CONTEXTPATH}/g, contextPath).replace(
+					.replace(
 							/%{IMAGEPATH}/g, imagePath).replace(/%{DIRECTOR}/g,
 							director).replace(/%{TITLE}/g, title).replace(
 							/%{PRICE}/g, price)
@@ -63,6 +68,7 @@ $(function() {
 
 $(function() {
 	var contextPath = $("#contextPath").val();
+	alert(contextPath);
 
 	$('.pagings')
 			.on(
