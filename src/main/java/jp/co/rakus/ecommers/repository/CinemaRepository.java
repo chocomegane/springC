@@ -337,7 +337,8 @@ public class CinemaRepository {
 	}
 
 	/**
-	 * シネマの数を検索します。
+	 * シネマの全件数を検索します。
+	 * 
 	 * 
 	 * @return
 	 */
@@ -346,7 +347,14 @@ public class CinemaRepository {
 
 		return jdbcTemplate.queryForObject(sql, Long.class);
 	}
-
+	/**
+	 * 映画を２０件取得する
+	 * firstListNumberから２０件を指定
+	 * 
+	 * 初期値は０
+	 * @param firstListNumber　
+	 * @return
+	 */
 	public List<Cinema> cinemaNumberSearch(int firstListNumber) {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("firstListNumber", firstListNumber);
 		String sql = "select * from cinemas order by title limit 20 offset :firstListNumber";

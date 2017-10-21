@@ -201,7 +201,10 @@ public class CinemaListService {
 		List<Cinema> cinemaList = repository.findByDeleteMediaType(mediaType);
 		return listPageAdd(cinemaList);
 	}
-
+	/**
+	 * 映画の数を取得する
+	 * @return
+	 */
 	public long cinemaNumber() {
 		return repository.cinemasNumber();
 	}
